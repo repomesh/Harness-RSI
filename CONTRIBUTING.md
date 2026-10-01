@@ -82,7 +82,21 @@ This is a legitimate PR and the reason the basis is recorded. Quote the recorded
 
 ## 6. Before opening the PR
 
-- The entry appears exactly once in the list.
-- The link resolves and points at the right paper.
+Run the checker:
+
+```bash
+python3 scripts/check_consistency.py           # structure, no network
+python3 scripts/check_consistency.py --links   # also resolves every URL
+```
+
+It verifies five things: every `](#anchor)` matches a real heading, no heading carries an emoji (which would change its id and break hand-written links to it), no entry is listed twice, the two language versions cover the same works with the same links, and no file is either linked-but-missing or present-but-unreachable. A green run is necessary, not sufficient — it cannot tell you a link points at the *wrong* paper, which is the check only you can do.
+
+Then confirm by hand:
+
+- The link opens the paper you meant, not merely something that returns HTTP 200.
 - The mechanism sentence would still be accurate if the reported numbers changed.
-- Section counts and badges in the README still match if you added or removed entries.
+
+## 7. Two structural rules
+
+- **Do not use `<details>` to carry a taxonomy level.** Collapsed content is not findable with the browser's own search, so a mechanism node hidden inside one is effectively missing for anyone scanning the page. `<details>` is for an aside a reader can skip — the scope exclusions, the longitudinal control table — never for entries.
+- **Do not add a file nothing links to.** Every page and asset must be reachable from `README.md` or `README_zh.md`; the checker fails on an unreachable one. A better-formatted list in an unlinked subdirectory helps nobody.

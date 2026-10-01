@@ -705,12 +705,14 @@ How recent surveys cover the lifecycle. ✅ dedicated section reviewing multiple
 
 | Date | Change |
 |---|---|
-| 2026-10-02 | Added 43 `[[code]]` / `[[project]]` / `[[list]]` links, every one taken from the paper's own abstract or comment field. Added the mechanism jump index. Corrected five citations: one venue label, four links that claimed a published venue while pointing at the preprint. |
-| 2026-10-01 | Initial release. 187 works across the four taxonomy branches; claim audit for 96 methods. |
+| 2026-10-02 | +0 entries. Added 43 `[[code]]` / `[[project]]` / `[[list]]` links, every one taken from the paper's own abstract or comment field. Added the mechanism jump index and [`scripts/check_consistency.py`](scripts/check_consistency.py). Corrected five citations: one venue label, four links that claimed a published venue while pointing at the preprint. |
+| 2026-10-01 | +187 entries. Initial release across the four taxonomy branches; claim audit for 96 methods. |
 
-Refreshed monthly, and on acceptance news for any listed preprint — `arXiv'YY` labels are upgraded to the venue when a work is accepted, which is the single most common correction. Open an issue for a missing work rather than waiting for the sweep.
+Entry deltas are recorded above, so this table answers whether the list is still being added to rather than only whether the maintainers have news. Refreshed monthly, and on acceptance news for any listed preprint — `arXiv'YY` labels are upgraded to the venue when a work is accepted, which is the single most common correction. Open an issue for a missing work rather than waiting for the sweep.
 
-Three invariants are checked before each refresh: every entry appears exactly once (with [Section 4](#4-theory) as the declared exception), every link resolves to the right paper rather than merely to an HTTP 200, and the two language versions cover the same set of works. The badge counts and the audit rates in [Section 5](#5-evidence-audit-of-96-methods) are regenerated from [`docs/claim-audit.md`](docs/claim-audit.md), not edited by hand.
+[`scripts/check_consistency.py`](scripts/check_consistency.py) enforces what it can: anchors resolve, no entry is listed twice ([Section 4](#4-theory) is the declared exception), the two language versions cover the same works, no heading carries an emoji that would break its anchor, and no file is unreachable. It cannot tell that a link points at the *right* paper, so that stays a manual check. The badge counts and the audit rates in [Section 5](#5-evidence-audit-of-96-methods) are regenerated from [`docs/claim-audit.md`](docs/claim-audit.md), not edited by hand.
+
+**On release of the companion article**, the BibTeX above gets its real identifier and `@misc` becomes the accepted entry type. A citation block left at `@misc` after acceptance is the most visible way a list of this kind goes stale.
 
 ---
 
