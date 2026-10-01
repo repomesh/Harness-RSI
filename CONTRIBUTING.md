@@ -42,13 +42,24 @@ A work needing a new mechanism node is a reasonable PR — say which existing no
 One line, no exceptions:
 
 ```markdown
-- **Name** `Venue'YY` — one-sentence mechanism. [[paper]](url)
+- **Name** `Venue'YY` — one-sentence mechanism. [[paper]](url) [[code]](url)
 ```
 
 - **Name** — the short name the paper gives itself, not the full title.
-- **Venue'YY** — a two-digit year and the venue short form (`ICLR'26`, `ACL'26 Findings`, `arXiv'26`, `TMLR'25`). Use `arXiv'YY` until the work is accepted somewhere, then upgrade it.
+- **Venue'YY** — a two-digit year and the venue short form (`ICLR'26`, `ACL'26 Findings`, `arXiv'26`, `TMLR'25`). Use `arXiv'YY` until the work is accepted somewhere, then upgrade it. If the label names a published venue, the link should point at that venue's page rather than the preprint.
 - **Mechanism sentence** — what the system does *to its own harness*: what it proposes, what admits it, what persists. Not what it scores. One sentence, no results, no adjectives.
 - **Link** — a confirmed arXiv ID, DOI, or venue page. **Do not guess a URL.** A proceedings path that merely returns HTTP 200 is not confirmation; check that the page is the right paper. If no stable identifier exists, say so in the PR rather than inventing one.
+- **Second link, optional** — `[[code]]` for a repository, `[[project]]` for a project page, `[[list]]` for a sibling reading list. **Add one only if the paper itself states it**, in its abstract, comment, or body. A repository you found by searching the authors' GitHub does not qualify: a plausible-looking wrong repo is worse than no link. Every second link currently in the list came from the paper's own arXiv abstract or comment field and was then checked for a 200.
+
+### Counts that have to move with the entry
+
+Adding or removing an entry changes three places besides the entry itself:
+
+- the `papers` badge at the top,
+- the count in the **Jump to a mechanism** index for that node,
+- the audit totals in [Section 5](README.md#5-evidence-audit-of-96-methods), if the entry is a Section 1–2 method and you supply verdicts.
+
+Say in the PR which of these you updated.
 
 ## 4. Claim verdicts (optional, high value)
 

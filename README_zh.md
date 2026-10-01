@@ -1,16 +1,16 @@
 <div align="center">
 
-# Awesome Harness RSI
+# Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
 **按理论框架组织的 harness 递归自改进（harness RSI）阅读清单。模型权重固定，agent 改写自己的指令、记忆、工作流与代码。**
 
 中关村学院 · 中关村人工智能研究院
 
 <p align="center">
-  <a href="https://awesome.re"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
   <img src="https://img.shields.io/badge/papers-187-2F6B4F" alt="papers">
   <img src="https://img.shields.io/badge/audited%20methods-96-16429A" alt="audited methods">
-  <img src="https://img.shields.io/badge/updated-2026--10-5498D0" alt="updated">
+  <img src="https://img.shields.io/badge/with%20code%20or%20project%20page-43-5498D0" alt="with code">
+  <img src="https://img.shields.io/badge/updated-2026--10-9A70BA" alt="updated">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey" alt="license"></a>
 </p>
 
@@ -34,7 +34,7 @@
 
 ![harness 自演化方法的增长与分类，2023 年至 2026 年第三季度](assets/landscape.png)
 
-<p align="center"><sub><b>这个方向推进得有多快。</b>图中 46 个方法是所综述 96 个方法的代表性子集，累计数量从 2023 年的 3 个升至 2026 年第三季度的 46 个。颜色表示主要侧重点，分别是 harness 更新、评测与理论。这个分类是描述性的，收录既不意味着持续自演化，也不意味着测到了改进。</sub></p>
+<p align="center"><sub><b>按季度看这批文献。</b>图中 46 个方法是所综述 96 个方法的代表性子集，累计数量从 2023 年的 3 个升至 2026 年第三季度的 46 个。颜色表示主要侧重点，分别是 harness 更新、评测与理论。这个分类是描述性的，收录既不意味着持续自演化，也不意味着测到了改进。</sub></p>
 
 > 本仓库是论文 **Harness Self-Evolution: Theory, Algorithm, Evaluations, Applications, and Social Impacts** 的配套阅读清单。下面第 1 到第 4 节对应论文分类图的四个分支，[证据审计](docs/claim-audit.md) 公开了论文 Table 5 背后的逐篇判定与依据。
 
@@ -67,9 +67,6 @@
 - [边界情形与排除范围](#sbound)
 - [相关综述](#ssurvey)
 - [维护说明](#smaint)
-- [贡献指南](#scontrib)
-- [引用](#scite)
-- [许可](#slicense)
 
 ---
 
@@ -131,10 +128,20 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 <p align="center"><sub><b>完整分类。</b>四个分支各对应论文一节，第二层是小节，第三层是机制。这份清单是该图的逐项展开。</sub></p>
 
-**条目格式。**机制句说明系统对自己的 harness 做了什么，不说明它跑出了多少分。
+**按机制直达。**括号里是该节点的条目数。
+
+**1. 解释型更新对象** — [按分数搜索 (2)](#按分数搜索) · [文本梯度式批评 (7)](#文本梯度式批评) · [自指式变异 (3)](#自指式变异) · [经验挖掘 (10)](#经验挖掘) · [流程化技能手册 (10)](#流程化技能手册) · [带门控的巩固 (16)](#带门控的巩固) · [固定流水线编译 (2)](#固定流水线编译) · [图与拓扑搜索 (5)](#图与拓扑搜索) · [反馈驱动的工作流修订 (5)](#反馈驱动的工作流修订)
+
+**2. 可执行更新对象** — [可调用工具合成 (5)](#可调用工具合成) · [以证据为依据的组件修补 (10)](#以证据为依据的组件修补) · [整体控制程序搜索 (3)](#整体控制程序搜索) · [仓库修订 (9)](#仓库修订) · [进程内修补 (3)](#进程内修补) · [契约驱动的钩子 (2)](#契约驱动的钩子) · [微内核平台 (4)](#微内核平台)
+
+**3. 评测与基准** — [择优与准入 (6)](#择优与准入) · [运行时激活 (2)](#运行时激活) · [归因控制 (11)](#归因控制) · [改进范围与保留 (4)](#改进范围与保留) · [现役集合的完整性 (5)](#现役集合的完整性) · [合成边界任务 (2)](#合成边界任务) · [时间流 (5)](#时间流) · [对抗式自博弈 (2)](#对抗式自博弈) · [终身学习测试床 (15)](#终身学习测试床)
+
+**4. 理论** — [演化算法对应（8 个系统的映射）](#s41) · [稳定性与保留 (2)](#稳定性与保留) · [置信度门控的准入 (4)](#置信度门控的准入) · [自改进的上界 (2)](#自改进的上界) · [背景工具 (10)](#s43)
+
+**条目格式。**机制句说明系统对自己的 harness 做了什么，不说明它跑出了多少分。第二个链接只在论文自己给出时才加：`[[code]]` 是代码仓库，`[[project]]` 是项目主页，`[[list]]` 是同类阅读清单。
 
 ```markdown
-- **名称** `会议'年份`：一句机制说明。[[paper]](url)
+- **名称** `会议'年份`：一句机制说明。[[paper]](url) [[code]](url)
 ```
 
 ---
@@ -188,8 +195,8 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *反馈只有每个候选一个数字。*
 
-- **APE** `ICLR'23`：从输入输出样例里采样候选指令，保留分数最高的那个。[[paper]](https://openreview.net/forum?id=92gvk82DE-)
-- **OPRO** `ICLR'24`：把历史候选及其分数喂给一个优化器模型，让它提出下一条指令。[[paper]](https://openreview.net/forum?id=Bb4VGOWELI)
+- **APE** `ICLR'23`：从输入输出样例里采样候选指令，保留分数最高的那个。[[paper]](https://openreview.net/forum?id=92gvk82DE-) [[project]](https://sites.google.com/view/automatic-prompt-engineer)
+- **OPRO** `ICLR'24`：把历史候选及其分数喂给一个优化器模型，让它提出下一条指令。[[paper]](https://openreview.net/forum?id=Bb4VGOWELI) [[code]](https://github.com/google-deepmind/opro)
 
 #### 文本梯度式批评
 
@@ -198,10 +205,10 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 - **ProTeGi** `EMNLP'23`：把任务错误转成自然语言"梯度"，再对编辑后的提示做 beam search。[[paper]](https://aclanthology.org/2023.emnlp-main.494/)
 - **TextGrad** `Nature'25`：在由模型调用组成的计算图上反向传播文本批评，可以改图中任意文本变量。[[paper]](https://doi.org/10.1038/s41586-025-08661-4)
 - **GEPA** `ICLR'26 Oral`：基于执行轨迹的反思式提示进化，候选在与报告测试集分开的 Pareto 划分上择优。[[paper]](https://openreview.net/forum?id=RQm2KQTM5r)
-- **Trace** `NeurIPS'24`：把执行轨迹当成计算图，由生成式优化器根据丰富反馈产出编辑。[[paper]](https://arxiv.org/abs/2406.16218)
+- **Trace** `NeurIPS'24`：把执行轨迹当成计算图，由生成式优化器根据丰富反馈产出编辑。[[paper]](https://arxiv.org/abs/2406.16218) [[project]](https://microsoft.github.io/Trace/)
 - **metaTextGrad** `arXiv'25`：优化的是优化器自己的提示，只有验证集改善时才接受一次更新。[[paper]](https://arxiv.org/abs/2505.18524)
 - **EGO-Prompt** `arXiv'25`：面向领域部署，联合调整提示与一张语义因果图。[[paper]](https://arxiv.org/abs/2510.21148)
-- **SePO** `arXiv'26`：根据累积的任务反馈重写长期存在的系统提示，而不是做一次性搜索。[[paper]](https://arxiv.org/abs/2606.04465)
+- **SePO** `arXiv'26`：根据累积的任务反馈重写长期存在的系统提示，而不是做一次性搜索。[[paper]](https://arxiv.org/abs/2606.04465) [[code]](https://github.com/taowangcheng/SePO)
 
 #### 自指式变异
 
@@ -229,7 +236,7 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 - **Agent KB** `arXiv'25`：构造跨领域经验库，把检索到的前 k 条注入后续运行。[[paper]](https://arxiv.org/abs/2507.06229)
 - **ReasoningBank** `ICLR'26`：从成功与失败轨迹中提炼推理策略，汇总进一个注入系统指令的库。[[paper]](https://openreview.net/forum?id=jL7fwchScm)
 - **EvoRepair** `arXiv'26`：在长周期修复中累积、打分并复用漏洞修复经验。[[paper]](https://arxiv.org/abs/2605.30105)
-- **SWE-Exp** `arXiv'25`：把历史搜索轨迹中的 issue 解决经验蒸馏进一个库，新 issue 到来时查询。[[paper]](https://arxiv.org/abs/2507.23361)
+- **SWE-Exp** `arXiv'25`：把历史搜索轨迹中的 issue 解决经验蒸馏进一个库，新 issue 到来时查询。[[paper]](https://arxiv.org/abs/2507.23361) [[code]](https://github.com/YerbaPage/SWE-Exp)
 - **MemCoder** `arXiv'26`：随代码库一起生长的结构化记忆，内容是仓库知识与修复结果。[[paper]](https://arxiv.org/abs/2603.13258)
 - **Behavioral Rules** `arXiv'26`：把部署会话中经工程师评审的行为规则累积成一个纳入版本控制的文件，作为会话上下文载入。[[paper]](https://arxiv.org/abs/2607.13091)
 - **Memory Transfer** `arXiv'26`：在四种记忆格式下测量一个领域形成的记忆迁到另一个领域的效果。[[paper]](https://arxiv.org/abs/2604.14004)
@@ -256,19 +263,19 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 - **Dynamic Cheatsheet** `EACL'26`：维护一份测试时持续整理的策略备忘。[[paper]](https://aclanthology.org/2026.eacl-long.333/)
 - **ACE** `ICLR'26`：用增量式的 delta 更新扩展并巩固一份演化中的上下文手册，避免整体重写。[[paper]](https://openreview.net/forum?id=eC4ygDs02R)
 - **SkillOpt** `arXiv'26`：修订后的技能集先在验证集上评估，再替换现役库。[[paper]](https://arxiv.org/abs/2605.23904)
-- **SkillOpt-Lite** `arXiv'26`：同一道门的低成本版本，用一条带死区的验证规则加编译与冒烟测试接受技能编辑。[[paper]](https://arxiv.org/abs/2607.03451)
+- **SkillOpt-Lite** `arXiv'26`：同一道门的低成本版本，用一条带死区的验证规则加编译与冒烟测试接受技能编辑。[[paper]](https://arxiv.org/abs/2607.03451) [[code]](https://github.com/EvolvingLMMs-Lab/SkillOpt-Lite)
 - **MemEvolve** `arXiv'25`：对记忆系统本身做元演化，每轮保留一个 top-1 Pareto 存活者。[[paper]](https://arxiv.org/abs/2512.18746)
 - **Janus** `arXiv'26`：包住已有的更新器，当候选偏离近期更新方向时，在一个由覆盖、边界与新鲜任务组成的紧凑集合上比较旧记忆与候选记忆，再决定部署哪一个。[[paper]](https://arxiv.org/abs/2606.31121)
 - **SWE-MeM** `arXiv'26`：为长周期编码 agent 学习自适应的记忆管理策略。[[paper]](https://arxiv.org/abs/2606.28434)
-- **SWE-Pruner** `arXiv'26`：按一个调过的保留阈值做自适应上下文裁剪。[[paper]](https://arxiv.org/abs/2601.16746)
-- **TACO** `arXiv'26`：面向终端 agent 的观测式上下文压缩，带写回门与一个无需奖励的保留停止条件。[[paper]](https://arxiv.org/abs/2604.19572)
+- **SWE-Pruner** `arXiv'26`：按一个调过的保留阈值做自适应上下文裁剪。[[paper]](https://arxiv.org/abs/2601.16746) [[code]](https://github.com/Ayanami1314/swe-pruner)
+- **TACO** `arXiv'26`：面向终端 agent 的观测式上下文压缩，带写回门与一个无需奖励的保留停止条件。[[paper]](https://arxiv.org/abs/2604.19572) [[code]](https://github.com/multimodal-art-projection/TACO)
 - **SkillMOO** `arXiv'26`：用 NSGA-II 排序，在多个互相冲突的目标下选技能组合，而不是只看一个分数。[[paper]](https://arxiv.org/abs/2604.09297)
 - **EffiSkill** `arXiv'26`：从验证过的代码对中挖掘效率技能，候选在公开划分上排序，报告用私有划分。[[paper]](https://arxiv.org/abs/2603.27850)
 - **VASO** `arXiv'26`：可形式验证的技能，每个计划在运行前先对技能的规格做模型检查。[[paper]](https://arxiv.org/abs/2606.05395)
 - **Memory Management** `ACL'26`：实证研究保留、删除与检索规则如何改变任务结果，并给出一个基于相似度的遵循度度量。[[paper]](https://aclanthology.org/2026.acl-long.27/)
 - **Memory as Action** `ACL'26 Findings`：把上下文整理当成 agent 的一个动作来端到端训练，而不是由固定策略规定。[[paper]](https://aclanthology.org/2026.findings-acl.956/)
 - **MCE** `ICML'26`：技能层面的 history-informed (1+1) 演化策略，带 agent 式交叉与一个验证档案。[[paper]](https://icml.cc/virtual/2026/poster/64296)
-- **Living-Harness** `arXiv'26`：交互式 agent 演化器，跨周期把检索到的记忆巩固成一张可复用的图。[[paper]](https://arxiv.org/abs/2607.26598)
+- **Living-Harness** `arXiv'26`：交互式 agent 演化器，跨周期把检索到的记忆巩固成一张可复用的图。[[paper]](https://arxiv.org/abs/2607.26598) [[code]](https://github.com/anotherbricki/Living-Harness)
 
 > **这一层的终点。**存下来的经验是数据，由模型按概率解释。一条有用的技能可能检索不到，检索到了也可能被忽略，[Harness Updating](#s31) 那一项里载入率与遵循率从 0.96 掉到 0.35。持久化存储同时把过时策略与注入载荷跨会话带下去，见[第 6 节](#s6)。
 
@@ -282,18 +289,18 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *流水线由程序员定义，只搜索其中的文本参数。*
 
-- **DSPy** `ICLR'24`：编译声明式的模型程序，优化提示与示例，控制流保持固定。[[paper]](https://openreview.net/forum?id=PFS4ffN9Yx)
-- **MIPRO** `EMNLP'24`：在多阶段模型程序的各个阶段上，联合优化指令与示例。[[paper]](https://aclanthology.org/2024.emnlp-main.525/)
+- **DSPy** `ICLR'24`：编译声明式的模型程序，优化提示与示例，控制流保持固定。[[paper]](https://openreview.net/forum?id=PFS4ffN9Yx) [[code]](https://github.com/stanfordnlp/dspy)
+- **MIPRO** `EMNLP'24`：在多阶段模型程序的各个阶段上，联合优化指令与示例。[[paper]](https://aclanthology.org/2024.emnlp-main.525/) [[project]](https://dspy.ai)
 
 #### 图与拓扑搜索
 
 *连接结构本身就是搜索空间。*
 
-- **GPTSwarm** `ICML'24`：把固定算子之间的边变成可学习的，优化由此得到的通信图。[[paper]](https://proceedings.mlr.press/v235/zhuge24a.html)
+- **GPTSwarm** `ICML'24`：把固定算子之间的边变成可学习的，优化由此得到的通信图。[[paper]](https://proceedings.mlr.press/v235/zhuge24a.html) [[code]](https://github.com/metauto-ai/gptswarm)
 - **Mass** `ICLR'26`：在预定义的多 agent 模块上，联合搜索 agent 提示与通信拓扑。[[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/hash/1ab4e0e8f35078109bc78d7b465d306f-Abstract-Conference.html)
 - **MaAS** `ICML'25`：从一个由预定义算子构成的 agent 超网中，采样与查询相关的架构。[[paper]](https://proceedings.mlr.press/v267/zhang25bi.html)
-- **AFlow** `ICLR'25`：把工作流序列化成组合可复用算子的代码，再在其上搜索结构与提示，算子实现本身不动。[[paper]](https://openreview.net/forum?id=z5uVAKwmjf)
-- **AgentSquare** `ICLR'25`：在模块化设计空间中搜索模块组合，同时也生成新的模块实现。[[paper]](https://openreview.net/forum?id=mPdmDYIQ7f)
+- **AFlow** `ICLR'25`：把工作流序列化成组合可复用算子的代码，再在其上搜索结构与提示，算子实现本身不动。[[paper]](https://openreview.net/forum?id=z5uVAKwmjf) [[code]](https://github.com/FoundationAgents/AFlow)
+- **AgentSquare** `ICLR'25`：在模块化设计空间中搜索模块组合，同时也生成新的模块实现。[[paper]](https://openreview.net/forum?id=mPdmDYIQ7f) [[code]](https://github.com/tsinghua-fib-lab/AgentSquare)
 
 #### 反馈驱动的工作流修订
 
@@ -325,9 +332,9 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *把成功的执行变成可独立调用的代码。*
 
-- **Voyager** `TMLR'24`：把自验证通过的程序变成不断生长的技能库，后续任务可检索并组合。[[paper]](https://openreview.net/forum?id=ehfRiF0R3a)
-- **PolySkill** `arXiv'25`：归纳多态的技能抽象，让学到的技能能用在产生它的场景之外。[[paper]](https://arxiv.org/abs/2510.15863)
-- **FlowEvo** `arXiv'26`：把一条成功的工作流编译成经验证的可调用产物存入持久技能库，之后既可直接执行，也可把它的结构描述交给工作流生成。[[paper]](https://arxiv.org/abs/2607.21596)
+- **Voyager** `TMLR'24`：把自验证通过的程序变成不断生长的技能库，后续任务可检索并组合。[[paper]](https://openreview.net/forum?id=ehfRiF0R3a) [[project]](https://voyager.minedojo.org/)
+- **PolySkill** `arXiv'25`：归纳多态的技能抽象，让学到的技能能用在产生它的场景之外。[[paper]](https://arxiv.org/abs/2510.15863) [[code]](https://github.com/simonucl/PolySkill)
+- **FlowEvo** `arXiv'26`：把一条成功的工作流编译成经验证的可调用产物存入持久技能库，之后既可直接执行，也可把它的结构描述交给工作流生成。[[paper]](https://arxiv.org/abs/2607.21596) [[code]](https://github.com/DEFENSE-SEU/FlowEvo)
 - **Live-SWE-agent** `arXiv'25`：运行时临时生成 Bash 与 Python 工具，这些工具随任务容器一起销毁，因此它展示了工具合成，但没有持久的 harness 演化。[[paper]](https://arxiv.org/abs/2511.13646)
 - **RoboPhD** `arXiv'26`：让一个确定性的 Python 分析工具与模型可读的 SQL 指令共同演化，交付时这对产物不再依赖演化基础设施。[[paper]](https://arxiv.org/abs/2601.01126)
 
@@ -335,14 +342,14 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *执行证据选中一个已声明的组件，外围 agent 循环不对修改开放。这些系统的主要差别在**准入程序**。*
 
-- **Self-Harness** `arXiv'26`：从同一个现役版本提出多个编辑，只有在两个划分上都不下降、且至少一个上升时才晋升。[[paper]](https://arxiv.org/abs/2606.09498)
+- **Self-Harness** `arXiv'26`：从同一个现役版本提出多个编辑，只有在两个划分上都不下降、且至少一个上升时才晋升。[[paper]](https://arxiv.org/abs/2606.09498) [[code]](https://github.com/qzzqzzb/Self-Harness)
 - **HarnessCompass** `arXiv'26`：分别优化 harness 的各个组件再组合，在 50 个演化任务上排序，另外 450 个留出任务单独报告。[[paper]](https://arxiv.org/abs/2608.01918)
 - **AHE** `arXiv'26`：以可观测性驱动演化，每次运行的提交信标与 shell 层记录为每个上线编辑提供依据，有害时按文件粒度回滚。[[paper]](https://arxiv.org/abs/2604.25850)
 - **HarnessFix** `arXiv'26`：从失败轨迹诊断 harness 故障，修复只能经由验证集评估才被接受。[[paper]](https://arxiv.org/abs/2606.06324)
 - **ReCreate** `ACL'26`：在一个小规模开发集上，于文本与代码两个层面编辑角色、流程、工具与记忆组件，明确排除执行环境与系统基础设施的适配。[[paper]](https://aclanthology.org/2026.acl-long.1432/)
 - **AutoSaddler** `arXiv'26`：只在小批量上有增益时保留补丁，在开发集上取最优，并且按组不相交的测试集只评一次。[[paper]](https://arxiv.org/abs/2608.23041)
 - **CHASE** `arXiv'26`：反事实引导的 harness 演化，Challenger 提出意图摧毁候选相对父版本增益的协议变换，只有增益在档案中每个已确认变换下都存活，补丁才被接受。[[paper]](https://arxiv.org/abs/2609.18366)
-- **Evo-Harness** `arXiv'26`：沿在线任务流把累积的上下文编译成 harness 层面的技能，并把失败转成功的轨迹与技能内容对应起来。[[paper]](https://arxiv.org/abs/2608.15071)
+- **Evo-Harness** `arXiv'26`：沿在线任务流把累积的上下文编译成 harness 层面的技能，并把失败转成功的轨迹与技能内容对应起来。[[paper]](https://arxiv.org/abs/2608.15071) [[code]](https://github.com/A-EVO-Lab/a-evolve)
 - **HarnessBank** `arXiv'26`：MAP-Elites 风格的基因库，用语义描述符分区，每次尝试记录激活信标，配对显著性门把关，从不触发的精英被淘汰。[[paper]](https://arxiv.org/abs/2607.13683)
 - **Ecdysis** `arXiv'26`：训练运行时 harness，晋升只看训练目标，冻结后的 harness 在留出划分上评分。[[paper]](https://arxiv.org/abs/2609.11677)
 
@@ -356,9 +363,9 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *固定的外层循环合成整个控制程序。三者都是离线优化前身，产物是一个被选出来准备部署的 harness，而部署后的 harness 不再继续更新。*
 
-- **ADAS** `ICLR'25`：固定的元 agent 写出新的 agent `forward` 实现，评估过的候选存入档案。[[paper]](https://openreview.net/forum?id=t9U3LW7JVX)
+- **ADAS** `ICLR'25`：固定的元 agent 写出新的 agent `forward` 实现，评估过的候选存入档案。[[paper]](https://openreview.net/forum?id=t9U3LW7JVX) [[project]](https://shengranhu.com/ADAS)
 - **Meta-Harness** `COLM'26`：把历史候选的源码、分数与轨迹交给一个外部编码 agent，要求它合成完整的任务专用 harness 程序。[[paper]](https://arxiv.org/abs/2603.28052)
-- **RRSI** `arXiv'26`：对同样的搜索加正则，包括退火的编辑预算、泄漏筛查与按噪声调整的接受下限，用演化集上的增益换分布外迁移。[[paper]](https://arxiv.org/abs/2609.24972)
+- **RRSI** `arXiv'26`：对同样的搜索加正则，包括退火的编辑预算、泄漏筛查与按噪声调整的接受下限，用演化集上的增益换分布外迁移。[[paper]](https://arxiv.org/abs/2609.24972) [[code]](https://github.com/google-research/rrsi)
 
 #### 仓库修订
 
@@ -367,9 +374,9 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 - **SICA** `arXiv'25`：把自己的多文件 Python 代码库，包括工具、子 agent 与控制流，交给档案中表现最好的 agent 修改。[[paper]](https://arxiv.org/abs/2504.15228)
 - **DGM** `ICLR'26`：把仓库变体分叉进一个开放式档案，父代选择兼顾性能与新颖性。[[paper]](https://openreview.net/forum?id=pUpzQZTvGY)
 - **DarwinX** `arXiv'26`：以自然选择演化 harness，训练划分在留出划分被动用之前就已冻结。[[paper]](https://arxiv.org/abs/2608.07545)
-- **HGM** `arXiv'25`：估计谱系层面的产出能力，用 Thompson 采样分配谱系扩展与候选评估的预算。[[paper]](https://arxiv.org/abs/2510.21614)
+- **HGM** `arXiv'25`：估计谱系层面的产出能力，用 Thompson 采样分配谱系扩展与候选评估的预算。[[paper]](https://arxiv.org/abs/2510.21614) [[code]](https://github.com/metauto-ai/HGM)
 - **Group-Evolving Agents** `arXiv'26`：让被选中的父代先共享代码补丁、工具与执行经验，再产出框架层面的补丁。[[paper]](https://arxiv.org/abs/2602.04837)
-- **MOSS** `arXiv'26`：重写路由、钩子、状态管理与分发代码，再在健康检查加人工授权之后替换容器。[[paper]](https://arxiv.org/abs/2605.22794)
+- **MOSS** `arXiv'26`：重写路由、钩子、状态管理与分发代码，再在健康检查加人工授权之后替换容器。[[paper]](https://arxiv.org/abs/2605.22794) [[code]](https://github.com/hkgai-official/Moss)
 - **Ouroboros** `arXiv'26`：通过经评审的提交演化自己的核心，配有运行清单、种子证明与公开的逐任务轨迹。[[paper]](https://arxiv.org/abs/2608.08311)
 - **AgentDevel** `arXiv'26`：把自演化重构为发布工程，包括版本化 diff、候选版本回归测试、逐轮的失败转成功与成功转失败记录。[[paper]](https://arxiv.org/abs/2601.04620)
 - **EvolveNet** `arXiv'26`：跨客户端协同演化 harness，经一道不相交验证门后，把合并的补丁作为共享状态广播。[[paper]](https://arxiv.org/abs/2608.04968)
@@ -380,7 +387,7 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 - **Gödel Agent** `ACL'25`：用 monkey patching 替换活 Python 内存中的决策方法、动作空间与自我修改例程，修改随进程结束而消失。[[paper]](https://aclanthology.org/2025.acl-long.1354/)
 - **TTHE** `arXiv'26`：测试时从执行轨迹演化出可执行的 harness 程序，并把选中的程序带入后续输入。[[paper]](https://arxiv.org/abs/2607.08124)
-- **Life-Harness** `arXiv'26`：同时适配环境契约、动作实现与轨迹调控，随后冻结运行时接口做评测。[[paper]](https://arxiv.org/abs/2605.22166)
+- **Life-Harness** `arXiv'26`：同时适配环境契约、动作实现与轨迹调控，随后冻结运行时接口做评测。[[paper]](https://arxiv.org/abs/2605.22166) [[code]](https://github.com/Tianshi-Xu/Life-Harness)
 
 <a id="s23"></a>
 
@@ -397,7 +404,7 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 - **DeepSeek Harness** `产品'26`：Cordis 内核通过声明依赖连接运行时组件，追加式记录支持检查点与回放。它展示的是执行载体，不是一个有报告的自演化闭环。[[page]](https://www.deepseek.com/harness/en/)
 - **Cordis / Spatiotemporal Composability** `arXiv'26`：该内核背后的形式演算，自演化 harness 被列为未来工作。[[paper]](https://arxiv.org/abs/2608.25512)
-- **Autogenesis** `arXiv'26`：自演化 agent 协议，带显式的提出、评估、提交周期，以及谱系与版本记录。[[paper]](https://arxiv.org/abs/2604.15034)
+- **Autogenesis** `arXiv'26`：自演化 agent 协议，带显式的提出、评估、提交周期，以及谱系与版本记录。[[paper]](https://arxiv.org/abs/2604.15034) [[code]](https://github.com/DVampire/Autogenesis)
 - **ModularRSI** `arXiv'26`：在一个 composer 之后演化模块，用对奖励不可见的门把关，演化任务由外部整理且与基准不相交。[[paper]](https://arxiv.org/abs/2609.14857)
 
 > **契约买不到什么。**沙箱可以限制权限，带类型的钩子可以拒绝不兼容的绑定，但两者都不能说明产生的行为是正确的。在运行时管理的状态范围内，检查点与组件替换可以恢复到之前的逻辑配置，却无法撤回已经发到边界之外的 API 请求、数据库写入、对外消息或物理动作。这些只能靠事前阻止、幂等操作或补偿动作处理，回滚不解决。
@@ -447,7 +454,7 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 #### 运行时激活
 
 - **SkillsBench** `arXiv'26`：在多样任务上记录任务提供的技能是否被读取或引用。[[paper]](https://arxiv.org/abs/2602.12670)
-- **Harness Updating ≠ Harness Benefit** `arXiv'26`：分别统计载入率与轨迹遵循率，两个 agent 载入率为 0.961 与 0.957，遵循率只有 0.350 与 0.757，且遵循度沿轨迹衰减。[[paper]](https://arxiv.org/abs/2605.30621)
+- **Harness Updating ≠ Harness Benefit** `arXiv'26`：分别统计载入率与轨迹遵循率，两个 agent 载入率为 0.961 与 0.957，遵循率只有 0.350 与 0.757，且遵循度沿轨迹衰减。[[paper]](https://arxiv.org/abs/2605.30621) [[code]](https://github.com/A-EVO-Lab/a-evolve)
 
 #### 归因控制
 
@@ -456,10 +463,10 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 - **Agents That Matter** `TMLR'25`：指出 agent 比较把能力与成本混在一起，要求做成本受控的评测。[[paper]](https://arxiv.org/abs/2407.01502)
 - **Token Cost** `arXiv'26`：分析并预测 agent 的 token 消耗，给资源开销一个可测的单位。[[paper]](https://arxiv.org/abs/2604.22750)
 - **MLE-bench** `ICLR'25`：机器学习工程任务，带重复运行与显式的算力开销。[[paper]](https://arxiv.org/abs/2410.07095)
-- **AgentRewardBench** `COLM'25`：用专家标注对网页 agent 轨迹的自动裁判做元评测。[[paper]](https://arxiv.org/abs/2504.08942)
+- **AgentRewardBench** `COLM'25`：用专家标注对网页 agent 轨迹的自动裁判做元评测。[[paper]](https://arxiv.org/abs/2504.08942) [[project]](https://agent-reward-bench.github.io)
 - **Judge Inflation** `arXiv'24`：记录迭代自我精修中自发出现的 reward hacking。[[paper]](https://arxiv.org/abs/2407.04549)
 - **Memory Reward Inflation** `arXiv'26`：说明存下来的记忆可以抬高报告出的奖励，而行为并未变好。[[paper]](https://arxiv.org/abs/2608.00017)
-- **Who Grades the Grader** `arXiv'26`：指标与技能共同演化时，上升的分数无法说明动的是哪一个。[[paper]](https://arxiv.org/abs/2607.12790)
+- **Who Grades the Grader** `arXiv'26`：指标与技能共同演化时，上升的分数无法说明动的是哪一个。[[paper]](https://arxiv.org/abs/2607.12790) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Double-Ratchet)
 - **Don't Blame the LLM** `arXiv'26`：把测到的编码 agent 差异归到 harness 演化上，而不是模型上。[[paper]](https://arxiv.org/abs/2607.03691)
 - **Scaffold Effect** `arXiv'26`：把 harness 选择当作编码 agent 比较中的一个隐藏变量。[[paper]](https://arxiv.org/abs/2607.22585)
 - **Rethinking Harness Evaluation** `arXiv'26`：论证当前协议让报告出的 harness 演化增益处于失控状态。[[paper]](https://arxiv.org/abs/2607.12227)
@@ -499,9 +506,9 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 *更新一旦累积，激活就成了移动靶，后来的修改会改变哪些产物仍可达、仍被优先选中、仍被遵循。*
 
-- **Ratchet** `arXiv'26`：追问一个 LLM 裁判要多可靠，才够资格让一项技能退役。[[paper]](https://arxiv.org/abs/2605.22148)
+- **Ratchet** `arXiv'26`：追问一个 LLM 裁判要多可靠，才够资格让一项技能退役。[[paper]](https://arxiv.org/abs/2605.22148) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
 - **SkillsVote** `arXiv'26`：对技能做全生命周期治理，涵盖收集、推荐与基于投票的整理。[[paper]](https://arxiv.org/abs/2605.18401)
-- **Library Drift** `arXiv'26`：诊断并修复不断变大的自演化技能库中的无声漂移。[[paper]](https://arxiv.org/abs/2605.19576)
+- **Library Drift** `arXiv'26`：诊断并修复不断变大的自演化技能库中的无声漂移。[[paper]](https://arxiv.org/abs/2605.19576) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
 - **Pre-Commit Gating** `arXiv'26`：在提交前阻断技能污染，并说明自演化什么时候会反噬。[[paper]](https://arxiv.org/abs/2608.05810)
 - **EVOMAL** `arXiv'26`：记录自演化编码 agent 的自我投毒现象。[[paper]](https://arxiv.org/abs/2608.25776)
 
@@ -509,7 +516,7 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 *从已有实例或诊断出的失败派生新实例。由于生成器与候选更新可能读到同一批轨迹，这个重叠必须记录下来。*
 
-- **Benchmark Self-Evolving** `arXiv'24`：多 agent 框架，从已有实例派生新实例做动态评测。[[paper]](https://arxiv.org/abs/2402.11443)
+- **Benchmark Self-Evolving** `arXiv'24`：多 agent 框架，从已有实例派生新实例做动态评测。[[paper]](https://arxiv.org/abs/2402.11443) [[code]](https://github.com/NanshineLoong/Self-Evolving-Benchmark)
 - **StressEval** `arXiv'26`：失败驱动的动态基准，从诊断出的失败生成实例。[[paper]](https://arxiv.org/abs/2605.01939)
 
 #### 时间流
@@ -517,10 +524,10 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 *只收录某个截止日期之后发布的任务。更晚的发布日期能降低直接重叠，但不能让不同批次的难度相等，也不能证明相关题型在早期开发中不存在。*
 
 - **LiveBench** `ICLR'25 Spotlight`：污染受限的基准，从截止日期之后的来源刷新，带客观答案。[[paper]](https://arxiv.org/abs/2406.19314)
-- **LiveCodeBench** `arXiv'24`：截止日期之后收集的带时间戳竞赛编程题。[[paper]](https://arxiv.org/abs/2403.07974)
+- **LiveCodeBench** `arXiv'24`：截止日期之后收集的带时间戳竞赛编程题。[[paper]](https://arxiv.org/abs/2403.07974) [[project]](https://livecodebench.github.io/)
 - **LiveMedBench** `arXiv'26`：带自动刷新的无污染医学基准。[[paper]](https://arxiv.org/abs/2602.10367)
-- **SWE-rebench** `arXiv'25`：自动化的任务收集与去污染评测流水线。[[paper]](https://arxiv.org/abs/2505.20411)
-- **SWE-bench Live** `arXiv'25`：由新合并的 issue 持续刷新的 SWE-bench。[[paper]](https://arxiv.org/abs/2505.23419)
+- **SWE-rebench** `arXiv'25`：自动化的任务收集与去污染评测流水线。[[paper]](https://arxiv.org/abs/2505.20411) [[project]](https://swe-rebench.com)
+- **SWE-bench Live** `arXiv'25`：由新合并的 issue 持续刷新的 SWE-bench。[[paper]](https://arxiv.org/abs/2505.23419) [[project]](https://swe-bench-live.github.io/)
 
 #### 对抗式自博弈
 
@@ -533,19 +540,19 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 *一个序列化基准只有在观测到**状态转移**时才构成 harness 演化的证据，按时间排好的分数列表不够。*
 
-- **LifelongAgentBench** `arXiv'25`：在技能相互依赖的任务序列上，把 agent 当作终身学习者评测。[[paper]](https://arxiv.org/abs/2505.11942)
-- **PAST-Bench** `arXiv'26`：评测个人 agent 的 RSI 基础，对比开启与关闭持久化两种条件。[[paper]](https://arxiv.org/abs/2608.04003)
+- **LifelongAgentBench** `arXiv'25`：在技能相互依赖的任务序列上，把 agent 当作终身学习者评测。[[paper]](https://arxiv.org/abs/2505.11942) [[project]](https://caixd-220529.github.io/LifelongAgentBench/)
+- **PAST-Bench** `arXiv'26`：评测个人 agent 的 RSI 基础，对比开启与关闭持久化两种条件。[[paper]](https://arxiv.org/abs/2608.04003) [[code]](https://github.com/Gen-Verse/PAST-Bench)
 - **SEA-Eval** `arXiv'26`：超出单回合评估地评测自演化 agent。[[paper]](https://arxiv.org/abs/2604.08988)
 - **FinEvo-Bench** `arXiv'26`：金融专业场景的纵向基准，带匹配的持久化开关条件。[[paper]](https://arxiv.org/abs/2608.06144)
 - **ContinualSkillBench** `arXiv'26`：追问 agent 在连续任务流上是否真的演化出了能力。[[paper]](https://arxiv.org/abs/2608.03874)
 - **SkillFlow** `arXiv'26`：评测终身的技能发现与演化。[[paper]](https://arxiv.org/abs/2604.17308)
-- **SkillLearnBench** `arXiv'26`：评测用于 agent 技能生成的持续学习方法。[[paper]](https://arxiv.org/abs/2604.20087)
+- **SkillLearnBench** `arXiv'26`：评测用于 agent 技能生成的持续学习方法。[[paper]](https://arxiv.org/abs/2604.20087) [[code]](https://github.com/cxcscmu/SkillLearnBench)
 - **MemoryArena** `arXiv'26`：相互依赖的多会话任务，早先的写入会影响后续工作。[[paper]](https://arxiv.org/abs/2602.16313)
 - **Evo-Memory** `arXiv'25`：评测带自演化记忆的测试时学习。[[paper]](https://arxiv.org/abs/2511.20857)
 - **Tool-Genesis** `arXiv'26`：面向自演化 agent 的任务驱动工具创建基准。[[paper]](https://arxiv.org/abs/2603.05578)
 - **EvoCodeBench** `arXiv'26`：自演化代码 agent 的人类水平参照基准。[[paper]](https://arxiv.org/abs/2602.10171)
 - **SWE-EVO** `arXiv'25`：编码 agent 的长周期软件演化场景。[[paper]](https://arxiv.org/abs/2512.18470)
-- **GDPevo** `arXiv'26`：在真实业务任务上评测 agent 自演化。[[paper]](https://arxiv.org/abs/2608.03764)
+- **GDPevo** `arXiv'26`：在真实业务任务上评测 agent 自演化。[[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
 - **CL-Bench** `arXiv'26`：真实有状态持续学习场景下的前沿系统评测。[[paper]](https://arxiv.org/abs/2606.05661)
 - **EvoHarnessBench** `arXiv'26`：隔离出所给 harness 的非平稳性，在能力不断加入时检验保留。[[paper]](https://arxiv.org/abs/2609.04280)
 
@@ -616,9 +623,9 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 - **Statistical Limits** `TMLR'26`：自改进 agent 的统计上限。[[paper]](https://arxiv.org/abs/2510.04399)
 - **AdaEvolve** `arXiv'26`：自适应的、由大模型驱动的零阶优化。[[paper]](https://arxiv.org/abs/2602.20133)
 - **GAMBLe** `arXiv'26`：AI 驱动研究系统的分析框架。[[paper]](https://arxiv.org/abs/2606.02863)
-- **Mutation Without Variation** `GECCO'26`：大模型驱动程序演化中的收敛动力学。[[paper]](https://arxiv.org/abs/2606.05408)
+- **Mutation Without Variation** `GECCO'26`：大模型驱动程序演化中的收敛动力学。[[paper]](https://arxiv.org/abs/2606.05408) [[code]](https://github.com/can-gurkan/lmca)
 - **What Fits Doesn't Overfit** `arXiv'26`：机器学习研究 agent 中的压缩与泛化。[[paper]](https://arxiv.org/abs/2606.11045)
-- **IMABO** `arXiv'26`：推理时的 bandit 超参优化。[[paper]](https://arxiv.org/abs/2609.01335)
+- **IMABO** `arXiv'26`：推理时的 bandit 超参优化。[[paper]](https://arxiv.org/abs/2609.01335) [[code]](https://github.com/Tiime-Software/IMABO)
 
 ---
 
@@ -733,11 +740,11 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 **完整条目。**
 
 - **A Survey of Self-Evolving Agents** `TMLR'26`：按演化什么、何时演化、如何演化、在哪里演化来组织。[[paper]](https://arxiv.org/abs/2507.21046)
-- **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25`：按优化器反馈组织方法。[[paper]](https://arxiv.org/abs/2508.07407)
+- **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25`：按优化器反馈组织方法。[[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
 - **Externalization in LLM Agents** `arXiv'26`：统一回顾记忆、技能、协议与 harness 工程。[[paper]](https://arxiv.org/abs/2604.08224)
-- **Code as Agent Harness** `arXiv'26`：按代码在 agent 循环中的角色组织。[[paper]](https://arxiv.org/abs/2605.18747)
+- **Code as Agent Harness** `arXiv'26`：按代码在 agent 循环中的角色组织。[[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
 - **Recursive Self-Improvement in AI** `arXiv'26`：从受限自我精修到自主研究闭环，按闭环闭合程度组织。[[paper]](https://arxiv.org/abs/2607.07663)
-- **Self-Improvements in Modern Agentic Systems** `arXiv'26`：在显式的参数冻结假设下区分模型通道与脚手架通道，在评测纪律上最接近本文，未涉及 activation。[[paper]](https://arxiv.org/abs/2607.13104)
+- **Self-Improvements in Modern Agentic Systems** `arXiv'26`：在显式的参数冻结假设下区分模型通道与脚手架通道，在评测纪律上最接近本文，未涉及 activation。[[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
 - **Self-Evolving Coding Agents** `arXiv'26`：区分模型侧更新与记忆、技能、工作流更新，并把自适应择优下的基准过拟合列为开放问题。[[paper]](https://arxiv.org/abs/2608.03392)
 
 ---
@@ -748,11 +755,12 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 | 日期 | 变更 |
 |---|---|
+| 2026-10-02 | 新增 43 条 `[[code]]`、`[[project]]`、`[[list]]` 链接，每一条都取自论文自己的摘要或 comment 字段。新增按机制直达的索引。修正五处引用：一处会议标签，四处标签声明了会议但链接指向预印本。 |
 | 2026-10-01 | 首次发布。四个分类分支下共 187 个工作，96 个方法的证据审计。 |
 
 每月刷新一次，另外在任何已收录预印本有接收消息时刷新。`arXiv'YY` 在接收后升级为对应会议，这是最常见的一类修正。缺了哪个工作请直接开 issue，不必等例行刷新。
 
-每次刷新前检查两条不变量：每个条目只出现一次（[第 4 节](#s4)是声明的例外），每个链接都指向正确的论文。徽章计数与[第 5 节](#s5)的审计比例由 [`docs/claim-audit.md`](docs/claim-audit.md) 重新生成，不手工编辑。
+每次刷新前检查三条不变量：每个条目只出现一次（[第 4 节](#s4)是声明的例外），每个链接指向的是正确的论文而不只是返回 HTTP 200，中英两版覆盖同一批工作。徽章计数与[第 5 节](#s5)的审计比例由 [`docs/claim-audit.md`](docs/claim-audit.md) 重新生成，不手工编辑。
 
 ---
 
@@ -791,10 +799,4 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 ---
 
-<a id="slicense"></a>
-
-## 许可
-
-以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库只包含文献元数据、一句话机制总结与证据判定。
-
-图片由论文作者从配套论文中转载。
+<sub>以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库只包含文献元数据、一句话机制总结与证据判定。图片由论文作者从配套论文中转载。</sub>
