@@ -32,9 +32,9 @@
 
 ![harness 自演化的四级路径：指令与提示、记忆与可复用流程、agent 工作流与拓扑、可执行组件与运行时](assets/banner.png)
 
-![harness 更新对象与操作闭环](assets/overview.png)
+![harness 自演化方法的增长与分类，2023 年至 2026 年第三季度](assets/landscape.png)
 
-<p align="center"><sub><b>这份清单依据的更新闭环。</b>左侧是固定宿主读取的解释型对象，右侧是宿主直接调用的可执行实现。闭环顺序为执行反馈、候选提出、准入、持久化与部署、后续复用。仅完成持久化既不能说明更新被激活，也不能说明性能提升。</sub></p>
+<p align="center"><sub><b>这个方向推进得有多快。</b>图中 46 个方法是所综述 96 个方法的代表性子集，累计数量从 2023 年的 3 个升至 2026 年第三季度的 46 个。颜色表示主要侧重点，分别是 harness 更新、评测与理论。这个分类是描述性的，收录既不意味着持续自演化，也不意味着测到了改进。</sub></p>
 
 > 本仓库是论文 **Harness Self-Evolution: Theory, Algorithm, Evaluations, Applications, and Social Impacts** 的配套阅读清单。下面第 1 到第 4 节对应论文分类图的四个分支，[证据审计](docs/claim-audit.md) 公开了论文 Table 5 背后的逐篇判定与依据。
 
@@ -66,7 +66,6 @@
 - [7. 已部署的 harness 与产品接口](#s7)
 - [边界情形与排除范围](#sbound)
 - [相关综述](#ssurvey)
-- [领域增长图](#slandscape)
 - [维护说明](#smaint)
 - [贡献指南](#scontrib)
 - [引用](#scite)
@@ -173,6 +172,10 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 ## 1. 解释型更新对象
 
+![harness 更新对象与操作闭环](assets/overview.png)
+
+<p align="center"><sub><b>第 1、2 节处理的对象。</b>左侧是固定宿主读取的解释型对象，右侧是宿主直接调用的可执行实现。下半部分是下面所有条目共处的那个闭环：执行反馈、候选提出、准入、持久化与部署、后续复用。仅完成持久化既不能说明更新被激活，也不能说明性能提升。</sub></p>
+
 *修改落在模型可读内容或协调状态上。原生工具、算子实现、底层执行机制保持不变。可变面较小，候选之间好比较，代价是被采纳的产物依赖固定模型愿不愿意照着做。*
 
 <a id="s11"></a>
@@ -222,7 +225,7 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 - **Reflexion** `NeurIPS'23`：失败后存下自然语言反思，在同一任务的下一次尝试中载入。[[paper]](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)
 - **ExpeL** `AAAI'24`：从训练轨迹池里抽取跨任务洞见，并用增删与投票机制维护这些洞见。[[paper]](https://doi.org/10.1609/aaai.v38i17.29936)
-- **AWM** `ICML'25`：从轨迹中归纳反复出现的子目标工作流，可离线用训练划分做，也可在线从任务流做。[[paper]](https://arxiv.org/abs/2409.07429)
+- **AWM** `ICML'25`：从轨迹中归纳反复出现的子目标工作流，可离线用训练划分做，也可在线从任务流做。[[paper]](https://proceedings.mlr.press/v267/wang25bx.html)
 - **Agent KB** `arXiv'25`：构造跨领域经验库，把检索到的前 k 条注入后续运行。[[paper]](https://arxiv.org/abs/2507.06229)
 - **ReasoningBank** `ICLR'26`：从成功与失败轨迹中提炼推理策略，汇总进一个注入系统指令的库。[[paper]](https://openreview.net/forum?id=jL7fwchScm)
 - **EvoRepair** `arXiv'26`：在长周期修复中累积、打分并复用漏洞修复经验。[[paper]](https://arxiv.org/abs/2605.30105)
@@ -286,7 +289,7 @@ H_{t+1} = Update(H_t, B_t)                    # 对 harness 的一次持久修�
 
 *连接结构本身就是搜索空间。*
 
-- **GPTSwarm** `ICML'24`：把固定算子之间的边变成可学习的，优化由此得到的通信图。[[paper]](https://arxiv.org/abs/2402.16823)
+- **GPTSwarm** `ICML'24`：把固定算子之间的边变成可学习的，优化由此得到的通信图。[[paper]](https://proceedings.mlr.press/v235/zhuge24a.html)
 - **Mass** `ICLR'26`：在预定义的多 agent 模块上，联合搜索 agent 提示与通信拓扑。[[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/hash/1ab4e0e8f35078109bc78d7b465d306f-Abstract-Conference.html)
 - **MaAS** `ICML'25`：从一个由预定义算子构成的 agent 超网中，采样与查询相关的架构。[[paper]](https://proceedings.mlr.press/v267/zhang25bi.html)
 - **AFlow** `ICLR'25`：把工作流序列化成组合可复用算子的代码，再在其上搜索结构与提示，算子实现本身不动。[[paper]](https://openreview.net/forum?id=z5uVAKwmjf)
@@ -606,14 +609,14 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 
 *与 harness 无直接关系，也不属于论文分类，是上面那些问题借用的分析工具。*
 
-- **The Ladder** `ICML'15`：在反复自适应提交之下仍然可靠的排行榜机制。[[paper]](https://arxiv.org/abs/1502.04585)
-- **Train Faster, Generalize Better** `ICML'16`：以 SGD 的稳定性推导泛化界。[[paper]](https://arxiv.org/abs/1509.01240)
+- **The Ladder** `ICML'15`：在反复自适应提交之下仍然可靠的排行榜机制。[[paper]](https://proceedings.mlr.press/v37/blum15.html)
+- **Train Faster, Generalize Better** `ICML'16`：以 SGD 的稳定性推导泛化界。[[paper]](https://proceedings.mlr.press/v48/hardt16.html)
 - **PAC-Bayes for Prompts** `arXiv'23`：提示工程也许不需要重新思考泛化。[[paper]](https://arxiv.org/abs/2310.03957)
 - **ZOPO** `arXiv'24`：局部化的零阶提示优化。[[paper]](https://arxiv.org/abs/2403.02993)
 - **Statistical Limits** `TMLR'26`：自改进 agent 的统计上限。[[paper]](https://arxiv.org/abs/2510.04399)
 - **AdaEvolve** `arXiv'26`：自适应的、由大模型驱动的零阶优化。[[paper]](https://arxiv.org/abs/2602.20133)
 - **GAMBLe** `arXiv'26`：AI 驱动研究系统的分析框架。[[paper]](https://arxiv.org/abs/2606.02863)
-- **Mutation Without Variation** `arXiv'26`：大模型驱动程序演化中的收敛动力学。[[paper]](https://arxiv.org/abs/2606.05408)
+- **Mutation Without Variation** `GECCO'26`：大模型驱动程序演化中的收敛动力学。[[paper]](https://arxiv.org/abs/2606.05408)
 - **What Fits Doesn't Overfit** `arXiv'26`：机器学习研究 agent 中的压缩与泛化。[[paper]](https://arxiv.org/abs/2606.11045)
 - **IMABO** `arXiv'26`：推理时的 bandit 超参优化。[[paper]](https://arxiv.org/abs/2609.01335)
 
@@ -736,16 +739,6 @@ adhere(u) = |F(u)| / |L(u)|          # 轨迹遵循了它
 - **Recursive Self-Improvement in AI** `arXiv'26`：从受限自我精修到自主研究闭环，按闭环闭合程度组织。[[paper]](https://arxiv.org/abs/2607.07663)
 - **Self-Improvements in Modern Agentic Systems** `arXiv'26`：在显式的参数冻结假设下区分模型通道与脚手架通道，在评测纪律上最接近本文，未涉及 activation。[[paper]](https://arxiv.org/abs/2607.13104)
 - **Self-Evolving Coding Agents** `arXiv'26`：区分模型侧更新与记忆、技能、工作流更新，并把自适应择优下的基准过拟合列为开放问题。[[paper]](https://arxiv.org/abs/2608.03392)
-
----
-
-<a id="slandscape"></a>
-
-## 领域增长图
-
-![harness 自演化方法的增长与分类](assets/landscape.png)
-
-<p align="center"><sub>图中 46 个方法是所综述 96 个方法的代表性子集，累计数量从 2023 年的 3 个升至 2026 年第三季度的 46 个。颜色表示主要侧重点，分别是 harness 更新、评测与理论。这个分类是描述性的，收录既不意味着持续自演化，也不意味着测到了改进。</sub></p>
 
 ---
 

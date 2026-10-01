@@ -32,9 +32,9 @@ Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
 
 ![The path of harness self-evolution: from instructions and prompts, through memory and reusable procedures and agentic workflows, to executable components and runtime](assets/banner.png)
 
-![Harness update targets and the operational update loop](assets/overview.png)
+![Growth and classification of harness self-evolution methods, 2023 to 2026 Q3](assets/landscape.png)
 
-<p align="center"><sub><b>The update loop that defines this list.</b> Interpreted targets (left) are artifacts a fixed host reads; executable targets (right) are implementations the host invokes. Feedback → proposal → admission → persistence → downstream reuse. Persistence alone establishes neither activation nor improvement.</sub></p>
+<p align="center"><sub><b>How fast this is moving.</b> A representative subset of 46 of the 96 reviewed methods; the cumulative count rises from 3 in 2023 to 46 in 2026 Q3. Color is the primary emphasis — harness updates, evaluation, or theory. The classification is descriptive: inclusion implies neither continuing self-evolution nor measured improvement.</sub></p>
 
 > This repository is the companion reading list for **Harness Self-Evolution: Theory, Algorithm, Evaluations, Applications, and Social Impacts**. Sections 1–4 below mirror the four branches of the article's taxonomy; the [claim audit](docs/claim-audit.md) releases the per-method evidence verdicts behind its Table 5.
 
@@ -66,7 +66,6 @@ Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
 - [7. Deployed Harnesses & Product Surfaces](#7-deployed-harnesses--product-surfaces)
 - [Boundary Cases & Exclusions](#boundary-cases--exclusions)
 - [Related Surveys](#related-surveys)
-- [Landscape](#landscape)
 - [Maintenance](#maintenance)
 - [Contributing](#contributing)
 - [Citation](#citation)
@@ -163,6 +162,10 @@ Eight papers, in order, to locate the field:
 
 ## 1. Interpreted Update Targets
 
+![Harness update targets and the operational update loop](assets/overview.png)
+
+<p align="center"><sub><b>What Sections 1 and 2 operate on.</b> Interpreted targets (left) are artifacts a fixed host reads; executable targets (right) are implementations the host invokes. The lower panel is the loop every entry below sits in: feedback → proposal → admission → persistence and deployment → downstream reuse. Persistence alone establishes neither activation nor improvement.</sub></p>
+
 *The revision changes model-readable content or coordination state. Native tools, operator implementations, and low-level execution machinery stay fixed. The mutation surface is bounded, which makes candidates comparable — and leaves the accepted artifact dependent on a fixed model choosing to follow it.*
 
 ### 1.1 Prompts & Instructions
@@ -208,7 +211,7 @@ Persistent, model-readable state built from prior experience and retrieved into 
 
 - **Reflexion** `NeurIPS'23` — stores verbal self-reflection on a failure and reloads it for another attempt at the same task. [[paper]](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)
 - **ExpeL** `AAAI'24` — extracts cross-task insights from a training pool of trajectories, with add/edit/upvote/downvote curation. [[paper]](https://doi.org/10.1609/aaai.v38i17.29936)
-- **AWM** `ICML'25` — induces recurring sub-goal workflows from trajectories, offline from a training split or online from the task stream. [[paper]](https://arxiv.org/abs/2409.07429)
+- **AWM** `ICML'25` — induces recurring sub-goal workflows from trajectories, offline from a training split or online from the task stream. [[paper]](https://proceedings.mlr.press/v267/wang25bx.html)
 - **Agent KB** `arXiv'25` — a cross-domain experience base whose top-k retrieved items are injected into later runs. [[paper]](https://arxiv.org/abs/2507.06229)
 - **ReasoningBank** `ICLR'26` — consolidates reasoning strategies from successes and failures into a bank injected into the system instruction. [[paper]](https://openreview.net/forum?id=jL7fwchScm)
 - **EvoRepair** `arXiv'26` — accumulates, scores, and reuses vulnerability-repair experience across long-horizon repairs. [[paper]](https://arxiv.org/abs/2605.30105)
@@ -270,7 +273,7 @@ Coordination specifications enacted by a **fixed** orchestration framework: role
 
 *The connection structure itself is the search space.*
 
-- **GPTSwarm** `ICML'24` — makes edges between fixed operations learnable and optimizes the resulting communication graph. [[paper]](https://arxiv.org/abs/2402.16823)
+- **GPTSwarm** `ICML'24` — makes edges between fixed operations learnable and optimizes the resulting communication graph. [[paper]](https://proceedings.mlr.press/v235/zhuge24a.html)
 - **Mass** `ICLR'26` — jointly searches agent prompts and communication topologies over predefined multi-agent blocks. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/hash/1ab4e0e8f35078109bc78d7b465d306f-Abstract-Conference.html)
 - **MaAS** `ICML'25` — samples query-dependent architectures from an agentic supernet over predefined operators. [[paper]](https://proceedings.mlr.press/v267/zhang25bi.html)
 - **AFlow** `ICLR'25` — serializes workflows as operator-composing code and searches structure and prompts over it; the operators themselves stay fixed. [[paper]](https://openreview.net/forum?id=z5uVAKwmjf)
@@ -568,14 +571,14 @@ Accepting a candidate only when `Δ̂_t(H′) + sqrt(2 ln(KT/δ) / m) < 0` certi
 
 *Not harness-specific, and not part of the article's taxonomy — the lenses the questions above are borrowed from.*
 
-- **The Ladder** `ICML'15` — a leaderboard mechanism that stays reliable under repeated adaptive submissions. [[paper]](https://arxiv.org/abs/1502.04585)
-- **Train Faster, Generalize Better** `ICML'16` — stability of SGD as a route to generalization bounds. [[paper]](https://arxiv.org/abs/1509.01240)
+- **The Ladder** `ICML'15` — a leaderboard mechanism that stays reliable under repeated adaptive submissions. [[paper]](https://proceedings.mlr.press/v37/blum15.html)
+- **Train Faster, Generalize Better** `ICML'16` — stability of SGD as a route to generalization bounds. [[paper]](https://proceedings.mlr.press/v48/hardt16.html)
 - **PAC-Bayes for Prompts** `arXiv'23` — prompt engineering may not require rethinking generalization. [[paper]](https://arxiv.org/abs/2310.03957)
 - **ZOPO** `arXiv'24` — localized zeroth-order prompt optimization. [[paper]](https://arxiv.org/abs/2403.02993)
 - **Statistical Limits** `TMLR'26` — statistical limits of self-improving agents. [[paper]](https://arxiv.org/abs/2510.04399)
 - **AdaEvolve** `arXiv'26` — adaptive LLM-driven zeroth-order optimization. [[paper]](https://arxiv.org/abs/2602.20133)
 - **GAMBLe** `arXiv'26` — an analytical framework for AI-driven research systems. [[paper]](https://arxiv.org/abs/2606.02863)
-- **Mutation Without Variation** `arXiv'26` — convergence dynamics in LLM-driven program evolution. [[paper]](https://arxiv.org/abs/2606.05408)
+- **Mutation Without Variation** `GECCO'26` — convergence dynamics in LLM-driven program evolution. [[paper]](https://arxiv.org/abs/2606.05408)
 - **What Fits Doesn't Overfit** `arXiv'26` — compression and generalization in ML research agents. [[paper]](https://arxiv.org/abs/2606.11045)
 - **IMABO** `arXiv'26` — bandit hyperparameter optimization at inference time. [[paper]](https://arxiv.org/abs/2609.01335)
 
@@ -688,14 +691,6 @@ How recent surveys cover the lifecycle. ✅ dedicated section reviewing multiple
 - **Recursive Self-Improvement in AI** `arXiv'26` — from bounded self-refinement to autonomous research loops, organized by loop closure. [[paper]](https://arxiv.org/abs/2607.07663)
 - **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold channels under an explicit frozen-parameter assumption; the closest prior work on evaluation discipline, and it passes over activation. [[paper]](https://arxiv.org/abs/2607.13104)
 - **Self-Evolving Coding Agents** `arXiv'26` — separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open. [[paper]](https://arxiv.org/abs/2608.03392)
-
----
-
-## Landscape
-
-![Growth and classification of harness self-evolution methods](assets/landscape.png)
-
-<p align="center"><sub>A representative subset of 46 of the 93 reviewed methods: cumulative count rises from 3 in 2023 to 46 in 2026 Q3. Color is the primary emphasis — harness updates, evaluation, or theory. The classification is descriptive: inclusion implies neither continuing self-evolution nor measured improvement.</sub></p>
 
 ---
 
