@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<!-- Project page for "Harness Self-Evolution": a visual companion to README.md.
+     Entries in the explorer come from site/corpus.js, generated from README.md
+     by scripts/build_site_data.py; every other number here is from the article. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact</title>
+<meta name="description" content="Agents that rewrite their own instructions, memory, workflows, and code while the model stays fixed. A taxonomy by update target, four claims behind a reported gain, and an evidence audit of 96 methods.">
+<meta property="og:title" content="Harness Self-Evolution">
+<meta property="og:description" content="Theory, algorithms, evaluation, applications, and impact of harness self-evolution, with an evidence audit of 96 methods.">
+<meta property="og:image" content="assets/banner.png">
+<link rel="icon" type="image/png" href="assets/seal-zgca.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="site/style.css?v=3">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<canvas class="trail" aria-hidden="true"></canvas>
+
+<nav class="top" aria-label="Primary">
+  <div class="nav-in">
+    <a class="brand" href="#top"><img class="mark" src="assets/seal-zgca.png" alt=""> Harness Self-Evolution</a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-controls="nl" aria-expanded="false">☰</button>
+    <div class="nav-links" id="nl">
+      <a href="#overview">Overview</a>
+      <a href="#definition">Definition</a>
+      <a href="#taxonomy">Taxonomy</a>
+      <a href="#theory">Theory</a>
+      <a href="#evaluation">Evaluation</a>
+      <a href="#audit">Audit</a>
+      <a href="#applications">Applications</a>
+      <a href="#explorer">Reading list</a>
+      <a href="#cite">Cite</a>
+      <a class="gh" href="https://github.com/zgcagi/Awesome-Harness-RSI" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-aurora"></div>
+  <svg class="hero-loop" viewBox="0 0 760 760" aria-hidden="true">
+    <defs>
+      <linearGradient id="hl" x1="0" x2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#e68a43"/></linearGradient>
+    </defs>
+    <circle cx="380" cy="380" r="330" fill="none" stroke="url(#hl)" stroke-width="1.2" stroke-dasharray="3 9" opacity=".55"/>
+    <circle cx="380" cy="380" r="250" fill="none" stroke="#2563eb" stroke-width="1" opacity=".18"/>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0 380 380" to="360 380 380" dur="80s" repeatCount="indefinite"/>
+      <circle cx="380" cy="50" r="7" fill="#5498d0"/>
+      <circle cx="694" cy="278" r="7" fill="#e68a43"/>
+      <circle cx="574" cy="647" r="7" fill="#6b925f"/>
+      <circle cx="186" cy="647" r="7" fill="#9a70ba"/>
+      <circle cx="66" cy="278" r="7" fill="#2563eb"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="pill"><span class="dot"></span>Survey · working draft · October 2026</div>
+    <h1 class="title">Harness <span class="g">Self&#8209;Evolution</span></h1>
+    <p class="subtitle">Theory, Algorithms, Evaluation, Applications, and Impact</p>
+    <p class="tagline">Agents that rewrite their own instructions, memory, workflows, and code while the base model stays fixed — and what it takes to show that an accepted update actually helped.</p>
+    <p class="authors">Chuyang Wei<sup>1</sup>, Haoxiang Guan<sup>1</sup>, Minghang Zhu<sup>1</sup>, Kexin Zhou<sup>1</sup>, Jiyan He<sup>1,2</sup>, Yifei Shen<sup>1,2,†</sup></p>
+    <p class="affil"><sup>1</sup>Zhongguancun Academy &nbsp;·&nbsp; <sup>2</sup>Zhongguancun Institute of Artificial Intelligence &nbsp;·&nbsp; <sup>†</sup>Corresponding author</p>
+    <div class="btns">
+      <span class="btn primary" aria-disabled="true" title="The article PDF will be linked here on release">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
+        Paper <span class="soon" style="background:rgba(255,255,255,.22);color:#fff">soon</span>
+      </span>
+      <a class="btn" href="https://github.com/zgcagi/Awesome-Harness-RSI" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+        Reading List
+      </a>
+      <a class="btn" href="https://github.com/zgcagi/Awesome-Harness-RSI/blob/main/docs/claim-audit.md" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
+        Claim Audit
+      </a>
+      <a class="btn" href="#cite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        BibTeX
+      </a>
+    </div>
+    <div class="seals">
+      <img src="assets/seal-zgca.png" alt="Zhongguancun Academy" title="Zhongguancun Academy">
+      <img src="assets/seal-zgci.png" alt="Zhongguancun Institute of Artificial Intelligence" title="Zhongguancun Institute of Artificial Intelligence">
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">3</div><div class="lab">taxonomy branches, by update target</div></div>
+      <div class="stat"><div class="num">4</div><div class="lab">claims behind a reported gain</div></div>
+      <div class="stat"><div class="num">96</div><div class="lab">methods read from primary sources</div></div>
+      <div class="stat"><div class="num" id="entryCount">195</div><div class="lab">entries in the reading list</div></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- COVER (Figure 1) -->
+<section id="landscape" class="band compact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">◇</span> Landscape</div>
+      <h2 class="sec-title">The path of harness self&#8209;evolution</h2>
+      <p class="sec-sub">From instructions and prompts, through memory, reusable procedures, and agentic workflows, to executable components and the runtime itself.</p>
+    </div>
+    <div class="figure reveal">
+      <img src="assets/banner.png" alt="The path of harness self-evolution, from instructions to executable runtime" decoding="async" fetchpriority="high">
+      <p class="figcap"><b>Figure 1.</b> The path of harness self-evolution.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW (Figure 2) -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">◎</span> Overview</div>
+      <h2 class="sec-title">Learning from experience, weights fixed</h2>
+      <p class="sec-sub">The harness turns a general-purpose model into an operating agent. It can be revised without access to weights, and each revision is a named state transition — but <b>an update is not an improvement</b>. Whether an accepted change helped has to be shown, not assumed.</p>
+    </div>
+    <div class="figure reveal">
+      <img src="assets/landscape.png" alt="Growth and classification of harness self-evolution work from 2023 to 2026 Q3" loading="lazy" decoding="async">
+      <p class="figcap"><b>Figure 2.</b> Growth and classification of harness self-evolution work, per period and by primary emphasis. Systems named are illustrative; inclusion implies neither continuing self-evolution nor measured improvement.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="no">01</div><h4>Scope &amp; taxonomy</h4><p>A definition under a fixed base model, and a design space organized by what an update modifies.</p></div>
+      <div class="card reveal"><div class="no">02</div><h4>Four claims &amp; an audit</h4><p>Selection, activation, attribution, improvement — read against the reported evidence of 96 methods.</p></div>
+      <div class="card reveal"><div class="no">03</div><h4>Theory</h4><p>Harness search as zeroth-order evolutionary search, plus a continual PAC-style view of admission and retention.</p></div>
+      <div class="card reveal"><div class="no">04</div><h4>Deployment &amp; impact</h4><p>Five deployment regimes and the societal pathways a persistent, self-revising execution layer opens.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEFINITION -->
+<section id="definition" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">1</span> Definition</div>
+      <h2 class="sec-title">What counts as harness self&#8209;evolution</h2>
+      <p class="sec-sub">A harness \(H\) is the software and configuration around a model \(M\) that governs its execution in an environment \(E\). The evaluation procedure \(J\) sits outside \(H\), so a change in \(J\) is a change in the measurement, not a harness update.</p>
+    </div>
+    <div class="def-grid">
+      <div class="formula reveal">
+        <div class="lbl">Rollout</div>
+        <div class="eq">\(\tau \sim \operatorname{Run}(M, H, E),\qquad y = J(\tau)\)</div>
+        <div class="lbl">Update round \(k\)</div>
+        <div class="eq">\(\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b},\;\; \tau_{k,i}\sim\operatorname{Run}(M,H_k,E_{k,i})\)<br>\(H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\)</div>
+        <p class="note">\(\operatorname{Update}\) abstracts diagnosis, candidate generation, evaluation, and retention. Rejected revisions leave \(H_{k+1}=H_k\). <b>\(M\) is held fixed throughout.</b></p>
+      </div>
+      <div class="loop-card reveal">
+        <svg viewBox="0 0 440 360" role="img" aria-label="The operational update loop: execute, feedback, propose, admit, persist, and later runs load the accepted state">
+          <defs><path id="loopPath" d="M220 50 A 130 130 0 1 1 219.9 50"/></defs>
+          <circle cx="220" cy="180" r="130" fill="none" stroke="#dbe5f5" stroke-width="10"/>
+          <circle cx="220" cy="180" r="130" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 7" opacity=".55"/>
+          <circle r="7" fill="#2563eb"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#loopPath"/></animateMotion></circle>
+          <g font-family="Sora, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+            <g><rect x="160" y="30" width="120" height="38" rx="11" fill="#fff" stroke="#5498d0"/><text x="220" y="54" fill="#0f172a">Execute</text></g>
+            <g><rect x="318" y="108" width="112" height="38" rx="11" fill="#fff" stroke="#5498d0"/><text x="374" y="132" fill="#0f172a">Feedback</text></g>
+            <g><rect x="296" y="246" width="112" height="38" rx="11" fill="#fff" stroke="#e68a43"/><text x="352" y="270" fill="#0f172a">Propose</text></g>
+            <g><rect x="32" y="246" width="112" height="38" rx="11" fill="#fff" stroke="#e68a43"/><text x="88" y="270" fill="#0f172a">Admit</text></g>
+            <g><rect x="10" y="108" width="112" height="38" rx="11" fill="#fff" stroke="#6b925f"/><text x="66" y="132" fill="#0f172a">Persist</text></g>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="11.5" fill="#5a6577" text-anchor="middle">
+            <text x="220" y="168">accepted state is</text>
+            <text x="220" y="184" font-weight="700" fill="#1e3a8a">loaded by later runs</text>
+            <text x="220" y="200">that it did not generate</text>
+            <text x="220" y="340">persistence ≠ activation ≠ improvement</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="conds">
+      <div class="cond reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><h4>Operational feedback &amp; continuity</h4><p>The agent's own execution feedback drives an algorithmic update, and the mechanism stays in place so later runs can trigger further updates.</p></div>
+      <div class="cond reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h4>Persistence across runs</h4><p>An accepted state is persisted and actually loaded by a later run. Whether it then operated is the activation claim, not a condition of scope.</p></div>
+      <div class="cond reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h4>Fixed base model</h4><p>No weight update, so a behavioral change is assignable to a named state transition rather than to movement in model competence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TAXONOMY (Figures 3, 4) -->
+<section id="taxonomy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">2</span> Taxonomy</div>
+      <h2 class="sec-title">Organized by what an update modifies</h2>
+      <p class="sec-sub">Interpreted targets shift behavior through a fixed host; executable targets <b>run</b>. Each work is listed once, under what it contributes. Click a mechanism to list its works.</p>
+    </div>
+    <div class="branches" id="branches"></div>
+    <div class="branch eva reveal" style="margin-top:22px" id="branch-eva"></div>
+    <div class="figure reveal" style="margin-top:34px">
+      <img src="assets/overview.png" alt="Harness update targets and the operational update loop" loading="lazy" decoding="async">
+      <p class="figcap"><b>Figure 4.</b> Harness update targets and the operational update loop. Persistence and deployment alone establish neither operational activation nor improvement.</p>
+    </div>
+    <details class="fold reveal">
+      <summary>Full taxonomy and citation map (Figure 3)</summary>
+      <div class="fold-body"><img src="assets/taxonomy.png" alt="Taxonomy and citation map of harness self-evolution" loading="lazy" decoding="async"></div>
+    </details>
+  </div>
+</section>
+
+<!-- THEORY -->
+<section id="theory" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">3</span> Theory</div>
+      <h2 class="sec-title">Search without gradients</h2>
+      <p class="sec-sub">Execution supplies fitness and nothing else, which places harness search with <b>zeroth-order optimization over programs</b>. The surveyed loops map onto evolutionary paradigms; a continual PAC-style view says what their admission step can and cannot certify.</p>
+    </div>
+    <div class="theory-grid">
+      <div class="ea-table reveal">
+        <div class="ea-row"><div class="p">Elitist (1+1) / ES</div><div class="m"><span>SICA</span><span>MCE</span><span>SkillOpt</span><span>SkillOpt-Lite</span><span>SkillClaw</span></div></div>
+        <div class="ea-row"><div class="p">Elitist (1+λ)-style</div><div class="m"><span>Self-Harness</span></div></div>
+        <div class="ea-row"><div class="p">Archive-based program search</div><div class="m"><span>DGM</span><span>DarwinX</span><span>HGM</span></div></div>
+        <div class="ea-row"><div class="p">Recombination / crossover</div><div class="m"><span>DarwinX</span><span>HarnessCompass</span><span>Self-Harness</span><span>MCE</span><span>Trace2Skill</span></div></div>
+        <div class="ea-row"><div class="p">Quality-diversity / MAP-Elites</div><div class="m"><span>HarnessBank</span></div></div>
+        <div class="ea-row"><div class="p">Cooperative coevolution</div><div class="m"><span>HarnessCompass</span></div></div>
+        <div class="ea-row"><div class="p">Pareto selection</div><div class="m"><span>Meta-Harness</span><span>Self-Harness</span><span>SkillMOO</span></div></div>
+        <div class="ea-row"><div class="p">Bandit-guided evolution</div><div class="m"><span>HGM</span></div></div>
+        <div class="ea-foot">A row means the search exhibits that paradigm's structure, which is weaker than implementing the algorithm. Selection acts on <i>observed</i> fitness, so retaining a better candidate establishes neither improvement on unseen tasks nor retention.</div>
+      </div>
+      <div class="pac">
+        <div class="pac-card reveal"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\(F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\)</div><p>Forgetting telescopes over rounds, so even small tolerated regressions add up.</p></div>
+        <div class="pac-card reveal"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\(\widehat\Delta_k(H') + \sqrt{\tfrac{2\ln(KT/\delta)}{m}} < 0\)</div><p>Accepting only then certifies improvement on that round's task mixture, for the evaluated candidate only. The independent unit is a task: repeated executions reduce noise without adding evidence.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVALUATION (Figure 5) -->
+<section id="evaluation">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">4</span> Evaluation</div>
+      <h2 class="sec-title">Four claims behind a task score</h2>
+      <p class="sec-sub">An update can be stored and never used, used without being the cause, or be the cause only on the tasks that produced it — and the score looks the same in all three cases. Three claims must hold <b>in turn</b>; selection conditions every number they are read off.</p>
+    </div>
+    <div class="claims">
+      <div class="claim s reveal"><div class="k">Condition</div><h4>Selection</h4><p class="q">Was the number measured, not picked?</p><p>No outcome on the reporting tasks fed the proposal, ranking, admission, or choice of round and configuration.</p></div>
+      <div class="claim a reveal"><div class="k">Step 1</div><h4>Activation</h4><p class="q">Did the update operate in the scored runs?</p><p>Read from execution records at three grades: available, reached (path ran), carried (output reached the model or trajectory).</p></div>
+      <div class="claim t reveal"><div class="k">Step 2</div><h4>Attribution</h4><p class="q">Did the difference come from the update?</p><p>Arms differing only in the update, a controlled inference envelope, and a margin beyond execution variation.</p></div>
+      <div class="claim i reveal"><div class="k">Step 3</div><h4>Improvement</h4><p class="q">Does the difference hold elsewhere?</p><p>Located by distance from the tasks that formed the update, baseline, and round.</p></div>
+    </div>
+    <div class="figure reveal" style="margin-top:34px">
+      <img src="assets/claims.png" alt="Four claims behind a reported gain, with longitudinal controls" loading="lazy" decoding="async">
+      <p class="figcap"><b>Figure 5.</b> Four claims behind a reported gain. The bottom panel assigns each longitudinal control to the claim it protects; repeating those controls after every accepted update carries the claims across rounds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT (Figure 6) -->
+<section id="audit" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">5</span> Evidence audit</div>
+      <h2 class="sec-title">Reading 96 reports against the four claims</h2>
+      <p class="sec-sub">Each method in the two update-target branches, read from its primary source on one comparison — the result its report leads with. Two report no empirical evaluation, leaving 94. The verdicts describe what a report contains, not how good the method is.</p>
+    </div>
+    <div class="audit-grid">
+      <div class="panel reveal" id="claimBars">
+        <h4>Verdicts per claim</h4>
+        <p class="hint">Each bar is the 94 scored reports. Bars are not comparable across claims: full evidence for selection requires four conditions, for improvement one.</p>
+        <div class="bars"></div>
+        <div class="legend"><span><i style="background:var(--full)"></i>Full evidence</span><span><i style="background:var(--part)"></i>Partial</span><span><i style="background:var(--none)"></i>Not supported</span></div>
+      </div>
+      <div class="panel reveal">
+        <h4>Claims at full evidence, per report</h4>
+        <p class="hint">Partial evidence is not counted here.</p>
+        <div class="donut-wrap" id="donut"></div>
+      </div>
+    </div>
+    <ul class="findings-list reveal">
+      <li><b>The claims are rarely established together.</b> The most common profile (21 reports) is selection and improvement at full evidence, with activation and attribution partial.</li>
+      <li><b>Claims about the scored runs are the least supported.</b> Most reports show an artifact was loaded, or ran during search, rather than that it operated in the scored runs; most compare scores without measured variation or a controlled envelope.</li>
+      <li><b>Improvement is measured at one setting.</b> Full-evidence improvement rests on held-out or transfer partitions read at the accepting round; no report re-measures a credited gain at a later round.</li>
+    </ul>
+    <p class="tax-note reveal">Per-method verdicts with the recorded basis for every cell: <a href="https://github.com/zgcagi/Awesome-Harness-RSI/blob/main/docs/claim-audit.md" target="_blank" rel="noopener">docs/claim-audit.md</a>.</p>
+  </div>
+</section>
+
+<!-- APPLICATIONS (Figure 7) -->
+<section id="applications">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">6</span> Applications</div>
+      <h2 class="sec-title">One lifecycle, five deployment regimes</h2>
+      <p class="sec-sub">The regimes share the update lifecycle but differ in how state is shared, how revisions can be verified, and whether external actions can be undone.</p>
+    </div>
+    <div class="regimes">
+      <div class="regime reveal"><h4>Personal &amp; developer workspaces</h4><p>Prompts, playbooks, and tool wrappers for one workspace; validated by local tests and memory curation.</p></div>
+      <div class="regime reveal"><h4>Enterprise processes</h4><p>Shared skill libraries and middleware; regression suites, staged rollout, reviewed merges.</p></div>
+      <div class="regime reveal"><h4>Scientific discovery</h4><p>Research playbooks and verifiers for long campaigns; independent experiments gate admission.</p></div>
+      <div class="regime reveal"><h4>Embodied interaction</h4><p>Action skills and spatial memory; physical actions cannot be rolled back, so validation precedes actuation.</p></div>
+      <div class="regime reveal"><h4>Public &amp; clinical systems</h4><p>Human-readable rules around a certified model; expert sign-off and tamper-evident audit logs.</p></div>
+    </div>
+    <div class="figure reveal" style="margin-top:30px">
+      <img src="assets/applications.png" alt="Applications of harness self-evolution across five deployment regimes" loading="lazy" decoding="async">
+      <p class="figcap"><b>Figure 7.</b> Applications across five deployment regimes. The figure summarizes deployment requirements rather than establishing improvement for every application.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT & FUTURE (Figure 8) -->
+<section id="impact" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">7</span> Impact &amp; future</div>
+      <h2 class="sec-title">A persistent layer that compounds</h2>
+      <p class="sec-sub">Every accepted modification alters the execution layer later tasks, teams, and workflows inherit. The article maps these mechanisms to hypothesized pathways in labor, market structure, public services, privacy and security, and institutional power.</p>
+    </div>
+    <div class="figure reveal">
+      <img src="assets/social-impact.png" alt="Societal and economic implications of harness self-evolution" loading="lazy" decoding="async">
+      <p class="figcap"><b>Figure 8.</b> Societal and economic implications. Arrows denote hypothesized pathways rather than established causal estimates.</p>
+    </div>
+    <div class="future">
+      <div class="fut reveal"><h4>Model–harness–environment co-evolution</h4><p>What to internalize into weights versus keep in inspectable code.</p></div>
+      <div class="fut reveal"><h4>Algorithms for heterogeneous search</h4><p>Principled optimizers over code and memory under fixed budgets.</p></div>
+      <div class="fut reveal"><h4>Cloud–edge–client infrastructure</h4><p>Proposal, verification, deployment, and rollback across tiers.</p></div>
+      <div class="fut reveal"><h4>Dynamic evaluation</h4><p>Refreshing tasks without losing measurement validity.</p></div>
+      <div class="fut reveal"><h4>Runtime safety boundaries</h4><p>Defending the update boundary against persisted injections.</p></div>
+      <div class="fut reveal"><h4>Governance &amp; oversight</h4><p>Escalation on observable runtime conditions, with provenance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORER -->
+<section id="explorer">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">⌕</span> Reading list</div>
+      <h2 class="sec-title">Browse the list</h2>
+      <p class="sec-sub">The entries of the <a href="https://github.com/zgcagi/Awesome-Harness-RSI" target="_blank" rel="noopener">reading list</a>, with the paper's own links. Audited methods show their four verdicts in the order Selection · Activation · Attribution · Improvement.</p>
+    </div>
+    <div class="explorer-bar">
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Search names, mechanisms, venues…" autocomplete="off" aria-label="Search the reading list"><span class="kbd">/</span></label>
+      <div class="filters" id="groupFilters"></div>
+    </div>
+    <div class="result-meta"><span id="resultCount"></span><button type="button" id="resetFilters">Reset</button></div>
+    <div id="results" class="results"></div>
+  </div>
+</section>
+
+<!-- CITE -->
+<section id="cite" class="band compact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge">"</span> Citation</div>
+      <h2 class="sec-title">Cite this work</h2>
+    </div>
+    <div class="bibwrap reveal">
+      <div class="bibhead"><span>BibTeX</span><button class="copybtn" id="cbtn" type="button">Copy BibTeX</button></div>
+<pre class="bib" id="bib"><span class="k">@misc</span>{wei2026harnessrsi,
+  <span class="k">title</span>  = {<span class="v">Harness Self-Evolution: Theory, Algorithms, Evaluation,
+            Applications, and Impact</span>},
+  <span class="k">author</span> = {<span class="v">Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
+            Zhou, Kexin and He, Jiyan and Shen, Yifei</span>},
+  <span class="k">year</span>   = {<span class="v">2026</span>},
+  <span class="k">note</span>   = {<span class="v">Working draft. arXiv identifier to be added on release.</span>},
+  <span class="k">url</span>    = {<span class="v">https://github.com/zgcagi/Awesome-Harness-RSI</span>}
+}</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="seals">
+      <img src="assets/seal-zgca.png" alt="Zhongguancun Academy" loading="lazy">
+      <img src="assets/seal-zgci.png" alt="Zhongguancun Institute of Artificial Intelligence" loading="lazy">
+    </div>
+    <p>Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence</p>
+    <p>Reading list: <a href="https://github.com/zgcagi/Awesome-Harness-RSI" target="_blank" rel="noopener">zgcagi/Awesome-Harness-RSI</a> · Released under <a href="https://github.com/zgcagi/Awesome-Harness-RSI/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0</a></p>
+    <p style="font-size:12.5px">Figures are reproduced from the companion article by its authors. Listed works remain under their own licenses.</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure"><img alt=""></div>
+
+<script src="site/corpus.js?v=2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="site/app.js?v=3"></script>
+</body>
+</html>

@@ -8,8 +8,8 @@ State explicitly which of the three conditions the work satisfies:
 
 | Condition | Test |
 |---|---|
-| **Persistence** | The revision is written into harness state that a *later* run loads, so it governs rollouts it did not generate. |
-| **Recursion** | Adopted revisions govern later execution, and the resulting rollouts inform further revisions. |
+| **Persistence** | An accepted state is persisted and *actually loaded* by a later run, so it can affect rollouts it did not generate. |
+| **Recursion** | Feedback from the agent's own executions drives an algorithmic process that forms or selects the revision, and that mechanism stays in place so later executions can trigger further updates. |
 | **Fixed model** | No weight update inside the loop. |
 
 If the work fails any of them, it may still belong in [Boundary Cases & Exclusions](README.md#boundary-cases--exclusions) — add it there with the reason, which is more useful than a borderline entry in the taxonomy.
@@ -68,12 +68,14 @@ For a new method in Sections 1–2, a row for [`docs/claim-audit.md`](docs/claim
 Before scoring anything, read the [rubric](docs/claim-audit.md#rubric). Then:
 
 1. Read the **experiments section and any protocol appendix of the primary source** — not the abstract, and not another paper's description of it.
-2. Give four independent verdicts: ✅ / ◐ / — (or `n/a` if the work reports no empirical evaluation).
-3. **Record the basis for every cell**: the table, figure, number, or sentence the verdict was read off. A verdict without a basis will not be merged.
+2. Fix the **primary comparison** first: the result the report leads with, against the same-model baseline it is stated against. Record that number as the row's headline. All four verdicts are read off this one comparison; a cell may not borrow evidence from another experiment in the same report.
+3. Give four independent verdicts: ✅ / ◐ / — (or `n/a` if the work reports no empirical evaluation).
+4. **Record the basis for every cell**: the table, figure, number, or sentence the verdict was read off. A verdict without a basis will not be merged.
 
-Two recurring mistakes:
+Three recurring mistakes:
 
-- A paper asserting "we evaluate on held-out data" without showing the partition boundaries is **◐**, not ✅.
+- A paper asserting "we evaluate on held-out data" without showing the partition boundaries is **◐** for selection, not ✅.
+- A load rate, a retrieval log, or a path that ran only during search or screening is **◐** for activation. ✅ needs reached- or carried-grade evidence from the runs that produced the headline.
 - Evidence that an edit's predicted *effect* matched later outcomes is **attribution** evidence, not activation evidence.
 
 ## 5. Disagreeing with an existing verdict
@@ -82,14 +84,15 @@ This is a legitimate PR and the reason the basis is recorded. Quote the recorded
 
 ## 6. Before opening the PR
 
-Run the checker:
+Regenerate the project page's reading-list data, then run the checker:
 
 ```bash
+python3 scripts/build_site_data.py             # rewrites site/corpus.js from README.md and docs/claim-audit.md
 python3 scripts/check_consistency.py           # structure, no network
 python3 scripts/check_consistency.py --links   # also resolves every URL
 ```
 
-It verifies five things: every `](#anchor)` matches a real heading, no heading carries an emoji (which would change its id and break hand-written links to it), no entry is listed twice, the two language versions cover the same works with the same links, and no file is either linked-but-missing or present-but-unreachable. A green run is necessary, not sufficient — it cannot tell you a link points at the *wrong* paper, which is the check only you can do.
+It verifies six things: every `](#anchor)` matches a real heading, no heading carries an emoji (which would change its id and break hand-written links to it), no entry is listed twice, the two language versions cover the same works with the same links, no file is either linked-but-missing or present-but-unreachable, and `site/corpus.js` matches the current README. A green run is necessary, not sufficient — it cannot tell you a link points at the *wrong* paper, which is the check only you can do.
 
 Then confirm by hand:
 

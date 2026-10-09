@@ -4,11 +4,12 @@
     python3 scripts/check_consistency.py          # structure only, no network
     python3 scripts/check_consistency.py --links  # also resolve every URL
 
-Five checks, each one a defect found in a comparable list rather than a
+Six checks, each one a defect found in a comparable list rather than a
 hypothetical: a table of contents whose anchors no longer resolve, an entry
 listed twice, two language versions that have drifted apart, a heading that
-carries an emoji and so breaks the anchor a hand-written link points at, and a
-file that nothing links to. Exit status is non-zero if any check fails.
+carries an emoji and so breaks the anchor a hand-written link points at, a
+file that nothing links to, and a project-page explorer generated from an
+older README. Exit status is non-zero if any check fails.
 """
 
 import argparse
@@ -139,6 +140,19 @@ def check_files(problems):
             problems.append(f"{rel} is in the repository but nothing links to it")
 
 
+def check_site_data(problems):
+    """The project page's explorer is generated from README.md; a stale copy
+    would show readers a list that no longer matches the one they can cite."""
+    import subprocess
+
+    done = subprocess.run(
+        [sys.executable, os.path.join(ROOT, "scripts", "build_site_data.py"), "--check"],
+        capture_output=True, text=True,
+    )
+    if done.returncode != 0:
+        problems.append((done.stdout + done.stderr).strip())
+
+
 def check_links(problems):
     import concurrent.futures
     import subprocess
@@ -178,6 +192,7 @@ def main():
     check_duplicates(problems)
     check_parity(problems)
     check_files(problems)
+    check_site_data(problems)
     if args.links:
         check_links(problems)
 

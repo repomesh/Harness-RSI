@@ -4,10 +4,16 @@
 
 **A theory-organized reading list on harness recursive self-improvement — agents that rewrite their own instructions, memory, workflows, and code while the model stays fixed.**
 
+<p align="center">
+  <img src="assets/seal-zgca.png" height="56" alt="Zhongguancun Academy">
+  &nbsp;&nbsp;
+  <img src="assets/seal-zgci.png" height="56" alt="Zhongguancun Institute of Artificial Intelligence">
+</p>
+
 Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
 
 <p align="center">
-  <img src="https://img.shields.io/badge/papers-187-2F6B4F" alt="papers">
+  <img src="https://img.shields.io/badge/papers-196-2F6B4F" alt="papers">
   <img src="https://img.shields.io/badge/audited%20methods-96-16429A" alt="audited methods">
   <img src="https://img.shields.io/badge/with%20code%20or%20project%20page-43-5498D0" alt="with code">
   <img src="https://img.shields.io/badge/updated-2026--10-9A70BA" alt="updated">
@@ -15,6 +21,8 @@ Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
 </p>
 
 <p align="center">
+  <a href="https://zgcagi.github.io/Awesome-Harness-RSI/">🌐 Project Page</a>
+  &nbsp;·&nbsp;
   <a href="#what-is-harness-rsi">📘 Definition</a>
   &nbsp;·&nbsp;
   <a href="#how-this-list-is-organized">🧭 Taxonomy</a>
@@ -34,9 +42,9 @@ Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
 
 ![Growth and classification of harness self-evolution methods, 2023 to 2026 Q3](assets/landscape.png)
 
-<p align="center"><sub><b>The corpus by quarter.</b> A representative subset of 46 of the 96 reviewed methods; the cumulative count rises from 3 in 2023 to 46 in 2026 Q3. Color is the primary emphasis — harness updates, evaluation, or theory. The classification is descriptive: inclusion implies neither continuing self-evolution nor measured improvement.</sub></p>
+<p align="center"><sub><b>Growth and classification of harness self-evolution work.</b> The inset counts work per period, split by primary emphasis into update algorithms and evaluation: 3 in 2023, 10 in 2024, 27 in 2025, then 16, 40, and 46 in the first three quarters of 2026. The road places representative systems along the same periods. The systems named are illustrative rather than the full corpus; the classification is descriptive, and inclusion implies neither continuing self-evolution nor measured improvement.</sub></p>
 
-> This repository is the companion reading list for **Harness Self-Evolution: Theory, Algorithm, Evaluations, Applications, and Social Impacts**. Sections 1–4 below mirror the four branches of the article's taxonomy; the [claim audit](docs/claim-audit.md) releases the per-method evidence verdicts behind its Table 5.
+> This repository is the companion reading list for **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact** (Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen). Sections 1–3 below mirror the three branches of the article's taxonomy (its Figure 3); Section 4 follows its theory section; the [claim audit](docs/claim-audit.md) releases the per-method evidence verdicts behind its Figure 6 and Table 5. A visual overview lives on the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/).
 
 ---
 
@@ -77,19 +85,19 @@ A **harness** `H` is the software and configuration around a model `M` that gove
 **Harness recursive self-improvement** is the iterative process
 
 ```
-B_t = { τ_t,i ~ Run(M, H_t, E_t,i) }         # a batch of execution experience
-H_{t+1} = Update(H_t, B_t)                    # a persistent revision of the harness
+B_k = { τ_k,i ~ Run(M, H_k, E_k,i) }  i = 1..b   # a batch of execution experience at round k
+H_{k+1} = Update(H_k, B_k)                       # a persistent revision of the harness
 ```
 
-with the backbone `M` held fixed. Three conditions make an entry belong on this list:
+with the backbone `M` held fixed. `k` counts update rounds and `i` counts rollouts within a round; the `b` rollouts need not come from `b` distinct tasks, which is why the theory counts tasks rather than rollouts. Three conditions make an entry belong on this list — the article's two conditions plus its fixed-model scope:
 
 | Condition | Test |
 |---|---|
-| **Persistence** | The revision is written into harness state that later runs load, so it governs rollouts it did not generate. |
-| **Recursion** | Adopted revisions govern later execution, and the resulting rollouts inform further revisions. |
+| **Persistence** | An accepted state is persisted and *actually loaded* by a subsequent run, so it can affect rollouts it did not generate. Whether the loaded state then operated is the activation claim of [Section 3](#3-evaluation--benchmarks), not a condition of scope. |
+| **Recursion** | Within the agent's operating lifecycle, feedback from its own executions drives an algorithmic process that forms or selects the revision, and that mechanism stays in place so later executions can trigger further updates. Humans may give feedback or control admission, but do not simply author the payload. |
 | **Fixed model** | No weight update. A behavioral change is assignable to a named state transition rather than to movement in model competence. |
 
-Rejected revisions leave `H_{t+1} = H_t`. Ordinary execution under unchanged rules — appending a session log, firing a fixed compaction policy — is not harness RSI. **An update is not an improvement**: whether an accepted change helps is the empirical question [Section 3](#3-evaluation--benchmarks) is about.
+The evaluation procedure `J` — task scorer, verifier, bookkeeping — sits outside `H` by stipulation, so a change in `J` is a change in the measurement, not a harness update. Rejected revisions leave `H_{k+1} = H_k`. Ordinary execution under unchanged rules — appending a session log, firing a fixed compaction policy — is not harness RSI. **An update is not an improvement**: whether an accepted change helps is the empirical question [Section 3](#3-evaluation--benchmarks) is about.
 
 <details>
 <summary><b>What this list excludes, and why</b></summary>
@@ -114,7 +122,8 @@ Entries are classified by **what a proposal modifies** — the update target —
 | **1. Interpreted update targets** | Model-readable content and coordination state read by a fixed host | Behavioral: an instruction shifts tendencies, it cannot impose a runtime invariant | [1.1](#11-prompts--instructions) · [1.2](#12-memory--reusable-procedures) · [1.3](#13-workflows--topologies) |
 | **2. Executable update targets** | Implementations the host invokes directly: tools, component files, control programs, plugins | Enforceable: the revision runs | [2.1](#21-tools--code-patches) · [2.2](#22-repository--runtime-logic) · [2.3](#23-everything-is-a-plugin) |
 | **3. Evaluation & benchmarks** | Works whose own contribution is an evaluation protocol or an audit | — | [3.1](#31-claim-specific-evidence) · [3.2](#32-longitudinal--dynamic-evidence) |
-| **4. Theory** | Works whose contribution is an analysis or a mapping | — | [4.1](#41-evolutionary-paradigms) · [4.2](#42-pac-learning--stability) |
+
+[Section 4](#4-theory) follows the article's theory section. It is not a taxonomy branch: the article's figure dropped its former theory branch, since every system that branch named is already placed under an update target.
 
 **Placement rule.** A work is listed **once**, under the node matching what the work itself contributes. The systems audited in Section 3 therefore appear under the update target they change, not under evaluation. [Section 4](#4-theory) is the single declared exception: its contribution *is* a mapping, so it re-lists systems already placed in Sections 1–2.
 
@@ -122,7 +131,7 @@ Third-level headings name a **mechanism**, not a topic. Two systems share a head
 
 ![Taxonomy and citation map](assets/taxonomy.png)
 
-<p align="center"><sub><b>The full taxonomy.</b> Four branches, one per section; second level is the subsection; third level is the mechanism. This list is a one-to-one expansion of this figure.</sub></p>
+<p align="center"><sub><b>The full taxonomy</b> (the article's Figure 3). Three branches, one per section; second level is the subsection; third level is the mechanism. Sections 1–3 of this list are a one-to-one expansion of this figure.</sub></p>
 
 **Jump to a mechanism.** Counts are entries in that node.
 
@@ -130,9 +139,9 @@ Third-level headings name a **mechanism**, not a topic. Two systems share a head
 
 **2. Executable update targets** — [Callable Tool Synthesis (5)](#callable-tool-synthesis) · [Evidence-Grounded Component Patching (10)](#evidence-grounded-component-patching) · [Whole-Control-Program Search (3)](#whole-control-program-search) · [Repository Revision (9)](#repository-revision) · [In-Process Patching (3)](#in-process-patching) · [Contract-Driven Hooks (2)](#contract-driven-hooks) · [Microkernel Platforms (4)](#microkernel-platforms)
 
-**3. Evaluation & benchmarks** — [Selection & Admission (6)](#selection--admission) · [Runtime Activation (2)](#runtime-activation) · [Attribution Controls (11)](#attribution-controls) · [Reach & Retention (4)](#reach--retention) · [Active-Set Integrity (5)](#active-set-integrity) · [Synthesized Boundary Tasks (2)](#synthesized-boundary-tasks) · [Temporal Streams (5)](#temporal-streams) · [Adversarial Play (2)](#adversarial-play) · [Lifelong Testbeds (15)](#lifelong-testbeds)
+**3. Evaluation & benchmarks** — [Selection & Oracle Integrity (7)](#selection--oracle-integrity) · [Runtime Activation (2)](#runtime-activation) · [Attribution Controls (12)](#attribution-controls) · [Generalization & Retention (4)](#generalization--retention) · [Active-Set Integrity (5)](#active-set-integrity) · [Synthesized Boundary Tasks (2)](#synthesized-boundary-tasks) · [Temporal Streams (5)](#temporal-streams) · [Adversarial Play (2)](#adversarial-play) · [Lifelong Testbeds (12)](#lifelong-testbeds)
 
-**4. Theory** — [Evolutionary Paradigms (8 systems, mapped)](#41-evolutionary-paradigms) · [Stability & Retention (2)](#stability--retention) · [Confidence-Gated Admission (4)](#confidence-gated-admission) · [Self-Improvement Limits (2)](#self-improvement-limits) · [Background Tools (10)](#43-background-statistical--optimization-tools)
+**4. Theory** (not a taxonomy branch) — [Evolutionary Paradigms (8 systems, mapped)](#41-evolutionary-paradigms) · [Stability & Retention (2)](#stability--retention) · [Confidence-Gated Admission (4)](#confidence-gated-admission) · [Self-Improvement Limits (2)](#self-improvement-limits) · [Background Tools (10)](#43-background-statistical--optimization-tools)
 
 **Entry format.** Mechanism sentences state what the system *does to its own harness*, not what it scores. A second link appears only when the paper itself states one: `[[code]]` for a repository, `[[project]]` for a project page, `[[list]]` for a sibling reading list.
 
@@ -152,7 +161,7 @@ Eight papers, in order, to locate the field:
 4. **[ADAS](https://openreview.net/forum?id=t9U3LW7JVX)** `ICLR'25` — the search view: a meta-agent writes the control program, and candidates live in an archive.
 5. **[DGM](https://openreview.net/forum?id=pUpzQZTvGY)** `ICLR'26` — the open-ended view: repository variants branch, and the archive is the population.
 6. **[Harness Updating Is Not Harness Benefit](https://arxiv.org/abs/2605.30621)** `arXiv'26` — the load rate and the adherence rate come apart: 0.96 vs 0.35.
-7. **[HarnessBank](https://arxiv.org/abs/2607.13683)** `arXiv'26` — what a full evidence chain looks like: immutable kernel, per-attempt activation beacons, paired significance gate.
+7. **[HarnessBank](https://arxiv.org/abs/2607.13683)** `arXiv'26` — how much of the evidence chain a report can carry, and where it still stops: an evaluation kernel candidates cannot edit, a sealed test split, paired *z* tests — yet its activation beacons are logged in screening, not in the scored runs.
 8. **[Agents That Matter](https://arxiv.org/abs/2407.01502)** `TMLR'25` — why a terminal score is not an answer.
 
 ---
@@ -293,7 +302,7 @@ Coordination specifications enacted by a **fixed** orchestration framework: role
 - **SEW** `arXiv'25` — jointly mutates prompts and topology while comparing alternative workflow representations. [[paper]](https://arxiv.org/abs/2505.18646)
 - **JudgeFlow** `arXiv'26` — uses block-level judge diagnoses to revise sequence, loop, and conditional blocks. [[paper]](https://arxiv.org/abs/2601.07477)
 - **RHI** `arXiv'26` — applies pairwise feedback to roles, instructions, communication contracts, and interaction hops within one task episode. [[paper]](https://arxiv.org/abs/2607.15524)
-- **Evolve as a Team** `arXiv'26` — carries experience across tasks to update a reusable scaffold of prompts, teammate profiles, and shared coordination rules. [[paper]](https://arxiv.org/abs/2605.29790)
+- **Meta-Team** `arXiv'26` — carries experience across tasks to update a reusable scaffold of agent prompts, teammate profiles, collaboration notes, and shared coordination rules. [[paper]](https://arxiv.org/abs/2605.29790)
 - **Symbolic Learning** `AI Open'25` — jointly revises pipeline structure, prompts, and tools through back-propagated language loss. [[paper]](https://doi.org/10.1016/j.aiopen.2025.11.004)
 
 > **Boundary note.** AgentSquare and Symbolic Learning also generate executable module and tool implementations; they are listed here because their primary contribution is modular search and joint symbolic optimization. The mutable executable surface they add is discussed in [2.1](#21-tools--code-patches).
@@ -389,52 +398,62 @@ Executable components sit behind a fixed microkernel, declared interfaces, and l
 
 ## 3. Evaluation & Benchmarks
 
-A terminal task score conflates **four dependent claims**. Evidence for one does not establish another, and each is uninterpretable without the ones before it.
+A terminal task score conflates **four claims**: three steps an accepted update has to clear in turn — activation, attribution, improvement — and selection, a condition on every number those three are read off. Evidence for one does not establish another.
 
-![Evaluating harness self-evolution](assets/claims.png)
+![Four claims behind a reported gain](assets/claims.png)
+
+<p align="center"><sub><b>Four claims behind a reported gain</b> (the article's Figure 5). Activation, attribution, and improvement must hold in turn before a gain belongs to an accepted update; selection runs beneath all three. The bottom panel assigns each longitudinal control to the claim it protects.</sub></p>
 
 | Claim | Question | Fails silently when |
 |---|---|---|
-| **Selection** | Was the reported state chosen without spending the evidence used to report it? | A candidate ranks first and is then reported on the same tasks that ranked it; a "held-out" split is also an input to the promotion rule; the peak round of a trajectory is reported with no stopping rule fixed in advance. |
-| **Activation** | Did the accepted artifact or code path operate in the reported runs? | A skill is loaded and ignored; a component runs and its output is dropped in prompt assembly or cut by truncation. Persistence is not activation. |
-| **Attribution** | Did the difference come from that state? | Execution variance, a resource envelope that grew with the update (retries, verifier calls, longer context), or a drifting evaluator moved instead. |
-| **Improvement** | How far does the difference extend? | Measured only on the tasks that produced it; or credited once at the accepting round and never re-checked at a later one. |
+| **Selection** | Was the reported number measured, not picked? No outcome on the reporting tasks fed the proposal, the ranking, the admission, or the choice of which round and configuration to report. | The update is written from the failures of the scored runs; a "held-out" split also feeds the promotion rule; the peak round or the best row of a sweep becomes the headline. |
+| **Activation** | Did the accepted update operate in the runs that produced the number? Read from execution records at three grades: *available*, *reached*, *carried*. | A skill is loaded and ignored; a component runs and its output is dropped in prompt assembly or cut by truncation; beacons fire during screening but are not logged in the scored runs. Persistence is not activation. |
+| **Attribution** | Did the difference come from the update? Needs arms that differ only in the update, a controlled inference envelope, and a margin beyond execution variation. | Execution variation, an inference envelope that grew with the update (retries, verifier calls, longer context, a higher effort setting), or a changed evaluator moved instead. |
+| **Improvement** | Does the difference hold away from the conditions that produced it? Located by three indices: distance from the tasks that formed the update, baseline, and round. | Measured only on the tasks that produced it; or read once at the accepting round and never re-measured at a later one. |
 
-Three activation rates, with the denominators that carry the content — `R(u)` is the executions where update `u` applies, `L(u)` those that load it, `B(u)` those where its beacon fires, `F(u) ⊆ L(u)` those whose trajectory conforms:
+The claims come apart in practice. Activation is a precondition for attribution only when a particular component is credited; a component counterfactual that moves the outcome shows the component operated *somewhere*, but not in which runs or at which grade. Improvement concerns extent, not size: a difference can come from the update and vanish on a new task set, or hold on a new task set while the credit belongs to a larger budget.
+
+Three activation rates, with the denominators that carry the content — `R(u)` is the executions where update `u` applies, `L(u)` those that load it, `B(u)` those where its beacon fires, `C(u)` those where its effect carried:
 
 ```
-load(u)   = |L(u)| / |R(u)|          # available
-reach(u)  = |B(u)| / |R(u)|          # the mutated path ran
-adhere(u) = |F(u)| / |L(u)|          # the trajectory followed it
+load(u)   = |L(u)| / |R(u)|          # available: the artifact entered the run
+reach(u)  = |B(u)| / |R(u)|          # reached: the changed path executed
+carry(u)  = |C(u)| / |L(u)|          # carried: its output reached the model, or the trajectory followed it
 ```
+
+For an instruction or skill, `carry` is an adherence rate; for a code path that enters no context, `L(u)` is read as `B(u)`.
 
 Works below are listed under **the evidence function they serve**, not by benchmark family.
 
 ### 3.1 Claim-Specific Evidence
 
-#### Selection & Admission
+#### Selection & Oracle Integrity
+
+*Was the number measured or picked, and did the candidate leave the measurement alone?*
 
 - **RSEA** `arXiv'26` — assigns separate data to proposal, admission, and reporting through explicit held-out selection. [[paper]](https://arxiv.org/abs/2606.28374)
 - **Anytime Certificates** `arXiv'26` — anytime-valid certificates for repeated, data-dependent admission decisions. [[paper]](https://arxiv.org/abs/2607.00871)
+- **HarnessOpt-Bench** `arXiv'26` — keeps its test partition out of reach for the whole search, with the boundary enforced by the runtime, and meters the resources the target agent spends. [[paper]](https://arxiv.org/abs/2608.06301)
 - **Phantom Guardrails** `arXiv'26` — documents self-improving harnesses that fix failures which never occurred, the patch grounded in no observed execution. [[paper]](https://arxiv.org/abs/2607.13083)
 - **Harness Tampering** `arXiv'26` — audits candidates that modify verification logic rather than the behavior under test. [[paper]](https://arxiv.org/abs/2609.00069)
 - **Self-Authored Verification** `arXiv'26` — finds self-written checks unreliable as admission evidence in heuristic self-improving agents. [[paper]](https://arxiv.org/abs/2607.24300)
 - **SWE-bench+** `arXiv'24` — documents solution leakage and weak assertions that corrupt promotion and reporting together. [[paper]](https://arxiv.org/abs/2410.06992)
 
-> **The structural failure.** The three statistical ways a reporting score gets spent — on the split, on the gate, on the round — are different in kind from the fourth: the candidate shaping the record that judges it. Statistics do not fix that one. HarnessBank puts evaluation and bookkeeping code in a kernel candidates cannot modify; HarnessX applies the reference test patch before the model patch and blocks writes to test files.
+> **The structural failure.** The four ways a reporting score gets spent — on the proposal, the ranking, the admission, the choice of round or configuration — are different in kind from a fifth: the candidate changing the record that judges it. Procedure fixes the first four; only structure fixes the fifth. HarnessBank puts evaluation and bookkeeping code in a kernel candidates cannot modify; HarnessX applies the reference test patch before the model patch and blocks writes to test files.
 
 #### Runtime Activation
 
 - **SkillsBench** `arXiv'26` — records whether task-provided skills are read or referenced, across diverse tasks. [[paper]](https://arxiv.org/abs/2602.12670)
-- **Harness Updating ≠ Harness Benefit** `arXiv'26` — scores load rate and trajectory-adherence rate separately: two agents load at 0.961 and 0.957 while adhering at 0.350 and 0.757, and adherence decays along the trajectory. [[paper]](https://arxiv.org/abs/2605.30621) [[code]](https://github.com/A-EVO-Lab/a-evolve)
+- **Harness Updating ≠ Harness Benefit** `arXiv'26` — scores load rate and trajectory-adherence rate separately: two agents load at 0.961 and 0.957 while adhering at 0.350 and 0.757, and the weakest agent's adherence falls from 0.52 at loading to 0.13 at the final turn. [[paper]](https://arxiv.org/abs/2605.30621) [[code]](https://github.com/A-EVO-Lab/a-evolve)
 
 #### Attribution Controls
 
-*Each names a way a reported difference can come from something other than the update.*
+*Each names a way a reported difference can come from something other than the update: execution variation, the inference envelope, or the evaluator.*
 
 - **Agents That Matter** `TMLR'25` — shows agent comparisons confound capability with cost, and asks for cost-controlled evaluation. [[paper]](https://arxiv.org/abs/2407.01502)
 - **Token Cost** `arXiv'26` — analyzes and predicts agent token consumption, giving the envelope a measurable unit. [[paper]](https://arxiv.org/abs/2604.22750)
 - **MLE-bench** `ICLR'25` — ML-engineering tasks with repeated runs and an explicit compute envelope. [[paper]](https://arxiv.org/abs/2410.07095)
+- **Claw-Eval** `arXiv'26` — grades trajectories rather than final states and repeats trials to separate capability from luck. [[paper]](https://arxiv.org/abs/2604.06132)
 - **AgentRewardBench** `COLM'25` — meta-evaluates automatic judges of web-agent trajectories against expert annotation. [[paper]](https://arxiv.org/abs/2504.08942) [[project]](https://agent-reward-bench.github.io)
 - **Judge Inflation** `arXiv'24` — documents spontaneous reward hacking in iterative self-refinement. [[paper]](https://arxiv.org/abs/2407.04549)
 - **Memory Reward Inflation** `arXiv'26` — shows stored memory can inflate the reported reward rather than improve the behavior. [[paper]](https://arxiv.org/abs/2608.00017)
@@ -444,12 +463,16 @@ Works below are listed under **the evidence function they serve**, not by benchm
 - **Rethinking Harness Evaluation** `arXiv'26` — argues current protocols leave reported harness-evolution gains uncontrolled. [[paper]](https://arxiv.org/abs/2607.12227)
 - **HAL** `ICLR'26` — standardized run records, model snapshots, and cost accounting as shared evaluation infrastructure. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf)
 
-#### Reach & Retention
+#### Generalization & Retention
 
-- **Claw-Eval** `arXiv'26` — separates re-solving the originating failure from evidence that the gain reaches further. [[paper]](https://arxiv.org/abs/2604.06132)
-- **PATH-Bench** `arXiv'26` — path-dependent evaluation: deliberately varied task order and retained frozen reference histories. [[paper]](https://arxiv.org/abs/2608.01149)
-- **HarnessOpt-Bench** `arXiv'26` — measures end-to-end harness optimization with a held-out partition and audited resource use. [[paper]](https://arxiv.org/abs/2608.06301)
+*The two settings of improvement's distance index that have standard names: a held-out partition measures generalization; a probe on a distribution the loop has moved on from measures retention.*
+
 - **HarnessDev** `arXiv'26` — separates harness *creation* from iterative *evolution*, reporting capability, cost, and held-out transfer. [[paper]](https://arxiv.org/abs/2609.01437)
+- **GDPevo** `arXiv'26` — scores evolved harnesses on real business tasks held out by recombining rules spread across the training tasks, so a test-time gain can be traced to training experience. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
+- **EvoHarnessBench** `arXiv'26` — grows the harness an agent is given and measures whether earlier competence is retained as capabilities are added. [[paper]](https://arxiv.org/abs/2609.04280)
+- **PATH-Bench** `arXiv'26` — path-dependent evaluation: deliberately varied task order and retained frozen reference histories. [[paper]](https://arxiv.org/abs/2608.01149)
+
+> **The empty index.** Improvement's third index, the round, has no standard setting: an evaluation that ends when the loop ends has no later round to look at. No reviewed report re-measures a credited margin at a later round.
 
 ### 3.2 Longitudinal & Dynamic Evidence
 
@@ -460,17 +483,19 @@ Persistent self-evolution adds no fifth claim. It requires the same four to be r
 
 | Claim | Control | What to record | Confound removed |
 |---|---|---|---|
-| Selection | Evidence separation | Which tasks and signals inform generation, ranking, admission, and post-freeze reporting — including which round was reported | Adaptive feedback leakage; post-selection reporting |
-| Selection | Oracle integrity | That scoring, verification, and bookkeeping code lie outside the editable surface | Metric exploitation by the updating system |
-| Activation | Activation record | Per task and attempt: artifact available, path ran, trajectory followed | Crediting an update that never operated |
-| Attribution | Execution variation | Re-executions of frozen checkpoints, with the margin read against that dispersion rather than against zero | Sampling noise read as progress |
-| Attribution | Declared compute envelope | Tokens, model and verifier calls, tool executions, retries, wall-clock, candidate count — including growth that alters no declared limit | Added inference compute read as a harness gain |
-| Attribution | Model snapshot record | Provider model id and version, decoding parameters, any provider-side change in the window | A provider-side model change read as a harness gain |
-| Improvement | Controlled histories | Varied task order, frozen reference histories, probes on earlier distributions the loop does not control, and a re-check several rounds after a gain was credited | Curriculum effects read as transfer; a one-time gain read as a standing property |
+| Selection | Evidence separation | Which tasks and signals were used for proposal, ranking, admission, and reporting, and how the reported round and configuration were chosen | Reporting evidence reused by the search |
+| Selection | Oracle integrity | That scoring, verification, and bookkeeping code lie outside what a candidate can edit or repeatedly probe | A candidate changing the measurement that judges it |
+| Activation | Activation record | For each task and attempt in the scored runs, the three rates: available, path ran, effect carried | An update credited although it never operated |
+| Attribution | Execution variation | Repeated runs of the frozen state on the same tasks, or a paired test over per-task outcomes, with the margin set against that spread. Spread over judges or evaluator seeds does not count | Noise read as progress |
+| Attribution | Inference envelope | For the scored runs: generated tokens, model and verifier calls, turns, retries, attempts or candidates sampled, and the reasoning-effort setting. Context added by the artifact and search cost are stated separately | Added inference compute read as a harness gain |
+| Attribution | Model and evaluator record | Model identifier and version, decoding parameters, scorer and judge versions, and any change to them during the study | A changed model or grader read as a harness gain |
+| Improvement | Controlled histories | Varied task orders, a frozen reference state kept alongside the loop, probes on earlier distributions the loop does not control, and a re-measurement of each credited gain several rounds later | Order effects read as transfer or retention; a gain measured once read as lasting |
 
-Each control buys less than its name suggests. Permuting task orders measures curriculum sensitivity, not transfer. Historical probes measure retention only until their results start guiding later updates. None of them restores independence to an adaptively reused stream.
+Each control buys less than its name suggests. Permuting task orders measures sensitivity to order, not transfer. Probes on earlier distributions measure retention only until their results begin to guide later updates. A later re-measurement shows whether a credited gain is still there, but not which update in between removed it. None of them restores independence to an adaptively reused stream.
 
 </details>
+
+**Auditing retained state.** None of the four claims is tied to the round that accepted an update. Asked at a later round, each changes: have the probes stayed outside the loop; is the admitted artifact still loaded and still followed; can the difference still be separated from an envelope grown since; is the credited difference still there? A longitudinal report should state which of these it observes — state carryover, later-run activation, retention, rollback, adaptive reuse, cumulative cost.
 
 #### Active-Set Integrity
 
@@ -520,11 +545,10 @@ Each control buys less than its name suggests. Permuting task orders measures cu
 - **MemoryArena** `arXiv'26` — interdependent multi-session tasks in which earlier writes affect later work. [[paper]](https://arxiv.org/abs/2602.16313)
 - **Evo-Memory** `arXiv'25` — benchmarks test-time learning with self-evolving memory. [[paper]](https://arxiv.org/abs/2511.20857)
 - **Tool-Genesis** `arXiv'26` — task-driven tool-creation benchmark for self-evolving agents. [[paper]](https://arxiv.org/abs/2603.05578)
-- **EvoCodeBench** `arXiv'26` — human-performance benchmark for self-evolving code agents. [[paper]](https://arxiv.org/abs/2602.10171)
 - **SWE-EVO** `arXiv'25` — long-horizon software-evolution scenarios for coding agents. [[paper]](https://arxiv.org/abs/2512.18470)
-- **GDPevo** `arXiv'26` — evaluates agent self-evolution on real business tasks. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
 - **CL-Bench** `arXiv'26` — frontier systems in real-world stateful continual-learning settings. [[paper]](https://arxiv.org/abs/2606.05661)
-- **EvoHarnessBench** `arXiv'26` — isolates non-stationarity in the supplied harness and tests retention as capabilities are added. [[paper]](https://arxiv.org/abs/2609.04280)
+
+The count, validity, or diversity of the artifacts a loop produces is evidence that state was produced, not that it was activated or that it improved anything. Ablating the persistence mechanism (PAST-Bench, FinEvo-Bench) shows that persistence changes outcomes under the tested protocol; it does not identify which stored item caused the difference.
 
 > **Crossed evaluation.** Comparing `H_t` on snapshot `D_A` against `H_{t+1}` on `D_B` mixes harness drift with benchmark drift. Evaluate both states on both snapshots under the same scoring procedure: within-snapshot differences are then attributable to the harness, within-state differences to the snapshot. Crossing does not restore independence if either snapshot already informed candidate generation or admission. Where full crossing is too costly, keep a versioned set of anchor tasks across adjacent snapshots and report the coverage and replication chosen.
 
@@ -534,7 +558,7 @@ Each control buys less than its name suggests. Permuting task orders measures cu
 
 Expressivity is not the binding constraint — a harness in a Turing-complete language can express arbitrary control logic. What binds is **how such a program is searched** and **what its evaluation supports**. Refinement runs on objective evaluations and rollout feedback rather than gradients, which places harness search with zeroth-order optimization over programs.
 
-> This is the one section that re-lists systems already placed in Sections 1–2, because here the contribution *is* the mapping.
+> This section follows the article's theory section (its Section 5) and is not a branch of the taxonomy figure. It is the one section that re-lists systems already placed in Sections 1–2, because here the contribution *is* the mapping. The bounds are sufficient conditions under explicit sampling assumptions; they do not establish PAC learnability of the surveyed systems.
 
 ### 4.1 Evolutionary Paradigms
 
@@ -558,7 +582,7 @@ Expressivity is not the binding constraint — a harness in a Turing-complete la
 - **Learnability, Stability and Uniform Convergence** `JMLR'10` — relates an algorithm's sensitivity to individual observations to its generalization gap. [[paper]](https://www.jmlr.org/papers/v11/shalev-shwartz10a.html)
 - **Memory Bounds for Continual Learning** `FOCS'22` — lower bounds on the memory a continual learner needs, motivating generalization and retention as one joint question. [[paper]](https://arxiv.org/abs/2204.10830)
 
-The stability argument gives `|E[R_s(H_t) − R̂_s(H_t)]| ≤ β_{s,t}` under exogenous, independent task draws, and the retention decomposition `E R_s(H_t) ≤ E R̂_s(H_s) + β_{s,s} + E F_{s,t}` with `F_{s,t} ≤ Σ_u ε_{s,u}`: **even small tolerated regressions accumulate across rounds**. Abstraction and small edits do not themselves bound `β` — one observation can still change a shared rule or the selected lineage.
+The stability argument gives `|E[R_s(H_k) − R̂_s(H_k)]| ≤ β_{s,k}` under exogenous, independent task draws, and the retention decomposition `E R_s(H_k) ≤ E R̂_s(H_s) + β_{s,s} + E F_{s,k}` with `F_{s,k} ≤ Σ_u ε_{s,u}`: **even small tolerated regressions accumulate across rounds**. Abstraction and small edits do not themselves bound `β` — one observation can still change a shared rule or the selected lineage.
 
 #### Confidence-Gated Admission
 
@@ -567,7 +591,7 @@ The stability argument gives `|E[R_s(H_t) − R̂_s(H_t)]| ≤ β_{s,t}` under e
 - **The Reusable Holdout** `Science'15` — preserves validity of a holdout reused across adaptive, data-dependent decisions. [[paper]](https://doi.org/10.1126/science.aaa9375) · [[companion]](https://arxiv.org/abs/1506.02629)
 - **SkillForge** `SIGIR'26 Industry` — reserves a final temporal partition so the reported number is not the one the gate consumed. [[paper]](https://doi.org/10.1145/3805712.3808466)
 
-Accepting a candidate only when `Δ̂_t(H′) + sqrt(2 ln(KT/δ) / m) < 0` certifies improvement on that round's task mixture. The condition is conservative, and it applies to the **evaluated candidate** — not to an untested merge, nor to a revision made after inspecting the validation set. The independent unit is a *task*: repeated executions of one task reduce execution noise without creating new independent evidence.
+Accepting a candidate only when `Δ̂_k(H′) + sqrt(2 ln(KT/δ) / m) < 0` certifies improvement on that round's task mixture, for at most `K` candidates per round over `T` rounds, each compared against the incumbent on `m` fresh tasks. In claim terms this sets improvement's three indices — fresh draws from the historical mixture, the incumbent as baseline, the accepting round — and the union bound is what lets the same tasks both admit and report; reusing them without that correction, or in a later round, would not be valid. The condition is conservative, and it applies to the **evaluated candidate** — not to an untested merge, nor to a revision made after inspecting the validation set. The independent unit is a *task*: repeated executions of one task reduce execution noise without creating new independent evidence.
 
 #### Self-Improvement Limits
 
@@ -593,40 +617,55 @@ Accepting a candidate only when `Δ̂_t(H′) + sqrt(2 ln(KT/δ) / m) < 0` certi
 
 ## 5. Evidence Audit of 96 Methods
 
-Every method in Sections 1–2 was read from its primary source against the four claims. **Full per-method verdicts, the rubric, and the recorded basis for each cell are in [`docs/claim-audit.md`](docs/claim-audit.md).**
+Every method in Sections 1–2 was read from its primary source against the four claims. For each method one comparison is fixed — the result its report leads with, against the same-model baseline that result is stated against — and all four verdicts are read off it; other experiments in the same report are recorded separately and not counted. **Full per-method verdicts, the headline each row is read off, the rubric, and the recorded basis for each cell are in [`docs/claim-audit.md`](docs/claim-audit.md).**
 
-| Claim | ✅ full | ◐ partial | — absent |
+![Evidence reported for each claim across the 96 methods](assets/claim-audit.png)
+
+<p align="center"><sub><b>Evidence reported for each claim</b> (the article's Figure 6). (a) Reports grouped by how many of the four claims they carry at full evidence; no report carries all four. (b) Verdicts per claim, aligned where full evidence ends; every row totals 94.</sub></p>
+
+| Claim | ✅ full | ◐ partial | — not supported |
 |---|---:|---:|---:|
-| Selection | 26 | 56 | 12 |
-| Activation | 33 | 60 | 1 |
-| Attribution | 53 | 38 | 3 |
-| Improvement | 57 | 23 | 14 |
+| Selection | 41 | 19 | 34 |
+| Activation | 14 | 80 | 0 |
+| Attribution | 24 | 68 | 2 |
+| Improvement | 54 | 18 | 22 |
 
-*94 of 96 methods scored; 2 report no empirical evaluation. Bar lengths are **not** comparable across claims: a full mark for selection is a conjunction of three conditions, while a full mark for improvement is a disjunction over its three indices. The ordering reflects how demanding each criterion is as much as how carefully the field reports.*
+*94 of 96 methods scored; 2 report no empirical evaluation. Bar lengths are **not** comparable across claims: full evidence for selection is a conjunction of four conditions — proposal, ranking, admission, and report choice all kept off the reporting evidence — while full evidence for improvement needs only a headline on tasks at a distance from those that formed the update. The ordering reflects how demanding each criterion is as much as how carefully the field reports.*
 
-**Claims with full evidence in the same report**, since a conclusion stops at the earliest claim its evidence fails:
+**Claims with full evidence in the same report:**
 
 | 0 of 4 | 1 | 2 | 3 | 4 of 4 |
 |---:|---:|---:|---:|---:|
-| 13 | 29 | 22 | 24 | **6** |
+| 24 | 20 | 37 | 13 | **0** |
 
-Three findings worth stating plainly:
+Three findings:
 
-1. **Activation is usually assumed from storage.** It is almost never wholly absent (1 of 94) and rarely established (33): an artifact is routinely shown to be *present* and seldom shown to have *governed* the run.
-2. **Selection draws the fewest full marks** (26 of 94) — the reporting score is repeatedly spent on the split, the gate, or the round.
-3. **The round index is empty.** Of 57 methods earning a full improvement mark, all but two rest on a held-out or transfer partition read *at the accepting round*. **No reviewed report re-checks a credited gain at a later round.**
+1. **The claims are rarely established together.** No report carries all four at full evidence, 13 carry three, and 24 carry none. The most common profile, shared by 21 reports, is a clean held-out result and nothing more: selection and improvement at full evidence, activation and attribution partial. Of the 13 reports that miss only one claim, ten miss activation.
+2. **The two claims about the scored runs themselves are the weakest.** Only 14 reports show the update operating in the scored runs, 24 establish attribution, and five do both. Most others show that the artifact was loaded, or that its path ran during search or screening, and compare scores without measuring execution variation or without controlling the inference envelope. None of the 12 prompt optimizers records the prompt operating, although all 12 report on held-out tasks.
+3. **Selection splits the corpus, along the update target.** 41 reports keep the reporting evidence clean and 34 do not. Of those 34, 26 report wholly or partly on the tasks the loop evolved against; the other eight hold out a partition and then use it to choose what they report. Tools and code patches keep selection clean most often (11 of 15), repository-level search least often (4 of 15).
 
-The five systems whose reports expose the most procedural detail:
+All 54 full-evidence improvement headlines use a held-out or transfer partition read **at the accepting round**. A probe on an earlier distribution appears once, outside its report's headline comparison (PolySkill), and **no reviewed report re-measures a credited margin at a later round**.
 
-| System / target | Sel. | Act. | Att. | Imp. | Operational evidence | Weakest link |
+| Update target | n | Sel. ✅ | Act. ✅ | Att. ✅ | Imp. ✅ |
+|---|---:|---:|---:|---:|---:|
+| Prompts & instructions | 12 | 6 | 0 | 4 | 12 |
+| Memory & procedures | 36 | 14 | 8 | 12 | 19 |
+| Workflows & topologies | 12 | 4 | 1 | 3 | 8 |
+| Tools & code patches | 15 | 11 | 3 | 3 | 7 |
+| Repository & runtime logic | 15 | 4 | 1 | 2 | 7 |
+| Everything is a plugin | 4 | 2 | 1 | 0 | 1 |
+
+Five harness-level systems whose reports describe runtime traces, promotion rules, and evaluation code in enough detail to say where the evidence is thinnest (the article's Table 4):
+
+| System / target | Sel. | Act. | Att. | Imp. | What the report shows | Where it falls short |
 |---|:-:|:-:|:-:|:-:|---|---|
-| **HarnessBank** · harness surface | ✅ | ✅ | ✅ | ✅ | Immutable kernel and held-out test; per-attempt beacons; paired *z* tests against the parent with an off-diagonal counterfactual | [Att.] envelope declared within 2.1×, not matched |
-| **AHE** · workflow / code | — | ✅ | ✅ | ✅ | Per-run submit and shell-block beacons; one evolved layer swapped at a time; frozen transfer to SWE-bench Verified | [Sel.] best round selected on the evolution set |
-| **Self-Harness** · harness edits | ◐ | ✅ | ◐ | ◐ | Dual-split promotion rule; injected middleware turn visible in traces | [Sel.] held-out split reused by the gate |
-| **HarnessX** · code / workflow | — | ✅ | ◐ | — | Declared trace feature; identical-config replay | [Sel.] peak round reported on the evolution set |
-| **MOSS** · deployed image | ◐ | ◐ | ◐ | — | Health probes on the swapped image; three trials per task | [Sel.] evolution batch reused as the test set |
+| **HarnessBank** · component patch | ✅ | ◐ | ◐ | ✅ | Evaluation code in a kernel candidates cannot edit; sealed test split; three attempts per task with paired *z* tests | [Act.] Beacons are logged in screening, not in the sealed-test runs. [Att.] The cost it reports is search budget, not the inference of the scored runs. |
+| **Self-Harness** · component patch | ◐ | ✅ | ✅ | ◐ | Promotion rule over held-in and held-out splits; guard visible in traces of the headline run; 22.5% → 52.2% on 180 tasks | [Sel.] The promotion rule consults the held-out split every round. [Imp.] The headline pools the held-in half that supplied the edits. |
+| **AHE** · component patch | — | ✅ | ◐ | — | Submit-guard and shell-block records in rollouts of the reported round, shown as cases; one evolved layer swapped in at a time | [Sel.] The best round is chosen on the evolution tasks. [Imp.] The headline is scored on those same tasks. |
+| **HarnessX** · plugin composition | — | ✅ | ◐ | — | Declared trace feature checked against the next round's traces; per-task inference cost declared | [Sel.] The peak round is reported on the evolution tasks. [Imp.] No held-out tasks. |
+| **MOSS** · repository logic | — | ◐ | ◐ | — | Health probes on the swapped image; three trials per task | [Sel., Imp.] The same four tasks are the evolution batch and the test set. |
 
-<sub>✅ full evidence of the kind the claim requires · ◐ partial · — not supported. *Weakest link* is the earliest claim whose support is thinnest; for HarnessBank it is a residual limitation, not a shortfall.</sub>
+<sub>✅ full evidence of the kind the claim requires · ◐ partial · — not supported, read off each report's headline result. Rows are ordered by the number of claims at full evidence.</sub>
 
 ---
 
@@ -644,14 +683,37 @@ The five systems whose reports expose the most procedural detail:
 
 ## 7. Deployed Harnesses & Product Surfaces
 
-*These persist state across sessions and mark the update target, but report no feedback-driven update loop — so they are listed here rather than in the taxonomy. Useful as ground truth for what the interface actually exposes.*
+![Applications of harness self-evolution across five deployment regimes](assets/applications.png)
+
+<p align="center"><sub><b>Five deployment regimes</b> (the article's Figure 7): personal and developer workspaces, enterprise processes, scientific discovery, embodied interaction, and regulated public and clinical systems. They share one execution → feedback → validation → reuse lifecycle but differ in how state is shared, how revisions can be verified, and whether external actions can be undone — so the cost of a wrong admission ranges from a recoverable skill file to a physical action no rollback reverses.</sub></p>
+
+*The products below persist state across sessions and mark the update target, but report no feedback-driven update loop — and none of their documentation reports whether a retained artifact was read on a later run — so they are listed here rather than in the taxonomy. Useful as ground truth for what the interface actually exposes.*
 
 - **Claude Code memory** — project memory files loaded as session context. [[docs]](https://code.claude.com/docs/en/memory)
 - **Agent Skills** — file-based skills packaged for reuse across runs. [[post]](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 - **Gemini CLI auto memory** — automatic memory capture in the CLI. [[docs]](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/auto-memory.md)
 - **GitHub Copilot memory** — persistent memory for the coding agent. [[docs]](https://docs.github.com/en/copilot/concepts/agents/copilot-memory)
+- **Windsurf Cascade memories** — memories and rules carried across Cascade sessions. [[docs]](https://docs.devin.ai/desktop/cascade/memories)
+- **Cursor automations** — automations that draw on memory of past runs. [[changelog]](https://cursor.com/changelog/03-05-26)
+- **Devin session insights** — insights extracted from completed sessions. [[docs]](https://docs.devin.ai/product-guides/session-insights)
+- **Augment memory review** — agent memories gated by a reviewer before they persist. [[post]](https://www.augmentcode.com/blog/how-we-built-memory-review)
+- **Replit Agent skills** — user-installable skill layer for the agent. [[docs]](https://docs.replit.com/features/agent/skills)
+- **Letta Code** — a coding agent with persistent memory and skills. [[post]](https://www.letta.com/blog/introducing-the-letta-code-app/)
+- **OpenClaw memory** — file-based memory for a personal agent. [[docs]](https://docs.openclaw.ai/concepts/memory)
+- **Hermes Agent skills** — user-installable skills system. [[docs]](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
+- **Prime Agent** — advertised as a self-improving agent that modifies itself. [[code]](https://github.com/PrimeIntellect-ai/prime-agent)
+- **OB-1** — advertised as an agent that built itself. [[page]](https://www.openblocklabs.com/)
 - **Building Effective AI Agents** — the harness-design vocabulary most of these products assume. [[post]](https://www.anthropic.com/engineering/building-effective-agents)
 - **Effective Context Engineering for AI Agents** — why an accumulating instruction set is a budget problem. [[post]](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
+<details>
+<summary><b>Societal and economic implications</b> (the article's Section 8)</summary>
+
+![Societal and economic implications of harness self-evolution](assets/social-impact.png)
+
+Every accepted modification alters the persistent execution layer inherited by future tasks, teams, and downstream workflows. The article maps five mechanisms — reusable procedures, feedback and testing at scale, institutional knowledge reuse, persistent shared memory, versioned automated rules — to potential effects on labor and skill formation, market concentration and verification moats, public services and epistemic bottlenecks, data retention and security, and institutional power and contestability. Arrows denote hypothesized pathways, not established causal estimates; each comes with indicators for empirical assessment.
+
+</details>
 
 ---
 
@@ -661,6 +723,7 @@ The five systems whose reports expose the most procedural detail:
 |---|---|
 | **Harness-of-Harness** `arXiv'26` [[paper]](https://arxiv.org/abs/2609.01481) | Multi-day autonomous development in which planning, coding, and testing revise the *task's* software artifact while the harness–model configuration stays fixed. No harness revision, so the scope test fails. |
 | **Live-SWE-agent** (listed, flagged) | Tools are synthesized per task and discarded with the container: tool synthesis without persistence. |
+| **EvoCodeBench** `arXiv'26` [[paper]](https://arxiv.org/abs/2602.10171) | Measures refinement across repeated attempts on one problem, the within-run case the scope excludes, rather than a persisted update. Dropped from the lifelong testbeds. |
 | **Gödel Agent** (listed, flagged) | Patches live process memory; the revision governs later decision steps but disappears when the process ends. |
 | **Deployed products** ([Section 7](#7-deployed-harnesses--product-surfaces)) | State persists across sessions, but no feedback-driven update loop is reported. |
 | **Self-Refine / Self-Debug class** | Correction consumed within the same rollout. |
@@ -705,12 +768,13 @@ How recent surveys cover the lifecycle. ✅ dedicated section reviewing multiple
 
 | Date | Change |
 |---|---|
+| 2026-10-09 | Synced to the latest article draft (now titled *Theory, Algorithms, Evaluation, Applications, and Impact*). **−1 entry, +10 product surfaces.** Taxonomy: three branches, theory no longer a branch; Section 3 regrouped into *Selection & Oracle Integrity* (+HarnessOpt-Bench), *Attribution Controls* (+Claw-Eval), and *Generalization & Retention* (HarnessDev, GDPevo, EvoHarnessBench, PATH-Bench), replacing *Reach & Retention*; EvoCodeBench moved to boundary cases; *Evolve as a Team* renamed Meta-Team. Claim audit re-scored one headline comparison per method under the revised rubric (activation graded available / reached / carried); all counts in [Section 5](#5-evidence-audit-of-96-methods) and [`docs/claim-audit.md`](docs/claim-audit.md) replaced. All figures re-exported; added the claim-audit, applications, and societal-impact figures. Added the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/). |
 | 2026-10-02 | +0 entries. Added 43 `[[code]]` / `[[project]]` / `[[list]]` links, every one taken from the paper's own abstract or comment field. Added the mechanism jump index and [`scripts/check_consistency.py`](scripts/check_consistency.py). Corrected five citations: one venue label, four links that claimed a published venue while pointing at the preprint. |
 | 2026-10-01 | +187 entries. Initial release across the four taxonomy branches; claim audit for 96 methods. |
 
 Entry deltas are recorded above, so this table answers whether the list is still being added to rather than only whether the maintainers have news. Refreshed monthly, and on acceptance news for any listed preprint — `arXiv'YY` labels are upgraded to the venue when a work is accepted, which is the single most common correction. Open an issue for a missing work rather than waiting for the sweep.
 
-[`scripts/check_consistency.py`](scripts/check_consistency.py) enforces what it can: anchors resolve, no entry is listed twice ([Section 4](#4-theory) is the declared exception), the two language versions cover the same works, no heading carries an emoji that would break its anchor, and no file is unreachable. It cannot tell that a link points at the *right* paper, so that stays a manual check. The badge counts and the audit rates in [Section 5](#5-evidence-audit-of-96-methods) are regenerated from [`docs/claim-audit.md`](docs/claim-audit.md), not edited by hand.
+[`scripts/check_consistency.py`](scripts/check_consistency.py) enforces what it can: anchors resolve, no entry is listed twice ([Section 4](#4-theory) is the declared exception), the two language versions cover the same works, no heading carries an emoji that would break its anchor, no file is unreachable, and the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/)'s reading-list data (`site/corpus.js`, generated by [`scripts/build_site_data.py`](scripts/build_site_data.py)) matches this README. It cannot tell that a link points at the *right* paper, so that stays a manual check. The badge counts and the audit rates in [Section 5](#5-evidence-audit-of-96-methods) are regenerated from [`docs/claim-audit.md`](docs/claim-audit.md), not edited by hand.
 
 **On release of the companion article**, the BibTeX above gets its real identifier and `@misc` becomes the accepted entry type. A citation block left at `@misc` after acceptance is the most visible way a list of this kind goes stale.
 
@@ -739,8 +803,8 @@ Pull requests welcome. The bar is deliberately specific, because the point of th
 
 ```bibtex
 @misc{wei2026harnessrsi,
-  title  = {Harness Self-Evolution: Theory, Algorithm, Evaluations,
-            Applications, and Social Impacts},
+  title  = {Harness Self-Evolution: Theory, Algorithms, Evaluation,
+            Applications, and Impact},
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
