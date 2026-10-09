@@ -54,7 +54,7 @@ $$
 H_{k+1}=\mathrm{Update}(H_k,\mathcal{B}_k)
 $$
 
-The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejection leaves $H_{k+1}=H_k$. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
+The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejected candidates leave the harness unchanged. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
 
 Self-evolution describes this update process. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
 
