@@ -79,11 +79,11 @@
   // Subsection numbers follow the article: §3.2-3.4, §4.1-4.3, §6.2-6.3.
   var BRANCHES = [
     { key: "interpreted", cls: "int", num: "§3", first: [3, 2], title: "Interpreted update targets",
-      gloss: "Model-readable content and coordination state read by a fixed host. Behavioral: an instruction shifts tendencies but cannot impose a runtime invariant." },
+      gloss: "Instructions, memory, procedures, and workflows read by a fixed host." },
     { key: "executable", cls: "exe", num: "§4", first: [4, 1], title: "Executable update targets",
-      gloss: "Implementations the host invokes directly: tools, component files, control programs, plugins. Execution can be enforced by the host; the changed path still needs a trace in scored runs." },
+      gloss: "Tools, code, control programs, and plugins executed by the host." },
     { key: "evaluation", cls: "eva", num: "§6", first: [6, 2], title: "Evaluation & benchmarks",
-      gloss: "Works whose own contribution is an evaluation protocol or an empirical study, placed under the claim their protocol enforces." }
+      gloss: "Protocols and testbeds for evaluating harness updates." }
   ];
   function renderBranch(b, host) {
     var subs = tree(b.key);

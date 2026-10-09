@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<link rel="stylesheet" href="site/style.css?v=7">
+<link rel="stylesheet" href="site/style.css?v=8">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -48,7 +48,7 @@
           <button class="btn paper-pending" type="button" disabled>Paper PDF <span class="soon">Coming soon</span></button>
           <a class="btn primary" href="#explorer">Explore the reading list <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="hero-links"><a href="#evidence">Reported Evidence</a><span aria-hidden="true">/</span><a href="#cite">BibTeX</a></div>
+        <div class="hero-links"><a href="#evidence">Evidence</a><span aria-hidden="true">/</span><a href="#cite">BibTeX</a></div>
       </div>
       <div class="hero-visual" id="landscape">
         <div class="figure hero-figure">
@@ -78,15 +78,14 @@
     <nav class="nav-links" id="nl" aria-label="Sections">
       <p class="contents-label">In this survey</p>
       <a href="#overview"><span>01</span>Overview</a>
-      <a href="#related"><span>02</span>Related work</a>
-      <a href="#definition"><span>03</span>Definition</a>
-      <a href="#taxonomy"><span>04</span>Taxonomy</a>
-      <a href="#theory"><span>05</span>Theory</a>
-      <a href="#evaluation"><span>06</span>Evaluation</a>
-      <a href="#evidence"><span>07</span>Reported evidence</a>
-      <a href="#applications"><span>08</span>Applications</a>
-      <a href="#explorer"><span>09</span>Reading list</a>
-      <a href="#cite"><span>10</span>Citation</a>
+      <a href="#definition"><span>02</span>Definition</a>
+      <a href="#taxonomy"><span>03</span>Taxonomy</a>
+      <a href="#theory"><span>04</span>Theory</a>
+      <a href="#evaluation"><span>05</span>Evaluation</a>
+      <a href="#evidence"><span>06</span>Evidence</a>
+      <a href="#applications"><span>07</span>Applications</a>
+      <a href="#explorer"><span>08</span>Reading list</a>
+      <a href="#cite"><span>09</span>Citation</a>
       <a class="back-top" href="#top">Back to top ↑</a>
     </nav>
   </aside>
@@ -98,69 +97,54 @@
     <div class="sec-head">
       <div class="sec-kicker">Overview</div>
       <h2 class="sec-title">Learning from experience, weights fixed</h2>
-      <p class="sec-sub">The harness turns a general-purpose model into an operating agent. It can be revised without access to weights, and each revision is a named state transition — but <b>an update is not an improvement</b>. Whether an accepted change helped has to be shown, not assumed.</p>
+      <p class="sec-sub">Execution feedback can improve an agent’s harness without changing its model weights. This survey connects update mechanisms, theory, and evidence of improvement.</p>
     </div>
     <div class="figure">
       <img src="assets/landscape.png" alt="Growth and classification of harness self-evolution work from 2023 to 2026 Q3" loading="lazy" decoding="async">
-      <p class="figcap"><b>Figure 2.</b> Growth and classification of harness self-evolution work, per period and by primary emphasis. Systems named are illustrative; inclusion implies neither continuing self-evolution nor measured improvement.</p>
+      <p class="figcap"><b>Figure 2.</b> Research growth and representative systems, grouped by primary emphasis.</p>
     </div>
 
   </div>
 </section>
 
-<section id="related" class="compact">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-kicker">Related work</div>
-      <h2 class="sec-title">From update mechanisms to evidence</h2>
-      <p class="sec-sub">Earlier surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets with theory and examines what published comparisons support. <a href="https://github.com/zgcagi/Harness-RSI#related-surveys">Read the related surveys →</a></p>
-    </div>
-  </div>
-</section>
 
 <!-- DEFINITION -->
 <section id="definition">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-kicker">Definition</div>
-      <h2 class="sec-title">What counts as harness self&#8209;evolution</h2>
-      <p class="sec-sub">A harness \(H\) is the software and configuration around a model \(M\) that governs its execution in an environment \(E\). The evaluation procedure \(J\) sits outside \(H\), so a change in \(J\) is a change in the measurement, not a harness update.</p>
+      <h2 class="sec-title">A persistent update loop</h2>
+      <p class="sec-sub">Execution feedback revises the harness \(H\) around a fixed model \(M\). Accepted changes persist across runs, and later experience can trigger further updates.</p>
     </div>
     <div class="def-grid">
       <div class="formula">
-        <div class="formula-step">
-          <h3 class="lbl">Rollout</h3>
-          <p class="step-note">Run the agent and score its trajectory.</p>
-          <div class="eq">\[\tau \sim \operatorname{Run}(M, H, E)\]</div>
-          <div class="eq">\[y = J(\tau)\]</div>
-        </div>
-        <div class="formula-step">
-          <h3 class="lbl">Update round \(k\)</h3>
-          <p class="step-note">Collect a batch of trajectories, then revise the harness.</p>
-          <div class="eq">\[\tau_{k,i} \sim \operatorname{Run}(M, H_k, E_{k,i})\]</div>
-          <div class="eq">\[\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b}\]</div>
-          <div class="eq">\[H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\]</div>
-        </div>
-        <p class="notation">\(\tau\): trajectory · \(y\): score · \(b\): batch size</p>
-        <p class="note">\(\operatorname{Update}\) includes diagnosis, proposal, evaluation, and retention. Rejection leaves \(H_{k+1}=H_k\). <b>The model \(M\) stays fixed.</b></p>
+        <h3 class="lbl">Run, collect, update</h3>
+        <div class="eq">\[\tau_{k,i} \sim \operatorname{Run}(M, H_k, E_{k,i})\]</div>
+        <div class="eq">\[\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b}\]</div>
+        <div class="eq">\[H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\]</div>
+        <p class="notation">\(\tau\): trajectory · \(E\): environment · \(b\): batch size</p>
+        <p class="note">Model and evaluator stay fixed. Rejected updates leave \(H_{k+1}=H_k\).</p>
       </div>
       <div class="loop-card">
-        <p class="loop-label">The operational update loop</p>
-        <ol class="loop-steps">
-          <li><span>01</span><div><b>Execute</b><small>Run the current harness.</small></div></li>
-          <li><span>02</span><div><b>Feedback</b><small>Collect outcomes and execution traces.</small></div></li>
-          <li><span>03</span><div><b>Propose</b><small>Form a candidate revision.</small></div></li>
-          <li><span>04</span><div><b>Admit</b><small>Evaluate and accept or reject the change.</small></div></li>
-          <li><span>05</span><div><b>Persist</b><small>Save the accepted state for later runs.</small></div></li>
-        </ol>
-        <p class="loop-return">↳ Later runs load the accepted state and repeat the loop.</p>
-        <p class="loop-note">Persistence ≠ activation ≠ improvement</p>
+        <svg class="update-loop" viewBox="0 0 440 360" role="img" aria-label="The operational update loop: execute, feedback, propose, admit, persist, and later runs load the accepted state">
+          <defs><path id="loopPath" d="M220 50 A 130 130 0 1 1 219.9 50"/></defs>
+          <circle cx="220" cy="180" r="130" fill="none" stroke="var(--line)" stroke-width="10"/>
+          <circle cx="220" cy="180" r="130" fill="none" stroke="var(--brand)" stroke-width="2" stroke-dasharray="4 7" opacity=".55"/>
+          <circle class="loop-orbit" r="7" fill="var(--brand)"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#loopPath"/></animateMotion></circle>
+          <g font-family="Manrope, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+            <g><rect x="160" y="30" width="120" height="38" rx="6" fill="var(--surface)" stroke="var(--int)"/><text x="220" y="54" fill="var(--ink)">Execute</text></g>
+            <g><rect x="318" y="108" width="112" height="38" rx="6" fill="var(--surface)" stroke="var(--int)"/><text x="374" y="132" fill="var(--ink)">Feedback</text></g>
+            <g><rect x="296" y="246" width="112" height="38" rx="6" fill="var(--surface)" stroke="var(--exe)"/><text x="352" y="270" fill="var(--ink)">Propose</text></g>
+            <g><rect x="32" y="246" width="112" height="38" rx="6" fill="var(--surface)" stroke="var(--exe)"/><text x="88" y="270" fill="var(--ink)">Admit</text></g>
+            <g><rect x="10" y="108" width="112" height="38" rx="6" fill="var(--surface)" stroke="var(--eva)"/><text x="66" y="132" fill="var(--ink)">Persist</text></g>
+          </g>
+          <g font-family="Manrope, sans-serif" font-size="11.5" fill="var(--muted)" text-anchor="middle">
+            <text x="220" y="168">accepted state is</text>
+            <text x="220" y="184" font-weight="700" fill="var(--brand)">loaded by later runs</text>
+            <text x="220" y="340">persistence ≠ activation ≠ improvement</text>
+          </g>
+        </svg>
       </div>
-    </div>
-    <div class="conds">
-      <div class="cond"><h4>Operational feedback &amp; continuity</h4><p>The agent's own execution feedback drives an algorithmic update, and the mechanism stays in place so later runs can trigger further updates.</p></div>
-      <div class="cond"><h4>Persistence across runs</h4><p>An accepted state is persisted and actually loaded by a later run. Whether it then operated is the activation claim, not a condition of scope.</p></div>
-      <div class="cond"><h4>Fixed base model</h4><p>The analysis fixes model weights to isolate the harness effect. Co-evolving systems are read for their harness arm; changing models requires an attribution control.</p></div>
     </div>
   </div>
 </section>
@@ -170,14 +154,14 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-kicker">Taxonomy</div>
-      <h2 class="sec-title">Organized by what an update modifies</h2>
-      <p class="sec-sub">Interpreted targets shift behavior through a fixed host; executable targets <b>run</b>. Each work is listed once, under what it contributes. Click a mechanism to list its works.</p>
+      <h2 class="sec-title">What evolves</h2>
+      <p class="sec-sub">Two update targets: content the model reads and code the host executes. Select a mechanism to browse its papers.</p>
     </div>
     <div class="branches" id="branches"></div>
     <div class="branch eva" style="margin-top:22px" id="branch-eva"></div>
     <div class="figure" style="margin-top:34px">
       <img src="assets/overview.png" alt="Harness update targets and the operational update loop" loading="lazy" decoding="async">
-      <p class="figcap"><b>Figure 4.</b> Harness update targets and the operational update loop. Persistence and deployment alone establish neither operational activation nor improvement.</p>
+      <p class="figcap"><b>Figure 4.</b> Harness update targets and the operational loop.</p>
     </div>
     <details class="fold">
       <summary>Full taxonomy and citation map (Figure 3)</summary>
@@ -192,24 +176,29 @@
     <div class="sec-head">
       <div class="sec-kicker">Theory</div>
       <h2 class="sec-title">Search without gradients</h2>
-      <p class="sec-sub">Task scores and execution traces guide revisions without differentiating through the program. <b>Evolutionary search</b> describes proposal and selection; continual PAC learning separates generalization, retention, and reliable admission.</p>
+      <p class="sec-sub">Evolutionary search explains proposal and selection. Continual PAC learning connects reliable admission with generalization and retention.</p>
     </div>
     <div class="theory-grid">
-      <div class="ea-table">
-        <div class="ea-row"><div class="p">Elitist (1+1) / ES</div><div class="m"><span>SICA</span><span>MCE</span><span>SkillOpt</span><span>SkillOpt-Lite</span><span>SkillClaw</span></div></div>
-        <div class="ea-row"><div class="p">Elitist (1+λ)-style</div><div class="m"><span>Self-Harness</span></div></div>
-        <div class="ea-row"><div class="p">Archive-based program search</div><div class="m"><span>DGM</span><span>DarwinX</span><span>HGM</span></div></div>
-        <div class="ea-row"><div class="p">Recombination / crossover</div><div class="m"><span>DarwinX</span><span>HarnessCompass</span><span>Self-Harness</span><span>MCE</span><span>Trace2Skill</span></div></div>
-        <div class="ea-row"><div class="p">Quality-diversity / MAP-Elites</div><div class="m"><span>HarnessBank</span></div></div>
-        <div class="ea-row"><div class="p">Cooperative coevolution</div><div class="m"><span>HarnessCompass</span></div></div>
-        <div class="ea-row"><div class="p">Multi-objective selection</div><div class="m"><span>Meta-Harness</span><span>Self-Harness</span><span>SkillMOO</span></div></div>
-        <div class="ea-row"><div class="p">Bandit-guided evolution</div><div class="m"><span>HGM</span></div></div>
-        <div class="ea-foot">A row means the search exhibits that paradigm's structure, which is weaker than implementing the algorithm. Selection acts on <i>observed</i> fitness, so retaining a better candidate establishes neither improvement on unseen tasks nor retention.</div>
-      </div>
       <div class="pac">
-        <div class="pac-card"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\[F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\]</div><p>Forgetting telescopes over rounds, so even small tolerated regressions add up.</p></div>
-        <div class="pac-card"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\[\widehat\Delta_k(H') + \sqrt{\frac{2\ln(KT/\delta)}{m}} < 0\]</div><p>For at most K candidates in each of T rounds, use m fresh independent tasks and bounded paired losses. Under a fixed model and evaluator, the gate covers the evaluated candidate on that round’s task mixture. Repeated rollouts reduce noise without adding independent tasks.</p></div>
+        <div class="pac-card"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\[F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\]</div><p>Small regressions can accumulate across update rounds.</p></div>
+        <div class="pac-card"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\[\widehat\Delta_k(H') + \sqrt{\frac{2\ln(KT/\delta)}{m}} < 0\]</div><p>For K candidates over T rounds: m fresh independent tasks, bounded paired losses, and a fixed model and evaluator. The guarantee applies to the current task mixture.</p></div>
       </div>
+      <details class="fold theory-map">
+        <summary>Search paradigms and representative methods</summary>
+        <div class="fold-body">
+          <div class="ea-table">
+            <div class="ea-row"><div class="p">Elitist (1+1) / ES</div><div class="m"><span>SICA</span><span>MCE</span><span>SkillOpt</span><span>SkillOpt-Lite</span><span>SkillClaw</span></div></div>
+            <div class="ea-row"><div class="p">Elitist (1+λ)-style</div><div class="m"><span>Self-Harness</span></div></div>
+            <div class="ea-row"><div class="p">Archive-based program search</div><div class="m"><span>DGM</span><span>DarwinX</span><span>HGM</span></div></div>
+            <div class="ea-row"><div class="p">Recombination / crossover</div><div class="m"><span>DarwinX</span><span>HarnessCompass</span><span>Self-Harness</span><span>MCE</span><span>Trace2Skill</span></div></div>
+            <div class="ea-row"><div class="p">Quality-diversity / MAP-Elites</div><div class="m"><span>HarnessBank</span></div></div>
+            <div class="ea-row"><div class="p">Cooperative coevolution</div><div class="m"><span>HarnessCompass</span></div></div>
+            <div class="ea-row"><div class="p">Multi-objective selection</div><div class="m"><span>Meta-Harness</span><span>Self-Harness</span><span>SkillMOO</span></div></div>
+            <div class="ea-row"><div class="p">Bandit-guided evolution</div><div class="m"><span>HGM</span></div></div>
+            <div class="ea-foot">Structural correspondences to search paradigms; they do not imply exact algorithm implementations.</div>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -220,17 +209,17 @@
     <div class="sec-head">
       <div class="sec-kicker">Evaluation</div>
       <h2 class="sec-title">Four claims behind a task score</h2>
-      <p class="sec-sub">An update can be stored and never used, used without being the cause, or be the cause only on the tasks that produced it — and the score looks the same in all three cases. Three claims must hold <b>in turn</b>; selection conditions every number they are read off.</p>
+      <p class="sec-sub">A reported gain needs evidence of independent selection, actual use, causal attribution, and generalization.</p>
     </div>
     <div class="claims">
-      <div class="claim s"><div class="k">Condition</div><h4>Selection</h4><p class="q">Was the number measured, not picked?</p><p>No outcome on the reporting tasks fed the proposal, ranking, admission, or choice of round and configuration.</p></div>
-      <div class="claim a"><div class="k">Step 1</div><h4>Activation</h4><p class="q">Did the update operate in the scored runs?</p><p>Bind direct records to the scored runs: available, reached, or carried. Record whether coverage is one case, a sample, or all runs.</p></div>
-      <div class="claim t"><div class="k">Step 2</div><h4>Attribution</h4><p class="q">Did the difference come from the update?</p><p>Arms differing only in the update, controlled inference compute, and a margin beyond measured execution variation.</p></div>
-      <div class="claim i"><div class="k">Step 3</div><h4>Improvement</h4><p class="q">Does the difference hold elsewhere?</p><p>Located by distance from the tasks that formed the update, baseline, and round.</p></div>
+      <div class="claim s"><div class="k">Condition</div><h4>Selection</h4><p>Reporting-task outcomes never guide proposal, ranking, admission, or round and configuration choice.</p></div>
+      <div class="claim a"><div class="k">Step 1</div><h4>Activation</h4><p>Direct traces show the update operated in scored runs, with coverage recorded.</p></div>
+      <div class="claim t"><div class="k">Step 2</div><h4>Attribution</h4><p>Controlled comparisons isolate the update’s effect beyond execution noise.</p></div>
+      <div class="claim i"><div class="k">Step 3</div><h4>Improvement</h4><p>Gains extend beyond update-forming tasks, with the baseline and round specified.</p></div>
     </div>
     <div class="figure" style="margin-top:34px">
       <img src="assets/claims.png" alt="Four claims behind a reported gain, with longitudinal controls" loading="lazy" decoding="async">
-      <p class="figcap"><b>Figure 5.</b> Four claims behind a reported gain. The bottom panel assigns each longitudinal control to the claim it protects; repeating those controls after every accepted update carries the claims across rounds.</p>
+      <p class="figcap"><b>Figure 5.</b> Four claims and the controls needed across update rounds.</p>
     </div>
   </div>
 </section>
@@ -239,29 +228,25 @@
 <section id="evidence">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker">Reported evidence</div>
-      <h2 class="sec-title">Evidence for the reported gains</h2>
-      <p class="sec-sub">The manuscript examines the evidence for 96 methods, using one headline comparison per method. Two have no empirical evaluation, leaving 94 scored reports. Verdicts describe the evidence within its recorded coverage; they do not rank method quality.</p>
+      <div class="sec-kicker">Evidence</div>
+      <h2 class="sec-title">What the evidence shows</h2>
+      <p class="sec-sub">96 methods; 94 scored reports, using one headline comparison per evaluated method. Ratings describe reported evidence within its recorded coverage.</p>
     </div>
     <div class="evidence-grid">
       <div class="panel" id="claimBars">
-        <h4>Verdicts per claim</h4>
-        <p class="hint">Each bar covers 94 scored reports. Criteria differ across claims; full Activation can be based on one confirmed case, with coverage recorded for each method.</p>
+        <h4>Evidence by claim</h4>
+        <p class="hint">94 reports. Full Activation can rest on one confirmed case; coverage is recorded separately.</p>
         <div class="bars"></div>
         <div class="legend"><span><i style="background:var(--full)"></i>Full evidence</span><span><i style="background:var(--part)"></i>Partial</span><span><i style="background:var(--none)"></i>Not supported</span></div>
       </div>
       <div class="panel">
-        <h4>Claims at full evidence, per report</h4>
-        <p class="hint">Partial evidence is not counted here.</p>
+        <h4>Claims with full evidence</h4>
+        <p class="hint">Number of claims supported by full evidence.</p>
         <div class="donut-wrap" id="donut"></div>
       </div>
     </div>
-    <ul class="findings-list">
-      <li><b>The claims are rarely established together.</b> The most common profile is selection and improvement at full evidence, with activation and attribution partial.</li>
-      <li><b>Claims about the scored runs are the least supported.</b> Most reports show an artifact was loaded, or ran during search, rather than that it operated in the scored runs; most compare scores without measured variation or a controlled envelope.</li>
-      <li><b>Improvement is measured at one setting.</b> A held-out or transfer result at the accepting round does not establish retention through later updates. The baseline and round are recorded separately from task distance.</li>
-    </ul>
-    <p class="tax-note">Per-method verdicts with the recorded basis for every cell: <a href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/reported-evidence.md" target="_blank" rel="noopener">Full results and sources</a>.</p>
+    <p class="evidence-takeaway"><b>Activation and attribution remain the main evidence gaps.</b> A held-out gain at one round also leaves long-term retention unresolved.</p>
+    <p class="tax-note"><a href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/reported-evidence.md" target="_blank" rel="noopener">Full results and sources</a>.</p>
   </div>
 </section>
 
@@ -269,8 +254,8 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-kicker">Applications &amp; outlook</div>
-      <h2 class="sec-title">What changes across deployment settings</h2>
-      <p class="sec-sub">Personal workspaces, enterprise processes, science, embodied interaction, and public services differ in how they share state and verify revisions. Open questions concern search efficiency, retention, dynamic evaluation, and oversight.</p>
+      <h2 class="sec-title">Applications and open questions</h2>
+      <p class="sec-sub">From personal workspaces to science and public services, key challenges are efficient search, retention, dynamic evaluation, and oversight.</p>
     </div>
     <details class="fold">
       <summary>Applications and societal implications (Figures 7–8)</summary>
@@ -288,7 +273,7 @@
     <div class="sec-head">
       <div class="sec-kicker">Reading list</div>
       <h2 class="sec-title">Browse the list</h2>
-      <p class="sec-sub">The entries of the <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">reading list</a>, with the paper's own links. Methods with recorded evidence show their four verdicts in the order Selection · Activation · Attribution · Improvement.</p>
+      <p class="sec-sub">Search papers and mechanisms. Evidence markers follow Selection · Activation · Attribution · Improvement.</p>
     </div>
     <div class="explorer-bar">
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Search names, mechanisms, venues…" autocomplete="off" aria-label="Search the reading list"><span class="kbd">/</span></label>
@@ -342,6 +327,6 @@
 <script src="site/corpus.js?v=6"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script defer src="site/app.js?v=7"></script>
+<script defer src="site/app.js?v=8"></script>
 </body>
 </html>
