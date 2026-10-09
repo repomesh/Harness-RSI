@@ -180,6 +180,27 @@ def check_evidence_and_taxonomy(problems):
             problems.append(f'Evidence source link differs: {row["name"]}')
 
 
+
+def check_citation(problems):
+    """Keep the manuscript citation identical in both READMEs and the site."""
+    import html
+
+    citations = []
+    for path in READMES:
+        match = re.search(r"```bibtex\n(.*?)\n```", read(path), re.S)
+        if not match:
+            problems.append(f"{path}: missing BibTeX citation")
+            return
+        citations.append(match.group(1))
+    match = re.search(r'<pre class="bib" id="bib">(.*?)</pre>', read("index.html"), re.S)
+    if not match:
+        problems.append("index.html: missing BibTeX citation")
+        return
+    citations.append(html.unescape(re.sub(r"<[^>]+>", "", match.group(1))))
+    if len({" ".join(citation.split()) for citation in citations}) != 1:
+        problems.append("Manuscript citation differs between READMEs and website")
+
+
 def check_html(problems):
     from html.parser import HTMLParser
     from urllib.parse import urlsplit, unquote
@@ -255,6 +276,7 @@ def main():
     check_site_data(problems)
     check_evidence_and_taxonomy(problems)
     check_html(problems)
+    check_citation(problems)
     if args.links:
         check_links(problems)
 

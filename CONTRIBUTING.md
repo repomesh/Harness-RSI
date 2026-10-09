@@ -33,7 +33,11 @@ python3 scripts/build_site_data.py
 python3 scripts/check_consistency.py
 ```
 
-The checker verifies bilingual entries, links, anchors, taxonomy placement, and generated files. `--links` adds an optional network check. These checks establish consistency; source passages determine the judgments.
+The checker verifies bilingual entries, links, anchors, taxonomy placement, generated files, and citation consistency. `--links` adds an optional network check. These checks establish consistency; source passages determine the judgments.
+
+## Manuscript citation
+
+Keep the title, full author list, and author order aligned with the manuscript title page. Update the BibTeX in both READMEs and `index.html` together. Add an arXiv identifier, DOI, or venue only after its public record is available.
 
 ## Website
 

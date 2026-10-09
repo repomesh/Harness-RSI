@@ -1,14 +1,16 @@
 <div align="center">
 
-# Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+# Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact
 
-收录 agent 根据执行反馈更新指令、记忆、工作流、工具与 runtime 的研究。
+Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-[项目主页](https://zgcagi.github.io/Harness-RSI/) · [实证证据](docs/reported-evidence.md) · [English](README.md)
+Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
+
+[项目主页](https://zgcagi.github.io/Harness-RSI/) · [实证证据](docs/reported-evidence.md) · [引用](#citation) · [English](README.md)
 
 </div>
 
-本清单配套论文 **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**，按更新对象组织方法，再介绍 Theory、Evaluation 与实证证据。
+本仓库是论文的配套文献清单。我们按 **Interpreted** 与 **Executable** 更新对象组织算法，将搜索过程与 evolutionary algorithms、continual PAC learning 联系起来，并从 **Selection、Activation、Attribution、Improvement** 四项 claims 分析已有结果的证据。论文进一步讨论应用、社会影响与开放问题。
 
 ## 目录
 
@@ -503,14 +505,16 @@ Activation 区分产物进入运行的 **available**、修改路径被执行的 
 
 ## 引用
 
+引用本综述时，可使用当前 working draft 的 BibTeX：
+
 ```bibtex
 @misc{wei2026harnessrsi,
-  title  = {Harness Self-Evolution: Theory, Algorithms, Evaluation,
-            Applications, and Impact},
+  title  = {{Harness Self-Evolution: Theory, Algorithms, Evaluation,
+             Applications, and Impact}},
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
-  note   = {Working draft. arXiv identifier to be added on release.},
+  note   = {Working draft},
   url    = {https://github.com/zgcagi/Harness-RSI}
 }
 ```

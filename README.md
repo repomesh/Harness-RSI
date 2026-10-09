@@ -1,14 +1,16 @@
 <div align="center">
 
-# Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+# Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact
 
-Research on agents that revise their instructions, memory, workflows, tools, and runtime from execution feedback.
+Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reported Evidence](docs/reported-evidence.md) · [中文版](README_zh.md)
+Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
+
+[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reported Evidence](docs/reported-evidence.md) · [Citation](#citation) · [中文版](README_zh.md)
 
 </div>
 
-Companion reading list for **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**. Methods are organized by update target, followed by theory, evaluation, and reported evidence.
+This repository accompanies our survey. We organize algorithms by **interpreted** and **executable** update targets, connect their search procedures to evolutionary algorithms and continual PAC learning, and examine reported evidence for **Selection, Activation, Attribution, and Improvement**. The paper also discusses applications, societal implications, and open research questions.
 
 ## Contents
 
@@ -503,14 +505,16 @@ Evidence snapshot: [2026-10-09](data/source-snapshot.json).
 
 ## Citation
 
+If you use this survey, please cite the current working draft:
+
 ```bibtex
 @misc{wei2026harnessrsi,
-  title  = {Harness Self-Evolution: Theory, Algorithms, Evaluation,
-            Applications, and Impact},
+  title  = {{Harness Self-Evolution: Theory, Algorithms, Evaluation,
+             Applications, and Impact}},
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
-  note   = {Working draft. arXiv identifier to be added on release.},
+  note   = {Working draft},
   url    = {https://github.com/zgcagi/Harness-RSI}
 }
 ```
