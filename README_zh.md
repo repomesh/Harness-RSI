@@ -4,13 +4,13 @@
 
 关于 agent 指令、memory、workflows、tools 与 runtime 如何根据执行反馈持续更新的阅读清单。
 
-[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Evidence Audit](docs/claim-audit.md) · [English](README.md)
+[项目主页](https://zgcagi.github.io/Harness-RSI/) · [实证证据](docs/reported-evidence.md) · [English](README.md)
 
 </div>
 
 配套论文：**Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**。作者：Chuyang Wei、Haoxiang Guan、Minghang Zhu、Kexin Zhou、Jiyan He、Yifei Shen。
 
-清单依照论文顺序组织：更新对象、Theory、Evaluation 与证据审计。项目主页提供精简的图文概览。
+清单依照论文顺序组织：更新对象、Theory、Evaluation 与实证证据。项目主页提供精简的图文概览。
 
 ## 目录
 
@@ -23,7 +23,7 @@
 - [2. Executable Update Targets](#executable)
 - [3. Theory](#theory)
 - [4. Evaluation 与 Benchmarks](#evaluation)
-- [5. 证据审计](#audit)
+- [5. 实证证据](#evidence)
 - [贡献与维护](#contributing)
 - [引用](#citation)
 
@@ -31,7 +31,7 @@
 
 ## 相关综述
 
-已有综述按组件、反馈来源、外部状态或更新过程组织 self-evolving agents。本论文将更新对象与 evolutionary search、continual PAC learning 联系起来，再审计四项 Evaluation Claims 的报告证据。
+已有综述按组件、反馈来源、外部状态或更新过程组织 self-evolving agents。本论文将更新对象与 evolutionary search、continual PAC learning 联系起来，再分析已有研究为四项 Evaluation Claims 提供了哪些证据。
 
 - **A Survey of Self-Evolving Agents** `TMLR'26`：按演化什么、何时演化、如何演化、在哪里演化来组织。 [[paper]](https://arxiv.org/abs/2507.21046)
 - **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25`：按优化器反馈组织方法。 [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
@@ -72,7 +72,7 @@ H_{k+1} = Update(H_k, B_k)
 | 2. Executable targets | Tools、源代码、控制程序、plugins | §4 |
 | 3. Theory | Evolutionary search、泛化、能力保留与准入 | §5 |
 | 4. Evaluation | 评测协议与证据对照 | §6 |
-| 5. 证据审计 | 每个方法的主结果所支持的 claims | §6 |
+| 5. 实证证据 | 每个方法的主结果所支持的 claims | §6 |
 
 每项工作只设一个主要归类；Theory 可以再次引用方法来说明对应关系。[分类数据](data/taxonomy.json)记录论文 citation keys 与归类。
 
@@ -377,7 +377,7 @@ Continual PAC 分析区分**样本稳定性**、**历史能力保留**与**候�
 
 Activation 分三个层次：**available**，产物进入运行；**reached**，修改的路径被执行；**carried**，输出进入模型输入，或轨迹遵循了该产物。加载日志只说明 available；搜索或筛选阶段的轨迹不能证明更新在报告的测试运行中生效。
 
-Attribution 用重复执行、配对检验或已报告的原始数据衡量波动。分数差距很大，或审计者根据样本数估算出的 binomial bound，都不能替代实测波动。报告运行中的 model calls、生成 tokens、轮数、尝试次数与 effort setting，并将这些开销与搜索成本分开。
+Attribution 用重复执行、配对检验或已报告的原始数据衡量波动。分数差距很大，或仅根据样本数估算出的 binomial bound，都不能替代实测波动。报告运行中的 model calls、生成 tokens、轮数、尝试次数与 effort setting，并将这些开销与搜索成本分开。
 
 连续更新还需保留任务划分、产物版本与激活记录、模型与评测器版本、推理预算和重复测量。改变任务顺序、复测历史分布可用于检验能力保留。基准变化时，在同一协议下让两个 harness 状态分别运行两个快照；结论仍受快照内容及其此前用途限制。
 
@@ -391,7 +391,7 @@ Attribution 用重复执行、配对检验或已报告的原始数据衡量波�
 - **Anytime Certificates** `arXiv'26`：为反复依赖数据的准入决策提供 anytime-valid 证书。 [[paper]](https://arxiv.org/abs/2607.00871)
 - **HarnessOpt-Bench** `arXiv'26`：整个搜索过程中测试划分都不可触及，这条边界由运行时强制执行，同时计量目标 agent 消耗的资源。 [[paper]](https://arxiv.org/abs/2608.06301)
 - **Phantom Guardrails** `arXiv'26`：记录自改进 harness 修复了从未发生过的故障，补丁没有任何观测到的执行作为依据。 [[paper]](https://arxiv.org/abs/2607.13083)
-- **Harness Tampering** `arXiv'26`：审计那些修改验证逻辑而不是修改被测行为的候选。 [[paper]](https://arxiv.org/abs/2609.00069)
+- **Harness Tampering** `arXiv'26`：检查那些修改验证逻辑而不是修改被测行为的候选。 [[paper]](https://arxiv.org/abs/2609.00069)
 - **Self-Authored Verification** `arXiv'26`：发现在启发式自改进 agent 中，自己写的检查不足以作为准入证据。 [[paper]](https://arxiv.org/abs/2607.24300)
 - **SWE-bench+** `arXiv'24`：记录了解法泄漏与弱断言，它们同时污染晋升与报告。 [[paper]](https://arxiv.org/abs/2410.06992)
 
@@ -487,13 +487,13 @@ Attribution 用重复执行、配对检验或已报告的原始数据衡量波�
 - **SEABench** `arXiv'26`：评测 self-evolving agents 在更新过程中产生的目标偏离。 [[paper]](https://arxiv.org/abs/2609.35596)
 - **ServeLearnBench** `arXiv'26`：通过隐藏规则随时间变化的环境，评测 agent 从服务经验中持续学习的效果。 [[paper]](https://arxiv.org/abs/2610.07792)
 
-<a id="audit"></a>
+<a id="evidence"></a>
 
-## 5. 证据审计
+## 5. 实证证据
 
-<!-- audit-summary:start -->
+<!-- evidence-summary:start -->
 
-审计覆盖论文两个更新对象分支中的 **96 个方法**，其中 2 个没有实证评测，94 份报告计入评分。每行固定一项主结果对应的比较，再读取四个 verdicts。
+我们按四项 claims 整理论文两个更新对象分支中的 **96 个方法**，其中 2 个没有实证评测，94 份报告计入评分。每行以该方法主结果对应的同一项比较为依据，判定四项 claims 的证据是否充分。
 
 | Claim | ✅ 充分 | ◐ 部分 | — 不支持 |
 |---|---:|---:|---:|
@@ -512,20 +512,20 @@ Attribution 用重复执行、配对检验或已报告的原始数据衡量波�
 
 最常见的组合是 Selection 与 Improvement 充分、Activation 与 Attribution 部分。Activation 充分的报告有 8 份，Attribution 充分的有 12 份；详细判定需结合各自主结果与覆盖范围阅读。
 
-逐方法 verdicts、主结果与依据见[完整审计](docs/claim-audit.md)，判据见 [rubric](docs/audit-rubric.md)。
+各方法的判定、主结果与来源见[完整结果](docs/reported-evidence.md)，具体标准见[判定标准](docs/evidence-criteria.md)。
 
-<!-- audit-summary:end -->
+<!-- evidence-summary:end -->
 
 <a id="contributing"></a>
 
 ## 贡献与维护
 
-新增条目需说明更新对象、反馈来源、准入规则与保留的状态，提供原论文链接，并同步中英文。审计修正需指明主结果对应的比较，以及每个改动判定的具体依据。见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+新增条目需说明更新对象、反馈来源、准入规则与保留的状态，提供原论文链接，并同步中英文。修正证据判定时，需指明主结果对应的比较，以及每个改动判定的具体依据。见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-2026-10-09 按[论文来源快照](data/source-snapshot.json)更新。审计与网页数据可通过以下命令重新生成：
+2026-10-09 按[论文来源快照](data/source-snapshot.json)更新。证据表与网页数据可通过以下命令重新生成：
 
 ```bash
-python3 scripts/build_audit.py
+python3 scripts/build_evidence.py
 python3 scripts/build_site_data.py
 python3 scripts/check_consistency.py
 ```

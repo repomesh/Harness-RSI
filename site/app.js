@@ -1,5 +1,5 @@
 /* Project page behaviour: navigation, reveal, the taxonomy and reading-list
-   explorer built from site/corpus.js, the audit charts (article Figure 6),
+   explorer built from site/corpus.js, the evidence charts (article Figure 6),
    and small affordances (lightbox and BibTeX copy). */
 (function () {
   "use strict";
@@ -51,8 +51,6 @@
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  if (CORPUS.entries.length) $("#entryCount").textContent = CORPUS.entries.length;
-
   /* ---------- reveal ---------- */
   var onReveal = [];
   function whenVisible(node, fn) { onReveal.push([node, fn]); }
@@ -85,7 +83,7 @@
     { key: "executable", cls: "exe", num: "§4", first: [4, 1], title: "Executable update targets",
       gloss: "Implementations the host invokes directly: tools, component files, control programs, plugins. Execution can be enforced by the host; the changed path still needs a trace in scored runs." },
     { key: "evaluation", cls: "eva", num: "§6", first: [6, 2], title: "Evaluation & benchmarks",
-      gloss: "Works whose own contribution is an evaluation protocol or an audit, placed under the claim their protocol enforces." }
+      gloss: "Works whose own contribution is an evaluation protocol or an empirical study, placed under the claim their protocol enforces." }
   ];
   function renderBranch(b, host) {
     var subs = tree(b.key);
@@ -189,11 +187,11 @@
   }
   render();
 
-  /* ---------- audit charts (article Figure 6) ---------- */
-  var SCORED = CORPUS.audit.scored;
-  var AUDIT = CORPUS.audit.claims;
+  /* ---------- evidence charts (article Figure 6) ---------- */
+  var SCORED = CORPUS.evidence.scored;
+  var EVIDENCE = CORPUS.evidence.claims;
   var barsHost = $("#claimBars .bars");
-  AUDIT.forEach(function (r) {
+  EVIDENCE.forEach(function (r) {
     var line = el("div", { "class": "bar-row" });
     var segs = ["C", "O", "N"].map(function (k) {
       if (!r[k]) return "";
@@ -209,7 +207,7 @@
 
   var jointColors = ["#dde3ec", "#b4c2d9", "#8399bb", "#4f6a94", "#1e3a8a"];
   var JOINT = ["None", "One", "Two", "Three", "Four"].map(function (name, i) {
-    return { k: name, v: CORPUS.audit.joint[i], c: jointColors[i] };
+    return { k: name, v: CORPUS.evidence.joint[i], c: jointColors[i] };
   });
   (function donut() {
     var host = $("#donut");

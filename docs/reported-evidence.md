@@ -1,6 +1,6 @@
-# Evidence Audit
+# Reported Evidence
 
-The audit covers **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
+We examine the evidence for **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
 
 | Claim | ✅ Full | ◐ Partial | — Not supported |
 |---|---:|---:|---:|
@@ -19,11 +19,11 @@ Number of claims at full evidence within one report:
 
 The most common profile has full Selection and Improvement with partial Activation and Attribution. 8 reports meet Activation and 12 meet Attribution; interpret each verdict within its headline comparison and recorded coverage.
 
-Read the [rubric](audit-rubric.md) for the evidence criteria. The [reading-list summary](../README.md#audit) provides a shorter introduction.
+Read the [rubric](evidence-criteria.md) for the evidence criteria. The [reading-list summary](../README.md#evidence) provides a shorter introduction.
 
-Source: [machine-readable audit](../data/claim-audit.json), [taxonomy](../data/taxonomy.json), and [manuscript snapshot](../data/source-snapshot.json). Regenerate with `python3 scripts/build_audit.py`.
+Source: [evidence data](../data/reported-evidence.json), [taxonomy](../data/taxonomy.json), and [manuscript snapshot](../data/source-snapshot.json). Regenerate with `python3 scripts/build_evidence.py`.
 
-![Evidence audit from the companion manuscript](../assets/claim-audit.png)
+![Reported evidence from the companion manuscript](../assets/reported-evidence.png)
 
 ## By update target
 
@@ -141,7 +141,7 @@ All four cells refer to the same headline. `n/a` denotes no empirical evaluation
 
 ## Recorded basis
 
-Section and table references below refer to each linked primary report. SEL / ACT / ATT / IMP separate the four claims. Coverage and audit computations are preserved from the manuscript audit.
+Section and table references below refer to each linked primary report. SEL / ACT / ATT / IMP separate the four claims. Coverage and calculations are retained from the manuscript’s per-method analysis.
 
 | Method | Headline | Recorded basis |
 |---|---|---|

@@ -101,10 +101,6 @@ h1.title .g{white-space:nowrap;background:linear-gradient(100deg,#2563eb,#1e3a8a
 .seals{display:flex;align-items:center;justify-content:center;gap:18px;margin:24px auto 0}
 .seals img{width:62px;height:62px;object-fit:contain;transition:transform .18s,filter .18s}
 .seals img:hover{transform:translateY(-2px);filter:drop-shadow(0 6px 8px rgba(30,58,138,.18))}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:940px;margin:38px auto 0}
-.stat{background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:16px;padding:16px 14px;box-shadow:var(--shadow-sm);backdrop-filter:blur(6px)}
-.stat .num{font-family:"Sora",sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat .lab{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.4}
 
 /* ---------- sections ---------- */
 section{padding:68px 0;position:relative}
@@ -137,14 +133,16 @@ section.compact{padding:52px 0}
 
 /* ---------- definition ---------- */
 .def-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:stretch}
-.formula{background:#0c1022;color:#e6ebfa;border-radius:var(--radius);padding:28px 30px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-.formula::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 80% at 100% 0%,rgba(37,99,235,.35),transparent 60%),radial-gradient(60% 70% at 0% 100%,rgba(230,138,67,.18),transparent 60%);pointer-events:none}
-.formula>*{position:relative}
-.formula .lbl .katex{text-transform:none}
-.formula .lbl{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8aa2ff;margin-bottom:6px}
-.formula .eq{font-size:19px;margin:6px 0 18px;overflow-x:auto;overflow-y:hidden}
-.formula .note{font-size:13.5px;color:#b8c3e6;margin:0}
-.formula .note b{color:#fff}
+.formula{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:28px 30px;box-shadow:var(--shadow-sm)}
+.formula-step + .formula-step{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
+.formula .lbl{margin:0;font-size:14px;font-weight:700;color:var(--brand-deep)}
+.formula .step-note{font-size:14px;color:var(--muted);margin:4px 0 12px}
+.formula .eq{font-size:20px;margin:8px 0}
+.eq .katex-display{margin:0;text-align:left}
+.eq .katex-display > .katex{text-align:left}
+.formula .notation{border-top:1px solid var(--line);padding-top:18px;margin:20px 0 8px;font-size:14px;color:var(--muted)}
+.formula .note{font-size:14px;color:var(--ink-2);margin:0;line-height:1.7}
+.formula .note b{color:var(--ink)}
 .loop-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px;display:flex;align-items:center;justify-content:center}
 .loop-card svg{width:100%;max-width:440px;height:auto}
 .conds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
@@ -223,8 +221,8 @@ mark{background:#fff1b8;border-radius:3px;padding:0 1px}
 .claim .q{font-size:14px;font-weight:600;color:var(--ink-2);margin:0 0 8px}
 .claim p{margin:0;font-size:13.5px;color:var(--muted)}
 
-/* ---------- audit ---------- */
-.audit-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}
+/* ---------- reported evidence ---------- */
+.evidence-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px}
 .panel h4{margin:0 0 4px;font-size:16px}
 .panel .hint{font-size:13px;color:var(--muted);margin:0 0 18px}
@@ -271,7 +269,7 @@ footer p{margin:6px 0}
 .pac-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm)}
 .pac-card h4{margin:0 0 6px;font-size:15.5px;display:flex;align-items:center;gap:8px}
 .pac-card h4 .tag{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--thy);background:var(--thy-soft);padding:2px 8px;border-radius:6px}
-.pac-card .eq{margin:8px 0;overflow-x:auto;overflow-y:hidden;font-size:15px}
+.pac-card .eq{margin:16px 0;font-size:18px}
 .pac-card p{margin:0;font-size:13.5px;color:var(--muted)}
 .stack-bar{display:flex;height:26px;border-radius:7px;overflow:hidden;background:var(--none)}
 .stack-bar span{display:grid;place-items:center;font-size:12px;font-weight:700;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1);white-space:nowrap;overflow:hidden}
@@ -316,11 +314,10 @@ mark{background:#fff1b8;border-radius:3px;padding:0 1px}
 @media (max-width:1020px){
   .regimes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .claims{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .theory-grid,.audit-grid,.def-grid{grid-template-columns:1fr}
+  .theory-grid,.evidence-grid,.def-grid{grid-template-columns:1fr}
 }
 @media (max-width:860px){
   .branches,.conds,.findings,.future,.adherence{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;padding:10px 20px 16px;box-shadow:var(--shadow-md)}
   .nav-links.open{display:flex}
   .nav-links a.gh{margin:6px 0 0}
@@ -353,6 +350,8 @@ section.compact{padding:40px 0}
 .lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:28px;cursor:pointer}
 .figure img:focus-visible,.fold img:focus-visible{outline:3px solid var(--brand);outline-offset:5px}
 .formula,.pac-card{min-width:0}
-.eq{overflow-x:auto;max-width:100%;padding-bottom:4px}
-@media(max-width:600px){section{padding:44px 0}.hero-inner .title{font-size:clamp(28px,8.1vw,44px)}.wrap{padding:0 20px}.stats{grid-template-columns:repeat(2,1fr)}.sec-title{overflow-wrap:anywhere}}
+.eq{overflow-x:auto;max-width:100%;padding:8px 2px;line-height:1.5}
+@media(max-width:600px){section{padding:44px 0}.hero-inner .title{font-size:clamp(28px,8.1vw,44px)}.wrap{padding:0 20px}.sec-title{overflow-wrap:anywhere}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-loop{display:none}}
+
+@media(max-width:600px){.formula{padding:22px 18px}.formula .eq{font-size:18px}.pac-card .eq{font-size:17px}}

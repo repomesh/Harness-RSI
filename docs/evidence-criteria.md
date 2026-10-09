@@ -1,8 +1,8 @@
-# Evidence Audit Rubric
+# Evidence Criteria
 
-This rubric follows the companion manuscript’s audit revision of 2026-10-09. The [source snapshot](../data/source-snapshot.json) records the source hashes; [claim-audit.json](../data/claim-audit.json) supplies the verdicts and their recorded basis.
+These criteria follow the companion manuscript’s evaluation framework as of 2026-10-09. The [source snapshot](../data/source-snapshot.json) records the source hashes; [reported-evidence.json](../data/reported-evidence.json) supplies the verdicts and their recorded basis.
 
-## Unit of audit
+## Unit of comparison
 
 All four verdicts describe **one primary comparison**: the result the report leads with, its harness-side update, baseline, model, benchmark, configuration, and round. Evidence from another experiment cannot fill a cell. An aggregate result requires evidence covering that aggregate. Secondary protocols are recorded separately and excluded from headline totals.
 
@@ -51,9 +51,9 @@ Three conditions must hold in the primary comparison: **the arms isolate the upd
 
 Measured variation comes from repeated executions of frozen states, a paired test over task outcomes, or reported per-run/per-task data. Variation across judges, candidate harnesses, task orders, or costs does not meet this criterion. The recorded basis states the measurement unit.
 
-The margin clears variation when a reported test distinguishes it from zero at the 5% level, an interval for the difference excludes zero, or the margin exceeds two standard errors computed from reported per-arm dispersion over independent runs. Audit computations must record their inputs. For an averaged headline, significance on only some components does not establish significance of the average.
+The margin clears variation when a reported test distinguishes it from zero at the 5% level, an interval for the difference excludes zero, or the margin exceeds two standard errors computed from reported per-arm dispersion over independent runs. Calculations based on reported statistics must record their inputs. For an averaged headline, significance on only some components does not establish significance of the average.
 
-An auditor’s binomial bound inferred from success rates and task count is a reading aid, **not measured variation**, regardless of margin size. A selected maximum also needs an account of selection among comparisons; a single-comparison noise threshold is insufficient.
+A binomial bound inferred from success rates and task count is a reading aid, **not measured variation**, regardless of margin size. A selected maximum also needs an account of selection among comparisons; a single-comparison noise threshold is insufficient.
 
 The inference envelope concerns the **scored runs**: model calls, generated tokens, turns, attempts/pass@k, sampled candidates, and reasoning effort. Search cost is separate. Context inserted by the evolved artifact is its own cost and should be declared. Control means matched budgets, a performance–cost frontier, or a resource change that cannot explain the gain. Declaring an unmatched increase is partial evidence.
 
@@ -67,6 +67,6 @@ Record three indices: **distance** from tasks that formed the update, **baseline
 
 Selection separately checks whether the reporting partition later influenced candidate or report choice. A held-out comparison at acceptance does not establish that the gain survives later updates.
 
-## Audit limitations
+## Limitations
 
-The C/O boundary requires judgment. The manuscript records two readings for all reports except GSkill, with the second blind to the first and disagreements adjudicated against the primary source. GSkill was read once after its full text became available. This repository synchronizes that audit; its automated checks verify consistency, not an independent re-reading of every source. Corrections should identify the comparison, source passage, and affected verdict.
+The C/O boundary requires judgment. The manuscript records two readings for all reports except GSkill, with the second blind to the first and disagreements adjudicated against the primary source. GSkill was read once after its full text became available. This repository reproduces those judgments; its automated checks verify consistency, not an independent re-reading of every source. Corrections should identify the comparison, source passage, and affected verdict.

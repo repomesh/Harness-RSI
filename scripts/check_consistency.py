@@ -20,7 +20,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 READMES = ["README.md", "README_zh.md"]
-DOCS = ["docs/claim-audit.md", "docs/audit-rubric.md", "CONTRIBUTING.md"]
+DOCS = ["docs/reported-evidence.md", "docs/evidence-criteria.md", "CONTRIBUTING.md"]
 # Listed once is the rule; Theory's mapping is the declared exception, and a
 # shared repository is a fact about the two works rather than a mistake.
 ENTRY_EXEMPT = {"SkillForge"}
@@ -153,12 +153,12 @@ def check_site_data(problems):
         problems.append((done.stdout + done.stderr).strip())
 
 
-def check_audit_and_taxonomy(problems):
+def check_evidence_and_taxonomy(problems):
     import json
     import subprocess
     from build_site_data import read_entries, read_verdicts
 
-    result = subprocess.run([sys.executable, os.path.join(ROOT, "scripts/build_audit.py"), "--check"], capture_output=True, text=True)
+    result = subprocess.run([sys.executable, os.path.join(ROOT, "scripts/build_evidence.py"), "--check"], capture_output=True, text=True)
     if result.returncode:
         problems.append((result.stdout + result.stderr).strip())
     taxonomy = json.loads(read("data/taxonomy.json"))
@@ -170,14 +170,14 @@ def check_audit_and_taxonomy(problems):
     for name in expected.keys() & actual.keys():
         if expected[name]["mechanism"] != actual[name]["node"]:
             problems.append(f"Taxonomy placement differs: {name}")
-    audit = json.loads(read("data/claim-audit.json"))["methods"]
+    evidence = json.loads(read("data/reported-evidence.json"))["methods"]
     methods = {r["key"] for r in taxonomy if not r["branch"].startswith("Evaluation")}
-    if methods != {r["key"] for r in audit}:
-        problems.append("Audit population differs from taxonomy update targets")
-    for row in audit:
+    if methods != {r["key"] for r in evidence}:
+        problems.append("Evidence population differs from taxonomy update targets")
+    for row in evidence:
         entry = actual.get(row["name"], {})
         if row["url"] not in [url for _, url in entry.get("links", [])]:
-            problems.append(f'Audit source link differs: {row["name"]}')
+            problems.append(f'Evidence source link differs: {row["name"]}')
 
 
 def check_html(problems):
@@ -253,7 +253,7 @@ def main():
     check_parity(problems)
     check_files(problems)
     check_site_data(problems)
-    check_audit_and_taxonomy(problems)
+    check_evidence_and_taxonomy(problems)
     check_html(problems)
     if args.links:
         check_links(problems)

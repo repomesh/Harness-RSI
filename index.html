@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact</title>
-<meta name="description" content="Agents that rewrite their own instructions, memory, workflows, and code while the model stays fixed. A taxonomy by update target, four claims behind a reported gain, and an evidence audit.">
+<meta name="description" content="Agents that rewrite their own instructions, memory, workflows, and code while the model stays fixed. A taxonomy by update target, four claims behind a reported gain, and the evidence reported across methods.">
 <meta property="og:title" content="Harness Self-Evolution">
-<meta property="og:description" content="Theory, algorithms, evaluation, applications, and impact of harness self-evolution, with an evidence audit.">
+<meta property="og:description" content="Theory, algorithms, evaluation, applications, and impact of harness self-evolution, with evidence from published comparisons.">
 <meta property="og:image" content="https://zgcagi.github.io/Harness-RSI/assets/banner.png">
 <link rel="canonical" href="https://zgcagi.github.io/Harness-RSI/">
 <link rel="icon" type="image/png" href="assets/seal-zgca.png">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<link rel="stylesheet" href="site/style.css?v=4">
+<link rel="stylesheet" href="site/style.css?v=5">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -31,7 +31,7 @@
       <a href="#taxonomy">Taxonomy</a>
       <a href="#theory">Theory</a>
       <a href="#evaluation">Evaluation</a>
-      <a href="#audit">Audit</a>
+      <a href="#evidence">Evidence</a>
       <a href="#explorer">Reading list</a>
       <a href="#cite">Cite</a>
       <a href="https://github.com/zgcagi/Harness-RSI/blob/main/README_zh.md" lang="zh-CN">中文</a>
@@ -70,9 +70,9 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
         Reading List
       </a>
-      <a class="btn" href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/claim-audit.md" target="_blank" rel="noopener">
+      <a class="btn" href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/reported-evidence.md" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
-        Claim Audit
+        Reported Evidence
       </a>
       <a class="btn" href="#cite">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
@@ -82,12 +82,6 @@
     <div class="seals">
       <img src="assets/seal-zgca.png" alt="Zhongguancun Academy" title="Zhongguancun Academy">
       <img src="assets/seal-zgci.png" alt="Zhongguancun Institute of Artificial Intelligence" title="Zhongguancun Institute of Artificial Intelligence">
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="num">3</div><div class="lab">update-target and evaluation branches</div></div>
-      <div class="stat"><div class="num">4</div><div class="lab">claims behind a reported gain</div></div>
-      <div class="stat"><div class="num">96</div><div class="lab">methods read from primary sources</div></div>
-      <div class="stat"><div class="num" id="entryCount"></div><div class="lab">entries in the reading list</div></div>
     </div>
   </div>
 </header>
@@ -130,7 +124,7 @@
     <div class="sec-head reveal">
       <div class="sec-kicker">Related work</div>
       <h2 class="sec-title">From update mechanisms to evidence</h2>
-      <p class="sec-sub">Earlier surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets with theory and audits what published comparisons support. <a href="https://github.com/zgcagi/Harness-RSI#related-surveys">Read the related surveys →</a></p>
+      <p class="sec-sub">Earlier surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets with theory and examines what published comparisons support. <a href="https://github.com/zgcagi/Harness-RSI#related-surveys">Read the related surveys →</a></p>
     </div>
   </div>
 </section>
@@ -145,11 +139,21 @@
     </div>
     <div class="def-grid">
       <div class="formula reveal">
-        <div class="lbl">Rollout</div>
-        <div class="eq">\(\tau \sim \operatorname{Run}(M, H, E),\qquad y = J(\tau)\)</div>
-        <div class="lbl">Update round \(k\)</div>
-        <div class="eq">\(\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b},\;\; \tau_{k,i}\sim\operatorname{Run}(M,H_k,E_{k,i})\)<br>\(H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\)</div>
-        <p class="note">\(\operatorname{Update}\) abstracts diagnosis, candidate generation, evaluation, and retention. Rejected revisions leave \(H_{k+1}=H_k\). <b>\(M\) is held fixed throughout.</b></p>
+        <div class="formula-step">
+          <h3 class="lbl">Rollout</h3>
+          <p class="step-note">Run the agent and score its trajectory.</p>
+          <div class="eq">\[\tau \sim \operatorname{Run}(M, H, E)\]</div>
+          <div class="eq">\[y = J(\tau)\]</div>
+        </div>
+        <div class="formula-step">
+          <h3 class="lbl">Update round \(k\)</h3>
+          <p class="step-note">Collect a batch of trajectories, then revise the harness.</p>
+          <div class="eq">\[\tau_{k,i} \sim \operatorname{Run}(M, H_k, E_{k,i})\]</div>
+          <div class="eq">\[\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b}\]</div>
+          <div class="eq">\[H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\]</div>
+        </div>
+        <p class="notation">\(\tau\): trajectory · \(y\): score · \(b\): batch size</p>
+        <p class="note">\(\operatorname{Update}\) includes diagnosis, proposal, evaluation, and retention. Rejection leaves \(H_{k+1}=H_k\). <b>The model \(M\) stays fixed.</b></p>
       </div>
       <div class="loop-card reveal">
         <svg viewBox="0 0 440 360" role="img" aria-label="The operational update loop: execute, feedback, propose, admit, persist, and later runs load the accepted state">
@@ -223,8 +227,8 @@
         <div class="ea-foot">A row means the search exhibits that paradigm's structure, which is weaker than implementing the algorithm. Selection acts on <i>observed</i> fitness, so retaining a better candidate establishes neither improvement on unseen tasks nor retention.</div>
       </div>
       <div class="pac">
-        <div class="pac-card reveal"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\(F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\)</div><p>Forgetting telescopes over rounds, so even small tolerated regressions add up.</p></div>
-        <div class="pac-card reveal"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\(\widehat\Delta_k(H') + \sqrt{\tfrac{2\ln(KT/\delta)}{m}} < 0\)</div><p>For at most K candidates in each of T rounds, use m fresh independent tasks and bounded paired losses. Under a fixed model and evaluator, the gate covers the evaluated candidate on that round’s task mixture. Repeated rollouts reduce noise without adding independent tasks.</p></div>
+        <div class="pac-card reveal"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\[F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\]</div><p>Forgetting telescopes over rounds, so even small tolerated regressions add up.</p></div>
+        <div class="pac-card reveal"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\[\widehat\Delta_k(H') + \sqrt{\frac{2\ln(KT/\delta)}{m}} < 0\]</div><p>For at most K candidates in each of T rounds, use m fresh independent tasks and bounded paired losses. Under a fixed model and evaluator, the gate covers the evaluated candidate on that round’s task mixture. Repeated rollouts reduce noise without adding independent tasks.</p></div>
       </div>
     </div>
   </div>
@@ -251,18 +255,18 @@
   </div>
 </section>
 
-<!-- AUDIT (Figure 6) -->
-<section id="audit" class="band">
+<!-- REPORTED EVIDENCE (Figure 6) -->
+<section id="evidence" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="sec-kicker"><span class="badge">5</span> Evidence audit</div>
+      <div class="sec-kicker"><span class="badge">5</span> Reported evidence</div>
       <h2 class="sec-title">Evidence for the reported gains</h2>
-      <p class="sec-sub">The manuscript audits 96 methods on one headline comparison each. Two have no empirical evaluation, leaving 94 scored reports. Verdicts describe the evidence within its recorded coverage; they do not rank method quality.</p>
+      <p class="sec-sub">The manuscript examines the evidence for 96 methods, using one headline comparison per method. Two have no empirical evaluation, leaving 94 scored reports. Verdicts describe the evidence within its recorded coverage; they do not rank method quality.</p>
     </div>
-    <div class="audit-grid">
+    <div class="evidence-grid">
       <div class="panel reveal" id="claimBars">
         <h4>Verdicts per claim</h4>
-        <p class="hint">Each bar covers 94 scored reports. Criteria differ across claims; full Activation can be based on one confirmed case, with coverage recorded in the audit.</p>
+        <p class="hint">Each bar covers 94 scored reports. Criteria differ across claims; full Activation can be based on one confirmed case, with coverage recorded for each method.</p>
         <div class="bars"></div>
         <div class="legend"><span><i style="background:var(--full)"></i>Full evidence</span><span><i style="background:var(--part)"></i>Partial</span><span><i style="background:var(--none)"></i>Not supported</span></div>
       </div>
@@ -275,9 +279,9 @@
     <ul class="findings-list reveal">
       <li><b>The claims are rarely established together.</b> The most common profile is selection and improvement at full evidence, with activation and attribution partial.</li>
       <li><b>Claims about the scored runs are the least supported.</b> Most reports show an artifact was loaded, or ran during search, rather than that it operated in the scored runs; most compare scores without measured variation or a controlled envelope.</li>
-      <li><b>Improvement is measured at one setting.</b> A held-out or transfer result at the accepting round does not establish retention through later updates. The audit records the baseline and round separately from task distance.</li>
+      <li><b>Improvement is measured at one setting.</b> A held-out or transfer result at the accepting round does not establish retention through later updates. The baseline and round are recorded separately from task distance.</li>
     </ul>
-    <p class="tax-note reveal">Per-method verdicts with the recorded basis for every cell: <a href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/claim-audit.md" target="_blank" rel="noopener">docs/claim-audit.md</a>.</p>
+    <p class="tax-note reveal">Per-method verdicts with the recorded basis for every cell: <a href="https://github.com/zgcagi/Harness-RSI/blob/main/docs/reported-evidence.md" target="_blank" rel="noopener">Full results and sources</a>.</p>
   </div>
 </section>
 
@@ -304,7 +308,7 @@
     <div class="sec-head reveal">
       <div class="sec-kicker"><span class="badge">⌕</span> Reading list</div>
       <h2 class="sec-title">Browse the list</h2>
-      <p class="sec-sub">The entries of the <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">reading list</a>, with the paper's own links. Audited methods show their four verdicts in the order Selection · Activation · Attribution · Improvement.</p>
+      <p class="sec-sub">The entries of the <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">reading list</a>, with the paper's own links. Methods with recorded evidence show their four verdicts in the order Selection · Activation · Attribution · Improvement.</p>
     </div>
     <div class="explorer-bar">
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Search names, mechanisms, venues…" autocomplete="off" aria-label="Search the reading list"><span class="kbd">/</span></label>
@@ -353,9 +357,9 @@
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure"><button type="button" class="lightbox-close" aria-label="Close enlarged figure">×</button><img alt=""></div>
 
-<script src="site/corpus.js?v=4"></script>
+<script src="site/corpus.js?v=5"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script defer src="site/app.js?v=4"></script>
+<script defer src="site/app.js?v=5"></script>
 </body>
 </html>

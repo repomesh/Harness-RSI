@@ -4,13 +4,13 @@
 
 A reading list on feedback-driven updates to agent instructions, memory, workflows, tools, and runtime.
 
-[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Evidence Audit](docs/claim-audit.md) · [中文版](README_zh.md)
+[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reported Evidence](docs/reported-evidence.md) · [中文版](README_zh.md)
 
 </div>
 
 Companion to **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**, by Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, and Yifei Shen.
 
-The list follows the manuscript’s sequence: update targets, theory, evaluation, and evidence audit. The website presents a compact overview.
+The list follows the manuscript’s sequence: update targets, theory, evaluation, and reported evidence. The website presents a compact overview.
 
 ## Contents
 
@@ -23,7 +23,7 @@ The list follows the manuscript’s sequence: update targets, theory, evaluation
 - [2. Executable Update Targets](#executable)
 - [3. Theory](#theory)
 - [4. Evaluation & Benchmarks](#evaluation)
-- [5. Evidence Audit](#audit)
+- [5. Reported Evidence](#evidence)
 - [Contributing](#contributing)
 - [Citation](#citation)
 
@@ -31,7 +31,7 @@ The list follows the manuscript’s sequence: update targets, theory, evaluation
 
 ## Related Surveys
 
-Prior surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets to evolutionary search and continual PAC learning, then audits the evidence for four evaluation claims.
+Prior surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets to evolutionary search and continual PAC learning, then examines the evidence for four evaluation claims.
 
 - **A Survey of Self-Evolving Agents** `TMLR'26` — organizes self-evolution by what, when, how, and where to evolve. [[paper]](https://arxiv.org/abs/2507.21046)
 - **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25` — organizes methods by optimizer feedback. [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
@@ -72,7 +72,7 @@ Classify a method by the object it changes. Interpreted payloads are read by a f
 | 2. Executable targets | Tools, source code, control programs, plugins | §4 |
 | 3. Theory | Evolutionary search, generalization, retention, admission | §5 |
 | 4. Evaluation | Protocols and evidence controls | §6 |
-| 5. Evidence audit | Verdicts for each method’s headline comparison | §6 |
+| 5. Reported evidence | Verdicts for each method’s headline comparison | §6 |
 
 Each work has one primary placement. The theory section may refer to a method again to explain a correspondence. The [source taxonomy](data/taxonomy.json) records the manuscript citation keys and placements.
 
@@ -377,7 +377,7 @@ A reported gain raises four distinct questions. Selection concerns how the numbe
 
 Activation has three grades: **available**, the artifact entered the run; **reached**, its path executed; **carried**, its output reached the model input or the trajectory followed it. A load log establishes availability. A trace from search or screening does not establish activation in the reported test runs.
 
-Attribution uses repeated executions, paired tests, or reported raw data to quantify variation. A large gap and an auditor’s binomial approximation alone are insufficient. Record compute in the scored runs separately from search cost: model calls, generated tokens, turns, attempts, and effort settings.
+Attribution uses repeated executions, paired tests, or reported raw data to quantify variation. A large gap and a binomial approximation inferred from task counts alone are insufficient. Record compute in the scored runs separately from search cost: model calls, generated tokens, turns, attempts, and effort settings.
 
 For successive updates, preserve the task split, artifact version and activation record, model and evaluator versions, inference budget, and repeated measurements. Vary task order and probe earlier distributions to examine retention. When the benchmark changes, evaluate both harness states on both snapshots under the same protocol; the comparison remains conditional on those snapshots and their prior use.
 
@@ -391,7 +391,7 @@ For successive updates, preserve the task split, artifact version and activation
 - **Anytime Certificates** `arXiv'26` — anytime-valid certificates for repeated, data-dependent admission decisions. [[paper]](https://arxiv.org/abs/2607.00871)
 - **HarnessOpt-Bench** `arXiv'26` — keeps its test partition out of reach for the whole search, with the boundary enforced by the runtime, and meters the resources the target agent spends. [[paper]](https://arxiv.org/abs/2608.06301)
 - **Phantom Guardrails** `arXiv'26` — documents self-improving harnesses that fix failures which never occurred, the patch grounded in no observed execution. [[paper]](https://arxiv.org/abs/2607.13083)
-- **Harness Tampering** `arXiv'26` — audits candidates that modify verification logic rather than the behavior under test. [[paper]](https://arxiv.org/abs/2609.00069)
+- **Harness Tampering** `arXiv'26` — examines candidates that modify verification logic rather than the behavior under test. [[paper]](https://arxiv.org/abs/2609.00069)
 - **Self-Authored Verification** `arXiv'26` — finds self-written checks unreliable as admission evidence in heuristic self-improving agents. [[paper]](https://arxiv.org/abs/2607.24300)
 - **SWE-bench+** `arXiv'24` — documents solution leakage and weak assertions that corrupt promotion and reporting together. [[paper]](https://arxiv.org/abs/2410.06992)
 
@@ -487,13 +487,13 @@ For successive updates, preserve the task split, artifact version and activation
 - **SEABench** `arXiv'26` — benchmarks endogenous misalignment in self-evolving agents. [[paper]](https://arxiv.org/abs/2609.35596)
 - **ServeLearnBench** `arXiv'26` — streams environments with changing undisclosed rules to evaluate learning from serving experience. [[paper]](https://arxiv.org/abs/2610.07792)
 
-<a id="audit"></a>
+<a id="evidence"></a>
 
-## 5. Evidence Audit
+## 5. Reported Evidence
 
-<!-- audit-summary:start -->
+<!-- evidence-summary:start -->
 
-The audit covers **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
+We examine the evidence for **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
 
 | Claim | ✅ Full | ◐ Partial | — Not supported |
 |---|---:|---:|---:|
@@ -512,20 +512,20 @@ Number of claims at full evidence within one report:
 
 The most common profile has full Selection and Improvement with partial Activation and Attribution. 8 reports meet Activation and 12 meet Attribution; interpret each verdict within its headline comparison and recorded coverage.
 
-See the [full audit](docs/claim-audit.md) for verdicts, headline comparisons, and recorded evidence, and the [rubric](docs/audit-rubric.md) for criteria.
+See the [full results](docs/reported-evidence.md) for verdicts, headline comparisons, and recorded evidence, and the [rubric](docs/evidence-criteria.md) for criteria.
 
-<!-- audit-summary:end -->
+<!-- evidence-summary:end -->
 
 <a id="contributing"></a>
 
 ## Contributing
 
-Contributions should state the update object, feedback source, admission rule, and what persists. Provide the primary paper link and matching English and Chinese entries. For audit corrections, identify the headline comparison and the exact evidence supporting each changed verdict. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions should state the update object, feedback source, admission rule, and what persists. Provide the primary paper link and matching English and Chinese entries. For corrections to the evidence tables, identify the headline comparison and the exact evidence supporting each changed verdict. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Updated 2026-10-09 against the [manuscript source snapshot](data/source-snapshot.json). The audit data and site are reproducible with:
+Updated 2026-10-09 against the [manuscript source snapshot](data/source-snapshot.json). The evidence tables and site are reproducible with:
 
 ```bash
-python3 scripts/build_audit.py
+python3 scripts/build_evidence.py
 python3 scripts/build_site_data.py
 python3 scripts/check_consistency.py
 ```
