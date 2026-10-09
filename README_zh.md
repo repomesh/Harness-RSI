@@ -45,13 +45,13 @@
 **Harness** $H$ 是控制模型 $M$ 如何在环境 $E$ 中运行的软件与配置，包括工具、上下文构建、记忆和执行控制。Evaluator $J$ 对轨迹评分，候选更新不能修改它。
 
 $$
-\tau \sim \operatorname{Run}(M,H,E), \qquad y=J(\tau)
+\tau \sim \mathrm{Run}(M,H,E), \qquad y=J(\tau)
 $$
 
 Harness self-evolution 根据一批执行轨迹 $\mathcal{B}_k$，修订后续运行使用的状态：
 
 $$
-H_{k+1}=\operatorname{Update}(H_k,\mathcal{B}_k)
+H_{k+1}=\mathrm{Update}(H_k,\mathcal{B}_k)
 $$
 
 更新机制需要保留，以便继续修订；采纳后的状态需要保存，并由后续运行实际加载。拒绝候选时，$H_{k+1}=H_k$。分析固定模型 $M$；同时训练 weights 的系统按其 harness 更新部分讨论。离线优化器和持久性有限的方法在条目中注明。

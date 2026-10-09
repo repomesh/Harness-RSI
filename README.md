@@ -45,13 +45,13 @@ These surveys cover components, feedback, externalized state, and update loops. 
 A **harness** $H$ is the software and configuration that governs how a model $M$ operates in an environment $E$. It includes tools, context construction, memory, and execution control. The evaluator $J$ scores a trajectory and stays outside the candidate’s editable surface.
 
 $$
-\tau \sim \operatorname{Run}(M,H,E), \qquad y=J(\tau)
+\tau \sim \mathrm{Run}(M,H,E), \qquad y=J(\tau)
 $$
 
 Harness self-evolution uses a batch of trajectories $\mathcal{B}_k$ to revise the state used by later runs:
 
 $$
-H_{k+1}=\operatorname{Update}(H_k,\mathcal{B}_k)
+H_{k+1}=\mathrm{Update}(H_k,\mathcal{B}_k)
 $$
 
 The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejection leaves $H_{k+1}=H_k$. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
