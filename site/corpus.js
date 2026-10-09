@@ -178,7 +178,7 @@ window.CORPUS = {
   {
    "name": "Self-Improvements in Modern Agentic Systems",
    "venue": "arXiv'26",
-   "desc": "separates model and scaffold channels under an explicit frozen-parameter assumption; the closest prior work on evaluation discipline, and it passes over activation.",
+   "desc": "separates model and scaffold updates under frozen parameters and discusses independent evaluation and component controls.",
    "links": [
     [
      "paper",
@@ -607,7 +607,7 @@ window.CORPUS = {
   {
    "name": "Trace2Skill",
    "venue": "arXiv'26",
-   "desc": "distills trajectory-local lessons into transferable skill documents, ranked on a validation subset of the evolving set.",
+   "desc": "distills execution lessons into skill patches and aggregates them into reusable skill documents; validation-based patch selection is a separate experiment.",
    "links": [
     [
      "paper",
@@ -1206,7 +1206,7 @@ window.CORPUS = {
   {
    "name": "Live-SWE-agent",
    "venue": "arXiv'25",
-   "desc": "synthesizes Bash and Python tools on the fly; they are discarded with the task container, so the loop demonstrates tool synthesis <em>without</em> persistent harness evolution.",
+   "desc": "synthesizes Bash and Python tools during a task; the tools are discarded with its container.",
    "links": [
     [
      "paper",
@@ -1300,7 +1300,7 @@ window.CORPUS = {
   {
    "name": "ReCreate",
    "venue": "ACL'26",
-   "desc": "edits role, process, tool, and memory components at both text and code level on a small dev set, explicitly excluding environment and infrastructure adaptation.",
+   "desc": "edits role, process, tool, and memory components at text and code level using a small development set.",
    "links": [
     [
      "paper",
@@ -1458,7 +1458,7 @@ window.CORPUS = {
   {
    "name": "Meta-Harness",
    "venue": "COLM'26",
-   "desc": "hands an external coding agent the source, scores, and traces of prior candidates and asks for a complete task-specific harness program.",
+   "desc": "uses an external coding agent to generate complete harness programs from earlier candidates’ source, scores, and traces.",
    "links": [
     [
      "paper",
@@ -1507,7 +1507,7 @@ window.CORPUS = {
   {
    "name": "SICA",
    "venue": "arXiv'25",
-   "desc": "exposes its own multi-file Python codebase — tools, subagents, control flow — to the best archived agent.",
+   "desc": "lets the best archived agent revise its own multi-file Python codebase, including tools, subagents, and control flow.",
    "links": [
     [
      "paper",
@@ -1620,7 +1620,7 @@ window.CORPUS = {
   {
    "name": "AgentDevel",
    "venue": "arXiv'26",
-   "desc": "reframes self-evolution as release engineering: versioned diffs, release-candidate regression, per-iteration fail→pass and pass→fail records.",
+   "desc": "uses versioned diffs and release-candidate regression tests, recording which tasks each update fixes or breaks.",
    "links": [
     [
      "paper",
@@ -1650,7 +1650,7 @@ window.CORPUS = {
   {
    "name": "Gödel Agent",
    "venue": "ACL'25",
-   "desc": "monkey-patches decision methods, action spaces, and its own modification routines in live Python memory; the revision dies with the process.",
+   "desc": "monkey-patches decision methods, action spaces, and modification routines in Python memory; edits last for the process lifetime.",
    "links": [
     [
      "paper",
@@ -1699,7 +1699,7 @@ window.CORPUS = {
   {
    "name": "HarnessX",
    "venue": "arXiv'26",
-   "desc": "checks hook types, singleton constraints, and smoke tests before committing a proposed configuration, and requires each edit to declare the trace feature that must appear if it fired.",
+   "desc": "checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature.",
    "links": [
     [
      "paper",
@@ -1729,7 +1729,7 @@ window.CORPUS = {
   {
    "name": "DeepSeek Harness",
    "venue": "Product'26",
-   "desc": "the Cordis kernel connects runtime components through declared dependencies, with append-only records supporting checkpointing and replay; it illustrates the substrate, not a reported self-evolution lifecycle.",
+   "desc": "provides a Cordis-based runtime with declared dependencies, checkpointing, and replay; the product page reports no empirical self-evolution evaluation.",
    "links": [
     [
      "page",
@@ -2229,7 +2229,7 @@ window.CORPUS = {
   {
    "name": "Token Cost",
    "venue": "arXiv'26",
-   "desc": "analyzes and predicts agent token consumption, giving the envelope a measurable unit.",
+   "desc": "analyzes and predicts token consumption in agent runs.",
    "links": [
     [
      "paper",
@@ -2274,7 +2274,7 @@ window.CORPUS = {
   {
    "name": "Claw-Eval",
    "venue": "arXiv'26",
-   "desc": "grades trajectories rather than final states and repeats trials to separate capability from luck.",
+   "desc": "scores trajectories and repeats trials to estimate execution variation.",
    "links": [
     [
      "paper",
@@ -2432,7 +2432,7 @@ window.CORPUS = {
   {
    "name": "GDPevo",
    "venue": "arXiv'26",
-   "desc": "scores evolved harnesses on real business tasks held out by recombining rules spread across the training tasks, so a test-time gain can be traced to training experience.",
+   "desc": "evaluates evolved harnesses on held-out business tasks constructed by recombining rules from training tasks.",
    "links": [
     [
      "paper",

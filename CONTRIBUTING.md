@@ -1,36 +1,42 @@
 # Contributing
 
-Contributions should improve placement, mechanism descriptions, or evidence. Keep the English and Chinese lists synchronized.
+Keep the English and Chinese reading lists synchronized. Contributions can add papers, clarify mechanisms, or correct the evidence for a reported result.
 
-## Adding or correcting a work
+## Papers and descriptions
 
-1. Identify the primary update object, feedback source, admission rule, and state retained for later execution. Evaluation protocols belong in Section 4; theory is Section 3. Offline antecedents and limited-persistence mechanisms must be described as such.
-2. Use one primary placement. Theory may refer to an existing method to explain a correspondence.
-3. Give a concise mechanism description and a verified primary-source link. Preserve technical names in the Chinese version. Add code or project links only when the paper identifies them.
+Place each work under its primary update target or evaluation protocol. Describe what changes, what feedback drives it, and what state later runs retain. Note offline optimization or limited persistence when relevant. Theory may reference an already listed method to explain a correspondence.
+
+Use a concise mechanism description, a primary-source link, and the confirmed venue or preprint label. Add code and project links identified by the paper. Keep technical names in the Chinese version.
 
 ```markdown
 - **Name** `Venue'YY` — one-sentence mechanism. [[paper]](url) [[code]](url)
 ```
 
-The Chinese version uses `：` in place of the English separator. Use the actual venue when confirmed; otherwise retain the preprint label.
+Use `：` instead of ` — ` in Chinese entries.
 
 ## Evidence corrections
 
-Read [the rubric](docs/evidence-criteria.md). Each method’s four verdicts refer to one headline comparison. Record the model, benchmark, configuration, baseline, and round. Cite the passage, figure, table, or statistic supporting every changed cell, including the coverage of Activation evidence.
+Follow the [criteria](docs/evidence-criteria.md). Identify the report’s primary comparison, including model, benchmark, baseline, configuration, and round. Cite the passage or statistic supporting each changed judgment, and record how many runs the Activation evidence covers. Keep secondary experiments separate.
 
-Edit [data/reported-evidence.json](data/reported-evidence.json), then regenerate the derived files. Keep [data/taxonomy.json](data/taxonomy.json) aligned with the manuscript. Secondary protocols remain separate from headline totals. Weight-only or fixed-component work does not enter the update-target population.
+| Source file | What to edit |
+|---|---|
+| [README.md](README.md), [README_zh.md](README_zh.md) | Paper entries and section descriptions |
+| [data/taxonomy.json](data/taxonomy.json) | Manuscript citation keys and primary placements |
+| [data/reported-evidence.json](data/reported-evidence.json) | Comparisons, judgments, and supporting passages |
+| [data/source-snapshot.json](data/source-snapshot.json) | Source hashes when importing a manuscript revision |
 
-For disagreements, quote both the recorded basis and the primary-source passage, and propose a specific correction. Automated checks verify consistency; they do not replace source reading.
-
-## Verification
+The evidence summaries, [results document](docs/reported-evidence.md), and `site/corpus.js` are generated. Update their source files, then run:
 
 ```bash
 python3 scripts/build_evidence.py
 python3 scripts/build_site_data.py
 python3 scripts/check_consistency.py
-python3 scripts/check_consistency.py --links  # optional network check
 ```
 
-The checker covers anchors, bilingual entries and links, duplicate entries, local assets, taxonomy placement, and generated evidence tables and site data. Check manuscript source hashes when synchronizing a new paper revision.
+The checker verifies bilingual entries, links, anchors, taxonomy placement, and generated files. `--links` adds an optional network check. These checks establish consistency; source passages determine the judgments.
 
-Preview `index.html` using a local HTTP server. Check the desktop and mobile layouts, search and filters, figure enlargement, keyboard navigation, and browser console. The site is published from `main` at the repository root to [GitHub Pages](https://zgcagi.github.io/Harness-RSI/).
+## Website
+
+Serve the repository with `python3 -m http.server 8000` and open `http://localhost:8000`. For visual changes, check desktop and mobile layouts, formulas, search, filters, figure enlargement, and keyboard navigation.
+
+GitHub Pages publishes `main` from the repository root at [zgcagi.github.io/Harness-RSI](https://zgcagi.github.io/Harness-RSI/). The site and reading list share this repository.

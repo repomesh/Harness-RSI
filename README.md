@@ -2,22 +2,19 @@
 
 # Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-A reading list on feedback-driven updates to agent instructions, memory, workflows, tools, and runtime.
+Research on agents that revise their instructions, memory, workflows, tools, and runtime from execution feedback.
 
 [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reported Evidence](docs/reported-evidence.md) · [中文版](README_zh.md)
 
 </div>
 
-Companion to **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**, by Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, and Yifei Shen.
-
-The list follows the manuscript’s sequence: update targets, theory, evaluation, and reported evidence. The website presents a compact overview.
+Companion reading list for **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**. Methods are organized by update target, followed by theory, evaluation, and reported evidence.
 
 ## Contents
 
 - [Related Surveys](#related-surveys)
 - [Definition](#definition)
 - [Taxonomy](#taxonomy)
-- [Reading Roadmap](#reading-roadmap)
 - [Precursors](#precursors)
 - [1. Interpreted Update Targets](#interpreted)
 - [2. Executable Update Targets](#executable)
@@ -31,61 +28,51 @@ The list follows the manuscript’s sequence: update targets, theory, evaluation
 
 ## Related Surveys
 
-Prior surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets to evolutionary search and continual PAC learning, then examines the evidence for four evaluation claims.
+These surveys cover components, feedback, externalized state, and update loops. This survey connects update targets with theory and the evidence needed to establish a benefit.
 
 - **A Survey of Self-Evolving Agents** `TMLR'26` — organizes self-evolution by what, when, how, and where to evolve. [[paper]](https://arxiv.org/abs/2507.21046)
 - **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25` — organizes methods by optimizer feedback. [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
 - **Externalization in LLM Agents** `arXiv'26` — unified review of memory, skills, protocols, and harness engineering. [[paper]](https://arxiv.org/abs/2604.08224)
 - **Code as Agent Harness** `arXiv'26` — organizes by the role of code in the agent loop. [[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
 - **Recursive Self-Improvement in AI** `arXiv'26` — from bounded self-refinement to autonomous research loops, organized by loop closure. [[paper]](https://arxiv.org/abs/2607.07663)
-- **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold channels under an explicit frozen-parameter assumption; the closest prior work on evaluation discipline, and it passes over activation. [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
+- **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold updates under frozen parameters and discusses independent evaluation and component controls. [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
 - **Self-Evolving Coding Agents** `arXiv'26` — separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open. [[paper]](https://arxiv.org/abs/2608.03392)
 
 <a id="definition"></a>
 
 ## Definition
 
-A **harness** `H` is the software and configuration around a model `M`: execution control, tools, context construction, memory, scheduling, and infrastructure. A rollout is `τ ~ Run(M, H, E)`. The evaluator `J` scores that rollout and remains outside the candidate’s editable surface.
+A **harness** $H$ is the software and configuration that governs how a model $M$ operates in an environment $E$. It includes tools, context construction, memory, and execution control. The evaluator $J$ scores a trajectory and stays outside the candidate’s editable surface.
 
-Harness self-evolution uses execution feedback to revise the state governing later runs:
+$$
+\tau \sim \operatorname{Run}(M,H,E), \qquad y=J(\tau)
+$$
 
-```
-B_k = {τ_k,i ~ Run(M, H_k, E_k,i)}
-H_{k+1} = Update(H_k, B_k)
-```
+Harness self-evolution uses a batch of trajectories $\mathcal{B}_k$ to revise the state used by later runs:
 
-The defining requirements are **feedback-driven update continuity** and **persistence across runs**: an algorithm forms or selects revisions from execution experience, remains available for later updates, and saves an accepted state that a later run actually loads. A rejected proposal leaves `H_{k+1} = H_k`.
+$$
+H_{k+1}=\operatorname{Update}(H_k,\mathcal{B}_k)
+$$
 
-The analysis holds `M` fixed to isolate harness changes. Co-evolving systems are included for their harness-side update; changing weights also requires an attribution control. Offline prompt or program optimizers are included as antecedents and identified as such. Weight-only training, fixed components, and corrections confined to a task output do not establish an operational harness update loop.
+The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejection leaves $H_{k+1}=H_k$. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
 
-**Self-evolution names the update process; self-improvement requires evidence of benefit.** Saving and loading a revision establishes persistence. Whether it operated and helped belongs to Evaluation.
+Self-evolution describes this update process. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
 
 <a id="taxonomy"></a>
 
 ## Taxonomy
 
-Classify a method by the object it changes. Interpreted payloads are read by a fixed host; executable updates change implementations the host invokes. Evaluation protocols form a separate branch. Theory describes the search and its guarantees across these branches.
+Interpreted updates change content read by a fixed host. Executable updates change implementations the host invokes. Evaluation protocols form a separate branch; theory applies across update targets.
 
-| Reading-list section | Focus | Manuscript |
+| Section | Focus | Manuscript |
 |---|---|---|
-| 1. Interpreted targets | Prompts, memory, workflow specifications | §3 |
-| 2. Executable targets | Tools, source code, control programs, plugins | §4 |
-| 3. Theory | Evolutionary search, generalization, retention, admission | §5 |
-| 4. Evaluation | Protocols and evidence controls | §6 |
-| 5. Reported evidence | Verdicts for each method’s headline comparison | §6 |
+| [1. Interpreted targets](#interpreted) | Prompts, memory, workflow specifications | §3 |
+| [2. Executable targets](#executable) | Tools, source code, control programs, plugins | §4 |
+| [3. Theory](#theory) | Evolutionary search, generalization, retention, admission | §5 |
+| [4. Evaluation](#evaluation) | Protocols and benchmarks | §6 |
+| [5. Reported evidence](#evidence) | Evidence for each method’s primary comparison | §6 |
 
-Each work has one primary placement. The theory section may refer to a method again to explain a correspondence. The [source taxonomy](data/taxonomy.json) records the manuscript citation keys and placements.
-
-<a id="reading-roadmap"></a>
-
-## Reading Roadmap
-
-1. **[Reflexion](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)** — feedback stored for the next attempt.
-2. **[Voyager](https://openreview.net/forum?id=ehfRiF0R3a)** — a reusable executable skill library.
-3. **[DSPy](https://openreview.net/forum?id=PFS4ffN9Yx)** — optimization inside a fixed pipeline.
-4. **[DGM](https://openreview.net/forum?id=pUpzQZTvGY)** — repository revision with an archive of candidates.
-5. **[Harness Updating ≠ Harness Benefit](https://arxiv.org/abs/2605.30621)** — separating loading from runtime use.
-6. **[HarnessBank](https://arxiv.org/abs/2607.13683)** — separating proposal, screening, and reporting evidence.
+The [taxonomy data](data/taxonomy.json) records each work’s primary placement. Theory may refer to the same method to explain a correspondence.
 
 <a id="precursors"></a>
 
@@ -99,7 +86,7 @@ Each work has one primary placement. The theory section may refer to a method ag
 
 ## 1. Interpreted Update Targets
 
-These methods revise text or coordination state consumed by fixed components. Whether a saved instruction or skill is followed must be measured. Offline optimization and task-local adaptation are marked in the entries.
+These methods revise instructions, memory, or coordination specifications read by fixed components. Entries note offline optimization and task-local adaptation where applicable.
 
 ### 1.1 Prompts & Instructions
 
@@ -151,7 +138,7 @@ These methods revise text or coordination state consumed by fixed components. Wh
 
 *Store an explicit procedure that can guide later tasks.*
 
-- **Trace2Skill** `arXiv'26` — distills trajectory-local lessons into transferable skill documents, ranked on a validation subset of the evolving set. [[paper]](https://arxiv.org/abs/2603.25158)
+- **Trace2Skill** `arXiv'26` — distills execution lessons into skill patches and aggregates them into reusable skill documents; validation-based patch selection is a separate experiment. [[paper]](https://arxiv.org/abs/2603.25158)
 - **SkillClaw** `arXiv'26` — an agentic evolver whose validator admits a candidate skill only if it beats the deployed pool on validation tasks. [[paper]](https://arxiv.org/abs/2604.08377)
 - **CodeSkill** `arXiv'26` — learns self-evolving coding skills through preparatory passes that build the bank before deployment. [[paper]](https://arxiv.org/abs/2605.25430)
 - **GSkill** `ACM AIAS'26` — automatically learns `SKILL.md` files for coding agents from prior runs. [[paper]](https://doi.org/10.1145/3786335.3813196)
@@ -208,13 +195,11 @@ These methods revise text or coordination state consumed by fixed components. Wh
 - **Meta-Team** `arXiv'26` — carries experience across tasks to update a reusable scaffold of agent prompts, teammate profiles, collaboration notes, and shared coordination rules. [[paper]](https://arxiv.org/abs/2605.29790)
 - **Symbolic Learning** `AI Open'25` — jointly revises pipeline structure, prompts, and tools through back-propagated language loss. [[paper]](https://doi.org/10.1016/j.aiopen.2025.11.004)
 
-Offline prompt optimizers and fixed-pipeline compilers provide candidate-generation mechanisms. They become operational self-evolution only when the update mechanism remains in the deployed lifecycle.
-
 <a id="executable"></a>
 
 ## 2. Executable Update Targets
 
-These methods revise executable implementations. The boundary can be a tool, a component, a control program, or a plugin interface. Executable code still needs evidence that the changed path ran.
+These methods revise tools, component implementations, control programs, or plugins invoked by the host.
 
 ### 2.1 Tools & Code Patches
 
@@ -225,7 +210,7 @@ These methods revise executable implementations. The boundary can be a tool, a c
 - **Voyager** `TMLR'24` — turns self-verified programs into a growing skill library retrieved and composed in later tasks. [[paper]](https://openreview.net/forum?id=ehfRiF0R3a) [[project]](https://voyager.minedojo.org/)
 - **PolySkill** `arXiv'25` — induces polymorphic skill abstractions so a learned skill generalizes past its originating site. [[paper]](https://arxiv.org/abs/2510.15863) [[code]](https://github.com/simonucl/PolySkill)
 - **FlowEvo** `arXiv'26` — compiles a successful workflow into a validated callable artifact in a persistent skill bank, then either executes it or describes it to workflow generation. [[paper]](https://arxiv.org/abs/2607.21596) [[code]](https://github.com/DEFENSE-SEU/FlowEvo)
-- **Live-SWE-agent** `arXiv'25` — synthesizes Bash and Python tools on the fly; they are discarded with the task container, so the loop demonstrates tool synthesis *without* persistent harness evolution. [[paper]](https://arxiv.org/abs/2511.13646)
+- **Live-SWE-agent** `arXiv'25` — synthesizes Bash and Python tools during a task; the tools are discarded with its container. [[paper]](https://arxiv.org/abs/2511.13646)
 - **RoboPhD** `arXiv'26` — co-evolves a deterministic Python analysis tool with model-readable SQL instructions, then ships the pair without its evolutionary infrastructure. [[paper]](https://arxiv.org/abs/2601.01126)
 
 #### Evidence-Grounded Component Patching
@@ -236,7 +221,7 @@ These methods revise executable implementations. The boundary can be a tool, a c
 - **HarnessCompass** `arXiv'26` — optimizes harness components separately and combines them into candidate configurations. [[paper]](https://arxiv.org/abs/2608.01918)
 - **AHE** `arXiv'26` — uses submit-guard and shell traces to diagnose component edits and supports file-level rollback. [[paper]](https://arxiv.org/abs/2604.25850)
 - **HarnessFix** `arXiv'26` — diagnoses harness faults from failed trajectories and admits a repair only through a validation-set assessment. [[paper]](https://arxiv.org/abs/2606.06324)
-- **ReCreate** `ACL'26` — edits role, process, tool, and memory components at both text and code level on a small dev set, explicitly excluding environment and infrastructure adaptation. [[paper]](https://aclanthology.org/2026.acl-long.1432/)
+- **ReCreate** `ACL'26` — edits role, process, tool, and memory components at text and code level using a small development set. [[paper]](https://aclanthology.org/2026.acl-long.1432/)
 - **AutoSaddler** `arXiv'26` — retains patches that improve a minibatch, selects on development data, and reports on a group-disjoint test split. [[paper]](https://arxiv.org/abs/2608.23041)
 - **CHASE** `arXiv'26` — tests proposed patches against protocol transformations designed to invalidate their apparent gains. [[paper]](https://arxiv.org/abs/2609.18366)
 - **Evo-Harness** `arXiv'26` — compiles accumulated context into harness-level skills along an online stream, matching fail→pass traces to skill content. [[paper]](https://arxiv.org/abs/2608.15071) [[code]](https://github.com/A-EVO-Lab/a-evolve)
@@ -253,7 +238,7 @@ These methods revise executable implementations. The boundary can be a tool, a c
 *Search over the control program; VERSE also revises the optimizer that proposes it.*
 
 - **ADAS** `ICLR'25` — a fixed meta-agent writes new agent `forward` implementations and keeps evaluated candidates in an archive. [[paper]](https://openreview.net/forum?id=t9U3LW7JVX) [[project]](https://shengranhu.com/ADAS)
-- **Meta-Harness** `COLM'26` — hands an external coding agent the source, scores, and traces of prior candidates and asks for a complete task-specific harness program. [[paper]](https://arxiv.org/abs/2603.28052)
+- **Meta-Harness** `COLM'26` — uses an external coding agent to generate complete harness programs from earlier candidates’ source, scores, and traces. [[paper]](https://arxiv.org/abs/2603.28052)
 - **RRSI** `arXiv'26` — regularizes program search using edit budgets, leakage checks, and noise-adjusted admission thresholds. [[paper]](https://arxiv.org/abs/2609.24972) [[code]](https://github.com/google-research/rrsi)
 - **VERSE** `arXiv'26` — revises both the executor harness and the optimizer’s prompts, tools, hooks, and notes under execution checks. [[paper]](https://arxiv.org/abs/2610.02616)
 
@@ -261,21 +246,21 @@ These methods revise executable implementations. The boundary can be a tool, a c
 
 *Edit a versioned harness implementation and retain candidates for further evolution.*
 
-- **SICA** `arXiv'25` — exposes its own multi-file Python codebase — tools, subagents, control flow — to the best archived agent. [[paper]](https://arxiv.org/abs/2504.15228)
+- **SICA** `arXiv'25` — lets the best archived agent revise its own multi-file Python codebase, including tools, subagents, and control flow. [[paper]](https://arxiv.org/abs/2504.15228)
 - **DGM** `ICLR'26` — branches repository variants into an open-ended archive, with parent selection over performance and novelty. [[paper]](https://openreview.net/forum?id=pUpzQZTvGY)
 - **DarwinX** `arXiv'26` — evolves repository-level harness candidates through selection, mutation, and recombination. [[paper]](https://arxiv.org/abs/2608.07545)
 - **HGM** `arXiv'25` — approximates clade-level productivity and allocates lineage-expansion and evaluation budgets by Thompson sampling. [[paper]](https://arxiv.org/abs/2510.21614) [[code]](https://github.com/metauto-ai/HGM)
 - **Group-Evolving Agents** `arXiv'26` — lets selected parents share code patches, tools, and execution experience before producing framework-level patches. [[paper]](https://arxiv.org/abs/2602.04837)
 - **MOSS** `arXiv'26` — rewrites routing, hooks, state management, and dispatch code, then swaps the container behind a health check plus human authorization. [[paper]](https://arxiv.org/abs/2605.22794) [[code]](https://github.com/hkgai-official/Moss)
 - **Ouroboros** `arXiv'26` — evolves its own core through reviewed commits, with run manifests, seed attestation, and public per-task traces. [[paper]](https://arxiv.org/abs/2608.08311)
-- **AgentDevel** `arXiv'26` — reframes self-evolution as release engineering: versioned diffs, release-candidate regression, per-iteration fail→pass and pass→fail records. [[paper]](https://arxiv.org/abs/2601.04620)
+- **AgentDevel** `arXiv'26` — uses versioned diffs and release-candidate regression tests, recording which tasks each update fixes or breaks. [[paper]](https://arxiv.org/abs/2601.04620)
 - **EvolveNet** `arXiv'26` — combines harness edits across clients and validates merged patches before broadcasting shared state. [[paper]](https://arxiv.org/abs/2608.04968)
 
 #### In-Process Patching
 
 *Apply changes to a running process; persistence depends on the system’s save and reload mechanism.*
 
-- **Gödel Agent** `ACL'25` — monkey-patches decision methods, action spaces, and its own modification routines in live Python memory; the revision dies with the process. [[paper]](https://aclanthology.org/2025.acl-long.1354/)
+- **Gödel Agent** `ACL'25` — monkey-patches decision methods, action spaces, and modification routines in Python memory; edits last for the process lifetime. [[paper]](https://aclanthology.org/2025.acl-long.1354/)
 - **TTHE** `arXiv'26` — evolves executable harness programs from traces at test time and carries the selected program into subsequent inputs. [[paper]](https://arxiv.org/abs/2607.08124)
 - **Life-Harness** `arXiv'26` — adapts environment contracts, action realization, and trajectory regulation together, then freezes the runtime interface for evaluation. [[paper]](https://arxiv.org/abs/2605.22166) [[code]](https://github.com/Tianshi-Xu/Life-Harness)
 
@@ -285,50 +270,50 @@ These methods revise executable implementations. The boundary can be a tool, a c
 
 *Bind updates to hooks with explicit interfaces and admission checks.*
 
-- **HarnessX** `arXiv'26` — checks hook types, singleton constraints, and smoke tests before committing a proposed configuration, and requires each edit to declare the trace feature that must appear if it fired. [[paper]](https://arxiv.org/abs/2606.14249)
+- **HarnessX** `arXiv'26` — checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature. [[paper]](https://arxiv.org/abs/2606.14249)
 - **Argus** `arXiv'26` — exposes skills through a general agent runtime and evolves them along long task streams. [[paper]](https://arxiv.org/abs/2608.05144)
 
 #### Microkernel Platforms
 
 *Keep a small host fixed and expose replaceable components through plugin interfaces.*
 
-- **DeepSeek Harness** `Product'26` — the Cordis kernel connects runtime components through declared dependencies, with append-only records supporting checkpointing and replay; it illustrates the substrate, not a reported self-evolution lifecycle. [[page]](https://www.deepseek.com/harness/en/)
+- **DeepSeek Harness** `Product'26` — provides a Cordis-based runtime with declared dependencies, checkpointing, and replay; the product page reports no empirical self-evolution evaluation. [[page]](https://www.deepseek.com/harness/en/)
 - **Autogenesis** `arXiv'26` — a self-evolving agent protocol with an explicit propose–evaluate–commit cycle over lineage and versioning. [[paper]](https://arxiv.org/abs/2604.15034) [[code]](https://github.com/DVampire/Autogenesis)
 - **ModularRSI** `arXiv'26` — evolves modules behind a composer and admits updates through a reward-blind gate on externally curated tasks. [[paper]](https://arxiv.org/abs/2609.14857)
 - **Cordis / Spatiotemporal Composability** `arXiv'26` — the formal calculus behind that kernel; self-evolving harnesses are stated as future work. [[paper]](https://arxiv.org/abs/2608.25512)
-
-Live-SWE-agent’s tools are task-local, and Gödel Agent’s edits last for the process lifetime. These entries illustrate executable revision with limited persistence. Plugin contracts can constrain interfaces and permissions; they do not establish task correctness.
 
 <a id="theory"></a>
 
 ## 3. Theory
 
-Harness search uses task scores and execution feedback to propose changes without differentiating through the program. The EA correspondence describes representation, variation, selection, and resource allocation; it does not imply that each system implements a canonical EA.
+Harness search uses scores and execution traces to revise programs without gradients. Evolutionary algorithms describe its search structure; continual PAC analysis studies generalization, retention, and candidate admission.
 
 ### 3.1 Evolutionary Paradigms
 
-| EA paradigm | Mapping scope | Systems |
+The mappings below identify shared mechanisms and their scope.
+
+| EA paradigm | Correspondence | Systems |
 |---|---|---|
-| Elitist (1+1) / evolution strategies | One candidate compared with the incumbent; MCE explicitly adopts a history-informed (1+1)-ES, the others share its selection structure | SICA · MCE · SkillOpt · SkillOpt-Lite · SkillClaw |
-| Elitist (1+λ)-style | Several edits proposed from one incumbent and evaluated before acceptance; merging compatible edits departs from canonical (1+λ) survivor selection | Self-Harness |
-| Archive-based program search | Programs as individuals, with parent selection, modification, and lineage retention — not classical tree-based GP operators | DGM · DarwinX · HGM |
-| Recombination / crossover | Complementary content combined across candidates; Trace2Skill supplies a patch-consolidation analogy only, without a complete selection loop | DarwinX · HarnessCompass · Self-Harness · MCE · Trace2Skill |
-| Quality-diversity / MAP-Elites | Semantic descriptors partition the archive into cells with per-cell elites; HarnessBank modifies parent selection and adds verification gates | HarnessBank |
-| Cooperative coevolution | Component-wise optimization then combination; the correspondence is limited — no independently evolving subpopulations | HarnessCompass |
-| Pareto selection in multi-objective EAs | Performance–cost frontiers or multi-criterion acceptance gates; a selection-level correspondence, not an NSGA-II implementation | Meta-Harness · Self-Harness · SkillMOO |
+| Elitist (1+1) / ES | One candidate competes with the incumbent; MCE explicitly uses history-informed (1+1)-ES | SICA · MCE · SkillOpt · SkillOpt-Lite · SkillClaw |
+| Elitist (1+λ)-style | Several candidates share one parent; compatible accepted edits may be merged | Self-Harness |
+| Archive-based program search | Parent selection, program edits, and retained lineages | DGM · DarwinX · HGM |
+| Recombination / crossover | Combine candidate content; Trace2Skill provides a patch-consolidation analogy | DarwinX · HarnessCompass · Self-Harness · MCE · Trace2Skill |
+| Quality-diversity / MAP-Elites | Per-cell elites indexed by semantic descriptors, with modified parent selection and verification gates | HarnessBank |
+| Cooperative coevolution | Optimize components separately, then combine them; no independent subpopulations | HarnessCompass |
+| Multi-objective selection | Performance–cost trade-offs or multi-criterion gates; SkillMOO uses NSGA-II ranking | Meta-Harness · Self-Harness · SkillMOO |
 | Bandit-guided evolution | Thompson sampling allocates lineage-expansion and evaluation budgets | HGM |
 
 ### 3.2 PAC Learning & Stability
 
-The continual PAC analysis separates **sample stability**, **historical retention**, and **candidate admission**. It assumes bounded task loss, independent exogenous task draws, and a fixed model and evaluator. Small code edits alone do not establish stability; repeated small regressions can accumulate.
+The continual PAC analysis separates sensitivity to training samples, retention of earlier capabilities, and admission of new candidates. It assumes independent exogenous task draws, task losses in $[0,1]$, and a fixed model and evaluator.
 
-For at most `K` candidates in each of `T` rounds, compared on `m` fresh tasks independent of candidate construction, the paired gate is
+For at most $K$ candidates in each of $T$ rounds, compare each candidate with the incumbent on $m$ fresh tasks independent of its construction:
 
-```
-Δ̂_k(H′) + sqrt(2 ln(KT/δ) / m) < 0
-```
+$$
+\widehat{\Delta}_k(H') + \sqrt{\frac{2\ln(KT/\delta)}{m}} < 0
+$$
 
-Here `Δ̂` is candidate loss minus incumbent loss. Under the assumptions, the bound certifies the evaluated candidate on that round’s task mixture with joint confidence `1−δ`. It does not cover an untested merge or a candidate rewritten after inspecting validation outcomes. Repeated rollouts reduce execution noise; they do not add independent tasks.
+Here $\widehat{\Delta}$ is candidate loss minus incumbent loss. Under the stated assumptions, this gate gives joint confidence $1-\delta$ for accepted candidates on their round’s task mixture. It applies to the candidate actually tested, including any merged edits. Repeated rollouts reduce execution noise but do not add independent tasks.
 
 #### Stability & Retention
 
@@ -364,22 +349,20 @@ Here `Δ̂` is candidate loss minus incumbent loss. Under the assumptions, the b
 
 ## 4. Evaluation & Benchmarks
 
-A reported gain raises four distinct questions. Selection concerns how the number was obtained; Activation, Attribution, and Improvement concern what it supports.
+A task score can support four distinct claims. Each must be read against the same comparison.
 
-| Claim | Required evidence |
+| Claim | Question and evidence |
 |---|---|
-| **Selection** | Reporting outcomes were kept out of proposal, ranking, admission, and the choice of reported round or configuration. |
-| **Activation** | Direct records bind an identified accepted update to the scored runs. Record whether it was available, reached, or carried, and the coverage of that evidence. |
-| **Attribution** | The compared arms isolate the update, control the inference envelope, and show a margin beyond measured execution variation. |
-| **Improvement** | Record distance from the tasks that formed the update, the comparison baseline, and the round at which the gain was measured. |
+| **Selection** | Did reporting outcomes stay separate from proposal, ranking, admission, and the choice of reported round or configuration? |
+| **Activation** | Did the accepted update operate in the scored runs? Direct records must identify the update and show where it ran. |
+| **Attribution** | Did the update cause the difference? Isolate it from other changes, control inference resources, and measure execution variation. |
+| **Improvement** | Does the difference extend beyond the tasks that formed the update? Record task distance, baseline, and measurement round. |
 
 ![Four evaluation claims and longitudinal controls](assets/claims.png)
 
-Activation has three grades: **available**, the artifact entered the run; **reached**, its path executed; **carried**, its output reached the model input or the trajectory followed it. A load log establishes availability. A trace from search or screening does not establish activation in the reported test runs.
+Activation distinguishes an artifact being **available**, its changed path being **reached**, and its output being **carried** into the next model input or followed by the trajectory. Evidence may cover one case, a sample, or all scored runs. The [criteria](docs/evidence-criteria.md) define how each claim is assessed.
 
-Attribution uses repeated executions, paired tests, or reported raw data to quantify variation. A large gap and a binomial approximation inferred from task counts alone are insufficient. Record compute in the scored runs separately from search cost: model calls, generated tokens, turns, attempts, and effort settings.
-
-For successive updates, preserve the task split, artifact version and activation record, model and evaluator versions, inference budget, and repeated measurements. Vary task order and probe earlier distributions to examine retention. When the benchmark changes, evaluate both harness states on both snapshots under the same protocol; the comparison remains conditional on those snapshots and their prior use.
+Successive updates also need versioned states, model and evaluator records, fixed reference tasks, and repeated measurements. Probe earlier distributions for retention; when a benchmark changes, compare both harness states on both snapshots.
 
 ### 4.1 Claim-Specific Evidence
 
@@ -408,10 +391,10 @@ For successive updates, preserve the task split, artifact version and activation
 *Separate the effect of the update from execution variation, inference compute, and evaluator changes.*
 
 - **Agents That Matter** `TMLR'25` — shows agent comparisons confound capability with cost, and asks for cost-controlled evaluation. [[paper]](https://arxiv.org/abs/2407.01502)
-- **Token Cost** `arXiv'26` — analyzes and predicts agent token consumption, giving the envelope a measurable unit. [[paper]](https://arxiv.org/abs/2604.22750)
+- **Token Cost** `arXiv'26` — analyzes and predicts token consumption in agent runs. [[paper]](https://arxiv.org/abs/2604.22750)
 - **MLE-bench** `ICLR'25` — ML-engineering tasks with repeated runs and an explicit compute envelope. [[paper]](https://arxiv.org/abs/2410.07095)
 - **HAL** `ICLR'26` — standardized run records, model snapshots, and cost accounting as shared evaluation infrastructure. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf)
-- **Claw-Eval** `arXiv'26` — grades trajectories rather than final states and repeats trials to separate capability from luck. [[paper]](https://arxiv.org/abs/2604.06132)
+- **Claw-Eval** `arXiv'26` — scores trajectories and repeats trials to estimate execution variation. [[paper]](https://arxiv.org/abs/2604.06132)
 - **AgentRewardBench** `COLM'25` — meta-evaluates automatic judges of web-agent trajectories against expert annotation. [[paper]](https://arxiv.org/abs/2504.08942) [[project]](https://agent-reward-bench.github.io)
 - **Judge Inflation** `arXiv'24` — documents spontaneous reward hacking in iterative self-refinement. [[paper]](https://arxiv.org/abs/2407.04549)
 - **Memory Reward Inflation** `arXiv'26` — shows stored memory can inflate the reported reward rather than improve the behavior. [[paper]](https://arxiv.org/abs/2608.00017)
@@ -426,7 +409,7 @@ For successive updates, preserve the task split, artifact version and activation
 *Test on held-out tasks, new settings, or earlier distributions.*
 
 - **HarnessDev** `arXiv'26` — separates harness *creation* from iterative *evolution*, reporting capability, cost, and held-out transfer. [[paper]](https://arxiv.org/abs/2609.01437)
-- **GDPevo** `arXiv'26` — scores evolved harnesses on real business tasks held out by recombining rules spread across the training tasks, so a test-time gain can be traced to training experience. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
+- **GDPevo** `arXiv'26` — evaluates evolved harnesses on held-out business tasks constructed by recombining rules from training tasks. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
 - **EvoHarnessBench** `arXiv'26` — grows the harness an agent is given and measures whether earlier competence is retained as capabilities are added. [[paper]](https://arxiv.org/abs/2609.04280)
 - **PATH-Bench** `arXiv'26` — path-dependent evaluation: deliberately varied task order and retained frozen reference histories. [[paper]](https://arxiv.org/abs/2608.01149)
 - **Agent Plasticity** `arXiv'26` — measures how execution experience translates into held-out gains and examines failures to reuse artifacts. [[paper]](https://arxiv.org/abs/2610.08902)
@@ -493,7 +476,7 @@ For successive updates, preserve the task split, artifact version and activation
 
 <!-- evidence-summary:start -->
 
-We examine the evidence for **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
+The two update-target branches contain 96 methods; 2 report no empirical evaluation. The counts below cover the other 94 reports, using one primary comparison per report for all four claims.
 
 | Claim | ✅ Full | ◐ Partial | — Not supported |
 |---|---:|---:|---:|
@@ -502,17 +485,9 @@ We examine the evidence for **96 methods** in the manuscript’s two update-targ
 | Attribution | 12 | 80 | 2 |
 | Improvement | 53 | 19 | 22 |
 
-Verdicts describe reported evidence. The criteria differ, so full-evidence counts are not a ranking of method quality. Activation can meet its criterion with one confirmed case; the per-method basis records the coverage.
+Within one comparison, 8 reports establish three claims in full and none establish all four. Criteria and coverage differ across claims, so these counts do not rank method quality.
 
-Number of claims at full evidence within one report:
-
-| 0 | 1 | 2 | 3 | 4 |
-|---:|---:|---:|---:|---:|
-| 27 | 26 | 33 | 8 | 0 |
-
-The most common profile has full Selection and Improvement with partial Activation and Attribution. 8 reports meet Activation and 12 meet Attribution; interpret each verdict within its headline comparison and recorded coverage.
-
-See the [full results](docs/reported-evidence.md) for verdicts, headline comparisons, and recorded evidence, and the [rubric](docs/evidence-criteria.md) for criteria.
+See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.
 
 <!-- evidence-summary:end -->
 
@@ -520,15 +495,9 @@ See the [full results](docs/reported-evidence.md) for verdicts, headline compari
 
 ## Contributing
 
-Contributions should state the update object, feedback source, admission rule, and what persists. Provide the primary paper link and matching English and Chinese entries. For corrections to the evidence tables, identify the headline comparison and the exact evidence supporting each changed verdict. See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for adding papers, correcting evidence, and rebuilding the site. Keep English and Chinese entries synchronized.
 
-Updated 2026-10-09 against the [manuscript source snapshot](data/source-snapshot.json). The evidence tables and site are reproducible with:
-
-```bash
-python3 scripts/build_evidence.py
-python3 scripts/build_site_data.py
-python3 scripts/check_consistency.py
-```
+Evidence snapshot: [2026-10-09](data/source-snapshot.json).
 
 <a id="citation"></a>
 

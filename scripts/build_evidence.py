@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate evidence tables and bilingual summaries from data/reported-evidence.json."""
 import argparse
-from collections import Counter
+import html
 import json
 from pathlib import Path
 import re
@@ -32,52 +32,94 @@ def table(per, zh=False):
     return '\n'.join(lines)
 
 
-def summary(data, scored, per, joint, zh=False):
+def summary(data, scored, per, joint, zh=False, compact=True):
     total, n = len(data['methods']), len(scored)
     if zh:
-        intro=f'我们按四项 claims 整理论文两个更新对象分支中的 **{total} 个方法**，其中 {total-n} 个没有实证评测，{n} 份报告计入评分。每行以该方法主结果对应的同一项比较为依据，判定四项 claims 的证据是否充分。'
-        reading='判定描述报告提供了什么证据。各列标准不同，不能把充分证据的数量直接当作方法质量排名。Activation 的充分证据可能只覆盖一个已确认实例，覆盖范围记录在逐方法依据中。'
-        joint_intro='同一份报告达到充分证据的 claim 数量：'
-        finding=f'最常见的组合是 Selection 与 Improvement 充分、Activation 与 Attribution 部分。Activation 充分的报告有 {per[1]["C"]} 份，Attribution 充分的有 {per[2]["C"]} 份；详细判定需结合各自主结果与覆盖范围阅读。'
-        end='各方法的判定、主结果与来源见[完整结果](docs/reported-evidence.md)，具体标准见[判定标准](docs/evidence-criteria.md)。'
+        intro = f'两个更新对象分支共收录 {total} 个方法，其中 {total-n} 个没有实证评测。下表依据其余 {n} 份报告的主要比较，分别判定四项 claims 的证据。'
+        all_four = '没有报告四项均充分' if joint[4] == 0 else f'{joint[4]} 份报告四项均充分'
+        finding = f'同一项比较中，{joint[3]} 份报告有三项 claim 的证据充分，{all_four}。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。'
+        links = '各方法的比较设置、判定与来源见[完整结果](docs/reported-evidence.md)，具体要求见[判定标准](docs/evidence-criteria.md)。'
     else:
-        intro=f'We examine the evidence for **{total} methods** in the manuscript’s two update-target branches. Of these, {total-n} have no empirical evaluation and {n} reports are scored. Every row fixes one headline comparison before assigning all four verdicts.'
-        reading='Verdicts describe reported evidence. The criteria differ, so full-evidence counts are not a ranking of method quality. Activation can meet its criterion with one confirmed case; the per-method basis records the coverage.'
-        joint_intro='Number of claims at full evidence within one report:'
-        finding=f'The most common profile has full Selection and Improvement with partial Activation and Attribution. {per[1]["C"]} reports meet Activation and {per[2]["C"]} meet Attribution; interpret each verdict within its headline comparison and recorded coverage.'
-        end='See the [full results](docs/reported-evidence.md) for verdicts, headline comparisons, and recorded evidence, and the [rubric](docs/evidence-criteria.md) for criteria.'
-    return '\n\n'.join([intro,table(per,zh),reading,joint_intro,'| 0 | 1 | 2 | 3 | 4 |\n|---:|---:|---:|---:|---:|\n| '+' | '.join(map(str,joint))+' |',finding,end])
+        intro = f'The two update-target branches contain {total} methods; {total-n} report no empirical evaluation. The counts below cover the other {n} reports, using one primary comparison per report for all four claims.'
+        all_four = 'none establish all four' if joint[4] == 0 else f'{joint[4]} establish all four'
+        finding = f'Within one comparison, {joint[3]} reports establish three claims in full and {all_four}. Criteria and coverage differ across claims, so these counts do not rank method quality.'
+        links = 'See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.'
+    parts = [intro, table(per, zh), finding]
+    if compact:
+        parts.append(links)
+    else:
+        parts.extend([
+            'Number of claims at full evidence within one report. A report with none may still provide partial evidence.',
+            '| 0 | 1 | 2 | 3 | 4 |\n|---:|---:|---:|---:|---:|\n| ' + ' | '.join(map(str, joint)) + ' |',
+            'The most common profile combines full Selection and Improvement with partial Activation and Attribution. Full Activation can rest on one confirmed case; each method’s details record the coverage.',
+        ])
+    return '\n\n'.join(parts)
 
 
-def cell(text):
-    return ' '.join(text.split()).replace('|', '\\|')
+def prose(text):
+    """Keep source comparisons such as < and > visible in Markdown."""
+    return html.escape(' '.join(text.split()), quote=False)
+
+
+def render_basis(row):
+    if row['selection'] == 'X':
+        return prose(row['basis'])
+    parts = re.split(r'(?:^|;)\s*(SEL|ACT|ATT|IMP):\s*', row['basis'])
+    assert not parts[0].strip() and parts[1::2] == ['SEL', 'ACT', 'ATT', 'IMP'], row['key']
+    labels = {'C': 'Full evidence', 'O': 'Partial', 'N': 'Not supported'}
+    return '\n\n'.join(
+        f'**{claim.capitalize()} ({labels[row[claim]]}).** {prose(basis)}'
+        for claim, basis in zip(CLAIMS, parts[2::2])
+    )
 
 
 def render_doc(data, scored, per, joint):
-    methods = sorted(data['methods'], key=lambda x:x['name'].lower())
-    by_key = {r['key']:r for r in methods}
-    out=['# Reported Evidence',summary(data,scored,per,joint).rsplit('\n\n',1)[0] + '\n\nRead the [rubric](evidence-criteria.md) for the evidence criteria. The [reading-list summary](../README.md#evidence) provides a shorter introduction.',
-         'Source: [evidence data](../data/reported-evidence.json), [taxonomy](../data/taxonomy.json), and [manuscript snapshot](../data/source-snapshot.json). Regenerate with `python3 scripts/build_evidence.py`.',
-         '![Reported evidence from the companion manuscript](../assets/reported-evidence.png)\n\n## By update target', '| Update target | n | Sel. ✅ | Act. ✅ | Att. ✅ | Imp. ✅ |\n|---|---:|---:|---:|---:|---:|']
-    for sub in dict.fromkeys(r['sub'] for r in data['methods']):
-        rs=[r for r in scored if r['sub']==sub]
-        out.append('| '+sub+' | '+str(len(rs))+' | '+' | '.join(str(sum(r[c]=='C' for r in rs)) for c in CLAIMS)+' |')
-    out+=['\n## Verdicts','All four cells refer to the same headline. `n/a` denotes no empirical evaluation.', '| Method | Branch · mechanism | Sel. | Act. | Att. | Imp. |\n|---|---|:-:|:-:|:-:|:-:|']
-    for r in methods:
-        out.append(f'| [**{r["name"]}**]({r["url"]}) <sub>`{r["venue"]}`</sub> | {r["branch"].split()[0]} · {r["mechanism"]} | '+' | '.join(BADGE[r[c]] for c in CLAIMS)+' |')
-    out+=['\n## Recorded basis','Section and table references below refer to each linked primary report. SEL / ACT / ATT / IMP separate the four claims. Coverage and calculations are retained from the manuscript’s per-method analysis.', '| Method | Headline | Recorded basis |\n|---|---|---|']
-    for r in methods:
-        out.append(f'| [**{r["name"]}**]({r["url"]}) | {cell(r["headline"])} | {cell(r["basis"])} |')
-    out+=['\n## Other protocols','Secondary experiments are recorded separately and excluded from the headline totals.', '| Method | Protocol | Sel. | Imp. | Basis |\n|---|---|:-:|:-:|---|']
-    for r in data['secondary']:
-        out.append(f'| **{by_key[r["key"]]["name"]}** | {cell(r["protocol"])} | {BADGE[r["selection"]]} | {BADGE[r["improvement"]]} | {cell(r["basis"])} |')
-    result = ''
-    previous_table = False
-    for chunk in out:
-        is_table = chunk.startswith('|')
-        result += ('\n' if is_table and previous_table else '\n\n') + chunk.strip()
-        previous_table = is_table
-    return result.strip() + '\n'
+    methods = sorted(data['methods'], key=lambda row: row['name'].lower())
+    by_key = {row['key']: row for row in methods}
+    out = [
+        '# Reported Evidence',
+        'Evidence for Selection, Activation, Attribution, and Improvement in each method’s primary reported comparison. The [criteria](evidence-criteria.md) define the judgments; the [reading list](../README.md#evidence) gives a short summary.',
+        '[Summary](#summary) · [By update target](#by-update-target) · [Verdicts](#verdicts) · [Method details](#method-details) · [Other protocols](#other-protocols)',
+        '## Summary',
+        summary(data, scored, per, joint, compact=False),
+        '![Reported evidence from the companion manuscript](../assets/reported-evidence.png)',
+        '## By update target',
+    ]
+    rows = ['| Update target | Reports | Sel. ✅ | Act. ✅ | Att. ✅ | Imp. ✅ |', '|---|---:|---:|---:|---:|---:|']
+    for sub in dict.fromkeys(row['sub'] for row in data['methods']):
+        group = [row for row in scored if row['sub'] == sub]
+        counts = [sum(row[claim] == 'C' for row in group) for claim in CLAIMS]
+        rows.append('| ' + sub + ' | ' + ' | '.join(map(str, [len(group), *counts])) + ' |')
+    out.extend(['\n'.join(rows), '## Verdicts', '✅ Full evidence · ◐ Partial · — Not supported · n/a No empirical evaluation. All four cells refer to the same primary comparison. Open a method’s details for the supporting passages and coverage.'])
+    rows = ['| Method · primary report | Update target · details | Sel. | Act. | Att. | Imp. |', '|---|---|:-:|:-:|:-:|:-:|']
+    for row in methods:
+        rows.append(
+            f'| [**{row["name"]}**]({row["url"]}) <sub>`{row["venue"]}`</sub> | '
+            f'{row["branch"].split()[0]} · {row["mechanism"]} · [details](#{row["key"]}) | '
+            + ' | '.join(BADGE[row[claim]] for claim in CLAIMS) + ' |'
+        )
+    out.extend(['\n'.join(rows), '## Method details', 'Expand a method to read its primary comparison and the basis for each claim. Section, table, and figure references refer to the linked primary report. Calculations and coverage come from the manuscript’s per-method records.'])
+    for row in methods:
+        headline = prose(row['headline']) if row['headline'] else 'No empirical evaluation.'
+        out.append(
+            f'<a id="{row["key"]}"></a>\n\n<details>\n'
+            f'<summary><strong>{html.escape(row["name"])}</strong></summary>\n\n'
+            f'[Primary report]({row["url"]})\n\n**Primary comparison.** {headline}\n\n'
+            + render_basis(row) + '\n\n</details>'
+        )
+    out.extend(['## Other protocols', 'These secondary experiments are recorded separately and excluded from the totals above.'])
+    for row in data['secondary']:
+        out.append(
+            f'### {by_key[row["key"]]["name"]}\n\n'
+            f'**Protocol.** {prose(row["protocol"])}\n\n'
+            f'Selection: {BADGE[row["selection"]]} · Improvement: {BADGE[row["improvement"]]}\n\n'
+            f'{prose(row["basis"])}'
+        )
+    out.extend([
+        '## Data and reproduction',
+        '[Evidence data](../data/reported-evidence.json) · [Taxonomy](../data/taxonomy.json) · [Manuscript snapshot](../data/source-snapshot.json). This document is generated by `python3 scripts/build_evidence.py`; see [Contributing](../CONTRIBUTING.md) for corrections.',
+    ])
+    return '\n\n'.join(out) + '\n'
 
 
 def main():
