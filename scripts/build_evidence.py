@@ -46,7 +46,14 @@ def summary(data, scored, per, joint, zh=False, compact=True):
         links = 'See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.'
     parts = [intro, table(per, zh), finding]
     if compact:
-        parts.append(links)
+        intro = (
+            f'四项 claims 的证据分布，依据 {n} 份报告各自的主要比较；另有 {total-n} 个方法未报告实证评测。'
+            if zh else
+            f'Evidence for the four claims across {n} primary reported comparisons; {total-n} methods without empirical evaluation are excluded.'
+        )
+        alt = '四项 claims 的证据分布与整体覆盖情况' if zh else 'Evidence by claim and overall coverage'
+        figure = f'[![{alt}](assets/reported-evidence.png)](assets/reported-evidence.png)'
+        parts = [intro, figure, finding, links]
     else:
         parts.extend([
             'Number of claims at full evidence within one report. A report with none may still provide partial evidence.',

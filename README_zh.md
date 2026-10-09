@@ -1,40 +1,31 @@
 <div align="center">
 
-# Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact
-
-Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+<h1>Harness Self-Evolution</h1>
+<p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[项目主页](https://zgcagi.github.io/Harness-RSI/) · [实证证据](docs/reported-evidence.md) · [引用](#citation) · [English](README.md)
+[项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
+
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+
+[![Harness self-evolution：从指令到可执行组件与 runtime](assets/banner.png)](assets/banner.png)
 
 </div>
 
-本仓库是论文的配套文献清单。我们按 **Interpreted** 与 **Executable** 更新对象组织算法，将搜索过程与 evolutionary algorithms、continual PAC learning 联系起来，并从 **Selection、Activation、Attribution、Improvement** 四项 claims 分析已有结果的证据。论文进一步讨论应用、社会影响与开放问题。
+本综述的配套文献与图表，按 harness 的更新对象、搜索机制和评测方法组织。图表沿用论文原版，点击可查看高清图。
 
-[![Harness self-evolution 的演化路径：从指令与 prompts 到可执行组件和 runtime](assets/banner.png)](assets/banner.png)
+## 阅读导航
 
-*从指令与 prompts 到可执行组件和 runtime。点击任意图片可查看原图。*
+**背景**　[相关综述](#related-surveys) · [定义](#definition) · [分类](#taxonomy) · [前置工作](#precursors)
 
-## 目录
+**文献**　[Interpreted](#interpreted) · [Executable](#executable) · [Theory](#theory) · [Evaluation](#evaluation)
 
-- [相关综述](#related-surveys)
-- [定义](#definition)
-- [分类](#taxonomy)
-- [前置工作](#precursors)
-- [1. Interpreted Update Targets](#interpreted)
-- [2. Executable Update Targets](#executable)
-- [3. Theory](#theory)
-- [4. Evaluation 与 Benchmarks](#evaluation)
-- [5. 实证证据](#evidence)
-- [贡献与维护](#contributing)
-- [引用](#citation)
+**资料**　[实证证据](#evidence) · [贡献与维护](#contributing) · [引用](#citation)
 
 <a id="related-surveys"></a>
 
 ## 相关综述
-
-以下综述覆盖组件、反馈来源、外部状态与更新过程。本综述将更新对象与理论联系起来，并讨论证明更新有效所需的证据。
 
 - **A Survey of Self-Evolving Agents** `TMLR'26`：按演化什么、何时演化、如何演化、在哪里演化来组织。 [[paper]](https://arxiv.org/abs/2507.21046)
 - **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25`：按优化器反馈组织方法。 [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
@@ -64,20 +55,14 @@ $$
 
 Self-evolution 指这一更新过程。更新是否实际生效、是否改善表现，需要下文的[评测证据](#evaluation)。
 
+[![Interpreted 与 Executable 更新对象及运行循环](assets/overview.png)](assets/overview.png)
+
 <details>
 <summary>Harness 组件（论文 §2）</summary>
 
-论文按运行职责划分组件，具体实现可以合并或省略其中的组件。
+组件的运行职责与具体机制。实现可以合并或省略其中的组件。
 
-| 组件 | 运行职责 | 具体机制 |
-|---|---|---|
-| Agent 循环与执行控制 | 推进模型调用，并决定何时结束运行 | 模型与工具调用；继续与停止规则；取消；错误恢复 |
-| Tool 与 skill 编排 | 提供外部能力与可复用流程 | 工具接口、注册与调用；skill 加载与调用 |
-| 上下文构建 | 组装每次模型调用可见的内容 | System instructions；工具描述；对话历史；注入上下文 |
-| Memory 与状态管理 | 将状态保留到后续调用或会话 | 记忆与检索；持久保存；恢复；分叉 |
-| 上下文压缩 | 让持续增长的上下文保持在预算内 | 历史摘要；保留与触发策略；工具输出裁剪 |
-| 调度与协作 | 将工作分配到多个执行循环 | Sub-agent 委派；任务调度；后台执行 |
-| 执行基础设施 | 限定运行权限并记录执行过程 | 沙箱；权限与审批；存储；模型适配器；日志与回放 |
+[![Harness 组件、运行职责与机制](assets/harness-components.png)](assets/harness-components.png)
 
 </details>
 
@@ -85,55 +70,11 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 
 ## 分类
 
-Interpreted updates 修改固定 host 读取的内容，Executable updates 修改 host 调用的实现。评测协议单列一支，Theory 则讨论不同更新对象共用的分析方法。
+**Interpreted updates** 修改固定 host 读取的内容；**Executable updates** 修改 host 调用的实现。评测方法单列一支，Theory 横跨更新对象。
 
-[![Interpreted 与 Executable 更新对象，以及从反馈到后续复用的运行循环](assets/overview.png)](assets/overview.png)
+[![Harness self-evolution 的完整 taxonomy 与文献分布](assets/taxonomy.png)](assets/taxonomy.png)
 
-*更新对象与运行循环：执行反馈、候选生成、准入、持久保存与后续复用。*
-
-下表按论文 taxonomy 汇总，每个机制列一个代表工作。类别链接跳转至文献清单，工作链接打开原始来源。
-
-**Interpreted update targets（论文 §3）**
-
-| 类别 | 机制 / 评测方向 | 代表工作 |
-|---|---|---|
-| [Prompts 与指令](#11-prompts-与指令) | 基于分数的搜索 | [OPRO](https://openreview.net/forum?id=Bb4VGOWELI) |
-|  | Textual-gradient 优化 | [GEPA](https://openreview.net/forum?id=RQm2KQTM5r) |
-|  | 更新变异规则 | [Promptbreeder](https://proceedings.mlr.press/v235/fernando24a.html) |
-| [Memory 与可复用流程](#12-memory-与可复用流程) | 经验提取 | [ExpeL](https://doi.org/10.1609/aaai.v38i17.29936) |
-|  | 可复用 Skillbooks | [SkillClaw](https://arxiv.org/abs/2604.08377) |
-|  | 验证与整合 | [ACE](https://openreview.net/forum?id=eC4ygDs02R) |
-| [Workflows 与拓扑](#13-workflows-与拓扑) | 固定 Pipeline 编译 | [DSPy](https://openreview.net/forum?id=PFS4ffN9Yx) |
-|  | 图与拓扑搜索 | [AFlow](https://openreview.net/forum?id=z5uVAKwmjf) |
-|  | 反馈驱动的 Workflow 修订 | [SEW](https://arxiv.org/abs/2505.18646) |
-
-**Executable update targets（论文 §4）**
-
-| 类别 | 机制 / 评测方向 | 代表工作 |
-|---|---|---|
-| [Tools 与代码补丁](#21-tools-与代码补丁) | 可调用工具合成 | [Voyager](https://openreview.net/forum?id=ehfRiF0R3a) |
-|  | 基于执行证据的组件修改 | [Self-Harness](https://arxiv.org/abs/2606.09498) |
-| [仓库与 Runtime 逻辑](#22-仓库与-runtime-逻辑) | 完整控制程序搜索 | [ADAS](https://openreview.net/forum?id=t9U3LW7JVX) |
-|  | 仓库修订 | [DGM](https://openreview.net/forum?id=pUpzQZTvGY) |
-|  | 进程内修改 | [Gödel Agent](https://aclanthology.org/2025.acl-long.1354/) |
-| [Plugin 架构](#23-plugin-架构) | 接口约束下的 Hooks | [HarnessX](https://arxiv.org/abs/2606.14249) |
-|  | Microkernel 平台 | [Autogenesis](https://arxiv.org/abs/2604.15034) |
-
-**Evaluation 与 benchmarks（论文 §6）**
-
-| 类别 | 机制 / 评测方向 | 代表工作 |
-|---|---|---|
-| [各项 Claim 的评测](#41-各项-claim-的评测) | Selection 与评测器完整性 | [HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) |
-|  | Runtime Activation | [SkillsBench](https://arxiv.org/abs/2602.12670) |
-|  | Attribution 对照 | [Agents That Matter](https://arxiv.org/abs/2407.01502) |
-|  | 泛化与能力保留 | [HarnessDev](https://arxiv.org/abs/2609.01437) |
-| [纵向与动态评测](#42-纵向与动态评测) | 活跃产物集合的完整性 | [Ratchet](https://arxiv.org/abs/2605.22148) |
-|  | 合成边界任务 | [StressEval](https://arxiv.org/abs/2605.01939) |
-|  | 时间任务流 | [LiveCodeBench](https://arxiv.org/abs/2403.07974) |
-|  | 对抗式交互 | [MathDuels](https://arxiv.org/abs/2604.21916) |
-|  | 持续学习评测环境 | [LifelongAgentBench](https://arxiv.org/abs/2505.11942) |
-
-完整分类见[论文 taxonomy 图](assets/taxonomy.png)与[分类数据](data/taxonomy.json)。[Theory](#theory)（论文 §5）横跨更新对象，单独讨论搜索机制与泛化。
+图内引用编号沿用论文，原文链接见下方文献清单。另见[分类数据](data/taxonomy.json)。
 
 <a id="precursors"></a>
 
@@ -351,18 +292,9 @@ Harness search 根据分数与执行轨迹修订程序，无需梯度。Evolutio
 
 ### 3.1 Evolutionary Algorithms 对应
 
-下表列出共用的机制及其对应范围。
+论文从变异、选择、档案保留和预算分配解释这些对应。同一方法可以对应多个范式；结构相似的范围在图中注明。
 
-| EA 范式 | 对应机制 | 系统 |
-|---|---|---|
-| 精英 (1+1) / ES | 单个候选与当前版本竞争；MCE 明确采用 history-informed (1+1)-ES | SICA · MCE · SkillOpt · SkillOpt-Lite · SkillClaw |
-| 精英 (1+λ) 风格 | 从同一父代提出多个候选，可合并通过评估的兼容修改 | Self-Harness |
-| 基于档案的程序搜索 | 选择父代、修改程序并保留谱系 | DGM · DarwinX · HGM |
-| 重组与交叉 | 组合候选内容；Trace2Skill 对应补丁汇总这一环节 | DarwinX · HarnessCompass · Self-Harness · MCE · Trace2Skill |
-| Quality-diversity / MAP-Elites | 按语义描述符分区保留优选候选，并调整父代选择与验证规则 | HarnessBank |
-| 协同共演化 | 分别优化组件后再组合，未维护独立子种群 | HarnessCompass |
-| 多目标选择 | 权衡性能与成本，或设置多准则准入；SkillMOO 使用 NSGA-II 排序 | Meta-Harness · Self-Harness · SkillMOO |
-| Bandit 引导的演化 | 用 Thompson sampling 分配谱系扩展与候选评估预算 | HGM |
+[![Harness 与 skill 优化方法的 EA 对应关系](assets/evolutionary-paradigms.png)](assets/evolutionary-paradigms.png)
 
 ### 3.2 PAC 学习与稳定性
 
@@ -410,22 +342,11 @@ $\widehat{\Delta}$ 表示候选 loss 减去当前版本的 loss。在上述假�
 
 ## 4. Evaluation 与 Benchmarks
 
-任务分数涉及四项不同的 claims，每项都应以同一组比较为依据。
-
-| Claim | 问题与证据 |
-|---|---|
-| **Selection** | 用于报告结果的反馈，是否独立于候选生成、排序、准入，以及报告轮次或配置的选择？ |
-| **Activation** | 已采纳的更新是否在被评测的运行中实际生效？直接记录需指明具体更新及其执行位置。 |
-| **Attribution** | 分数差异是否由该更新造成？对照需隔离其他改动、控制推理资源，并测量执行波动。 |
-| **Improvement** | 差异是否延伸到生成更新所用任务之外？记录任务距离、比较基线与测量轮次。 |
+每个结果都从 **Selection、Activation、Attribution、Improvement** 四项 claims 来读，并以同一组比较为依据。
 
 [![四项 Evaluation Claims 与纵向对照](assets/claims.png)](assets/claims.png)
 
-*Selection、Activation、Attribution、Improvement，以及连续更新所需的对照。*
-
-Activation 区分产物进入运行的 **available**、修改路径被执行的 **reached**，以及输出进入下一次模型输入或被轨迹遵循的 **carried**。证据可能覆盖一个实例、一部分运行或全部运行。各项 claim 的具体要求见[判定标准](docs/evidence-criteria.md)。
-
-连续更新还需保存状态、模型与 evaluator 的版本，保留固定参考任务，并重复测量。复测历史分布以检查能力保留；基准变化时，让两个 harness 状态分别运行两个基准快照。
+Activation 区分产物可用（**available**）、修改路径已执行（**reached**），以及输出影响了后续执行（**carried**）。判定要求与覆盖范围见[评测标准](docs/evidence-criteria.md)。
 
 ### 4.1 各项 Claim 的评测
 
@@ -483,19 +404,11 @@ Activation 区分产物进入运行的 **available**、修改路径被执行的 
 <details>
 <summary>连续更新的评测对照（论文 §6.3）</summary>
 
-按论文中的对照表压缩整理。链接指向使用该对照或说明相应混淆因素的工作。
+连续更新需要记录状态与评测版本、执行波动、推理资源及历史任务表现。下图列出每项对照与它针对的混淆因素。
 
-| 对照 | 需要记录的内容 | 对应的混淆因素 |
-|---|---|---|
-| **Selection：证据分离**<br>[HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) | 候选生成、排序、准入和报告分别使用的任务与反馈，以及报告轮次和配置的选择方式。 | 搜索复用了报告结果所需的独立证据。 |
-| **Selection：评测器完整性**<br>[HarnessBank](https://arxiv.org/abs/2607.13683) | 评分、验证与结果记录代码不能被候选修改或反复探测。 | 候选改变了判断自身表现的测量过程。 |
-| **Activation：执行记录**<br>[HarnessX](https://arxiv.org/abs/2606.14249) | 被评测运行中，每项任务、每次尝试的 available、reached、carried 比率。 | 更新没有实际生效却被归功。 |
-| **Attribution：执行波动**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | 固定状态在同一任务上的重复运行，或逐任务配对检验；将差异与执行波动比较，不能用裁判 seed 的波动替代。 | 执行噪声被当成进步。 |
-| **Attribution：推理资源**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Tokens、模型与 verifier 调用、轮次、重试、采样尝试或候选数、reasoning effort；另列新增上下文与搜索成本。 | 更多推理计算被当成 harness 收益。 |
-| **Attribution：模型与评测器**<br>[HAL](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf) | 模型、scorer 与 judge 的版本，解码参数，以及研究期间的变动。 | 模型或评分器变动被当成 harness 收益。 |
-| **Improvement：历史对照**<br>[PATH-Bench](https://arxiv.org/abs/2608.01149) | 变化的任务顺序、冻结的参考状态、独立的历史分布测试，以及若干轮之后对已报告收益的复测。 | 顺序效应被当成迁移或保留；单次收益被当成持久改进。 |
+[![连续更新的评测对照、所需记录与混淆因素](assets/evaluation-controls.png)](assets/evaluation-controls.png)
 
-这些对照不能恢复被自适应重复使用的任务流的独立性；历史分布测试一旦被用于后续更新，也就不再是独立的能力保留证据。
+这些对照不能恢复被自适应重复使用的任务流的独立性。
 
 </details>
 
@@ -558,14 +471,9 @@ Activation 区分产物进入运行的 **available**、修改路径被执行的 
 
 <!-- evidence-summary:start -->
 
-两个更新对象分支共收录 96 个方法，其中 2 个没有实证评测。下表依据其余 94 份报告的主要比较，分别判定四项 claims 的证据。
+四项 claims 的证据分布，依据 94 份报告各自的主要比较；另有 2 个方法未报告实证评测。
 
-| Claim | ✅ 充分 | ◐ 部分 | — 不支持 |
-|---|---:|---:|---:|
-| Selection | 43 | 17 | 34 |
-| Activation | 8 | 86 | 0 |
-| Attribution | 12 | 80 | 2 |
-| Improvement | 53 | 19 | 22 |
+[![四项 claims 的证据分布与整体覆盖情况](assets/reported-evidence.png)](assets/reported-evidence.png)
 
 同一项比较中，8 份报告有三项 claim 的证据充分，没有报告四项均充分。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。
 

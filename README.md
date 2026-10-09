@@ -1,40 +1,31 @@
 <div align="center">
 
-# Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact
-
-Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+<h1>Harness Self-Evolution</h1>
+<p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reported Evidence](docs/reported-evidence.md) · [Citation](#citation) · [中文版](README_zh.md)
+[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
+
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+
+[![The path of harness self-evolution, from instructions to executable components and runtime](assets/banner.png)](assets/banner.png)
 
 </div>
 
-This repository accompanies our survey. We organize algorithms by **interpreted** and **executable** update targets, connect their search procedures to evolutionary algorithms and continual PAC learning, and examine reported evidence for **Selection, Activation, Attribution, and Improvement**. The paper also discusses applications, societal implications, and open research questions.
+Companion reading list and figures for our survey, organized by update targets, search mechanisms, and evaluation. Figures retain the manuscript layout; click to view them at full resolution.
 
-[![The path of harness self-evolution, from instructions and prompts to executable components and runtime](assets/banner.png)](assets/banner.png)
+## Reading Guide
 
-*From instructions and prompts to executable components and runtime. Click any figure to view the original.*
+**Background**　[Related Surveys](#related-surveys) · [Definition](#definition) · [Taxonomy](#taxonomy) · [Precursors](#precursors)
 
-## Contents
+**Literature**　[Interpreted](#interpreted) · [Executable](#executable) · [Theory](#theory) · [Evaluation](#evaluation)
 
-- [Related Surveys](#related-surveys)
-- [Definition](#definition)
-- [Taxonomy](#taxonomy)
-- [Precursors](#precursors)
-- [1. Interpreted Update Targets](#interpreted)
-- [2. Executable Update Targets](#executable)
-- [3. Theory](#theory)
-- [4. Evaluation & Benchmarks](#evaluation)
-- [5. Reported Evidence](#evidence)
-- [Contributing](#contributing)
-- [Citation](#citation)
+**Resources**　[Reported Evidence](#evidence) · [Contributing](#contributing) · [Citation](#citation)
 
 <a id="related-surveys"></a>
 
 ## Related Surveys
-
-These surveys cover components, feedback, externalized state, and update loops. This survey connects update targets with theory and the evidence needed to establish a benefit.
 
 - **A Survey of Self-Evolving Agents** `TMLR'26` — organizes self-evolution by what, when, how, and where to evolve. [[paper]](https://arxiv.org/abs/2507.21046)
 - **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25` — organizes methods by optimizer feedback. [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
@@ -64,20 +55,14 @@ The update mechanism remains available for further revisions, and an accepted st
 
 Self-evolution describes this update process. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
 
+[![Interpreted and executable update targets and their operational loop](assets/overview.png)](assets/overview.png)
+
 <details>
 <summary>Harness components (paper §2)</summary>
 
-The paper groups the harness by runtime responsibility. An implementation may combine or omit components.
+Runtime responsibilities and mechanisms. An implementation may combine or omit components.
 
-| Component | Runtime responsibility | Mechanisms |
-|---|---|---|
-| Agent loop and execution control | Advance model calls and decide when a run ends | Model and tool calls; continuation and stopping; cancellation; error recovery |
-| Tool and skill orchestration | Expose external capabilities and reusable procedures | Tool interfaces, registration and invocation; skill loading and invocation |
-| Context construction | Assemble what the model sees at each call | System instructions; tool descriptions; conversation history; injected context |
-| Memory and state management | Carry state beyond a call or session | Memory and retrieval; persistence; resumption; forking |
-| Context compaction | Keep growing context within budget | Summarization; retention and trigger policies; tool-output pruning |
-| Scheduling and coordination | Distribute work across loops | Sub-agent delegation; scheduling; background execution |
-| Execution infrastructure | Bound actions and record execution | Sandboxing; permissions and approvals; storage; model adapters; logging and replay |
+[![Harness components, runtime responsibilities, and mechanisms](assets/harness-components.png)](assets/harness-components.png)
 
 </details>
 
@@ -85,55 +70,11 @@ The paper groups the harness by runtime responsibility. An implementation may co
 
 ## Taxonomy
 
-Interpreted updates change content read by a fixed host. Executable updates change implementations the host invokes. Evaluation protocols form a separate branch; theory applies across update targets.
+**Interpreted updates** revise content read by a fixed host; **executable updates** revise the implementations it invokes. Evaluation forms a separate branch, while theory cuts across update targets.
 
-[![Interpreted and executable update targets, with the operational loop from feedback to downstream reuse](assets/overview.png)](assets/overview.png)
+[![Taxonomy and citation map of harness self-evolution](assets/taxonomy.png)](assets/taxonomy.png)
 
-*Update targets and the operational loop: feedback, proposal, admission, persistence, and downstream reuse.*
-
-Condensed from the paper’s taxonomy, with one example for each mechanism. Category links lead to the reading list; work links open the original sources.
-
-**Interpreted update targets (paper §3)**
-
-| Category | Mechanisms / evaluation focus | Selected works |
-|---|---|---|
-| [Prompts & Instructions](#11-prompts--instructions) | Scalar-Score Search | [OPRO](https://openreview.net/forum?id=Bb4VGOWELI) |
-|  | Textual-Gradient Critique | [GEPA](https://openreview.net/forum?id=RQm2KQTM5r) |
-|  | Self-Referential Mutation | [Promptbreeder](https://proceedings.mlr.press/v235/fernando24a.html) |
-| [Memory & Procedures](#12-memory--reusable-procedures) | Experience Mining | [ExpeL](https://doi.org/10.1609/aaai.v38i17.29936) |
-|  | Procedural Skillbooks | [SkillClaw](https://arxiv.org/abs/2604.08377) |
-|  | Gated Consolidation | [ACE](https://openreview.net/forum?id=eC4ygDs02R) |
-| [Workflows & Topologies](#13-workflows--topologies) | Fixed-Pipeline Compilation | [DSPy](https://openreview.net/forum?id=PFS4ffN9Yx) |
-|  | Graph & Topology Search | [AFlow](https://openreview.net/forum?id=z5uVAKwmjf) |
-|  | Feedback-Driven Workflow Revision | [SEW](https://arxiv.org/abs/2505.18646) |
-
-**Executable update targets (paper §4)**
-
-| Category | Mechanisms / evaluation focus | Selected works |
-|---|---|---|
-| [Tools & Code Patches](#21-tools--code-patches) | Callable Tool Synthesis | [Voyager](https://openreview.net/forum?id=ehfRiF0R3a) |
-|  | Evidence-Grounded Component Patching | [Self-Harness](https://arxiv.org/abs/2606.09498) |
-| [Repository & Runtime Logic](#22-repository--runtime-logic) | Whole-Control-Program Search | [ADAS](https://openreview.net/forum?id=t9U3LW7JVX) |
-|  | Repository Revision | [DGM](https://openreview.net/forum?id=pUpzQZTvGY) |
-|  | In-Process Patching | [Gödel Agent](https://aclanthology.org/2025.acl-long.1354/) |
-| [Everything Is a Plugin](#23-everything-is-a-plugin) | Contract-Driven Hooks | [HarnessX](https://arxiv.org/abs/2606.14249) |
-|  | Microkernel Platforms | [Autogenesis](https://arxiv.org/abs/2604.15034) |
-
-**Evaluation & benchmarks (paper §6)**
-
-| Category | Mechanisms / evaluation focus | Selected works |
-|---|---|---|
-| [Claim-Specific Evidence](#41-claim-specific-evidence) | Selection & Oracle Integrity | [HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) |
-|  | Runtime Activation | [SkillsBench](https://arxiv.org/abs/2602.12670) |
-|  | Attribution Controls | [Agents That Matter](https://arxiv.org/abs/2407.01502) |
-|  | Generalization & Retention | [HarnessDev](https://arxiv.org/abs/2609.01437) |
-| [Longitudinal & Dynamic Evidence](#42-longitudinal--dynamic-evidence) | Active-Set Integrity | [Ratchet](https://arxiv.org/abs/2605.22148) |
-|  | Synthesized Boundary Tasks | [StressEval](https://arxiv.org/abs/2605.01939) |
-|  | Temporal Streams | [LiveCodeBench](https://arxiv.org/abs/2403.07974) |
-|  | Adversarial Play | [MathDuels](https://arxiv.org/abs/2604.21916) |
-|  | Lifelong Testbeds | [LifelongAgentBench](https://arxiv.org/abs/2505.11942) |
-
-See the [full taxonomy figure](assets/taxonomy.png) and [taxonomy data](data/taxonomy.json). [Theory](#theory) (paper §5) cuts across update targets to analyze search and generalization.
+Reference numbers follow the manuscript; source links appear in the reading list below. See also the [taxonomy data](data/taxonomy.json).
 
 <a id="precursors"></a>
 
@@ -351,18 +292,9 @@ Harness search uses scores and execution traces to revise programs without gradi
 
 ### 3.1 Evolutionary Paradigms
 
-The mappings below identify shared mechanisms and their scope.
+The paper maps variation, selection, archive retention, and budget allocation onto EA paradigms. A method may appear in several rows; each mapping states its scope.
 
-| EA paradigm | Correspondence | Systems |
-|---|---|---|
-| Elitist (1+1) / ES | One candidate competes with the incumbent; MCE explicitly uses history-informed (1+1)-ES | SICA · MCE · SkillOpt · SkillOpt-Lite · SkillClaw |
-| Elitist (1+λ)-style | Several candidates share one parent; compatible accepted edits may be merged | Self-Harness |
-| Archive-based program search | Parent selection, program edits, and retained lineages | DGM · DarwinX · HGM |
-| Recombination / crossover | Combine candidate content; Trace2Skill provides a patch-consolidation analogy | DarwinX · HarnessCompass · Self-Harness · MCE · Trace2Skill |
-| Quality-diversity / MAP-Elites | Per-cell elites indexed by semantic descriptors, with modified parent selection and verification gates | HarnessBank |
-| Cooperative coevolution | Optimize components separately, then combine them; no independent subpopulations | HarnessCompass |
-| Multi-objective selection | Performance–cost trade-offs or multi-criterion gates; SkillMOO uses NSGA-II ranking | Meta-Harness · Self-Harness · SkillMOO |
-| Bandit-guided evolution | Thompson sampling allocates lineage-expansion and evaluation budgets | HGM |
+[![Evolutionary paradigms, mapping rationale, and representative harness and skill methods](assets/evolutionary-paradigms.png)](assets/evolutionary-paradigms.png)
 
 ### 3.2 PAC Learning & Stability
 
@@ -410,22 +342,11 @@ Here $\widehat{\Delta}$ is candidate loss minus incumbent loss. Under the stated
 
 ## 4. Evaluation & Benchmarks
 
-A task score can support four distinct claims. Each must be read against the same comparison.
-
-| Claim | Question and evidence |
-|---|---|
-| **Selection** | Did reporting outcomes stay separate from proposal, ranking, admission, and the choice of reported round or configuration? |
-| **Activation** | Did the accepted update operate in the scored runs? Direct records must identify the update and show where it ran. |
-| **Attribution** | Did the update cause the difference? Isolate it from other changes, control inference resources, and measure execution variation. |
-| **Improvement** | Does the difference extend beyond the tasks that formed the update? Record task distance, baseline, and measurement round. |
+Read each result through **Selection, Activation, Attribution, and Improvement**, using the same comparison for all four claims.
 
 [![Four evaluation claims and longitudinal controls](assets/claims.png)](assets/claims.png)
 
-*Selection, Activation, Attribution, and Improvement, with controls for successive updates.*
-
-Activation distinguishes an artifact being **available**, its changed path being **reached**, and its output being **carried** into the next model input or followed by the trajectory. Evidence may cover one case, a sample, or all scored runs. The [criteria](docs/evidence-criteria.md) define how each claim is assessed.
-
-Successive updates also need versioned states, model and evaluator records, fixed reference tasks, and repeated measurements. Probe earlier distributions for retention; when a benchmark changes, compare both harness states on both snapshots.
+Activation distinguishes an artifact being **available**, its changed path being **reached**, and its effect being **carried** into subsequent execution. See the [criteria](docs/evidence-criteria.md) for evidentiary requirements and coverage.
 
 ### 4.1 Claim-Specific Evidence
 
@@ -483,19 +404,11 @@ Successive updates also need versioned states, model and evaluator records, fixe
 <details>
 <summary>Controls for successive updates (paper §6.3)</summary>
 
-Condensed from the paper’s control table. Links identify an instance of the control or evidence of the confound.
+Successive updates require state and evaluator records, execution variation, inference budgets, and historical task performance. The table connects each control with its confound.
 
-| Control | What to record | Confound addressed |
-|---|---|---|
-| **Selection: evidence separation**<br>[HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) | Tasks and signals for proposal, ranking, admission and reporting; the choice of reported round and configuration. | Reporting evidence reused by search. |
-| **Selection: oracle integrity**<br>[HarnessBank](https://arxiv.org/abs/2607.13683) | Scoring, verification and bookkeeping code protected from candidate edits and repeated probing. | The candidate changes its own measurement. |
-| **Activation: execution record**<br>[HarnessX](https://arxiv.org/abs/2606.14249) | Per-task and per-attempt rates for available, reached and carried in the scored runs. | An update receives credit without operating. |
-| **Attribution: execution variation**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Repeated frozen-state runs on the same tasks, or paired per-task tests; compare gains with execution variation, not judge-seed variation. | Execution noise appears as progress. |
-| **Attribution: inference envelope**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Tokens, model/verifier calls, turns, retries, sampled attempts or candidates, and reasoning effort; separate added context and search cost. | Extra inference compute appears as a harness gain. |
-| **Attribution: model and evaluator**<br>[HAL](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf) | Model and scorer versions, decoding settings, judge versions and changes during the study. | A model or grader change appears as a harness gain. |
-| **Improvement: controlled histories**<br>[PATH-Bench](https://arxiv.org/abs/2608.01149) | Varied task orders, a frozen reference state, independent probes on earlier distributions, and re-measurement of gains after later rounds. | Order effects appear as transfer or retention; a one-off gain appears lasting. |
+[![Controls, required records, and confounds in successive-update evaluation](assets/evaluation-controls.png)](assets/evaluation-controls.png)
 
-These controls do not restore independence to an adaptively reused task stream. Earlier-distribution probes cease to provide independent retention evidence once they guide later updates.
+These controls do not restore independence to an adaptively reused task stream.
 
 </details>
 
@@ -558,14 +471,9 @@ These controls do not restore independence to an adaptively reused task stream. 
 
 <!-- evidence-summary:start -->
 
-The two update-target branches contain 96 methods; 2 report no empirical evaluation. The counts below cover the other 94 reports, using one primary comparison per report for all four claims.
+Evidence for the four claims across 94 primary reported comparisons; 2 methods without empirical evaluation are excluded.
 
-| Claim | ✅ Full | ◐ Partial | — Not supported |
-|---|---:|---:|---:|
-| Selection | 43 | 17 | 34 |
-| Activation | 8 | 86 | 0 |
-| Attribution | 12 | 80 | 2 |
-| Improvement | 53 | 19 | 22 |
+[![Evidence by claim and overall coverage](assets/reported-evidence.png)](assets/reported-evidence.png)
 
 Within one comparison, 8 reports establish three claims in full and none establish all four. Criteria and coverage differ across claims, so these counts do not rank method quality.
 
