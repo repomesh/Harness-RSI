@@ -20,8 +20,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 READMES = ["README.md", "README_zh.md"]
-DOCS = ["docs/claim-audit.md", "CONTRIBUTING.md"]
-# Listed once is the rule; Section 4's mapping is the declared exception, and a
+DOCS = ["docs/claim-audit.md", "docs/audit-rubric.md", "CONTRIBUTING.md"]
+# Listed once is the rule; Theory's mapping is the declared exception, and a
 # shared repository is a fact about the two works rather than a mistake.
 ENTRY_EXEMPT = {"SkillForge"}
 
@@ -135,7 +135,7 @@ def check_files(problems):
             if rel in linked:
                 continue
             # Images are referenced as ![alt](path), which FILE_REF also catches.
-            if any(rel in read(p) for p in READMES + DOCS):
+            if any(rel in read(p) for p in READMES + DOCS + ["index.html"]):
                 continue
             problems.append(f"{rel} is in the repository but nothing links to it")
 
@@ -151,6 +151,66 @@ def check_site_data(problems):
     )
     if done.returncode != 0:
         problems.append((done.stdout + done.stderr).strip())
+
+
+def check_audit_and_taxonomy(problems):
+    import json
+    import subprocess
+    from build_site_data import read_entries, read_verdicts
+
+    result = subprocess.run([sys.executable, os.path.join(ROOT, "scripts/build_audit.py"), "--check"], capture_output=True, text=True)
+    if result.returncode:
+        problems.append((result.stdout + result.stderr).strip())
+    taxonomy = json.loads(read("data/taxonomy.json"))
+    expected = {r["name"]: r for r in taxonomy}
+    actual, _ = read_entries(read_verdicts())
+    actual = {r["name"]: r for r in actual if r["group"] in {"interpreted", "executable", "evaluation"}}
+    if expected.keys() != actual.keys():
+        problems.append("Taxonomy/README membership differs: " + str(expected.keys() ^ actual.keys()))
+    for name in expected.keys() & actual.keys():
+        if expected[name]["mechanism"] != actual[name]["node"]:
+            problems.append(f"Taxonomy placement differs: {name}")
+    audit = json.loads(read("data/claim-audit.json"))["methods"]
+    methods = {r["key"] for r in taxonomy if not r["branch"].startswith("Evaluation")}
+    if methods != {r["key"] for r in audit}:
+        problems.append("Audit population differs from taxonomy update targets")
+    for row in audit:
+        entry = actual.get(row["name"], {})
+        if row["url"] not in [url for _, url in entry.get("links", [])]:
+            problems.append(f'Audit source link differs: {row["name"]}')
+
+
+def check_html(problems):
+    from html.parser import HTMLParser
+    from urllib.parse import urlsplit, unquote
+
+    class PageParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.ids = set()
+            self.refs = []
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if "id" in attrs:
+                if attrs["id"] in self.ids:
+                    problems.append("index.html: duplicate id " + attrs["id"])
+                self.ids.add(attrs["id"])
+            for key in ("src", "href"):
+                if attrs.get(key):
+                    self.refs.append(attrs[key])
+
+    page = PageParser()
+    page.feed(read("index.html"))
+    for ref in page.refs:
+        url = urlsplit(ref)
+        if url.scheme or url.netloc:
+            continue
+        if url.path and not os.path.exists(os.path.join(ROOT, unquote(url.path))):
+            problems.append("index.html: missing local file " + url.path)
+        if not url.path and url.fragment and url.fragment not in page.ids:
+            problems.append("index.html: broken anchor " + url.fragment)
+    if "scrollIntoView" in read("site/app.js"):
+        problems.append("site/app.js: scrollIntoView disrupts embedded previews")
 
 
 def check_links(problems):
@@ -193,6 +253,8 @@ def main():
     check_parity(problems)
     check_files(problems)
     check_site_data(problems)
+    check_audit_and_taxonomy(problems)
+    check_html(problems)
     if args.links:
         check_links(problems)
 

@@ -28,17 +28,16 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{margin:0;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(37,99,235,.3);outline-offset:3px}
 img{max-width:100%;display:block}
 code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.88em;background:#eef2f8;padding:1px 5px;border-radius:5px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-h1,h2,h3,h4,.sec-title{font-family:"Sora","Inter",sans-serif}
+h1,h2,h3,h4,.sec-title{font-family:"Sora","Manrope",sans-serif}
 .skip-link{position:fixed;left:16px;top:12px;z-index:999;transform:translateY(-150%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:9px;font-weight:700;transition:transform .15s}
 .skip-link:focus{transform:none;text-decoration:none}
-.trail{position:fixed;inset:0;z-index:90;width:100%;height:100%;pointer-events:none;mix-blend-mode:multiply}
 
 /* ---------- nav ---------- */
 nav.top{position:sticky;top:0;z-index:100;background:rgba(246,248,252,.78);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid rgba(226,233,244,.9)}
@@ -342,6 +341,18 @@ mark{background:#fff1b8;border-radius:3px;padding:0 1px}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .reveal,.hero-inner>*{opacity:1;transform:none}
-  .trail{display:none}
-}
+  }
 @media (hover:none),(pointer:coarse){.trail{display:none}}
+
+/* Compact article companion and keyboard-accessible figure preview. */
+p,h1,h2,h3,h4{text-wrap:pretty}
+section{padding:64px 0}
+section.compact{padding:40px 0}
+.figure{max-width:760px}
+.fold-body .figure + .figure{margin-top:24px}
+.lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:28px;cursor:pointer}
+.figure img:focus-visible,.fold img:focus-visible{outline:3px solid var(--brand);outline-offset:5px}
+.formula,.pac-card{min-width:0}
+.eq{overflow-x:auto;max-width:100%;padding-bottom:4px}
+@media(max-width:600px){section{padding:44px 0}.hero-inner .title{font-size:clamp(28px,8.1vw,44px)}.wrap{padding:0 20px}.stats{grid-template-columns:repeat(2,1fr)}.sec-title{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-loop{display:none}}

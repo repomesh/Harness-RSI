@@ -1,13 +1,13 @@
 /* Project page behaviour: navigation, reveal, the taxonomy and reading-list
    explorer built from site/corpus.js, the audit charts (article Figure 6),
-   and small affordances (lightbox, BibTeX copy, cursor trail). */
+   and small affordances (lightbox and BibTeX copy). */
 (function () {
   "use strict";
 
   var CORPUS = window.CORPUS || { groups: [], entries: [], blurbs: {} };
   var GROUP_COLOR = {
     interpreted: "#5498d0", executable: "#e68a43", evaluation: "#6b925f", theory: "#9a70ba",
-    precursors: "#64748b", risks: "#c2410c", products: "#0f766e", surveys: "#475569"
+    precursors: "#64748b", surveys: "#475569"
   };
   var CLAIM_NAMES = ["Selection", "Activation", "Attribution", "Improvement"];
   var VERDICT_WORD = { C: "full", O: "partial", N: "not supported" };
@@ -35,7 +35,7 @@
   $all("#nl a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { setMenu(false); closeLightbox(); }
-    if (e.key === "/" && document.activeElement !== $("#q")) { e.preventDefault(); $("#q").focus(); }
+    if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && !document.activeElement.isContentEditable) { e.preventDefault(); $("#q").focus(); }
   });
 
   var progress = $(".progress");
@@ -83,7 +83,7 @@
     { key: "interpreted", cls: "int", num: "§3", first: [3, 2], title: "Interpreted update targets",
       gloss: "Model-readable content and coordination state read by a fixed host. Behavioral: an instruction shifts tendencies but cannot impose a runtime invariant." },
     { key: "executable", cls: "exe", num: "§4", first: [4, 1], title: "Executable update targets",
-      gloss: "Implementations the host invokes directly: tools, component files, control programs, plugins. Enforceable: the revision runs." },
+      gloss: "Implementations the host invokes directly: tools, component files, control programs, plugins. Execution can be enforced by the host; the changed path still needs a trace in scored runs." },
     { key: "evaluation", cls: "eva", num: "§6", first: [6, 2], title: "Evaluation & benchmarks",
       gloss: "Works whose own contribution is an evaluation protocol or an audit, placed under the claim their protocol enforces." }
   ];
@@ -133,7 +133,7 @@
   function focusNode(group, node) {
     state = { q: "", group: group, node: node }; qInput.value = "";
     render();
-    document.getElementById("explorer").scrollIntoView({ behavior: "smooth" });
+    window.scrollTo({ top: document.getElementById("explorer").getBoundingClientRect().top + window.scrollY - 76, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
     $("#results").scrollTop = 0;
   }
 
@@ -190,13 +190,8 @@
   render();
 
   /* ---------- audit charts (article Figure 6) ---------- */
-  var SCORED = 94;
-  var AUDIT = [
-    { name: "Selection", C: 41, O: 19, N: 34 },
-    { name: "Activation", C: 14, O: 80, N: 0 },
-    { name: "Attribution", C: 24, O: 68, N: 2 },
-    { name: "Improvement", C: 54, O: 18, N: 22 }
-  ];
+  var SCORED = CORPUS.audit.scored;
+  var AUDIT = CORPUS.audit.claims;
   var barsHost = $("#claimBars .bars");
   AUDIT.forEach(function (r) {
     var line = el("div", { "class": "bar-row" });
@@ -212,10 +207,10 @@
     $all("#claimBars .stack-bar span").forEach(function (s) { s.style.width = (100 * s.getAttribute("data-w") / SCORED) + "%"; });
   });
 
-  var JOINT = [
-    { k: "None", v: 24, c: "#dde3ec" }, { k: "One", v: 20, c: "#b4c2d9" }, { k: "Two", v: 37, c: "#8399bb" },
-    { k: "Three", v: 13, c: "#4f6a94" }, { k: "Four", v: 0, c: "#1e3a8a" }
-  ];
+  var jointColors = ["#dde3ec", "#b4c2d9", "#8399bb", "#4f6a94", "#1e3a8a"];
+  var JOINT = ["None", "One", "Two", "Three", "Four"].map(function (name, i) {
+    return { k: name, v: CORPUS.audit.joint[i], c: jointColors[i] };
+  });
   (function donut() {
     var host = $("#donut");
     var R = 80, C = 2 * Math.PI * R, acc = 0;
@@ -226,7 +221,7 @@
       return circle;
     }).join("");
     host.innerHTML = '<svg class="donut" viewBox="0 0 200 200" role="img" aria-label="Scored reports by number of claims at full evidence">' + rings +
-      '<text class="small" x="100" y="96" text-anchor="middle">94 scored</text><text class="small" x="100" y="113" text-anchor="middle">reports</text></svg>' +
+      '<text class="small" x="100" y="96" text-anchor="middle">' + SCORED + ' scored</text><text class="small" x="100" y="113" text-anchor="middle">reports</text></svg>' +
       '<div class="joint">' + JOINT.map(function (j) { return "<div><b>" + j.v + "</b>" + j.k + '<i style="background:' + j.c + '"></i></div>'; }).join("") + "</div>";
     whenVisible(host.closest(".panel"), function () {
       $all("circle[data-len]", host).forEach(function (c) {
@@ -255,14 +250,28 @@
 
   /* ---------- lightbox ---------- */
   var box = $("#lightbox"), boxImg = $("#lightbox img");
-  function closeLightbox() { box.classList.remove("open"); document.body.style.overflow = ""; }
+  var lightboxTrigger = null;
+  function closeLightbox() {
+    if (!box.classList.contains("open")) return;
+    box.classList.remove("open"); document.body.style.overflow = "";
+    if (lightboxTrigger) lightboxTrigger.focus();
+  }
   $all(".figure img, details.fold img").forEach(function (img) {
+    img.tabIndex = 0; img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Enlarge: " + img.alt);
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); img.click(); }
+    });
     img.addEventListener("click", function () {
+      lightboxTrigger = img;
       boxImg.src = img.currentSrc || img.src; boxImg.alt = img.alt;
-      box.classList.add("open"); document.body.style.overflow = "hidden";
+      box.classList.add("open"); document.body.style.overflow = "hidden"; $(".lightbox-close").focus();
     });
   });
   box.addEventListener("click", closeLightbox);
+  box.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") { e.preventDefault(); $(".lightbox-close").focus(); }
+  });
 
   /* ---------- BibTeX ---------- */
   $("#cbtn").addEventListener("click", function () {
@@ -278,35 +287,4 @@
     area.remove();
   });
 
-  /* ---------- cursor trail ---------- */
-  (function trail() {
-    if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var canvas = $(".trail"), ctx = canvas.getContext("2d");
-    var pts = [], raf = 0, x = 0, y = 0;
-    function size() {
-      var r = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = innerWidth * r; canvas.height = innerHeight * r; ctx.setTransform(r, 0, 0, r, 0, 0);
-    }
-    function draw() {
-      raf = 0;
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-      pts.forEach(function (p) { p.life *= 0.9; });
-      pts = pts.filter(function (p) { return p.life > 0.04; });
-      for (var i = 1; i < pts.length; i++) {
-        var a = pts[i - 1], b = pts[i];
-        ctx.strokeStyle = "rgba(37,99,235," + (b.life * 0.3).toFixed(3) + ")";
-        ctx.lineWidth = 2 + b.life * 3; ctx.lineCap = "round";
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      }
-      if (pts.length) raf = requestAnimationFrame(draw);
-    }
-    size(); addEventListener("resize", size, { passive: true });
-    addEventListener("pointermove", function (e) {
-      x = e.clientX; y = e.clientY;
-      pts.push({ x: x, y: y, life: 1 });
-      if (pts.length > 24) pts.shift();
-      if (!raf) raf = requestAnimationFrame(draw);
-    }, { passive: true });
-  })();
 })();

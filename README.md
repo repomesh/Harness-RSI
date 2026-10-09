@@ -2,228 +2,139 @@
 
 # Awesome Harness RSI [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-**A theory-organized reading list on harness recursive self-improvement — agents that rewrite their own instructions, memory, workflows, and code while the model stays fixed.**
+A reading list on feedback-driven updates to agent instructions, memory, workflows, tools, and runtime.
 
-<p align="center">
-  <img src="assets/seal-zgca.png" height="56" alt="Zhongguancun Academy">
-  &nbsp;&nbsp;
-  <img src="assets/seal-zgci.png" height="56" alt="Zhongguancun Institute of Artificial Intelligence">
-</p>
-
-Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence
-
-<p align="center">
-  <img src="https://img.shields.io/badge/papers-196-2F6B4F" alt="papers">
-  <img src="https://img.shields.io/badge/audited%20methods-96-16429A" alt="audited methods">
-  <img src="https://img.shields.io/badge/with%20code%20or%20project%20page-43-5498D0" alt="with code">
-  <img src="https://img.shields.io/badge/updated-2026--10-9A70BA" alt="updated">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey" alt="license"></a>
-</p>
-
-<p align="center">
-  <a href="https://zgcagi.github.io/Awesome-Harness-RSI/">🌐 Project Page</a>
-  &nbsp;·&nbsp;
-  <a href="#what-is-harness-rsi">📘 Definition</a>
-  &nbsp;·&nbsp;
-  <a href="#how-this-list-is-organized">🧭 Taxonomy</a>
-  &nbsp;·&nbsp;
-  <a href="docs/claim-audit.md">🔬 Claim Audit (96 methods)</a>
-  &nbsp;·&nbsp;
-  <a href="#related-surveys">📚 Surveys</a>
-  &nbsp;·&nbsp;
-  <a href="CONTRIBUTING.md">🤝 Contributing</a>
-</p>
-
-[中文版](README_zh.md)
+[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Evidence Audit](docs/claim-audit.md) · [中文版](README_zh.md)
 
 </div>
 
-![The path of harness self-evolution: from instructions and prompts, through memory and reusable procedures and agentic workflows, to executable components and runtime](assets/banner.png)
+Companion to **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact**, by Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, and Yifei Shen.
 
-![Growth and classification of harness self-evolution methods, 2023 to 2026 Q3](assets/landscape.png)
-
-<p align="center"><sub><b>Growth and classification of harness self-evolution work.</b> The inset counts work per period, split by primary emphasis into update algorithms and evaluation: 3 in 2023, 10 in 2024, 27 in 2025, then 16, 40, and 46 in the first three quarters of 2026. The road places representative systems along the same periods. The systems named are illustrative rather than the full corpus; the classification is descriptive, and inclusion implies neither continuing self-evolution nor measured improvement.</sub></p>
-
-> This repository is the companion reading list for **Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact** (Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen). Sections 1–3 below mirror the three branches of the article's taxonomy (its Figure 3); Section 4 follows its theory section; the [claim audit](docs/claim-audit.md) releases the per-method evidence verdicts behind its Figure 6 and Table 5. A visual overview lives on the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/).
-
----
+The list follows the manuscript’s sequence: update targets, theory, evaluation, and evidence audit. The website presents a compact overview.
 
 ## Contents
 
-- [What Is Harness RSI](#what-is-harness-rsi)
-- [How This List Is Organized](#how-this-list-is-organized)
+- [Related Surveys](#related-surveys)
+- [Definition](#definition)
+- [Taxonomy](#taxonomy)
 - [Reading Roadmap](#reading-roadmap)
 - [Precursors](#precursors)
-- [1. Interpreted Update Targets](#1-interpreted-update-targets)
-  - [1.1 Prompts & Instructions](#11-prompts--instructions)
-  - [1.2 Memory & Reusable Procedures](#12-memory--reusable-procedures)
-  - [1.3 Workflows & Topologies](#13-workflows--topologies)
-- [2. Executable Update Targets](#2-executable-update-targets)
-  - [2.1 Tools & Code Patches](#21-tools--code-patches)
-  - [2.2 Repository & Runtime Logic](#22-repository--runtime-logic)
-  - [2.3 Everything Is a Plugin](#23-everything-is-a-plugin)
-- [3. Evaluation & Benchmarks](#3-evaluation--benchmarks)
-  - [3.1 Claim-Specific Evidence](#31-claim-specific-evidence)
-  - [3.2 Longitudinal & Dynamic Evidence](#32-longitudinal--dynamic-evidence)
-- [4. Theory](#4-theory)
-  - [4.1 Evolutionary Paradigms](#41-evolutionary-paradigms)
-  - [4.2 PAC Learning & Stability](#42-pac-learning--stability)
-  - [4.3 Background Statistical & Optimization Tools](#43-background-statistical--optimization-tools)
-- [5. Evidence Audit of 96 Methods](#5-evidence-audit-of-96-methods)
-- [6. Persistent-State Risks](#6-persistent-state-risks)
-- [7. Deployed Harnesses & Product Surfaces](#7-deployed-harnesses--product-surfaces)
-- [Boundary Cases & Exclusions](#boundary-cases--exclusions)
-- [Related Surveys](#related-surveys)
-- [Maintenance](#maintenance)
+- [1. Interpreted Update Targets](#interpreted)
+- [2. Executable Update Targets](#executable)
+- [3. Theory](#theory)
+- [4. Evaluation & Benchmarks](#evaluation)
+- [5. Evidence Audit](#audit)
+- [Contributing](#contributing)
+- [Citation](#citation)
 
----
+<a id="related-surveys"></a>
 
-## What Is Harness RSI
+## Related Surveys
 
-A **harness** `H` is the software and configuration around a model `M` that governs its execution in an environment `E`: the agent loop, tool and skill orchestration, context construction, memory, compaction, scheduling, and execution infrastructure. A rollout is `τ ~ Run(M, H, E)`, scored by an evaluation procedure `J` that is **not** part of `H`.
+Prior surveys organize self-evolving agents by components, feedback, externalized state, or loop structure. This article connects update targets to evolutionary search and continual PAC learning, then audits the evidence for four evaluation claims.
 
-**Harness recursive self-improvement** is the iterative process
+- **A Survey of Self-Evolving Agents** `TMLR'26` — organizes self-evolution by what, when, how, and where to evolve. [[paper]](https://arxiv.org/abs/2507.21046)
+- **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25` — organizes methods by optimizer feedback. [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
+- **Externalization in LLM Agents** `arXiv'26` — unified review of memory, skills, protocols, and harness engineering. [[paper]](https://arxiv.org/abs/2604.08224)
+- **Code as Agent Harness** `arXiv'26` — organizes by the role of code in the agent loop. [[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
+- **Recursive Self-Improvement in AI** `arXiv'26` — from bounded self-refinement to autonomous research loops, organized by loop closure. [[paper]](https://arxiv.org/abs/2607.07663)
+- **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold channels under an explicit frozen-parameter assumption; the closest prior work on evaluation discipline, and it passes over activation. [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
+- **Self-Evolving Coding Agents** `arXiv'26` — separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open. [[paper]](https://arxiv.org/abs/2608.03392)
+
+<a id="definition"></a>
+
+## Definition
+
+A **harness** `H` is the software and configuration around a model `M`: execution control, tools, context construction, memory, scheduling, and infrastructure. A rollout is `τ ~ Run(M, H, E)`. The evaluator `J` scores that rollout and remains outside the candidate’s editable surface.
+
+Harness self-evolution uses execution feedback to revise the state governing later runs:
 
 ```
-B_k = { τ_k,i ~ Run(M, H_k, E_k,i) }  i = 1..b   # a batch of execution experience at round k
-H_{k+1} = Update(H_k, B_k)                       # a persistent revision of the harness
+B_k = {τ_k,i ~ Run(M, H_k, E_k,i)}
+H_{k+1} = Update(H_k, B_k)
 ```
 
-with the backbone `M` held fixed. `k` counts update rounds and `i` counts rollouts within a round; the `b` rollouts need not come from `b` distinct tasks, which is why the theory counts tasks rather than rollouts. Three conditions make an entry belong on this list — the article's two conditions plus its fixed-model scope:
+The defining requirements are **feedback-driven update continuity** and **persistence across runs**: an algorithm forms or selects revisions from execution experience, remains available for later updates, and saves an accepted state that a later run actually loads. A rejected proposal leaves `H_{k+1} = H_k`.
 
-| Condition | Test |
-|---|---|
-| **Persistence** | An accepted state is persisted and *actually loaded* by a subsequent run, so it can affect rollouts it did not generate. Whether the loaded state then operated is the activation claim of [Section 3](#3-evaluation--benchmarks), not a condition of scope. |
-| **Recursion** | Within the agent's operating lifecycle, feedback from its own executions drives an algorithmic process that forms or selects the revision, and that mechanism stays in place so later executions can trigger further updates. Humans may give feedback or control admission, but do not simply author the payload. |
-| **Fixed model** | No weight update. A behavioral change is assignable to a named state transition rather than to movement in model competence. |
+The analysis holds `M` fixed to isolate harness changes. Co-evolving systems are included for their harness-side update; changing weights also requires an attribution control. Offline prompt or program optimizers are included as antecedents and identified as such. Weight-only training, fixed components, and corrections confined to a task output do not establish an operational harness update loop.
 
-The evaluation procedure `J` — task scorer, verifier, bookkeeping — sits outside `H` by stipulation, so a change in `J` is a change in the measurement, not a harness update. Rejected revisions leave `H_{k+1} = H_k`. Ordinary execution under unchanged rules — appending a session log, firing a fixed compaction policy — is not harness RSI. **An update is not an improvement**: whether an accepted change helps is the empirical question [Section 3](#3-evaluation--benchmarks) is about.
+**Self-evolution names the update process; self-improvement requires evidence of benefit.** Saving and loading a revision establishes persistence. Whether it operated and helped belongs to Evaluation.
 
-<details>
-<summary><b>What this list excludes, and why</b></summary>
+<a id="taxonomy"></a>
 
-- **Runtime-only self-correction** (Self-Refine, Self-Debug): the correction is a task output consumed inside the same rollout; nothing is loaded by a later run.
-- **Weight-side self-improvement** (SPIN, TTRL, self-rewarding LMs): violates the fixed-model premise, so a reported difference is no longer assignable to a named harness revision.
-- **Static agent frameworks** (ReAct, CodeAct, AutoGen): scaffolding that is not revised from feedback.
-- **Deployed products without a reported update loop**: they persist state across sessions but report no feedback-driven revision. Listed separately in [Section 7](#7-deployed-harnesses--product-surfaces).
+## Taxonomy
 
-Two in-scope systems are listed with an explicit caveat rather than excluded: **Live-SWE-agent** synthesizes tools that die with the task container, and **Gödel Agent** patches live process memory that disappears when the process ends. Both are instructive on the mechanism and weak on persistence.
+Classify a method by the object it changes. Interpreted payloads are read by a fixed host; executable updates change implementations the host invokes. Evaluation protocols form a separate branch. Theory describes the search and its guarantees across these branches.
 
-</details>
+| Reading-list section | Focus | Manuscript |
+|---|---|---|
+| 1. Interpreted targets | Prompts, memory, workflow specifications | §3 |
+| 2. Executable targets | Tools, source code, control programs, plugins | §4 |
+| 3. Theory | Evolutionary search, generalization, retention, admission | §5 |
+| 4. Evaluation | Protocols and evidence controls | §6 |
+| 5. Evidence audit | Verdicts for each method’s headline comparison | §6 |
 
----
+Each work has one primary placement. The theory section may refer to a method again to explain a correspondence. The [source taxonomy](data/taxonomy.json) records the manuscript citation keys and placements.
 
-## How This List Is Organized
-
-Entries are classified by **what a proposal modifies** — the update target — because that is the only property of a proposal itself, rather than of the search procedure that produced it or the number that reported it. Feedback source, admission rule, resource envelope, and safety constraint then enter as *properties* of an update that bear on what its evaluation can claim, not as competing classification axes.
-
-| Branch | Mutable object | Enforceability | Sections |
-|---|---|---|---|
-| **1. Interpreted update targets** | Model-readable content and coordination state read by a fixed host | Behavioral: an instruction shifts tendencies, it cannot impose a runtime invariant | [1.1](#11-prompts--instructions) · [1.2](#12-memory--reusable-procedures) · [1.3](#13-workflows--topologies) |
-| **2. Executable update targets** | Implementations the host invokes directly: tools, component files, control programs, plugins | Enforceable: the revision runs | [2.1](#21-tools--code-patches) · [2.2](#22-repository--runtime-logic) · [2.3](#23-everything-is-a-plugin) |
-| **3. Evaluation & benchmarks** | Works whose own contribution is an evaluation protocol or an audit | — | [3.1](#31-claim-specific-evidence) · [3.2](#32-longitudinal--dynamic-evidence) |
-
-[Section 4](#4-theory) follows the article's theory section. It is not a taxonomy branch: the article's figure dropped its former theory branch, since every system that branch named is already placed under an update target.
-
-**Placement rule.** A work is listed **once**, under the node matching what the work itself contributes. The systems audited in Section 3 therefore appear under the update target they change, not under evaluation. [Section 4](#4-theory) is the single declared exception: its contribution *is* a mapping, so it re-lists systems already placed in Sections 1–2.
-
-Third-level headings name a **mechanism**, not a topic. Two systems share a heading when they instantiate the same propose–admit structure, even if they target different artifacts.
-
-![Taxonomy and citation map](assets/taxonomy.png)
-
-<p align="center"><sub><b>The full taxonomy</b> (the article's Figure 3). Three branches, one per section; second level is the subsection; third level is the mechanism. Sections 1–3 of this list are a one-to-one expansion of this figure.</sub></p>
-
-**Jump to a mechanism.** Counts are entries in that node.
-
-**1. Interpreted update targets** — [Scalar-Score Search (2)](#scalar-score-search) · [Textual-Gradient Critique (7)](#textual-gradient-critique) · [Self-Referential Mutation (3)](#self-referential-mutation) · [Experience Mining (10)](#experience-mining) · [Procedural Skillbooks (10)](#procedural-skillbooks) · [Gated Consolidation (16)](#gated-consolidation) · [Fixed-Pipeline Compilation (2)](#fixed-pipeline-compilation) · [Graph & Topology Search (5)](#graph--topology-search) · [Feedback-Driven Workflow Revision (5)](#feedback-driven-workflow-revision)
-
-**2. Executable update targets** — [Callable Tool Synthesis (5)](#callable-tool-synthesis) · [Evidence-Grounded Component Patching (10)](#evidence-grounded-component-patching) · [Whole-Control-Program Search (3)](#whole-control-program-search) · [Repository Revision (9)](#repository-revision) · [In-Process Patching (3)](#in-process-patching) · [Contract-Driven Hooks (2)](#contract-driven-hooks) · [Microkernel Platforms (4)](#microkernel-platforms)
-
-**3. Evaluation & benchmarks** — [Selection & Oracle Integrity (7)](#selection--oracle-integrity) · [Runtime Activation (2)](#runtime-activation) · [Attribution Controls (12)](#attribution-controls) · [Generalization & Retention (4)](#generalization--retention) · [Active-Set Integrity (5)](#active-set-integrity) · [Synthesized Boundary Tasks (2)](#synthesized-boundary-tasks) · [Temporal Streams (5)](#temporal-streams) · [Adversarial Play (2)](#adversarial-play) · [Lifelong Testbeds (12)](#lifelong-testbeds)
-
-**4. Theory** (not a taxonomy branch) — [Evolutionary Paradigms (8 systems, mapped)](#41-evolutionary-paradigms) · [Stability & Retention (2)](#stability--retention) · [Confidence-Gated Admission (4)](#confidence-gated-admission) · [Self-Improvement Limits (2)](#self-improvement-limits) · [Background Tools (10)](#43-background-statistical--optimization-tools)
-
-**Entry format.** Mechanism sentences state what the system *does to its own harness*, not what it scores. A second link appears only when the paper itself states one: `[[code]]` for a repository, `[[project]]` for a project page, `[[list]]` for a sibling reading list.
-
-```markdown
-- **Name** `Venue'YY` — one-sentence mechanism. [[paper]](url) [[code]](url)
-```
-
----
+<a id="reading-roadmap"></a>
 
 ## Reading Roadmap
 
-Eight papers, in order, to locate the field:
+1. **[Reflexion](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)** — feedback stored for the next attempt.
+2. **[Voyager](https://openreview.net/forum?id=ehfRiF0R3a)** — a reusable executable skill library.
+3. **[DSPy](https://openreview.net/forum?id=PFS4ffN9Yx)** — optimization inside a fixed pipeline.
+4. **[DGM](https://openreview.net/forum?id=pUpzQZTvGY)** — repository revision with an archive of candidates.
+5. **[Harness Updating ≠ Harness Benefit](https://arxiv.org/abs/2605.30621)** — separating loading from runtime use.
+6. **[HarnessBank](https://arxiv.org/abs/2607.13683)** — separating proposal, screening, and reporting evidence.
 
-1. **[Reflexion](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)** `NeurIPS'23` — the minimal loop: write a verbal reflection on failure, reload it on the next attempt.
-2. **[Voyager](https://openreview.net/forum?id=ehfRiF0R3a)** `TMLR'24` — the minimal *executable* loop: self-verified programs accumulate into a retrievable skill library.
-3. **[DSPy](https://openreview.net/forum?id=PFS4ffN9Yx)** `ICLR'24` — the compilation view: optimize prompts and demonstrations inside a pipeline whose control flow is fixed.
-4. **[ADAS](https://openreview.net/forum?id=t9U3LW7JVX)** `ICLR'25` — the search view: a meta-agent writes the control program, and candidates live in an archive.
-5. **[DGM](https://openreview.net/forum?id=pUpzQZTvGY)** `ICLR'26` — the open-ended view: repository variants branch, and the archive is the population.
-6. **[Harness Updating Is Not Harness Benefit](https://arxiv.org/abs/2605.30621)** `arXiv'26` — the load rate and the adherence rate come apart: 0.96 vs 0.35.
-7. **[HarnessBank](https://arxiv.org/abs/2607.13683)** `arXiv'26` — how much of the evidence chain a report can carry, and where it still stops: an evaluation kernel candidates cannot edit, a sealed test split, paired *z* tests — yet its activation beacons are logged in screening, not in the scored runs.
-8. **[Agents That Matter](https://arxiv.org/abs/2407.01502)** `TMLR'25` — why a terminal score is not an answer.
-
----
+<a id="precursors"></a>
 
 ## Precursors
-
-*Pre-LLM statements of the propose–evaluate–retain structure.*
 
 - **Speculations Concerning the First Ultraintelligent Machine** `Adv. Computers'65` — frames recursive improvement as a machine designing a better successor to itself. [[paper]](https://doi.org/10.1016/S0065-2458%2808%2960418-0)
 - **EURISKO** `Artif. Intell.'83` — learned heuristics, including heuristics that modify other heuristics, shape later search. [[paper]](https://doi.org/10.1016/S0004-3702%2883%2980005-8)
 - **Gödel Machines** `arXiv'03` — a self-rewrite executes only after the system proves the rewrite improves expected utility. [[paper]](https://arxiv.org/abs/cs/0309048)
 
----
+<a id="interpreted"></a>
 
 ## 1. Interpreted Update Targets
 
-![Harness update targets and the operational update loop](assets/overview.png)
-
-<p align="center"><sub><b>What Sections 1 and 2 operate on.</b> Interpreted targets (left) are artifacts a fixed host reads; executable targets (right) are implementations the host invokes. The lower panel is the loop every entry below sits in: feedback → proposal → admission → persistence and deployment → downstream reuse. Persistence alone establishes neither activation nor improvement.</sub></p>
-
-*The revision changes model-readable content or coordination state. Native tools, operator implementations, and low-level execution machinery stay fixed. The mutation surface is bounded, which makes candidates comparable — and leaves the accepted artifact dependent on a fixed model choosing to follow it.*
+These methods revise text or coordination state consumed by fixed components. Whether a saved instruction or skill is followed must be measured. Offline optimization and task-local adaptation are marked in the entries.
 
 ### 1.1 Prompts & Instructions
 
-System instructions, prompt templates, few-shot demonstrations, and mutation specifications. Three generations, separated by **what the feedback carries**.
-
 #### Scalar-Score Search
 
-*Feedback is one number per candidate.*
+*Use candidate scores to propose and select prompt revisions.*
 
 - **APE** `ICLR'23` — proposes instructions from input–output demonstrations and keeps the highest-scoring candidate. [[paper]](https://openreview.net/forum?id=92gvk82DE-) [[project]](https://sites.google.com/view/automatic-prompt-engineer)
-- **OPRO** `ICLR'24` — conditions an optimizer LLM on the scored history of prior candidates to propose the next instruction. [[paper]](https://openreview.net/forum?id=Bb4VGOWELI) [[code]](https://github.com/google-deepmind/opro)
+- **OPRO** `ICLR'24` — feeds earlier instructions and scores to an optimizer model that proposes the next candidate. [[paper]](https://openreview.net/forum?id=Bb4VGOWELI) [[code]](https://github.com/google-deepmind/opro)
 
 #### Textual-Gradient Critique
 
-*Feedback is an error, a critique, or a trajectory, turned into a proposed edit.*
+*Translate errors, critiques, or execution traces into edits to text parameters.*
 
 - **ProTeGi** `EMNLP'23` — converts task errors into natural-language "gradients" and beam-searches over the edited prompts. [[paper]](https://aclanthology.org/2023.emnlp-main.494/)
 - **TextGrad** `Nature'25` — backpropagates textual critiques through a graph of LLM calls to edit any text variable in the system. [[paper]](https://doi.org/10.1038/s41586-025-08661-4)
-- **GEPA** `ICLR'26 Oral` — reflective prompt evolution over execution traces, with candidates selected on a Pareto split kept apart from the reported test. [[paper]](https://openreview.net/forum?id=RQm2KQTM5r)
+- **GEPA** `ICLR'26 Oral` — uses execution-trace reflection to revise prompts and Pareto selection to retain candidates. [[paper]](https://openreview.net/forum?id=RQm2KQTM5r)
 - **Trace** `NeurIPS'24` — treats the execution trace as a computation graph and generates edits from rich feedback through a generative optimizer. [[paper]](https://arxiv.org/abs/2406.16218) [[project]](https://microsoft.github.io/Trace/)
 - **metaTextGrad** `arXiv'25` — optimizes the optimizer's own prompts, accepting an update only when a validation split improves. [[paper]](https://arxiv.org/abs/2505.18524)
 - **EGO-Prompt** `arXiv'25` — co-adapts the prompt and a semantic causal graph for domain deployments. [[paper]](https://arxiv.org/abs/2510.21148)
-- **SePO** `arXiv'26` — rewrites a long-lived system prompt from accumulated task feedback rather than a one-shot search. [[paper]](https://arxiv.org/abs/2606.04465) [[code]](https://github.com/taowangcheng/SePO)
+- **SePO** `arXiv'26` — rewrites persistent system prompts using accumulated task feedback. [[paper]](https://arxiv.org/abs/2606.04465) [[code]](https://github.com/taowangcheng/SePO)
 
 #### Self-Referential Mutation
 
-*The mutation process is itself part of the search space.*
+*Search over the instructions that generate later mutations.*
 
 - **Promptbreeder** `ICML'24` — co-evolves task prompts and the mutation prompts that generate them. [[paper]](https://proceedings.mlr.press/v235/fernando24a.html)
 - **DelvePO** `arXiv'25` — decouples prompt components and steers mutation along identified directions. [[paper]](https://arxiv.org/abs/2510.18257)
 - **DEEVO** `arXiv'25` — evolves instructions through structured debates, ranking candidates by Elo tournament. [[paper]](https://arxiv.org/abs/2506.00178)
 
-> **Where this layer stops.** Most prompt optimizers are *offline antecedents*: they select a high-scoring prompt, freeze it, and end the loop. Extending prompt updates across an operational lifecycle turns into a context-management problem — accumulated instructions consume a finite attention budget and raise inference cost — which is what [1.2](#12-memory--reusable-procedures) addresses, and which no amount of prompt text turns into enforceable runtime control.
-
 ### 1.2 Memory & Reusable Procedures
-
-Persistent, model-readable state built from prior experience and retrieved into later contexts. Separated by **how long the extracted experience is meant to stay useful** and **whether the library is maintained**.
 
 #### Experience Mining
 
-*Turn trajectories into retrievable entries.*
+*Distill execution trajectories into knowledge retrieved by later runs.*
 
 - **Reflexion** `NeurIPS'23` — stores verbal self-reflection on a failure and reloads it for another attempt at the same task. [[paper]](http://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html)
 - **ExpeL** `AAAI'24` — extracts cross-task insights from a training pool of trajectories, with add/edit/upvote/downvote curation. [[paper]](https://doi.org/10.1609/aaai.v38i17.29936)
@@ -238,56 +149,48 @@ Persistent, model-readable state built from prior experience and retrieved into 
 
 #### Procedural Skillbooks
 
-*The reusable unit is an explicit, documented procedure.*
+*Store an explicit procedure that can guide later tasks.*
 
 - **Trace2Skill** `arXiv'26` — distills trajectory-local lessons into transferable skill documents, ranked on a validation subset of the evolving set. [[paper]](https://arxiv.org/abs/2603.25158)
 - **SkillClaw** `arXiv'26` — an agentic evolver whose validator admits a candidate skill only if it beats the deployed pool on validation tasks. [[paper]](https://arxiv.org/abs/2604.08377)
 - **CodeSkill** `arXiv'26` — learns self-evolving coding skills through preparatory passes that build the bank before deployment. [[paper]](https://arxiv.org/abs/2605.25430)
 - **GSkill** `ACM AIAS'26` — automatically learns `SKILL.md` files for coding agents from prior runs. [[paper]](https://doi.org/10.1145/3786335.3813196)
-- **Socratic-SWE** `arXiv'26` — derives skills from traces by Socratic questioning, gated by a held-out validation pool. [[paper]](https://arxiv.org/abs/2606.07412)
 - **GSE** `arXiv'26` — learns globally reusable skills gated by local and replay-driven validation under one-project-held-out splits. [[paper]](https://arxiv.org/abs/2608.06153)
 - **MUSE-Autoskill** `arXiv'26` — couples skill creation, memory, and management, registering a skill only once it passes its own generated tests. [[paper]](https://arxiv.org/abs/2605.27366)
 - **MemP** `ACL'26 Findings` — distills procedural memory from trajectories and compares update strategies and abstraction granularities. [[paper]](https://doi.org/10.18653/v1/2026.findings-acl.866)
-- **Skill Consumption** `arXiv'26` — tests whether model-generated skills are actually consumed downstream, and finds they reshape the default policy rather than trigger explicit calls. [[paper]](https://arxiv.org/abs/2605.23899)
-- **SkillForge** `SIGIR'26 Industry` — forges domain-specific self-evolving skills for cloud support, reserving a chronological final quartile the loop never sees. [[paper]](https://doi.org/10.1145/3805712.3808466)
+- **Skill Consumption** `arXiv'26` — examines how generated skills affect downstream behavior, including changes to default strategies and explicit use. [[paper]](https://arxiv.org/abs/2605.23899)
+- **SkillForge** `SIGIR'26 Industry` — learns reusable skill documents from execution experience and reserves a later temporal partition for reporting. [[paper]](https://doi.org/10.1145/3805712.3808466)
 
 #### Gated Consolidation
 
-*Library maintenance is part of the learning problem: rewrite, prune, verify, or replace the active set.*
+*Revise, compress, or replace stored content through a validation or maintenance rule.*
 
 - **Dynamic Cheatsheet** `EACL'26` — maintains an adaptive memo of strategies curated at test time. [[paper]](https://aclanthology.org/2026.eacl-long.333/)
 - **ACE** `ICLR'26` — grows and consolidates an evolving context playbook through incremental delta updates instead of rewrites. [[paper]](https://openreview.net/forum?id=eC4ygDs02R)
 - **SkillOpt** `arXiv'26` — evaluates a revised skill set on validation before it replaces the active library. [[paper]](https://arxiv.org/abs/2605.23904)
-- **SkillOpt-Lite** `arXiv'26` — the same gate at lower cost, admitting skill edits through a dead-band validation rule plus a compile-and-smoke test. [[paper]](https://arxiv.org/abs/2607.03451) [[code]](https://github.com/EvolvingLMMs-Lab/SkillOpt-Lite)
-- **MemEvolve** `arXiv'25` — meta-evolves the memory system itself, retaining a top-1 Pareto survivor per round. [[paper]](https://arxiv.org/abs/2512.18746)
-- **SWE-MeM** `arXiv'26` — learns adaptive memory-management policies for long-horizon coding agents. [[paper]](https://arxiv.org/abs/2606.28434)
-- **SWE-Pruner** `arXiv'26` — self-adaptive context pruning under a tuned retention threshold. [[paper]](https://arxiv.org/abs/2601.16746) [[code]](https://github.com/Ayanami1314/swe-pruner)
-- **TACO** `arXiv'26` — observational context compression for terminal agents, with a write-back gate and a reward-free retention stop. [[paper]](https://arxiv.org/abs/2604.19572) [[code]](https://github.com/multimodal-art-projection/TACO)
-- **SkillMOO** `arXiv'26` — selects skill bundles under several competing objectives via NSGA-II ranking rather than one score. [[paper]](https://arxiv.org/abs/2604.09297)
+- **SkillOpt-Lite** `arXiv'26` — combines a validation deadband with compilation and smoke tests to admit skill edits at lower cost. [[paper]](https://arxiv.org/abs/2607.03451) [[code]](https://github.com/EvolvingLMMs-Lab/SkillOpt-Lite)
+- **Janus** `arXiv'26` — wraps an updater and compares old and candidate memories on coverage, boundary, and fresh tasks when a proposal deviates from the recent update direction. [[paper]](https://arxiv.org/abs/2606.31121)
+- **VALVE** `arXiv'26` — admits skill revisions through paired comparisons on a validation panel and tracks drawdown over a long task stream. [[paper]](https://arxiv.org/abs/2609.32990)
+- **TACO** `arXiv'26` — compresses observations for terminal agents through a write-back gate and a reward-free retention stopping rule. [[paper]](https://arxiv.org/abs/2604.19572) [[code]](https://github.com/multimodal-art-projection/TACO)
+- **SkillMOO** `arXiv'26` — uses NSGA-II ranking to select skill combinations under competing objectives. [[paper]](https://arxiv.org/abs/2604.09297)
 - **EffiSkill** `arXiv'26` — mines efficiency skills from verified code pairs, ranking candidates on a public split and reporting on a private one. [[paper]](https://arxiv.org/abs/2603.27850)
 - **VASO** `arXiv'26` — formally verifiable skills: each plan is model-checked against the skill's specification before it may run. [[paper]](https://arxiv.org/abs/2606.05395)
 - **Memory Management** `ACL'26` — empirical study of how retention, deletion, and retrieval rules change task outcomes, with a similarity-based adherence measure. [[paper]](https://aclanthology.org/2026.acl-long.27/)
-- **Memory as Action** `ACL'26 Findings` — treats context curation as an action the agent takes, trained end-to-end rather than fixed by policy. [[paper]](https://aclanthology.org/2026.findings-acl.956/)
-- **MCE** `ICML'26` — a history-informed (1+1) evolution strategy over skills, with agentic crossover and a validation archive. [[paper]](https://icml.cc/virtual/2026/poster/64296)
+- **MCE** `ICML'26` — applies history-informed (1+1) evolution to skills with agentic crossover and a validation archive. [[paper]](https://icml.cc/virtual/2026/poster/64296)
 - **Living-Harness** `arXiv'26` — an interactive-agent evolver that consolidates retrieved memory into a reusable graph across cycles. [[paper]](https://arxiv.org/abs/2607.26598) [[code]](https://github.com/anotherbricki/Living-Harness)
-- **Janus** `arXiv'26` — wraps an existing updater and, when a candidate deviates from the recent update direction, compares old and candidate memory on a compact coverage/boundary/fresh set before deploying either. [[paper]](https://arxiv.org/abs/2606.31121)
-
-> **Where this layer stops.** Stored experience is data interpreted probabilistically. A useful skill may not be retrieved, and may still be ignored after retrieval — see [Harness Updating](#runtime-activation), where load rate and adherence rate diverge from 0.96 to 0.35. Persistent stores also carry stale strategies and injection payloads forward across sessions ([Section 6](#6-persistent-state-risks)).
 
 ### 1.3 Workflows & Topologies
 
-Coordination specifications enacted by a **fixed** orchestration framework: role allocation, communication graphs, conditional routing, verification and termination cycles. Node implementations and tool interfaces stay fixed.
-
 #### Fixed-Pipeline Compilation
 
-*The pipeline is programmer-defined; only its text parameters are searched.*
+*Optimize prompts and demonstrations while keeping the pipeline structure fixed.*
 
 - **DSPy** `ICLR'24` — compiles declarative LM pipelines, optimizing prompts and demonstrations while control flow stays fixed. [[paper]](https://openreview.net/forum?id=PFS4ffN9Yx) [[code]](https://github.com/stanfordnlp/dspy)
 - **MIPRO** `EMNLP'24` — jointly optimizes instructions and demonstrations across the stages of a multi-stage LM program. [[paper]](https://aclanthology.org/2024.emnlp-main.525/) [[project]](https://dspy.ai)
 
 #### Graph & Topology Search
 
-*The connection structure itself is the search space.*
+*Search over connections and coordination among fixed operators.*
 
 - **GPTSwarm** `ICML'24` — makes edges between fixed operations learnable and optimizes the resulting communication graph. [[paper]](https://proceedings.mlr.press/v235/zhuge24a.html) [[code]](https://github.com/metauto-ai/gptswarm)
 - **Mass** `ICLR'26` — jointly searches agent prompts and communication topologies over predefined multi-agent blocks. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/hash/1ab4e0e8f35078109bc78d7b465d306f-Abstract-Conference.html)
@@ -297,7 +200,7 @@ Coordination specifications enacted by a **fixed** orchestration framework: role
 
 #### Feedback-Driven Workflow Revision
 
-*Execution outcomes, not a search budget, decide the next topology.*
+*Use execution feedback to revise the workflow specification.*
 
 - **SEW** `arXiv'25` — jointly mutates prompts and topology while comparing alternative workflow representations. [[paper]](https://arxiv.org/abs/2505.18646)
 - **JudgeFlow** `arXiv'26` — uses block-level judge diagnoses to revise sequence, loop, and conditional blocks. [[paper]](https://arxiv.org/abs/2601.07477)
@@ -305,21 +208,19 @@ Coordination specifications enacted by a **fixed** orchestration framework: role
 - **Meta-Team** `arXiv'26` — carries experience across tasks to update a reusable scaffold of agent prompts, teammate profiles, collaboration notes, and shared coordination rules. [[paper]](https://arxiv.org/abs/2605.29790)
 - **Symbolic Learning** `AI Open'25` — jointly revises pipeline structure, prompts, and tools through back-propagated language loss. [[paper]](https://doi.org/10.1016/j.aiopen.2025.11.004)
 
-> **Boundary note.** AgentSquare and Symbolic Learning also generate executable module and tool implementations; they are listed here because their primary contribution is modular search and joint symbolic optimization. The mutable executable surface they add is discussed in [2.1](#21-tools--code-patches).
+Offline prompt optimizers and fixed-pipeline compilers provide candidate-generation mechanisms. They become operational self-evolution only when the update mechanism remains in the deployed lifecycle.
 
----
+<a id="executable"></a>
 
 ## 2. Executable Update Targets
 
-*The host or runtime executes the revision directly. An update is classified by the object it changes, not by the file format it is written in. The three subsections are **parallel software boundaries**, not capability levels: what separates them is how far a faulty edit can propagate, and what contract has to hold before it may be mounted.*
+These methods revise executable implementations. The boundary can be a tool, a component, a control program, or a plugin interface. Executable code still needs evidence that the changed path ran.
 
 ### 2.1 Tools & Code Patches
 
-The surrounding executor is fixed; the update lands in one declared executable unit — a callable tool, a skill implementation, a function, a component file. The boundary makes testing and rollback local. It does not stop errors from propagating through the component's outputs or shared state.
-
 #### Callable Tool Synthesis
 
-*Successful execution becomes independently invokable code.*
+*Generate reusable programs exposed through a tool interface.*
 
 - **Voyager** `TMLR'24` — turns self-verified programs into a growing skill library retrieved and composed in later tasks. [[paper]](https://openreview.net/forum?id=ehfRiF0R3a) [[project]](https://voyager.minedojo.org/)
 - **PolySkill** `arXiv'25` — induces polymorphic skill abstractions so a learned skill generalizes past its originating site. [[paper]](https://arxiv.org/abs/2510.15863) [[code]](https://github.com/simonucl/PolySkill)
@@ -329,48 +230,50 @@ The surrounding executor is fixed; the update lands in one declared executable u
 
 #### Evidence-Grounded Component Patching
 
-*Execution evidence selects one declared component; the enclosing agent loop stays closed to revision. The systems differ mainly in their **admission procedure**.*
+*Modify a declared executable component while the enclosing executor stays fixed.*
 
-- **Self-Harness** `arXiv'26` — proposes several edits from one incumbent and promotes only those that do not drop on either split and rise on at least one. [[paper]](https://arxiv.org/abs/2606.09498) [[code]](https://github.com/qzzqzzb/Self-Harness)
-- **HarnessCompass** `arXiv'26` — optimizes harness components separately then combines them, ranking on a 50-task evolution set and reporting 450 held-out tasks apart. [[paper]](https://arxiv.org/abs/2608.01918)
-- **AHE** `arXiv'26` — observability-driven evolution: per-run submit and shell-layer beacons ground each shipped edit, which is reverted at file granularity when harmful. [[paper]](https://arxiv.org/abs/2604.25850)
+- **Self-Harness** `arXiv'26` — proposes edits from the incumbent and admits candidates that do not regress on either split and improve on at least one. [[paper]](https://arxiv.org/abs/2606.09498) [[code]](https://github.com/qzzqzzb/Self-Harness)
+- **HarnessCompass** `arXiv'26` — optimizes harness components separately and combines them into candidate configurations. [[paper]](https://arxiv.org/abs/2608.01918)
+- **AHE** `arXiv'26` — uses submit-guard and shell traces to diagnose component edits and supports file-level rollback. [[paper]](https://arxiv.org/abs/2604.25850)
 - **HarnessFix** `arXiv'26` — diagnoses harness faults from failed trajectories and admits a repair only through a validation-set assessment. [[paper]](https://arxiv.org/abs/2606.06324)
 - **ReCreate** `ACL'26` — edits role, process, tool, and memory components at both text and code level on a small dev set, explicitly excluding environment and infrastructure adaptation. [[paper]](https://aclanthology.org/2026.acl-long.1432/)
-- **AutoSaddler** `arXiv'26` — keeps a patch only on a mini-batch gain, argmaxes on dev, and evaluates the group-disjoint test split once. [[paper]](https://arxiv.org/abs/2608.23041)
+- **AutoSaddler** `arXiv'26` — retains patches that improve a minibatch, selects on development data, and reports on a group-disjoint test split. [[paper]](https://arxiv.org/abs/2608.23041)
+- **CHASE** `arXiv'26` — tests proposed patches against protocol transformations designed to invalidate their apparent gains. [[paper]](https://arxiv.org/abs/2609.18366)
 - **Evo-Harness** `arXiv'26` — compiles accumulated context into harness-level skills along an online stream, matching fail→pass traces to skill content. [[paper]](https://arxiv.org/abs/2608.15071) [[code]](https://github.com/A-EVO-Lab/a-evolve)
-- **HarnessBank** `arXiv'26` — a MAP-Elites-style gene bank with semantic descriptors, per-attempt activation beacons, and a paired significance gate; elites that never fire are culled. [[paper]](https://arxiv.org/abs/2607.13683)
+- **HarnessBank** `arXiv'26` — archives component patches by semantic descriptor, checks activation beacons during screening, and keeps evaluation code in an immutable kernel. [[paper]](https://arxiv.org/abs/2607.13683)
 - **Ecdysis** `arXiv'26` — trains runtime harnesses with promotion on a training objective, then scores the frozen harness on a held-out split. [[paper]](https://arxiv.org/abs/2609.11677)
-- **CHASE** `arXiv'26` — counterfactual-guided evolution: a Challenger proposes protocol transformations meant to destroy the candidate's gain over the parent, and a patch is admitted only if its gain survives every confirmed transformation. [[paper]](https://arxiv.org/abs/2609.18366)
+- **MemEvolve** `arXiv'25` — rewrites the encode, store, retrieve, and manage implementations behind a fixed memory-provider interface. [[paper]](https://arxiv.org/abs/2512.18746)
+- **GUI-HARVEST** `arXiv'26` — turns recurring failures from repeated GUI executions into bounded source edits with stated behavioral predictions. [[paper]](https://arxiv.org/abs/2610.00948)
+- **Harness Ceiling** `arXiv'26` — compares harness edits on long-horizon planning tasks to identify failures that remain for weight training. [[paper]](https://arxiv.org/abs/2610.11655)
 
 ### 2.2 Repository & Runtime Logic
 
-The end-to-end control program becomes mutable. An update may cross component boundaries and revise context construction, tool dispatch, verification, recovery, the agent loop, or the code that proposes later changes. The substrate may be one program, a multi-file repository, or live process memory; the defining property is that **several harness functions can be recomposed at once**.
-
 #### Whole-Control-Program Search
 
-*A fixed outer loop synthesizes the whole control program. All three are offline optimization antecedents: the output is a harness selected for deployment, and the deployed harness does not keep updating.*
+*Search over the control program; VERSE also revises the optimizer that proposes it.*
 
 - **ADAS** `ICLR'25` — a fixed meta-agent writes new agent `forward` implementations and keeps evaluated candidates in an archive. [[paper]](https://openreview.net/forum?id=t9U3LW7JVX) [[project]](https://shengranhu.com/ADAS)
 - **Meta-Harness** `COLM'26` — hands an external coding agent the source, scores, and traces of prior candidates and asks for a complete task-specific harness program. [[paper]](https://arxiv.org/abs/2603.28052)
-- **RRSI** `arXiv'26` — regularizes that search with annealed edit budgets, leakage screening, and noise-adjusted acceptance floors, trading evolution-set gain for OOD transfer. [[paper]](https://arxiv.org/abs/2609.24972) [[code]](https://github.com/google-research/rrsi)
+- **RRSI** `arXiv'26` — regularizes program search using edit budgets, leakage checks, and noise-adjusted admission thresholds. [[paper]](https://arxiv.org/abs/2609.24972) [[code]](https://github.com/google-research/rrsi)
+- **VERSE** `arXiv'26` — revises both the executor harness and the optimizer’s prompts, tools, hooks, and notes under execution checks. [[paper]](https://arxiv.org/abs/2610.02616)
 
 #### Repository Revision
 
-*A versioned harness implementation is edited. Archive membership identifies candidates for future evolution; it does not imply any stored version becomes the active runtime.*
+*Edit a versioned harness implementation and retain candidates for further evolution.*
 
 - **SICA** `arXiv'25` — exposes its own multi-file Python codebase — tools, subagents, control flow — to the best archived agent. [[paper]](https://arxiv.org/abs/2504.15228)
 - **DGM** `ICLR'26` — branches repository variants into an open-ended archive, with parent selection over performance and novelty. [[paper]](https://openreview.net/forum?id=pUpzQZTvGY)
-- **DarwinX** `arXiv'26` — evolves harnesses by natural selection on a train split frozen before the held-out split is touched. [[paper]](https://arxiv.org/abs/2608.07545)
+- **DarwinX** `arXiv'26` — evolves repository-level harness candidates through selection, mutation, and recombination. [[paper]](https://arxiv.org/abs/2608.07545)
 - **HGM** `arXiv'25` — approximates clade-level productivity and allocates lineage-expansion and evaluation budgets by Thompson sampling. [[paper]](https://arxiv.org/abs/2510.21614) [[code]](https://github.com/metauto-ai/HGM)
 - **Group-Evolving Agents** `arXiv'26` — lets selected parents share code patches, tools, and execution experience before producing framework-level patches. [[paper]](https://arxiv.org/abs/2602.04837)
 - **MOSS** `arXiv'26` — rewrites routing, hooks, state management, and dispatch code, then swaps the container behind a health check plus human authorization. [[paper]](https://arxiv.org/abs/2605.22794) [[code]](https://github.com/hkgai-official/Moss)
 - **Ouroboros** `arXiv'26` — evolves its own core through reviewed commits, with run manifests, seed attestation, and public per-task traces. [[paper]](https://arxiv.org/abs/2608.08311)
 - **AgentDevel** `arXiv'26` — reframes self-evolution as release engineering: versioned diffs, release-candidate regression, per-iteration fail→pass and pass→fail records. [[paper]](https://arxiv.org/abs/2601.04620)
-- **EvolveNet** `arXiv'26` — collaborative harness evolution across clients, merging validated patches into broadcast shared state behind a disjoint validation gate. [[paper]](https://arxiv.org/abs/2608.04968)
+- **EvolveNet** `arXiv'26` — combines harness edits across clients and validates merged patches before broadcasting shared state. [[paper]](https://arxiv.org/abs/2608.04968)
 
 #### In-Process Patching
 
-*The revision is applied to the running process rather than written to a repository.*
+*Apply changes to a running process; persistence depends on the system’s save and reload mechanism.*
 
 - **Gödel Agent** `ACL'25` — monkey-patches decision methods, action spaces, and its own modification routines in live Python memory; the revision dies with the process. [[paper]](https://aclanthology.org/2025.acl-long.1354/)
 - **TTHE** `arXiv'26` — evolves executable harness programs from traces at test time and carries the selected program into subsequent inputs. [[paper]](https://arxiv.org/abs/2607.08124)
@@ -378,189 +281,31 @@ The end-to-end control program becomes mutable. An update may cross component bo
 
 ### 2.3 Everything Is a Plugin
 
-Executable components sit behind a fixed microkernel, declared interfaces, and lifecycle hooks. The mutable object is a plugin implementation or the composition binding tools, memory, providers, loops, and verifiers into the runtime. **The contribution of this category is not a larger mutation radius but a more explicit contract around replacement and activation**: the kernel decides which hooks exist, which dependencies are valid, and how a component may be mounted.
-
 #### Contract-Driven Hooks
 
+*Bind updates to hooks with explicit interfaces and admission checks.*
+
 - **HarnessX** `arXiv'26` — checks hook types, singleton constraints, and smoke tests before committing a proposed configuration, and requires each edit to declare the trace feature that must appear if it fired. [[paper]](https://arxiv.org/abs/2606.14249)
-- **Argus** `arXiv'26` — a general-purpose agentic reasoning runtime that exposes skills rather than injecting them, evolving along a long-horizon stream. [[paper]](https://arxiv.org/abs/2608.05144)
+- **Argus** `arXiv'26` — exposes skills through a general agent runtime and evolves them along long task streams. [[paper]](https://arxiv.org/abs/2608.05144)
 
 #### Microkernel Platforms
 
+*Keep a small host fixed and expose replaceable components through plugin interfaces.*
+
 - **DeepSeek Harness** `Product'26` — the Cordis kernel connects runtime components through declared dependencies, with append-only records supporting checkpointing and replay; it illustrates the substrate, not a reported self-evolution lifecycle. [[page]](https://www.deepseek.com/harness/en/)
-- **Cordis / Spatiotemporal Composability** `arXiv'26` — the formal calculus behind that kernel; self-evolving harnesses are stated as future work. [[paper]](https://arxiv.org/abs/2608.25512)
 - **Autogenesis** `arXiv'26` — a self-evolving agent protocol with an explicit propose–evaluate–commit cycle over lineage and versioning. [[paper]](https://arxiv.org/abs/2604.15034) [[code]](https://github.com/DVampire/Autogenesis)
-- **ModularRSI** `arXiv'26` — evolves modules behind a composer under reward-blind gates, on externally curated, benchmark-disjoint evolve tasks. [[paper]](https://arxiv.org/abs/2609.14857)
+- **ModularRSI** `arXiv'26` — evolves modules behind a composer and admits updates through a reward-blind gate on externally curated tasks. [[paper]](https://arxiv.org/abs/2609.14857)
+- **Cordis / Spatiotemporal Composability** `arXiv'26` — the formal calculus behind that kernel; self-evolving harnesses are stated as future work. [[paper]](https://arxiv.org/abs/2608.25512)
 
-> **What contracts do not buy.** A sandbox can restrict permissions and a typed hook can reject an incompatible binding, but neither establishes that the resulting behavior is correct. Within runtime-managed state, checkpoints and component replacement may restore a prior logical configuration; they cannot reverse an API request, a database mutation, an outbound message, or a physical action already committed outside that boundary. Those require prevention, idempotence, or compensating actions — not rollback.
+Live-SWE-agent’s tools are task-local, and Gödel Agent’s edits last for the process lifetime. These entries illustrate executable revision with limited persistence. Plugin contracts can constrain interfaces and permissions; they do not establish task correctness.
 
----
+<a id="theory"></a>
 
-## 3. Evaluation & Benchmarks
+## 3. Theory
 
-A terminal task score conflates **four claims**: three steps an accepted update has to clear in turn — activation, attribution, improvement — and selection, a condition on every number those three are read off. Evidence for one does not establish another.
+Harness search uses task scores and execution feedback to propose changes without differentiating through the program. The EA correspondence describes representation, variation, selection, and resource allocation; it does not imply that each system implements a canonical EA.
 
-![Four claims behind a reported gain](assets/claims.png)
-
-<p align="center"><sub><b>Four claims behind a reported gain</b> (the article's Figure 5). Activation, attribution, and improvement must hold in turn before a gain belongs to an accepted update; selection runs beneath all three. The bottom panel assigns each longitudinal control to the claim it protects.</sub></p>
-
-| Claim | Question | Fails silently when |
-|---|---|---|
-| **Selection** | Was the reported number measured, not picked? No outcome on the reporting tasks fed the proposal, the ranking, the admission, or the choice of which round and configuration to report. | The update is written from the failures of the scored runs; a "held-out" split also feeds the promotion rule; the peak round or the best row of a sweep becomes the headline. |
-| **Activation** | Did the accepted update operate in the runs that produced the number? Read from execution records at three grades: *available*, *reached*, *carried*. | A skill is loaded and ignored; a component runs and its output is dropped in prompt assembly or cut by truncation; beacons fire during screening but are not logged in the scored runs. Persistence is not activation. |
-| **Attribution** | Did the difference come from the update? Needs arms that differ only in the update, a controlled inference envelope, and a margin beyond execution variation. | Execution variation, an inference envelope that grew with the update (retries, verifier calls, longer context, a higher effort setting), or a changed evaluator moved instead. |
-| **Improvement** | Does the difference hold away from the conditions that produced it? Located by three indices: distance from the tasks that formed the update, baseline, and round. | Measured only on the tasks that produced it; or read once at the accepting round and never re-measured at a later one. |
-
-The claims come apart in practice. Activation is a precondition for attribution only when a particular component is credited; a component counterfactual that moves the outcome shows the component operated *somewhere*, but not in which runs or at which grade. Improvement concerns extent, not size: a difference can come from the update and vanish on a new task set, or hold on a new task set while the credit belongs to a larger budget.
-
-Three activation rates, with the denominators that carry the content — `R(u)` is the executions where update `u` applies, `L(u)` those that load it, `B(u)` those where its beacon fires, `C(u)` those where its effect carried:
-
-```
-load(u)   = |L(u)| / |R(u)|          # available: the artifact entered the run
-reach(u)  = |B(u)| / |R(u)|          # reached: the changed path executed
-carry(u)  = |C(u)| / |L(u)|          # carried: its output reached the model, or the trajectory followed it
-```
-
-For an instruction or skill, `carry` is an adherence rate; for a code path that enters no context, `L(u)` is read as `B(u)`.
-
-Works below are listed under **the evidence function they serve**, not by benchmark family.
-
-### 3.1 Claim-Specific Evidence
-
-#### Selection & Oracle Integrity
-
-*Was the number measured or picked, and did the candidate leave the measurement alone?*
-
-- **RSEA** `arXiv'26` — assigns separate data to proposal, admission, and reporting through explicit held-out selection. [[paper]](https://arxiv.org/abs/2606.28374)
-- **Anytime Certificates** `arXiv'26` — anytime-valid certificates for repeated, data-dependent admission decisions. [[paper]](https://arxiv.org/abs/2607.00871)
-- **HarnessOpt-Bench** `arXiv'26` — keeps its test partition out of reach for the whole search, with the boundary enforced by the runtime, and meters the resources the target agent spends. [[paper]](https://arxiv.org/abs/2608.06301)
-- **Phantom Guardrails** `arXiv'26` — documents self-improving harnesses that fix failures which never occurred, the patch grounded in no observed execution. [[paper]](https://arxiv.org/abs/2607.13083)
-- **Harness Tampering** `arXiv'26` — audits candidates that modify verification logic rather than the behavior under test. [[paper]](https://arxiv.org/abs/2609.00069)
-- **Self-Authored Verification** `arXiv'26` — finds self-written checks unreliable as admission evidence in heuristic self-improving agents. [[paper]](https://arxiv.org/abs/2607.24300)
-- **SWE-bench+** `arXiv'24` — documents solution leakage and weak assertions that corrupt promotion and reporting together. [[paper]](https://arxiv.org/abs/2410.06992)
-
-> **The structural failure.** The four ways a reporting score gets spent — on the proposal, the ranking, the admission, the choice of round or configuration — are different in kind from a fifth: the candidate changing the record that judges it. Procedure fixes the first four; only structure fixes the fifth. HarnessBank puts evaluation and bookkeeping code in a kernel candidates cannot modify; HarnessX applies the reference test patch before the model patch and blocks writes to test files.
-
-#### Runtime Activation
-
-- **SkillsBench** `arXiv'26` — records whether task-provided skills are read or referenced, across diverse tasks. [[paper]](https://arxiv.org/abs/2602.12670)
-- **Harness Updating ≠ Harness Benefit** `arXiv'26` — scores load rate and trajectory-adherence rate separately: two agents load at 0.961 and 0.957 while adhering at 0.350 and 0.757, and the weakest agent's adherence falls from 0.52 at loading to 0.13 at the final turn. [[paper]](https://arxiv.org/abs/2605.30621) [[code]](https://github.com/A-EVO-Lab/a-evolve)
-
-#### Attribution Controls
-
-*Each names a way a reported difference can come from something other than the update: execution variation, the inference envelope, or the evaluator.*
-
-- **Agents That Matter** `TMLR'25` — shows agent comparisons confound capability with cost, and asks for cost-controlled evaluation. [[paper]](https://arxiv.org/abs/2407.01502)
-- **Token Cost** `arXiv'26` — analyzes and predicts agent token consumption, giving the envelope a measurable unit. [[paper]](https://arxiv.org/abs/2604.22750)
-- **MLE-bench** `ICLR'25` — ML-engineering tasks with repeated runs and an explicit compute envelope. [[paper]](https://arxiv.org/abs/2410.07095)
-- **Claw-Eval** `arXiv'26` — grades trajectories rather than final states and repeats trials to separate capability from luck. [[paper]](https://arxiv.org/abs/2604.06132)
-- **AgentRewardBench** `COLM'25` — meta-evaluates automatic judges of web-agent trajectories against expert annotation. [[paper]](https://arxiv.org/abs/2504.08942) [[project]](https://agent-reward-bench.github.io)
-- **Judge Inflation** `arXiv'24` — documents spontaneous reward hacking in iterative self-refinement. [[paper]](https://arxiv.org/abs/2407.04549)
-- **Memory Reward Inflation** `arXiv'26` — shows stored memory can inflate the reported reward rather than improve the behavior. [[paper]](https://arxiv.org/abs/2608.00017)
-- **Who Grades the Grader** `arXiv'26` — when metrics and skills co-evolve, a rising score no longer identifies which of them moved. [[paper]](https://arxiv.org/abs/2607.12790) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Double-Ratchet)
-- **Don't Blame the LLM** `arXiv'26` — attributes measured coding-agent differences to harness evolution rather than to the model. [[paper]](https://arxiv.org/abs/2607.03691)
-- **Scaffold Effect** `arXiv'26` — treats harness choice as a hidden variable in coding-agent comparisons. [[paper]](https://arxiv.org/abs/2607.22585)
-- **Rethinking Harness Evaluation** `arXiv'26` — argues current protocols leave reported harness-evolution gains uncontrolled. [[paper]](https://arxiv.org/abs/2607.12227)
-- **HAL** `ICLR'26` — standardized run records, model snapshots, and cost accounting as shared evaluation infrastructure. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf)
-
-#### Generalization & Retention
-
-*The two settings of improvement's distance index that have standard names: a held-out partition measures generalization; a probe on a distribution the loop has moved on from measures retention.*
-
-- **HarnessDev** `arXiv'26` — separates harness *creation* from iterative *evolution*, reporting capability, cost, and held-out transfer. [[paper]](https://arxiv.org/abs/2609.01437)
-- **GDPevo** `arXiv'26` — scores evolved harnesses on real business tasks held out by recombining rules spread across the training tasks, so a test-time gain can be traced to training experience. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
-- **EvoHarnessBench** `arXiv'26` — grows the harness an agent is given and measures whether earlier competence is retained as capabilities are added. [[paper]](https://arxiv.org/abs/2609.04280)
-- **PATH-Bench** `arXiv'26` — path-dependent evaluation: deliberately varied task order and retained frozen reference histories. [[paper]](https://arxiv.org/abs/2608.01149)
-
-> **The empty index.** Improvement's third index, the round, has no standard setting: an evaluation that ends when the loop ends has no later round to look at. No reviewed report re-measures a credited margin at a later round.
-
-### 3.2 Longitudinal & Dynamic Evidence
-
-Persistent self-evolution adds no fifth claim. It requires the same four to be re-established after **every** accepted update, under two forms of drift: the harness changes each round, and the task stream may change alongside it.
-
-<details>
-<summary><b>Seven controls that extend a one-shot evaluation into a longitudinal audit</b></summary>
-
-| Claim | Control | What to record | Confound removed |
-|---|---|---|---|
-| Selection | Evidence separation | Which tasks and signals were used for proposal, ranking, admission, and reporting, and how the reported round and configuration were chosen | Reporting evidence reused by the search |
-| Selection | Oracle integrity | That scoring, verification, and bookkeeping code lie outside what a candidate can edit or repeatedly probe | A candidate changing the measurement that judges it |
-| Activation | Activation record | For each task and attempt in the scored runs, the three rates: available, path ran, effect carried | An update credited although it never operated |
-| Attribution | Execution variation | Repeated runs of the frozen state on the same tasks, or a paired test over per-task outcomes, with the margin set against that spread. Spread over judges or evaluator seeds does not count | Noise read as progress |
-| Attribution | Inference envelope | For the scored runs: generated tokens, model and verifier calls, turns, retries, attempts or candidates sampled, and the reasoning-effort setting. Context added by the artifact and search cost are stated separately | Added inference compute read as a harness gain |
-| Attribution | Model and evaluator record | Model identifier and version, decoding parameters, scorer and judge versions, and any change to them during the study | A changed model or grader read as a harness gain |
-| Improvement | Controlled histories | Varied task orders, a frozen reference state kept alongside the loop, probes on earlier distributions the loop does not control, and a re-measurement of each credited gain several rounds later | Order effects read as transfer or retention; a gain measured once read as lasting |
-
-Each control buys less than its name suggests. Permuting task orders measures sensitivity to order, not transfer. Probes on earlier distributions measure retention only until their results begin to guide later updates. A later re-measurement shows whether a credited gain is still there, but not which update in between removed it. None of them restores independence to an adaptively reused stream.
-
-</details>
-
-**Auditing retained state.** None of the four claims is tied to the round that accepted an update. Asked at a later round, each changes: have the probes stayed outside the loop; is the admitted artifact still loaded and still followed; can the difference still be separated from an envelope grown since; is the credited difference still there? A longitudinal report should state which of these it observes — state carryover, later-run activation, retention, rollback, adaptive reuse, cumulative cost.
-
-#### Active-Set Integrity
-
-*Once updates accumulate, activation becomes a moving target: later revisions change which artifacts remain reachable, preferred, or followed.*
-
-- **Ratchet** `arXiv'26` — asks how reliable an LLM judge must be before a skill may be retired. [[paper]](https://arxiv.org/abs/2605.22148) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
-- **SkillsVote** `arXiv'26` — lifecycle governance of skills across collection, recommendation, and voting-based curation. [[paper]](https://arxiv.org/abs/2605.18401)
-- **Library Drift** `arXiv'26` — diagnoses and fixes silent drift in a growing self-evolving skill library. [[paper]](https://arxiv.org/abs/2605.19576) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
-- **Pre-Commit Gating** `arXiv'26` — blocks skill contamination before commit, showing when self-evolution backfires. [[paper]](https://arxiv.org/abs/2608.05810)
-- **EVOMAL** `arXiv'26` — documents self-poisoning in self-evolving coding agents. [[paper]](https://arxiv.org/abs/2608.25776)
-
-#### Synthesized Boundary Tasks
-
-*New instances derived from existing ones or from diagnosed failures. Because the generator and the candidate update may read the same traces, that overlap has to be recorded.*
-
-- **Benchmark Self-Evolving** `arXiv'24` — a multi-agent framework that derives new instances from existing ones for dynamic evaluation. [[paper]](https://arxiv.org/abs/2402.11443) [[code]](https://github.com/NanshineLoong/Self-Evolving-Benchmark)
-- **StressEval** `arXiv'26` — failure-driven dynamic benchmarking that generates instances from diagnosed failures. [[paper]](https://arxiv.org/abs/2605.01939)
-
-#### Temporal Streams
-
-*Tasks admitted after a stated cutoff. A later release date reduces direct overlap; it does not equalize difficulty across releases or prove related patterns were absent from earlier development.*
-
-- **LiveBench** `ICLR'25 Spotlight` — contamination-limited benchmark refreshed from post-cutoff sources with objective ground truth. [[paper]](https://arxiv.org/abs/2406.19314)
-- **LiveCodeBench** `arXiv'24` — time-stamped competitive-programming problems collected after a cutoff. [[paper]](https://arxiv.org/abs/2403.07974) [[project]](https://livecodebench.github.io/)
-- **LiveMedBench** `arXiv'26` — contamination-free medical benchmark with automated refresh. [[paper]](https://arxiv.org/abs/2602.10367)
-- **SWE-rebench** `arXiv'25` — automated pipeline for task collection and decontaminated evaluation. [[paper]](https://arxiv.org/abs/2505.20411) [[project]](https://swe-rebench.com)
-- **SWE-bench Live** `arXiv'25` — continuously refreshed SWE-bench built from freshly merged issues. [[paper]](https://arxiv.org/abs/2505.23419) [[project]](https://swe-bench-live.github.io/)
-
-#### Adversarial Play
-
-*The challenge distribution moves with the participants, so harness, task generator, and evaluator must be reported separately — no single number says which moved.*
-
-- **MathDuels** `COLM'26` — a self-play benchmark that grows with the participant pool. [[paper]](https://arxiv.org/abs/2604.21916)
-- **Red Queen Gödel Machine** `arXiv'26` — co-evolves agents and their evaluators in one loop. [[paper]](https://arxiv.org/abs/2606.26294)
-
-#### Lifelong Testbeds
-
-*A sequential benchmark becomes evidence for harness evolution only when it observes the **state transition**, not merely a time-ordered list of scores.*
-
-- **LifelongAgentBench** `arXiv'25` — evaluates agents as lifelong learners over skill-dependent task sequences. [[paper]](https://arxiv.org/abs/2505.11942) [[project]](https://caixd-220529.github.io/LifelongAgentBench/)
-- **PAST-Bench** `arXiv'26` — benchmarks RSI foundations in personal agents, comparing persistence enabled against disabled. [[paper]](https://arxiv.org/abs/2608.04003) [[code]](https://github.com/Gen-Verse/PAST-Bench)
-- **SEA-Eval** `arXiv'26` — evaluates self-evolving agents beyond episodic assessment. [[paper]](https://arxiv.org/abs/2604.08988)
-- **FinEvo-Bench** `arXiv'26` — longitudinal professional-finance benchmark with matched persistence-on/off conditions. [[paper]](https://arxiv.org/abs/2608.06144)
-- **ContinualSkillBench** `arXiv'26` — asks whether agents truly evolve capability across a continual stream. [[paper]](https://arxiv.org/abs/2608.03874)
-- **SkillFlow** `arXiv'26` — benchmarks lifelong skill discovery and evolution. [[paper]](https://arxiv.org/abs/2604.17308)
-- **SkillLearnBench** `arXiv'26` — benchmarks continual-learning methods for agent skill generation. [[paper]](https://arxiv.org/abs/2604.20087) [[code]](https://github.com/cxcscmu/SkillLearnBench)
-- **MemoryArena** `arXiv'26` — interdependent multi-session tasks in which earlier writes affect later work. [[paper]](https://arxiv.org/abs/2602.16313)
-- **Evo-Memory** `arXiv'25` — benchmarks test-time learning with self-evolving memory. [[paper]](https://arxiv.org/abs/2511.20857)
-- **Tool-Genesis** `arXiv'26` — task-driven tool-creation benchmark for self-evolving agents. [[paper]](https://arxiv.org/abs/2603.05578)
-- **SWE-EVO** `arXiv'25` — long-horizon software-evolution scenarios for coding agents. [[paper]](https://arxiv.org/abs/2512.18470)
-- **CL-Bench** `arXiv'26` — frontier systems in real-world stateful continual-learning settings. [[paper]](https://arxiv.org/abs/2606.05661)
-
-The count, validity, or diversity of the artifacts a loop produces is evidence that state was produced, not that it was activated or that it improved anything. Ablating the persistence mechanism (PAST-Bench, FinEvo-Bench) shows that persistence changes outcomes under the tested protocol; it does not identify which stored item caused the difference.
-
-> **Crossed evaluation.** Comparing `H_t` on snapshot `D_A` against `H_{t+1}` on `D_B` mixes harness drift with benchmark drift. Evaluate both states on both snapshots under the same scoring procedure: within-snapshot differences are then attributable to the harness, within-state differences to the snapshot. Crossing does not restore independence if either snapshot already informed candidate generation or admission. Where full crossing is too costly, keep a versioned set of anchor tasks across adjacent snapshots and report the coverage and replication chosen.
-
----
-
-## 4. Theory
-
-Expressivity is not the binding constraint — a harness in a Turing-complete language can express arbitrary control logic. What binds is **how such a program is searched** and **what its evaluation supports**. Refinement runs on objective evaluations and rollout feedback rather than gradients, which places harness search with zeroth-order optimization over programs.
-
-> This section follows the article's theory section (its Section 5) and is not a branch of the taxonomy figure. It is the one section that re-lists systems already placed in Sections 1–2, because here the contribution *is* the mapping. The bounds are sufficient conditions under explicit sampling assumptions; they do not establish PAC learnability of the surveyed systems.
-
-### 4.1 Evolutionary Paradigms
+### 3.1 Evolutionary Paradigms
 
 | EA paradigm | Mapping scope | Systems |
 |---|---|---|
@@ -573,34 +318,36 @@ Expressivity is not the binding constraint — a harness in a Turing-complete la
 | Pareto selection in multi-objective EAs | Performance–cost frontiers or multi-criterion acceptance gates; a selection-level correspondence, not an NSGA-II implementation | Meta-Harness · Self-Harness · SkillMOO |
 | Bandit-guided evolution | Thompson sampling allocates lineage-expansion and evaluation budgets | HGM |
 
-**The shared limitation.** Evolutionary selection operates on *observed* fitness. Retaining an empirically better candidate establishes neither improvement on unseen tasks nor preservation of earlier capabilities.
+### 3.2 PAC Learning & Stability
 
-### 4.2 PAC Learning & Stability
+The continual PAC analysis separates **sample stability**, **historical retention**, and **candidate admission**. It assumes bounded task loss, independent exogenous task draws, and a fixed model and evaluator. Small code edits alone do not establish stability; repeated small regressions can accumulate.
+
+For at most `K` candidates in each of `T` rounds, compared on `m` fresh tasks independent of candidate construction, the paired gate is
+
+```
+Δ̂_k(H′) + sqrt(2 ln(KT/δ) / m) < 0
+```
+
+Here `Δ̂` is candidate loss minus incumbent loss. Under the assumptions, the bound certifies the evaluated candidate on that round’s task mixture with joint confidence `1−δ`. It does not cover an untested merge or a candidate rewritten after inspecting validation outcomes. Repeated rollouts reduce execution noise; they do not add independent tasks.
 
 #### Stability & Retention
 
 - **Learnability, Stability and Uniform Convergence** `JMLR'10` — relates an algorithm's sensitivity to individual observations to its generalization gap. [[paper]](https://www.jmlr.org/papers/v11/shalev-shwartz10a.html)
 - **Memory Bounds for Continual Learning** `FOCS'22` — lower bounds on the memory a continual learner needs, motivating generalization and retention as one joint question. [[paper]](https://arxiv.org/abs/2204.10830)
 
-The stability argument gives `|E[R_s(H_k) − R̂_s(H_k)]| ≤ β_{s,k}` under exogenous, independent task draws, and the retention decomposition `E R_s(H_k) ≤ E R̂_s(H_s) + β_{s,s} + E F_{s,k}` with `F_{s,k} ≤ Σ_u ε_{s,u}`: **even small tolerated regressions accumulate across rounds**. Abstraction and small edits do not themselves bound `β` — one observation can still change a shared rule or the selected lineage.
-
 #### Confidence-Gated Admission
 
-- **Hoeffding Bounds** `JASA'63` — the concentration inequality behind a paired admission gate on bounded losses. [[paper]](https://doi.org/10.1080/01621459.1963.10500830)
-- **Selection Overfitting** `JMLR'10` — over-fitting in model selection and the selection bias it leaves in the reported performance. [[paper]](https://jmlr.org/papers/v11/cawley10a.html)
+- **Hoeffding Bounds** `JASA'63` — bounds deviations of bounded empirical losses for paired candidate admission. [[paper]](https://doi.org/10.1080/01621459.1963.10500830)
+- **Selection Overfitting** `JMLR'10` — analyzes overfitting in model selection and its bias in reported performance. [[paper]](https://jmlr.org/papers/v11/cawley10a.html)
 - **The Reusable Holdout** `Science'15` — preserves validity of a holdout reused across adaptive, data-dependent decisions. [[paper]](https://doi.org/10.1126/science.aaa9375) · [[companion]](https://arxiv.org/abs/1506.02629)
-- **SkillForge** `SIGIR'26 Industry` — reserves a final temporal partition so the reported number is not the one the gate consumed. [[paper]](https://doi.org/10.1145/3805712.3808466)
-
-Accepting a candidate only when `Δ̂_k(H′) + sqrt(2 ln(KT/δ) / m) < 0` certifies improvement on that round's task mixture, for at most `K` candidates per round over `T` rounds, each compared against the incumbent on `m` fresh tasks. In claim terms this sets improvement's three indices — fresh draws from the historical mixture, the incumbent as baseline, the accepting round — and the union bound is what lets the same tasks both admit and report; reusing them without that correction, or in a later round, would not be valid. The condition is conservative, and it applies to the **evaluated candidate** — not to an untested merge, nor to a revision made after inspecting the validation set. The independent unit is a *task*: repeated executions of one task reduce execution noise without creating new independent evidence.
+- **SkillForge** `SIGIR'26 Industry` — learns reusable skill documents from execution experience and reserves a later temporal partition for reporting. [[paper]](https://doi.org/10.1145/3805712.3808466)
 
 #### Self-Improvement Limits
 
 - **Harness Evolution as Learning** `arXiv'26` — approximation, generalization, and optimization limits of self-improving personal agents. [[paper]](https://arxiv.org/abs/2609.36892)
 - **A Theory of Reliable Self-Evolution** `arXiv'26` — derives adoption conditions whose ceiling depends on verification and evaluation cost. [[paper]](https://arxiv.org/abs/2609.08175)
 
-### 4.3 Background Statistical & Optimization Tools
-
-*Not harness-specific, and not part of the article's taxonomy — the lenses the questions above are borrowed from.*
+### 3.3 Background Statistical & Optimization Tools
 
 - **The Ladder** `ICML'15` — a leaderboard mechanism that stays reliable under repeated adaptive submissions. [[paper]](https://proceedings.mlr.press/v37/blum15.html)
 - **Train Faster, Generalize Better** `ICML'16` — stability of SGD as a route to generalization bounds. [[paper]](https://proceedings.mlr.press/v48/hardt16.html)
@@ -613,191 +360,177 @@ Accepting a candidate only when `Δ̂_k(H′) + sqrt(2 ln(KT/δ) / m) < 0` certi
 - **What Fits Doesn't Overfit** `arXiv'26` — compression and generalization in ML research agents. [[paper]](https://arxiv.org/abs/2606.11045)
 - **IMABO** `arXiv'26` — bandit hyperparameter optimization at inference time. [[paper]](https://arxiv.org/abs/2609.01335) [[code]](https://github.com/Tiime-Software/IMABO)
 
----
+<a id="evaluation"></a>
 
-## 5. Evidence Audit of 96 Methods
+## 4. Evaluation & Benchmarks
 
-Every method in Sections 1–2 was read from its primary source against the four claims. For each method one comparison is fixed — the result its report leads with, against the same-model baseline that result is stated against — and all four verdicts are read off it; other experiments in the same report are recorded separately and not counted. **Full per-method verdicts, the headline each row is read off, the rubric, and the recorded basis for each cell are in [`docs/claim-audit.md`](docs/claim-audit.md).**
+A reported gain raises four distinct questions. Selection concerns how the number was obtained; Activation, Attribution, and Improvement concern what it supports.
 
-![Evidence reported for each claim across the 96 methods](assets/claim-audit.png)
+| Claim | Required evidence |
+|---|---|
+| **Selection** | Reporting outcomes were kept out of proposal, ranking, admission, and the choice of reported round or configuration. |
+| **Activation** | Direct records bind an identified accepted update to the scored runs. Record whether it was available, reached, or carried, and the coverage of that evidence. |
+| **Attribution** | The compared arms isolate the update, control the inference envelope, and show a margin beyond measured execution variation. |
+| **Improvement** | Record distance from the tasks that formed the update, the comparison baseline, and the round at which the gain was measured. |
 
-<p align="center"><sub><b>Evidence reported for each claim</b> (the article's Figure 6). (a) Reports grouped by how many of the four claims they carry at full evidence; no report carries all four. (b) Verdicts per claim, aligned where full evidence ends; every row totals 94.</sub></p>
+![Four evaluation claims and longitudinal controls](assets/claims.png)
 
-| Claim | ✅ full | ◐ partial | — not supported |
+Activation has three grades: **available**, the artifact entered the run; **reached**, its path executed; **carried**, its output reached the model input or the trajectory followed it. A load log establishes availability. A trace from search or screening does not establish activation in the reported test runs.
+
+Attribution uses repeated executions, paired tests, or reported raw data to quantify variation. A large gap and an auditor’s binomial approximation alone are insufficient. Record compute in the scored runs separately from search cost: model calls, generated tokens, turns, attempts, and effort settings.
+
+For successive updates, preserve the task split, artifact version and activation record, model and evaluator versions, inference budget, and repeated measurements. Vary task order and probe earlier distributions to examine retention. When the benchmark changes, evaluate both harness states on both snapshots under the same protocol; the comparison remains conditional on those snapshots and their prior use.
+
+### 4.1 Claim-Specific Evidence
+
+#### Selection & Oracle Integrity
+
+*Separate reporting evidence from the update process and protect the scorer from candidate edits.*
+
+- **RSEA** `arXiv'26` — assigns separate data to proposal, admission, and reporting. [[paper]](https://arxiv.org/abs/2606.28374)
+- **Anytime Certificates** `arXiv'26` — anytime-valid certificates for repeated, data-dependent admission decisions. [[paper]](https://arxiv.org/abs/2607.00871)
+- **HarnessOpt-Bench** `arXiv'26` — keeps its test partition out of reach for the whole search, with the boundary enforced by the runtime, and meters the resources the target agent spends. [[paper]](https://arxiv.org/abs/2608.06301)
+- **Phantom Guardrails** `arXiv'26` — documents self-improving harnesses that fix failures which never occurred, the patch grounded in no observed execution. [[paper]](https://arxiv.org/abs/2607.13083)
+- **Harness Tampering** `arXiv'26` — audits candidates that modify verification logic rather than the behavior under test. [[paper]](https://arxiv.org/abs/2609.00069)
+- **Self-Authored Verification** `arXiv'26` — finds self-written checks unreliable as admission evidence in heuristic self-improving agents. [[paper]](https://arxiv.org/abs/2607.24300)
+- **SWE-bench+** `arXiv'24` — documents solution leakage and weak assertions that corrupt promotion and reporting together. [[paper]](https://arxiv.org/abs/2410.06992)
+
+#### Runtime Activation
+
+*Record whether the accepted artifact operated in the runs that produced the result.*
+
+- **SkillsBench** `arXiv'26` — records whether task-provided skills are read or referenced, across diverse tasks. [[paper]](https://arxiv.org/abs/2602.12670)
+- **Harness Updating ≠ Harness Benefit** `arXiv'26` — measures skill loading separately from trajectory adherence to identify updates that are available but not followed. [[paper]](https://arxiv.org/abs/2605.30621) [[code]](https://github.com/A-EVO-Lab/a-evolve)
+- **Skill Revisions** `arXiv'26` — tests whether revisions to a skill change coding-agent behavior when the skill is loaded on demand. [[paper]](https://arxiv.org/abs/2610.04832)
+
+#### Attribution Controls
+
+*Separate the effect of the update from execution variation, inference compute, and evaluator changes.*
+
+- **Agents That Matter** `TMLR'25` — shows agent comparisons confound capability with cost, and asks for cost-controlled evaluation. [[paper]](https://arxiv.org/abs/2407.01502)
+- **Token Cost** `arXiv'26` — analyzes and predicts agent token consumption, giving the envelope a measurable unit. [[paper]](https://arxiv.org/abs/2604.22750)
+- **MLE-bench** `ICLR'25` — ML-engineering tasks with repeated runs and an explicit compute envelope. [[paper]](https://arxiv.org/abs/2410.07095)
+- **HAL** `ICLR'26` — standardized run records, model snapshots, and cost accounting as shared evaluation infrastructure. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf)
+- **Claw-Eval** `arXiv'26` — grades trajectories rather than final states and repeats trials to separate capability from luck. [[paper]](https://arxiv.org/abs/2604.06132)
+- **AgentRewardBench** `COLM'25` — meta-evaluates automatic judges of web-agent trajectories against expert annotation. [[paper]](https://arxiv.org/abs/2504.08942) [[project]](https://agent-reward-bench.github.io)
+- **Judge Inflation** `arXiv'24` — documents spontaneous reward hacking in iterative self-refinement. [[paper]](https://arxiv.org/abs/2407.04549)
+- **Memory Reward Inflation** `arXiv'26` — shows stored memory can inflate the reported reward rather than improve the behavior. [[paper]](https://arxiv.org/abs/2608.00017)
+- **Who Grades the Grader** `arXiv'26` — examines evaluator drift when metrics and skills evolve together. [[paper]](https://arxiv.org/abs/2607.12790) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Double-Ratchet)
+- **Don't Blame the LLM** `arXiv'26` — attributes measured coding-agent differences to harness evolution rather than to the model. [[paper]](https://arxiv.org/abs/2607.03691)
+- **Scaffold Effect** `arXiv'26` — treats harness choice as a hidden variable in coding-agent comparisons. [[paper]](https://arxiv.org/abs/2607.22585)
+- **Rethinking Harness Evaluation** `arXiv'26` — examines protocol confounds in reported harness-evolution gains. [[paper]](https://arxiv.org/abs/2607.12227)
+- **Model–Harness Fit** `arXiv'26` — compares model–harness combinations across agent tasks to identify interaction effects. [[paper]](https://arxiv.org/abs/2610.00917)
+
+#### Generalization & Retention
+
+*Test on held-out tasks, new settings, or earlier distributions.*
+
+- **HarnessDev** `arXiv'26` — separates harness *creation* from iterative *evolution*, reporting capability, cost, and held-out transfer. [[paper]](https://arxiv.org/abs/2609.01437)
+- **GDPevo** `arXiv'26` — scores evolved harnesses on real business tasks held out by recombining rules spread across the training tasks, so a test-time gain can be traced to training experience. [[paper]](https://arxiv.org/abs/2608.03764) [[code]](https://github.com/Prism-Shadow/GDPevo)
+- **EvoHarnessBench** `arXiv'26` — grows the harness an agent is given and measures whether earlier competence is retained as capabilities are added. [[paper]](https://arxiv.org/abs/2609.04280)
+- **PATH-Bench** `arXiv'26` — path-dependent evaluation: deliberately varied task order and retained frozen reference histories. [[paper]](https://arxiv.org/abs/2608.01149)
+- **Agent Plasticity** `arXiv'26` — measures how execution experience translates into held-out gains and examines failures to reuse artifacts. [[paper]](https://arxiv.org/abs/2610.08902)
+- **Skill Generalization** `arXiv'26` — compares evolved skills on training and held-out tasks to measure how much improvement transfers. [[paper]](https://arxiv.org/abs/2609.39148)
+
+### 4.2 Longitudinal & Dynamic Evidence
+
+#### Active-Set Integrity
+
+*Track which stored artifacts remain reachable and used after later updates.*
+
+- **Ratchet** `arXiv'26` — asks how reliable an LLM judge must be before a skill may be retired. [[paper]](https://arxiv.org/abs/2605.22148) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
+- **SkillsVote** `arXiv'26` — lifecycle governance of skills across collection, recommendation, and voting-based curation. [[paper]](https://arxiv.org/abs/2605.18401)
+- **Library Drift** `arXiv'26` — diagnoses and fixes silent drift in a growing self-evolving skill library. [[paper]](https://arxiv.org/abs/2605.19576) [[code]](https://github.com/amazon-science/Self-Evolving-Agents-Ratchet)
+- **Pre-Commit Gating** `arXiv'26` — checks proposed skill changes before commit to prevent contamination. [[paper]](https://arxiv.org/abs/2608.05810)
+- **EVOMAL** `arXiv'26` — documents self-poisoning in self-evolving coding agents. [[paper]](https://arxiv.org/abs/2608.25776)
+
+#### Synthesized Boundary Tasks
+
+*Construct new tasks while recording overlap with the feedback used to form updates.*
+
+- **Benchmark Self-Evolving** `arXiv'24` — a multi-agent framework that derives new instances from existing ones for dynamic evaluation. [[paper]](https://arxiv.org/abs/2402.11443) [[code]](https://github.com/NanshineLoong/Self-Evolving-Benchmark)
+- **StressEval** `arXiv'26` — failure-driven dynamic benchmarking that generates instances from diagnosed failures. [[paper]](https://arxiv.org/abs/2605.01939)
+
+#### Temporal Streams
+
+*Use tasks released after a cutoff and account for changes in difficulty and content.*
+
+- **LiveBench** `ICLR'25 Spotlight` — contamination-limited benchmark refreshed from post-cutoff sources with objective ground truth. [[paper]](https://arxiv.org/abs/2406.19314)
+- **LiveCodeBench** `arXiv'24` — time-stamped competitive-programming problems collected after a cutoff. [[paper]](https://arxiv.org/abs/2403.07974) [[project]](https://livecodebench.github.io/)
+- **LiveMedBench** `arXiv'26` — contamination-free medical benchmark with automated refresh. [[paper]](https://arxiv.org/abs/2602.10367)
+- **SWE-rebench** `arXiv'25` — automated pipeline for task collection and decontaminated evaluation. [[paper]](https://arxiv.org/abs/2505.20411) [[project]](https://swe-rebench.com)
+- **SWE-bench Live** `arXiv'25` — continuously refreshed SWE-bench built from freshly merged issues. [[paper]](https://arxiv.org/abs/2505.23419) [[project]](https://swe-bench-live.github.io/)
+
+#### Adversarial Play
+
+*Report changes to the agent, task generator, and evaluator separately.*
+
+- **MathDuels** `COLM'26` — a self-play benchmark that grows with the participant pool. [[paper]](https://arxiv.org/abs/2604.21916)
+- **Red Queen Gödel Machine** `arXiv'26` — co-evolves agents and their evaluators in one loop. [[paper]](https://arxiv.org/abs/2606.26294)
+
+#### Lifelong Testbeds
+
+*Evaluate sequential tasks together with the state carried between them.*
+
+- **LifelongAgentBench** `arXiv'25` — evaluates agents as lifelong learners over skill-dependent task sequences. [[paper]](https://arxiv.org/abs/2505.11942) [[project]](https://caixd-220529.github.io/LifelongAgentBench/)
+- **PAST-Bench** `arXiv'26` — benchmarks RSI foundations in personal agents, comparing persistence enabled against disabled. [[paper]](https://arxiv.org/abs/2608.04003) [[code]](https://github.com/Gen-Verse/PAST-Bench)
+- **SEA-Eval** `arXiv'26` — evaluates self-evolving agents beyond isolated episodes. [[paper]](https://arxiv.org/abs/2604.08988)
+- **FinEvo-Bench** `arXiv'26` — longitudinal professional-finance benchmark with matched persistence-on/off conditions. [[paper]](https://arxiv.org/abs/2608.06144)
+- **ContinualSkillBench** `arXiv'26` — measures skill development over a continual task stream. [[paper]](https://arxiv.org/abs/2608.03874)
+- **SkillFlow** `arXiv'26` — benchmarks lifelong skill discovery and evolution. [[paper]](https://arxiv.org/abs/2604.17308)
+- **SkillLearnBench** `arXiv'26` — benchmarks continual-learning methods for agent skill generation. [[paper]](https://arxiv.org/abs/2604.20087) [[code]](https://github.com/cxcscmu/SkillLearnBench)
+- **MemoryArena** `arXiv'26` — interdependent multi-session tasks in which earlier writes affect later work. [[paper]](https://arxiv.org/abs/2602.16313)
+- **Evo-Memory** `arXiv'25` — benchmarks test-time learning with self-evolving memory. [[paper]](https://arxiv.org/abs/2511.20857)
+- **Tool-Genesis** `arXiv'26` — task-driven tool-creation benchmark for self-evolving agents. [[paper]](https://arxiv.org/abs/2603.05578)
+- **SWE-EVO** `arXiv'25` — long-horizon software-evolution scenarios for coding agents. [[paper]](https://arxiv.org/abs/2512.18470)
+- **CL-Bench** `arXiv'26` — frontier systems in real-world stateful continual-learning settings. [[paper]](https://arxiv.org/abs/2606.05661)
+- **SEABench** `arXiv'26` — benchmarks endogenous misalignment in self-evolving agents. [[paper]](https://arxiv.org/abs/2609.35596)
+- **ServeLearnBench** `arXiv'26` — streams environments with changing undisclosed rules to evaluate learning from serving experience. [[paper]](https://arxiv.org/abs/2610.07792)
+
+<a id="audit"></a>
+
+## 5. Evidence Audit
+
+<!-- audit-summary:start -->
+
+The audit covers **96 methods** in the manuscript’s two update-target branches. Of these, 2 have no empirical evaluation and 94 reports are scored. Every row fixes one headline comparison before assigning all four verdicts.
+
+| Claim | ✅ Full | ◐ Partial | — Not supported |
 |---|---:|---:|---:|
-| Selection | 41 | 19 | 34 |
-| Activation | 14 | 80 | 0 |
-| Attribution | 24 | 68 | 2 |
-| Improvement | 54 | 18 | 22 |
+| Selection | 43 | 17 | 34 |
+| Activation | 8 | 86 | 0 |
+| Attribution | 12 | 80 | 2 |
+| Improvement | 53 | 19 | 22 |
 
-*94 of 96 methods scored; 2 report no empirical evaluation. Bar lengths are **not** comparable across claims: full evidence for selection is a conjunction of four conditions — proposal, ranking, admission, and report choice all kept off the reporting evidence — while full evidence for improvement needs only a headline on tasks at a distance from those that formed the update. The ordering reflects how demanding each criterion is as much as how carefully the field reports.*
+Verdicts describe reported evidence. The criteria differ, so full-evidence counts are not a ranking of method quality. Activation can meet its criterion with one confirmed case; the per-method basis records the coverage.
 
-**Claims with full evidence in the same report:**
+Number of claims at full evidence within one report:
 
-| 0 of 4 | 1 | 2 | 3 | 4 of 4 |
+| 0 | 1 | 2 | 3 | 4 |
 |---:|---:|---:|---:|---:|
-| 24 | 20 | 37 | 13 | **0** |
+| 27 | 26 | 33 | 8 | 0 |
 
-Three findings:
+The most common profile has full Selection and Improvement with partial Activation and Attribution. 8 reports meet Activation and 12 meet Attribution; interpret each verdict within its headline comparison and recorded coverage.
 
-1. **The claims are rarely established together.** No report carries all four at full evidence, 13 carry three, and 24 carry none. The most common profile, shared by 21 reports, is a clean held-out result and nothing more: selection and improvement at full evidence, activation and attribution partial. Of the 13 reports that miss only one claim, ten miss activation.
-2. **The two claims about the scored runs themselves are the weakest.** Only 14 reports show the update operating in the scored runs, 24 establish attribution, and five do both. Most others show that the artifact was loaded, or that its path ran during search or screening, and compare scores without measuring execution variation or without controlling the inference envelope. None of the 12 prompt optimizers records the prompt operating, although all 12 report on held-out tasks.
-3. **Selection splits the corpus, along the update target.** 41 reports keep the reporting evidence clean and 34 do not. Of those 34, 26 report wholly or partly on the tasks the loop evolved against; the other eight hold out a partition and then use it to choose what they report. Tools and code patches keep selection clean most often (11 of 15), repository-level search least often (4 of 15).
+See the [full audit](docs/claim-audit.md) for verdicts, headline comparisons, and recorded evidence, and the [rubric](docs/audit-rubric.md) for criteria.
 
-All 54 full-evidence improvement headlines use a held-out or transfer partition read **at the accepting round**. A probe on an earlier distribution appears once, outside its report's headline comparison (PolySkill), and **no reviewed report re-measures a credited margin at a later round**.
+<!-- audit-summary:end -->
 
-| Update target | n | Sel. ✅ | Act. ✅ | Att. ✅ | Imp. ✅ |
-|---|---:|---:|---:|---:|---:|
-| Prompts & instructions | 12 | 6 | 0 | 4 | 12 |
-| Memory & procedures | 36 | 14 | 8 | 12 | 19 |
-| Workflows & topologies | 12 | 4 | 1 | 3 | 8 |
-| Tools & code patches | 15 | 11 | 3 | 3 | 7 |
-| Repository & runtime logic | 15 | 4 | 1 | 2 | 7 |
-| Everything is a plugin | 4 | 2 | 1 | 0 | 1 |
-
-Five harness-level systems whose reports describe runtime traces, promotion rules, and evaluation code in enough detail to say where the evidence is thinnest (the article's Table 4):
-
-| System / target | Sel. | Act. | Att. | Imp. | What the report shows | Where it falls short |
-|---|:-:|:-:|:-:|:-:|---|---|
-| **HarnessBank** · component patch | ✅ | ◐ | ◐ | ✅ | Evaluation code in a kernel candidates cannot edit; sealed test split; three attempts per task with paired *z* tests | [Act.] Beacons are logged in screening, not in the sealed-test runs. [Att.] The cost it reports is search budget, not the inference of the scored runs. |
-| **Self-Harness** · component patch | ◐ | ✅ | ✅ | ◐ | Promotion rule over held-in and held-out splits; guard visible in traces of the headline run; 22.5% → 52.2% on 180 tasks | [Sel.] The promotion rule consults the held-out split every round. [Imp.] The headline pools the held-in half that supplied the edits. |
-| **AHE** · component patch | — | ✅ | ◐ | — | Submit-guard and shell-block records in rollouts of the reported round, shown as cases; one evolved layer swapped in at a time | [Sel.] The best round is chosen on the evolution tasks. [Imp.] The headline is scored on those same tasks. |
-| **HarnessX** · plugin composition | — | ✅ | ◐ | — | Declared trace feature checked against the next round's traces; per-task inference cost declared | [Sel.] The peak round is reported on the evolution tasks. [Imp.] No held-out tasks. |
-| **MOSS** · repository logic | — | ◐ | ◐ | — | Health probes on the swapped image; three trials per task | [Sel., Imp.] The same four tasks are the evolution batch and the test set. |
-
-<sub>✅ full evidence of the kind the claim requires · ◐ partial · — not supported, read off each report's headline result. Rows are ordered by the number of claims at full evidence.</sub>
-
----
-
-## 6. Persistent-State Risks
-
-*Retained state is the attack surface that a stateless agent does not have. These works sit outside the four-branch taxonomy — they describe what persistence costs, not what it updates.*
-
-- **Bad Memory** `arXiv'26` — evaluates prompt-injection risk arriving through agent memory. [[paper]](https://arxiv.org/abs/2607.14611)
-- **From Untrusted Input to Trusted Memory** `arXiv'26` — systematic study of memory-poisoning attacks on LLM agents. [[paper]](https://arxiv.org/abs/2606.04329)
-- **SoftSkill** `arXiv'26` — behavioral compression for contextual adaptation; a reminder that a stored skill is data interpreted probabilistically, not an enforced rule. [[paper]](https://arxiv.org/abs/2606.20333)
-- **AgentDojo** `NeurIPS'24 D&B` — dynamic environment for prompt-injection attacks and defenses; bounds what rollback can undo once an external effect is committed. [[paper]](https://openreview.net/forum?id=m1YYAQjO3w)
-- **AgentHarm** `ICLR'25` — benchmark for measuring harmfulness of LLM agents. [[paper]](https://proceedings.iclr.cc/paper_files/paper/2025/hash/c493d23af93118975cdbc32cbe7323f5-Abstract-Conference.html)
-
----
-
-## 7. Deployed Harnesses & Product Surfaces
-
-![Applications of harness self-evolution across five deployment regimes](assets/applications.png)
-
-<p align="center"><sub><b>Five deployment regimes</b> (the article's Figure 7): personal and developer workspaces, enterprise processes, scientific discovery, embodied interaction, and regulated public and clinical systems. They share one execution → feedback → validation → reuse lifecycle but differ in how state is shared, how revisions can be verified, and whether external actions can be undone — so the cost of a wrong admission ranges from a recoverable skill file to a physical action no rollback reverses.</sub></p>
-
-*The products below persist state across sessions and mark the update target, but report no feedback-driven update loop — and none of their documentation reports whether a retained artifact was read on a later run — so they are listed here rather than in the taxonomy. Useful as ground truth for what the interface actually exposes.*
-
-- **Claude Code memory** — project memory files loaded as session context. [[docs]](https://code.claude.com/docs/en/memory)
-- **Agent Skills** — file-based skills packaged for reuse across runs. [[post]](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
-- **Gemini CLI auto memory** — automatic memory capture in the CLI. [[docs]](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/auto-memory.md)
-- **GitHub Copilot memory** — persistent memory for the coding agent. [[docs]](https://docs.github.com/en/copilot/concepts/agents/copilot-memory)
-- **Windsurf Cascade memories** — memories and rules carried across Cascade sessions. [[docs]](https://docs.devin.ai/desktop/cascade/memories)
-- **Cursor automations** — automations that draw on memory of past runs. [[changelog]](https://cursor.com/changelog/03-05-26)
-- **Devin session insights** — insights extracted from completed sessions. [[docs]](https://docs.devin.ai/product-guides/session-insights)
-- **Augment memory review** — agent memories gated by a reviewer before they persist. [[post]](https://www.augmentcode.com/blog/how-we-built-memory-review)
-- **Replit Agent skills** — user-installable skill layer for the agent. [[docs]](https://docs.replit.com/features/agent/skills)
-- **Letta Code** — a coding agent with persistent memory and skills. [[post]](https://www.letta.com/blog/introducing-the-letta-code-app/)
-- **OpenClaw memory** — file-based memory for a personal agent. [[docs]](https://docs.openclaw.ai/concepts/memory)
-- **Hermes Agent skills** — user-installable skills system. [[docs]](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
-- **Prime Agent** — advertised as a self-improving agent that modifies itself. [[code]](https://github.com/PrimeIntellect-ai/prime-agent)
-- **OB-1** — advertised as an agent that built itself. [[page]](https://www.openblocklabs.com/)
-- **Building Effective AI Agents** — the harness-design vocabulary most of these products assume. [[post]](https://www.anthropic.com/engineering/building-effective-agents)
-- **Effective Context Engineering for AI Agents** — why an accumulating instruction set is a budget problem. [[post]](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-
-<details>
-<summary><b>Societal and economic implications</b> (the article's Section 8)</summary>
-
-![Societal and economic implications of harness self-evolution](assets/social-impact.png)
-
-Every accepted modification alters the persistent execution layer inherited by future tasks, teams, and downstream workflows. The article maps five mechanisms — reusable procedures, feedback and testing at scale, institutional knowledge reuse, persistent shared memory, versioned automated rules — to potential effects on labor and skill formation, market concentration and verification moats, public services and epistemic bottlenecks, data retention and security, and institutional power and contestability. Arrows denote hypothesized pathways, not established causal estimates; each comes with indicators for empirical assessment.
-
-</details>
-
----
-
-## Boundary Cases & Exclusions
-
-| Work | Why it is not in the taxonomy |
-|---|---|
-| **Harness-of-Harness** `arXiv'26` [[paper]](https://arxiv.org/abs/2609.01481) | Multi-day autonomous development in which planning, coding, and testing revise the *task's* software artifact while the harness–model configuration stays fixed. No harness revision, so the scope test fails. |
-| **Live-SWE-agent** (listed, flagged) | Tools are synthesized per task and discarded with the container: tool synthesis without persistence. |
-| **EvoCodeBench** `arXiv'26` [[paper]](https://arxiv.org/abs/2602.10171) | Measures refinement across repeated attempts on one problem, the within-run case the scope excludes, rather than a persisted update. Dropped from the lifelong testbeds. |
-| **Gödel Agent** (listed, flagged) | Patches live process memory; the revision governs later decision steps but disappears when the process ends. |
-| **Deployed products** ([Section 7](#7-deployed-harnesses--product-surfaces)) | State persists across sessions, but no feedback-driven update loop is reported. |
-| **Self-Refine / Self-Debug class** | Correction consumed within the same rollout. |
-| **SPIN / TTRL / self-rewarding LMs** | Weight-side updates; violates the fixed-model premise. |
-
----
-
-## Related Surveys
-
-How recent surveys cover the lifecycle. ✅ dedicated section reviewing multiple methods · ◐ substantive discussion without dedicated treatment (including future work) · — no body-text treatment beyond a table entry or scope exclusion.
-
-| Dimension | [Gao](https://arxiv.org/abs/2507.21046) | [Fang](https://arxiv.org/abs/2508.07407) | [Zhou-E](https://arxiv.org/abs/2604.08224) | [Ning](https://arxiv.org/abs/2605.18747) | [Chen](https://arxiv.org/abs/2607.07663) | [Ren](https://arxiv.org/abs/2607.13104) | [Zhou-C](https://arxiv.org/abs/2608.03392) | **Ours** |
-|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| *Scope:* base model held fixed | — | — | ◐ | — | — | ◐ | ◐ | ◐ |
-| *Target:* instructions and prompts | ✅ | ✅ | ◐ | — | — | ✅ | ✅ | ✅ |
-| *Target:* context and memory | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| *Target:* workflow and control | ✅ | ✅ | ◐ | ✅ | ◐ | ◐ | ✅ | ✅ |
-| *Target:* executable artifacts | ✅ | ◐ | — | ◐ | ◐ | ✅ | ✅ | ✅ |
-| *Claim:* selection | — | — | — | ◐ | — | ✅ | ◐ | ✅ |
-| *Claim:* activation | — | — | — | — | — | — | — | ✅ |
-| *Claim:* attribution | ◐ | — | ◐ | ◐ | ✅ | ✅ | ◐ | ✅ |
-| *Claim:* improvement | ✅ | ◐ | ◐ | ◐ | ◐ | ✅ | ◐ | ✅ |
-| Theory | ◐ | ◐ | — | ◐ | — | ◐ | — | ✅ |
-| Applications | ✅ | ✅ | ◐ | ✅ | ◐ | ✅ | ✅ | ✅ |
-| Societal impact | — | ◐ | ◐ | — | ◐ | — | — | ✅ |
-
-<sub>No column attains ✅ on *base model held fixed*, ours included, because no survey runs its own controlled experiment; the ◐ columns separate the two channels by definition while deliberately keeping model-side updates in scope. For the four claims, ✅ requires an explicit evidentiary criterion rather than inference from a terminal score. For theory, ✅ requires formal results developed by the survey itself. **Zhou-E** is the externalization review; **Zhou-C** is the coding-agent survey, whose declared scope is software engineering alone.</sub>
-
-**Full entries.**
-
-- **A Survey of Self-Evolving Agents** `TMLR'26` — organizes self-evolution by what, when, how, and where to evolve. [[paper]](https://arxiv.org/abs/2507.21046)
-- **A Comprehensive Survey of Self-Evolving AI Agents** `arXiv'25` — organizes methods by optimizer feedback. [[paper]](https://arxiv.org/abs/2508.07407) [[list]](https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents)
-- **Externalization in LLM Agents** `arXiv'26` — unified review of memory, skills, protocols, and harness engineering. [[paper]](https://arxiv.org/abs/2604.08224)
-- **Code as Agent Harness** `arXiv'26` — organizes by the role of code in the agent loop. [[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
-- **Recursive Self-Improvement in AI** `arXiv'26` — from bounded self-refinement to autonomous research loops, organized by loop closure. [[paper]](https://arxiv.org/abs/2607.07663)
-- **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold channels under an explicit frozen-parameter assumption; the closest prior work on evaluation discipline, and it passes over activation. [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
-- **Self-Evolving Coding Agents** `arXiv'26` — separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open. [[paper]](https://arxiv.org/abs/2608.03392)
-
----
-
-## Maintenance
-
-| Date | Change |
-|---|---|
-| 2026-10-09 | Synced to the latest article draft (now titled *Theory, Algorithms, Evaluation, Applications, and Impact*). **−1 entry, +10 product surfaces.** Taxonomy: three branches, theory no longer a branch; Section 3 regrouped into *Selection & Oracle Integrity* (+HarnessOpt-Bench), *Attribution Controls* (+Claw-Eval), and *Generalization & Retention* (HarnessDev, GDPevo, EvoHarnessBench, PATH-Bench), replacing *Reach & Retention*; EvoCodeBench moved to boundary cases; *Evolve as a Team* renamed Meta-Team. Claim audit re-scored one headline comparison per method under the revised rubric (activation graded available / reached / carried); all counts in [Section 5](#5-evidence-audit-of-96-methods) and [`docs/claim-audit.md`](docs/claim-audit.md) replaced. All figures re-exported; added the claim-audit, applications, and societal-impact figures. Added the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/). |
-| 2026-10-02 | +0 entries. Added 43 `[[code]]` / `[[project]]` / `[[list]]` links, every one taken from the paper's own abstract or comment field. Added the mechanism jump index and [`scripts/check_consistency.py`](scripts/check_consistency.py). Corrected five citations: one venue label, four links that claimed a published venue while pointing at the preprint. |
-| 2026-10-01 | +187 entries. Initial release across the four taxonomy branches; claim audit for 96 methods. |
-
-Entry deltas are recorded above, so this table answers whether the list is still being added to rather than only whether the maintainers have news. Refreshed monthly, and on acceptance news for any listed preprint — `arXiv'YY` labels are upgraded to the venue when a work is accepted, which is the single most common correction. Open an issue for a missing work rather than waiting for the sweep.
-
-[`scripts/check_consistency.py`](scripts/check_consistency.py) enforces what it can: anchors resolve, no entry is listed twice ([Section 4](#4-theory) is the declared exception), the two language versions cover the same works, no heading carries an emoji that would break its anchor, no file is unreachable, and the [project page](https://zgcagi.github.io/Awesome-Harness-RSI/)'s reading-list data (`site/corpus.js`, generated by [`scripts/build_site_data.py`](scripts/build_site_data.py)) matches this README. It cannot tell that a link points at the *right* paper, so that stays a manual check. The badge counts and the audit rates in [Section 5](#5-evidence-audit-of-96-methods) are regenerated from [`docs/claim-audit.md`](docs/claim-audit.md), not edited by hand.
-
-**On release of the companion article**, the BibTeX above gets its real identifier and `@misc` becomes the accepted entry type. A citation block left at `@misc` after acceptance is the most visible way a list of this kind goes stale.
-
----
+<a id="contributing"></a>
 
 ## Contributing
 
-Pull requests welcome. The bar is deliberately specific, because the point of this list is the classification rather than the coverage.
+Contributions should state the update object, feedback source, admission rule, and what persists. Provide the primary paper link and matching English and Chinese entries. For audit corrections, identify the headline comparison and the exact evidence supporting each changed verdict. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-**Adding a paper** — see [CONTRIBUTING.md](CONTRIBUTING.md) for the full checklist. In short:
+Updated 2026-10-09 against the [manuscript source snapshot](data/source-snapshot.json). The audit data and site are reproducible with:
 
-1. **Scope.** State which of the three conditions in [What Is Harness RSI](#what-is-harness-rsi) the work satisfies — persistence, recursion, fixed model. A work failing any of them belongs in [Boundary Cases](#boundary-cases--exclusions), with the reason.
-2. **One node.** Name the single branch → subsection → mechanism the work belongs under, and say what the work *itself* contributes. If it contributes an evaluation protocol, it goes in Section 3 even if it also ships a system.
-3. **Format.** One line, mechanism rather than results, with a confirmed arXiv ID, DOI, or venue page — no guessed links:
+```bash
+python3 scripts/build_audit.py
+python3 scripts/build_site_data.py
+python3 scripts/check_consistency.py
+```
 
-   ```markdown
-   - **Name** `Venue'YY` — one-sentence mechanism. [[paper]](url)
-   ```
-4. **Claim verdicts are optional but welcome.** If you add a Section 1–2 method, a row for [`docs/claim-audit.md`](docs/claim-audit.md) with the four verdicts and the recorded basis (table, figure, number, or sentence each was read off) makes the entry far more useful. Read the [rubric](docs/claim-audit.md#rubric) first.
-
-**Disagreeing with a verdict** is a legitimate PR. The basis is recorded for every cell so a disagreement can be taken up against the source rather than against the verdict.
-
----
+<a id="citation"></a>
 
 ## Citation
 
@@ -809,7 +542,7 @@ Pull requests welcome. The bar is deliberately specific, because the point of th
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
   note   = {Working draft. arXiv identifier to be added on release.},
-  url    = {https://github.com/zgcagi/Awesome-Harness-RSI}
+  url    = {https://github.com/zgcagi/Harness-RSI}
 }
 ```
 

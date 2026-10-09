@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "description": "Companion manuscript source snapshot used for this repository revision.",
+  "sha256": {
+    "data/claim-audit.tsv": "1a78ad2bdd6b0cdce2e096e89de549e5ad11cdd5c8c6f2c09161fd8f4d782e32",
+    "data/claim-audit-secondary.tsv": "f5bc7246b74611c0e1aa0b59b0df5ce1692ffe857b0cfced8f0a8fbcb4374f78",
+    "data/claim-audit-rubric.md": "6dc82b749aeb605b2e957fe21ff9c7c5fd396018d68687037956a2b9c37cd3f0",
+    "figure/fig03_target_taxonomy.tex": "c1997d5b090436bedfdfc2fd27922ffdaa330e6b8f58da81bd9ce4deee54b119",
+    "sections/02_definition.tex": "825b5ff4bca73facaad92e44abc7a187a744fe567a30137c6d272aa491b264ca",
+    "sections/05_theory.tex": "704152e817fb76a78060583f89945ea1123ca390b5ab7de7deb3412d3df1f0b3",
+    "sections/06_evaluation.tex": "044872e56c91c2e00566da60c1ffa77937edf5b9773e3244fe9a12157e1eea8f",
+    "references.bib": "1f73720fcc55f3a8f7c6381bed75b10262ee1fc29b46030e915ae94e27328fae",
+    "figure/fig02_harness_landscape.pdf": "a6cdf6e008a09f8525b155ca2d8cd140ededfe8171c9b3653e3b47de563c6d2c",
+    "figure/fig05_harness_evaluation.pdf": "2e8021574ce79a4915a127da019a5c2dd854bdd4273cf90a9d286bdec8ff09a8",
+    "figure/fig06_claim_audit.pdf": "b9ce5b0a6c31ad95fc9c87275ce718ca3ceda98f7fd40c4a74f1b9eaa6a7d6e0",
+    "figure/fig07_harness_applications.pdf": "7472e490d206728e5c65f3cac61c51991ae3835c5b38591b400762ecb033f53d",
+    "figure/fig08_harness_social_impact.pdf": "9d408dd928e9ee9fdade48e559c35aec4a925116b889f15871cdb19c9bab6494"
+  }
+}

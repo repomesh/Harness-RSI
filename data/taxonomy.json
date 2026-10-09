@@ -1,0 +1,1073 @@
+[
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Scalar-Score Search",
+    "name": "APE",
+    "key": "zhou2023large"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Scalar-Score Search",
+    "name": "OPRO",
+    "key": "yang2024large"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "ProTeGi",
+    "key": "pryzant2023automatic"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "TextGrad",
+    "key": "yuksekgonul2025textgrad"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "GEPA",
+    "key": "agrawal2026gepa"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "Trace",
+    "key": "cheng2024trace"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "metaTextGrad",
+    "key": "xu2025metatextgrad"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "EGO-Prompt",
+    "key": "zhao2025egoprompt"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Textual-Gradient Critique",
+    "name": "SePO",
+    "key": "tao2026sepo"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Self-Referential Mutation",
+    "name": "Promptbreeder",
+    "key": "fernando2024promptbreeder"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Self-Referential Mutation",
+    "name": "DelvePO",
+    "key": "tao2025delvepo"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Prompts & Instructions",
+    "mechanism": "Self-Referential Mutation",
+    "name": "DEEVO",
+    "key": "nair2025deevo"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "Reflexion",
+    "key": "shinn2023reflexion"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "ExpeL",
+    "key": "zhao2024expel"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "AWM",
+    "key": "wang2025workflow"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "Agent KB",
+    "key": "tang2025agentkb"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "ReasoningBank",
+    "key": "ouyang2026reasoningbank"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "EvoRepair",
+    "key": "hu2026evorepair"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "SWE-Exp",
+    "key": "chen2025sweexp"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "MemCoder",
+    "key": "deng2026memcoder"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "Behavioral Rules",
+    "key": "aggarwal2026behavioral"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Experience Mining",
+    "name": "Memory Transfer",
+    "key": "kim2026memorytransfer"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "Trace2Skill",
+    "key": "ni2026trace2skill"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "SkillClaw",
+    "key": "ma2026skillclaw"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "CodeSkill",
+    "key": "li2026codeskill"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "GSkill",
+    "key": "tan2026gskill"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "GSE",
+    "key": "yang2026gse"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "MUSE-Autoskill",
+    "key": "lin2026muse"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "MemP",
+    "key": "fang2026memp"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "Skill Consumption",
+    "key": "huang2026consumption"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Procedural Skillbooks",
+    "name": "SkillForge",
+    "key": "liu2026skillforge"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "Dynamic Cheatsheet",
+    "key": "suzgun2026dynamic"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "ACE",
+    "key": "zhang2026agentic"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "SkillOpt",
+    "key": "yang2026skillopt"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "SkillOpt-Lite",
+    "key": "shen2026skilloptlite"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "Janus",
+    "key": "chen2026prologue"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "VALVE",
+    "key": "wang2026valve"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "TACO",
+    "key": "ren2026taco"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "SkillMOO",
+    "key": "gong2026skillmoo"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "EffiSkill",
+    "key": "wang2026effiskill"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "VASO",
+    "key": "yang2026vaso"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "Memory Management",
+    "key": "xiong2026memorymgmt"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "MCE",
+    "key": "ye2026meta"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Memory & Procedures",
+    "mechanism": "Gated Consolidation",
+    "name": "Living-Harness",
+    "key": "du2026livingharness"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Fixed-Pipeline Compilation",
+    "name": "DSPy",
+    "key": "khattab2024dspy"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Fixed-Pipeline Compilation",
+    "name": "MIPRO",
+    "key": "opsahlong2024optimizing"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Graph & Topology Search",
+    "name": "GPTSwarm",
+    "key": "zhuge2024gptswarm"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Graph & Topology Search",
+    "name": "Mass",
+    "key": "zhou2026multiagent"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Graph & Topology Search",
+    "name": "MaAS",
+    "key": "zhang2025supernet"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Graph & Topology Search",
+    "name": "AFlow",
+    "key": "zhang2025aflow"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Graph & Topology Search",
+    "name": "AgentSquare",
+    "key": "shang2025agentsquare"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Feedback-Driven Workflow Revision",
+    "name": "SEW",
+    "key": "liu2025sew"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Feedback-Driven Workflow Revision",
+    "name": "JudgeFlow",
+    "key": "ma2026judgeflow"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Feedback-Driven Workflow Revision",
+    "name": "RHI",
+    "key": "lee2026rhi"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Feedback-Driven Workflow Revision",
+    "name": "Meta-Team",
+    "key": "hao2026evolveteam"
+  },
+  {
+    "branch": "Interpreted Update Targets",
+    "sub": "Workflows & Topologies",
+    "mechanism": "Feedback-Driven Workflow Revision",
+    "name": "Symbolic Learning",
+    "key": "ou2025symbolic"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Callable Tool Synthesis",
+    "name": "Voyager",
+    "key": "wang2024voyager"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Callable Tool Synthesis",
+    "name": "PolySkill",
+    "key": "yu2025polyskill"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Callable Tool Synthesis",
+    "name": "FlowEvo",
+    "key": "ren2026flowevo"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Callable Tool Synthesis",
+    "name": "Live-SWE-agent",
+    "key": "xia2025liveswe"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Callable Tool Synthesis",
+    "name": "RoboPhD",
+    "key": "borthwick2026robophd"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "Self-Harness",
+    "key": "zhang2026selfharness"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "HarnessCompass",
+    "key": "zhang2026harnesscompass"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "AHE",
+    "key": "lin2026agentic"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "HarnessFix",
+    "key": "chen2026harnessfix"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "ReCreate",
+    "key": "hao2026recreate"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "AutoSaddler",
+    "key": "park2026autosaddler"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "CHASE",
+    "key": "zhu2026badgenius"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "Evo-Harness",
+    "key": "wei2026evoharness"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "HarnessBank",
+    "key": "luo2026harnessbank"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "Ecdysis",
+    "key": "yue2026ecdysis"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "MemEvolve",
+    "key": "zhang2025memevolve"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "GUI-HARVEST",
+    "key": "yang2026guiharvest"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Tools & Code Patches",
+    "mechanism": "Evidence-Grounded Component Patching",
+    "name": "Harness Ceiling",
+    "key": "tian2026ceiling"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Whole-Control-Program Search",
+    "name": "ADAS",
+    "key": "hu2025automated"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Whole-Control-Program Search",
+    "name": "Meta-Harness",
+    "key": "lee2026metaharness"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Whole-Control-Program Search",
+    "name": "RRSI",
+    "key": "xia2026rrsi"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Whole-Control-Program Search",
+    "name": "VERSE",
+    "key": "wang2026verse"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "SICA",
+    "key": "robeyns2025selfimproving"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "DGM",
+    "key": "zhang2026darwin"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "DarwinX",
+    "key": "zhang2026darwinx"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "HGM",
+    "key": "wang2025huxley"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "Group-Evolving Agents",
+    "key": "weng2026gea"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "MOSS",
+    "key": "cai2026moss"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "Ouroboros",
+    "key": "razzhigaev2026ouroboros"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "AgentDevel",
+    "key": "zhang2026agentdevel"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "Repository Revision",
+    "name": "EvolveNet",
+    "key": "nie2026evolvenet"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "In-Process Patching",
+    "name": "Gödel Agent",
+    "key": "yin2025godel"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "In-Process Patching",
+    "name": "TTHE",
+    "key": "nie2026tthe"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Repository & Runtime Logic",
+    "mechanism": "In-Process Patching",
+    "name": "Life-Harness",
+    "key": "xu2026lifeharness"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Contract-Driven Hooks",
+    "name": "HarnessX",
+    "key": "chen2026harnessx"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Contract-Driven Hooks",
+    "name": "Argus",
+    "key": "li2026argus"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Microkernel Platforms",
+    "name": "DeepSeek Harness",
+    "key": "deepseek2026harness"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Microkernel Platforms",
+    "name": "Autogenesis",
+    "key": "zhang2026autogenesis"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Microkernel Platforms",
+    "name": "ModularRSI",
+    "key": "wu2026modularrsi"
+  },
+  {
+    "branch": "Executable Update Targets",
+    "sub": "Everything Is a Plugin",
+    "mechanism": "Microkernel Platforms",
+    "name": "Cordis / Spatiotemporal Composability",
+    "key": "shi2026programming"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "RSEA",
+    "key": "nguyen2026rsea"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "Anytime Certificates",
+    "key": "sengupta2026sea"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "HarnessOpt-Bench",
+    "key": "ursekar2026harnessoptbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "Phantom Guardrails",
+    "key": "wang2026phantom"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "Harness Tampering",
+    "key": "wang2026tampering"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "Self-Authored Verification",
+    "key": "guo2026selfverification"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Selection & Oracle Integrity",
+    "name": "SWE-bench+",
+    "key": "aleithan2024swebenchplus"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Runtime Activation",
+    "name": "SkillsBench",
+    "key": "li2026skillsbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Runtime Activation",
+    "name": "Harness Updating ≠ Harness Benefit",
+    "key": "lin2026updating"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Runtime Activation",
+    "name": "Skill Revisions",
+    "key": "wang2026skillrevisions"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Agents That Matter",
+    "key": "kapoor2025matter"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Token Cost",
+    "key": "bai2026agentcost"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "MLE-bench",
+    "key": "chan2025mlebench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "HAL",
+    "key": "kapoor2026holistic"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Claw-Eval",
+    "key": "ye2026claweval"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "AgentRewardBench",
+    "key": "lu2025agentrewardbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Judge Inflation",
+    "key": "pan2024spontaneous"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Memory Reward Inflation",
+    "key": "asadolahi2026inflation"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Who Grades the Grader",
+    "key": "zhang2026gradergrader"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Don't Blame the LLM",
+    "key": "bensghaier2026blame"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Scaffold Effect",
+    "key": "vats2026scaffold"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Rethinking Harness Evaluation",
+    "key": "wang2026rethinking"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Attribution Controls",
+    "name": "Model–Harness Fit",
+    "key": "li2026rightfit"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "HarnessDev",
+    "key": "wu2026harnessdev"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "GDPevo",
+    "key": "zhou2026gdpevo"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "EvoHarnessBench",
+    "key": "ke2026evoharnessbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "PATH-Bench",
+    "key": "yang2026pathbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "Agent Plasticity",
+    "key": "singh2026plasticity"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Claim-Specific Evidence",
+    "mechanism": "Generalization & Retention",
+    "name": "Skill Generalization",
+    "key": "piao2026skillgeneralize"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Active-Set Integrity",
+    "name": "Ratchet",
+    "key": "zhang2026ratchet"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Active-Set Integrity",
+    "name": "SkillsVote",
+    "key": "liu2026skillsvote"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Active-Set Integrity",
+    "name": "Library Drift",
+    "key": "zhang2026librarydrift"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Active-Set Integrity",
+    "name": "Pre-Commit Gating",
+    "key": "shang2026backfires"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Active-Set Integrity",
+    "name": "EVOMAL",
+    "key": "wu2026evomal"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Synthesized Boundary Tasks",
+    "name": "Benchmark Self-Evolving",
+    "key": "wang2024benchmarkselfevolving"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Synthesized Boundary Tasks",
+    "name": "StressEval",
+    "key": "chen2026stresseval"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Temporal Streams",
+    "name": "LiveBench",
+    "key": "white2025livebench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Temporal Streams",
+    "name": "LiveCodeBench",
+    "key": "jain2024livecodebench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Temporal Streams",
+    "name": "LiveMedBench",
+    "key": "yan2026livemedbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Temporal Streams",
+    "name": "SWE-rebench",
+    "key": "badertdinov2025swerebench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Temporal Streams",
+    "name": "SWE-bench Live",
+    "key": "zhang2025swebenchlive"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Adversarial Play",
+    "name": "MathDuels",
+    "key": "xu2026mathduels"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Adversarial Play",
+    "name": "Red Queen Gödel Machine",
+    "key": "iacob2026redqueen"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "LifelongAgentBench",
+    "key": "zheng2025lifelongagentbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "PAST-Bench",
+    "key": "xue2026pastbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "SEA-Eval",
+    "key": "jiang2026seaeval"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "FinEvo-Bench",
+    "key": "deng2026finevobench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "ContinualSkillBench",
+    "key": "guan2026continualskillbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "SkillFlow",
+    "key": "zhang2026skillflow"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "SkillLearnBench",
+    "key": "zhong2026skilllearnbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "MemoryArena",
+    "key": "he2026memoryarena"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "Evo-Memory",
+    "key": "wei2025evomemory"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "Tool-Genesis",
+    "key": "xia2026toolgenesis"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "SWE-EVO",
+    "key": "le2025sweevo"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "CL-Bench",
+    "key": "asawa2026clbench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "SEABench",
+    "key": "das2026seabench"
+  },
+  {
+    "branch": "Evaluation & Benchmarks",
+    "sub": "Longitudinal & Dynamic Evidence",
+    "mechanism": "Lifelong Testbeds",
+    "name": "ServeLearnBench",
+    "key": "zheng2026servelearnbench"
+  }
+]

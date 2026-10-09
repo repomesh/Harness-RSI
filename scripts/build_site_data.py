@@ -24,14 +24,12 @@ OUTPUT = os.path.join(ROOT, "site", "corpus.js")
 
 # Top-level README sections that hold entries, mapped to explorer groups.
 GROUPS = [
+    ("Related Surveys", "surveys", "Related surveys"),
     ("Precursors", "precursors", "Precursors"),
     ("1. Interpreted Update Targets", "interpreted", "Interpreted targets"),
     ("2. Executable Update Targets", "executable", "Executable targets"),
-    ("3. Evaluation & Benchmarks", "evaluation", "Evaluation & benchmarks"),
-    ("4. Theory", "theory", "Theory"),
-    ("6. Persistent-State Risks", "risks", "Persistent-state risks"),
-    ("7. Deployed Harnesses & Product Surfaces", "products", "Deployed products"),
-    ("Related Surveys", "surveys", "Related surveys"),
+    ("3. Theory", "theory", "Theory"),
+    ("4. Evaluation & Benchmarks", "evaluation", "Evaluation & benchmarks"),
 ]
 ENTRY = re.compile(r"^- \*\*(?P<name>.+?)\*\*(?: `(?P<venue>[^`]+)`)? — (?P<desc>.+?)(?P<links>(?: ?(?:·\s*)?\[\[\w+\]\]\([^)]+\))+)\s*$")
 LINK = re.compile(r"\[\[(\w+)\]\]\(([^)]+)\)")
@@ -73,7 +71,7 @@ def read_entries(verdicts):
             continue
         if line.startswith("## "):
             group = group_of.get(line[3:])
-            subsection = mechanism = None
+            subsection = mechanism = pending_blurb = None
             continue
         if group is None:
             continue
@@ -95,7 +93,7 @@ def read_entries(verdicts):
             continue
         pending_blurb = None
         name = match["name"]
-        # SkillForge is the declared repeat (Section 4 re-lists it); the
+        # SkillForge is the declared repeat (Theory re-lists it); the
         # explorer shows each work once, at its taxonomy position.
         if name in seen:
             continue
@@ -121,7 +119,15 @@ def render():
     if len(audited) != len(verdicts):
         missing = sorted(set(verdicts) - {e["name"] for e in audited})
         raise SystemExit(f"audit rows without a README entry: {missing}")
+    from build_audit import load_audit, CLAIMS
+    source, scored, per_claim, joint = load_audit()
     data = {
+        "audit": {
+            "total": len(source["methods"]),
+            "scored": len(scored),
+            "claims": [{"name": c.capitalize(), **counts} for c, counts in zip(CLAIMS, per_claim)],
+            "joint": joint,
+        },
         "groups": [{"key": key, "label": label} for _, key, label in GROUPS],
         "blurbs": blurbs,
         "entries": entries,
@@ -147,7 +153,7 @@ def main():
     os.makedirs(os.path.dirname(OUTPUT), exist_ok=True)
     with open(OUTPUT, "w", encoding="utf-8") as handle:
         handle.write(content)
-    count = content.count('"name":')
+    count = len(read_entries(read_verdicts())[0])
     print(f"wrote {os.path.relpath(OUTPUT, ROOT)} with {count} entries")
     return 0
 
