@@ -12,6 +12,10 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 This repository accompanies our survey. We organize algorithms by **interpreted** and **executable** update targets, connect their search procedures to evolutionary algorithms and continual PAC learning, and examine reported evidence for **Selection, Activation, Attribution, and Improvement**. The paper also discusses applications, societal implications, and open research questions.
 
+[![The path of harness self-evolution, from instructions and prompts to executable components and runtime](assets/banner.png)](assets/banner.png)
+
+*From instructions and prompts to executable components and runtime. Click any figure to view the original.*
+
 ## Contents
 
 - [Related Surveys](#related-surveys)
@@ -65,6 +69,10 @@ Self-evolution describes this update process. Whether an update operated and imp
 ## Taxonomy
 
 Interpreted updates change content read by a fixed host. Executable updates change implementations the host invokes. Evaluation protocols form a separate branch; theory applies across update targets.
+
+[![Interpreted and executable update targets, with the operational loop from feedback to downstream reuse](assets/overview.png)](assets/overview.png)
+
+*Update targets and the operational loop: feedback, proposal, admission, persistence, and downstream reuse.*
 
 | Section | Focus | Manuscript |
 |---|---|---|
@@ -360,7 +368,9 @@ A task score can support four distinct claims. Each must be read against the sam
 | **Attribution** | Did the update cause the difference? Isolate it from other changes, control inference resources, and measure execution variation. |
 | **Improvement** | Does the difference extend beyond the tasks that formed the update? Record task distance, baseline, and measurement round. |
 
-![Four evaluation claims and longitudinal controls](assets/claims.png)
+[![Four evaluation claims and longitudinal controls](assets/claims.png)](assets/claims.png)
+
+*Selection, Activation, Attribution, and Improvement, with controls for successive updates.*
 
 Activation distinguishes an artifact being **available**, its changed path being **reached**, and its output being **carried** into the next model input or followed by the trajectory. Evidence may cover one case, a sample, or all scored runs. The [criteria](docs/evidence-criteria.md) define how each claim is assessed.
 

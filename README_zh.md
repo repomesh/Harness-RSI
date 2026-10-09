@@ -12,6 +12,10 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 本仓库是论文的配套文献清单。我们按 **Interpreted** 与 **Executable** 更新对象组织算法，将搜索过程与 evolutionary algorithms、continual PAC learning 联系起来，并从 **Selection、Activation、Attribution、Improvement** 四项 claims 分析已有结果的证据。论文进一步讨论应用、社会影响与开放问题。
 
+[![Harness self-evolution 的演化路径：从指令与 prompts 到可执行组件和 runtime](assets/banner.png)](assets/banner.png)
+
+*从指令与 prompts 到可执行组件和 runtime。点击任意图片可查看原图。*
+
 ## 目录
 
 - [相关综述](#related-surveys)
@@ -65,6 +69,10 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 ## 分类
 
 Interpreted updates 修改固定 host 读取的内容，Executable updates 修改 host 调用的实现。评测协议单列一支，Theory 则讨论不同更新对象共用的分析方法。
+
+[![Interpreted 与 Executable 更新对象，以及从反馈到后续复用的运行循环](assets/overview.png)](assets/overview.png)
+
+*更新对象与运行循环：执行反馈、候选生成、准入、持久保存与后续复用。*
 
 | 章节 | 内容 | 论文对应 |
 |---|---|---|
@@ -360,7 +368,9 @@ $\widehat{\Delta}$ 表示候选 loss 减去当前版本的 loss。在上述假�
 | **Attribution** | 分数差异是否由该更新造成？对照需隔离其他改动、控制推理资源，并测量执行波动。 |
 | **Improvement** | 差异是否延伸到生成更新所用任务之外？记录任务距离、比较基线与测量轮次。 |
 
-![四项 Evaluation Claims 与纵向对照](assets/claims.png)
+[![四项 Evaluation Claims 与纵向对照](assets/claims.png)](assets/claims.png)
+
+*Selection、Activation、Attribution、Improvement，以及连续更新所需的对照。*
 
 Activation 区分产物进入运行的 **available**、修改路径被执行的 **reached**，以及输出进入下一次模型输入或被轨迹遵循的 **carried**。证据可能覆盖一个实例、一部分运行或全部运行。各项 claim 的具体要求见[判定标准](docs/evidence-criteria.md)。
 
