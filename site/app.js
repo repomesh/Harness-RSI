@@ -1,13 +1,15 @@
-/* Project page behaviour: navigation, reveal, the taxonomy and reading-list
+/* Project page behaviour: navigation, the taxonomy and reading-list
    explorer built from site/corpus.js, the evidence charts (article Figure 6),
    and small affordances (lightbox and BibTeX copy). */
 (function () {
   "use strict";
 
   var CORPUS = window.CORPUS || { groups: [], entries: [], blurbs: {} };
+  var theme = getComputedStyle(document.documentElement);
+  function color(name) { return theme.getPropertyValue("--" + name).trim(); }
   var GROUP_COLOR = {
-    interpreted: "#5498d0", executable: "#e68a43", evaluation: "#6b925f", theory: "#9a70ba",
-    precursors: "#64748b", surveys: "#475569"
+    interpreted: color("int"), executable: color("exe"), evaluation: color("eva"), theory: color("thy"),
+    precursors: color("muted"), surveys: color("ink-2")
   };
   var CLAIM_NAMES = ["Selection", "Activation", "Attribution", "Improvement"];
   var VERDICT_WORD = { C: "full", O: "partial", N: "not supported" };
@@ -34,34 +36,32 @@
   toggle.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
   $all("#nl a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { setMenu(false); closeLightbox(); }
+    if (e.key === "Escape") {
+      if (menu.classList.contains("open")) { setMenu(false); toggle.focus(); }
+      closeLightbox();
+    }
     if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && !document.activeElement.isContentEditable) { e.preventDefault(); $("#q").focus(); }
   });
 
+  matchMedia("(max-width: 800px)").addEventListener("change", function () { setMenu(false); });
+
   var progress = $(".progress");
-  var navLinks = $all('#nl a[href^="#"]');
+  var navLinks = $all('#nl a[href^="#"]:not(.back-top)');
   var sections = navLinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
   function onScroll() {
     var max = document.documentElement.scrollHeight - innerHeight;
     progress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
     var current = -1;
     sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < 120) current = i; });
-    navLinks.forEach(function (a, i) { a.classList.toggle("on", i === current); });
+    if (max > 0 && scrollY >= max - 2) current = sections.length - 1;
+    navLinks.forEach(function (a, i) {
+      a.classList.toggle("on", i === current);
+      if (i === current) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
+    });
   }
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-
-  /* ---------- reveal ---------- */
-  var onReveal = [];
-  function whenVisible(node, fn) { onReveal.push([node, fn]); }
-  var io = "IntersectionObserver" in window ? new IntersectionObserver(function (items) {
-    items.forEach(function (it) {
-      if (!it.isIntersecting) return;
-      it.target.classList.add("in");
-      onReveal.forEach(function (pair) { if (pair[0] === it.target) pair[1](); });
-      io.unobserve(it.target);
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }) : null;
 
   /* ---------- taxonomy ---------- */
   function tree(groupKey) {
@@ -88,7 +88,7 @@
   function renderBranch(b, host) {
     var subs = tree(b.key);
     var total = subs.reduce(function (a, s) { return a + s.nodes.reduce(function (x, n) { return x + n.count; }, 0); }, 0);
-    host.className = "branch " + b.cls + " reveal";
+    host.className = "branch " + b.cls;
     host.innerHTML = '<div class="branch-head"><h3>' + b.title + '</h3><span class="count">' + b.num + " · " + total + " works</span></div>" +
       '<p class="gloss">' + b.gloss + "</p>";
     subs.forEach(function (s, i) {
@@ -133,6 +133,7 @@
     render();
     window.scrollTo({ top: document.getElementById("explorer").getBoundingClientRect().top + window.scrollY - 76, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
     $("#results").scrollTop = 0;
+    qInput.focus({ preventScroll: true });
   }
 
   function highlight(html, q) {
@@ -169,7 +170,11 @@
       '<div class="side">' + verdict + links + "</div></div>";
   }
   function render() {
-    groupChips.forEach(function (c) { c.classList.toggle("on", c.getAttribute("data-group") === state.group); });
+    groupChips.forEach(function (c) {
+      var active = c.getAttribute("data-group") === state.group;
+      c.classList.toggle("on", active);
+      c.setAttribute("aria-pressed", String(active));
+    });
     var list = CORPUS.entries.filter(matches);
     var html = "", lastGroup = null;
     list.forEach(function (e) {
@@ -196,16 +201,12 @@
     var segs = ["C", "O", "N"].map(function (k) {
       if (!r[k]) return "";
       var label = r[k] >= 5 ? r[k] : "";
-      return '<span class="' + k + '" data-w="' + r[k] + '" title="' + r[k] + " " + ({ C: "full", O: "partial", N: "not supported" })[k] + '">' + label + "</span>";
+      return '<span class="' + k + '" style="width:' + (100 * r[k] / SCORED) + '%" title="' + r[k] + " " + ({ C: "full", O: "partial", N: "not supported" })[k] + '">' + label + "</span>";
     }).join("");
     line.innerHTML = '<div class="nm">' + r.name + '</div><div class="stack-bar">' + segs + "</div>";
     barsHost.appendChild(line);
   });
-  whenVisible($("#claimBars"), function () {
-    $all("#claimBars .stack-bar span").forEach(function (s) { s.style.width = (100 * s.getAttribute("data-w") / SCORED) + "%"; });
-  });
-
-  var jointColors = ["#dde3ec", "#b4c2d9", "#8399bb", "#4f6a94", "#1e3a8a"];
+  var jointColors = [0, 1, 2, 3, 4].map(function (i) { return color("joint-" + i); });
   var JOINT = ["None", "One", "Two", "Three", "Four"].map(function (name, i) {
     return { k: name, v: CORPUS.evidence.joint[i], c: jointColors[i] };
   });
@@ -214,26 +215,14 @@
     var R = 80, C = 2 * Math.PI * R, acc = 0;
     var rings = JOINT.filter(function (j) { return j.v; }).map(function (j) {
       var len = (j.v / SCORED) * C;
-      var circle = '<circle cx="100" cy="100" r="' + R + '" stroke="' + j.c + '" stroke-dasharray="0 ' + C + '" data-len="' + len + '" stroke-dashoffset="' + (-acc) + '" transform="rotate(-90 100 100)"><title>' + j.k + ": " + j.v + "</title></circle>";
+      var circle = '<circle cx="100" cy="100" r="' + R + '" stroke="' + j.c + '" stroke-dasharray="' + len + " " + (C - len) + '" stroke-dashoffset="' + (-acc) + '" transform="rotate(-90 100 100)"><title>' + j.k + ": " + j.v + "</title></circle>";
       acc += len;
       return circle;
     }).join("");
     host.innerHTML = '<svg class="donut" viewBox="0 0 200 200" role="img" aria-label="Scored reports by number of claims at full evidence">' + rings +
       '<text class="small" x="100" y="96" text-anchor="middle">' + SCORED + ' scored</text><text class="small" x="100" y="113" text-anchor="middle">reports</text></svg>' +
       '<div class="joint">' + JOINT.map(function (j) { return "<div><b>" + j.v + "</b>" + j.k + '<i style="background:' + j.c + '"></i></div>'; }).join("") + "</div>";
-    whenVisible(host.closest(".panel"), function () {
-      $all("circle[data-len]", host).forEach(function (c) {
-        var len = +c.getAttribute("data-len");
-        c.setAttribute("stroke-dasharray", len + " " + (C - len));
-      });
-    });
   })();
-
-  $all(".reveal").forEach(function (node, i) {
-    node.style.transitionDelay = (Math.min(i % 4, 3) * 60) + "ms";
-    if (io) io.observe(node);
-    else { node.classList.add("in"); onReveal.forEach(function (p) { if (p[0] === node) p[1](); }); }
-  });
 
   /* ---------- math ---------- */
   function renderMath() {
