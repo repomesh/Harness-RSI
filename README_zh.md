@@ -64,6 +64,23 @@ $$
 
 Self-evolution 指这一更新过程。更新是否实际生效、是否改善表现，需要下文的[评测证据](#evaluation)。
 
+<details>
+<summary>Harness 组件（论文 §2）</summary>
+
+论文按运行职责划分组件，具体实现可以合并或省略其中的组件。
+
+| 组件 | 运行职责 | 具体机制 |
+|---|---|---|
+| Agent 循环与执行控制 | 推进模型调用，并决定何时结束运行 | 模型与工具调用；继续与停止规则；取消；错误恢复 |
+| Tool 与 skill 编排 | 提供外部能力与可复用流程 | 工具接口、注册与调用；skill 加载与调用 |
+| 上下文构建 | 组装每次模型调用可见的内容 | System instructions；工具描述；对话历史；注入上下文 |
+| Memory 与状态管理 | 将状态保留到后续调用或会话 | 记忆与检索；持久保存；恢复；分叉 |
+| 上下文压缩 | 让持续增长的上下文保持在预算内 | 历史摘要；保留与触发策略；工具输出裁剪 |
+| 调度与协作 | 将工作分配到多个执行循环 | Sub-agent 委派；任务调度；后台执行 |
+| 执行基础设施 | 限定运行权限并记录执行过程 | 沙箱；权限与审批；存储；模型适配器；日志与回放 |
+
+</details>
+
 <a id="taxonomy"></a>
 
 ## 分类
@@ -74,15 +91,49 @@ Interpreted updates 修改固定 host 读取的内容，Executable updates 修�
 
 *更新对象与运行循环：执行反馈、候选生成、准入、持久保存与后续复用。*
 
-| 章节 | 内容 | 论文对应 |
-|---|---|---|
-| [1. Interpreted targets](#interpreted) | 指令、记忆、工作流规格 | §3 |
-| [2. Executable targets](#executable) | 工具、源代码、控制程序、plugins | §4 |
-| [3. Theory](#theory) | 演化搜索、泛化、能力保留与准入 | §5 |
-| [4. Evaluation](#evaluation) | 评测协议与基准 | §6 |
-| [5. 实证证据](#evidence) | 每个方法的主要比较所提供的证据 | §6 |
+下表按论文 taxonomy 汇总，每个机制列一个代表工作。类别链接跳转至文献清单，工作链接打开原始来源。
 
-[分类数据](data/taxonomy.json)记录每项工作的主要归类。Theory 可以再次引用同一方法，说明它与理论的对应关系。
+**Interpreted update targets（论文 §3）**
+
+| 类别 | 机制 / 评测方向 | 代表工作 |
+|---|---|---|
+| [Prompts 与指令](#11-prompts-与指令) | 基于分数的搜索 | [OPRO](https://openreview.net/forum?id=Bb4VGOWELI) |
+|  | Textual-gradient 优化 | [GEPA](https://openreview.net/forum?id=RQm2KQTM5r) |
+|  | 更新变异规则 | [Promptbreeder](https://proceedings.mlr.press/v235/fernando24a.html) |
+| [Memory 与可复用流程](#12-memory-与可复用流程) | 经验提取 | [ExpeL](https://doi.org/10.1609/aaai.v38i17.29936) |
+|  | 可复用 Skillbooks | [SkillClaw](https://arxiv.org/abs/2604.08377) |
+|  | 验证与整合 | [ACE](https://openreview.net/forum?id=eC4ygDs02R) |
+| [Workflows 与拓扑](#13-workflows-与拓扑) | 固定 Pipeline 编译 | [DSPy](https://openreview.net/forum?id=PFS4ffN9Yx) |
+|  | 图与拓扑搜索 | [AFlow](https://openreview.net/forum?id=z5uVAKwmjf) |
+|  | 反馈驱动的 Workflow 修订 | [SEW](https://arxiv.org/abs/2505.18646) |
+
+**Executable update targets（论文 §4）**
+
+| 类别 | 机制 / 评测方向 | 代表工作 |
+|---|---|---|
+| [Tools 与代码补丁](#21-tools-与代码补丁) | 可调用工具合成 | [Voyager](https://openreview.net/forum?id=ehfRiF0R3a) |
+|  | 基于执行证据的组件修改 | [Self-Harness](https://arxiv.org/abs/2606.09498) |
+| [仓库与 Runtime 逻辑](#22-仓库与-runtime-逻辑) | 完整控制程序搜索 | [ADAS](https://openreview.net/forum?id=t9U3LW7JVX) |
+|  | 仓库修订 | [DGM](https://openreview.net/forum?id=pUpzQZTvGY) |
+|  | 进程内修改 | [Gödel Agent](https://aclanthology.org/2025.acl-long.1354/) |
+| [Plugin 架构](#23-plugin-架构) | 接口约束下的 Hooks | [HarnessX](https://arxiv.org/abs/2606.14249) |
+|  | Microkernel 平台 | [Autogenesis](https://arxiv.org/abs/2604.15034) |
+
+**Evaluation 与 benchmarks（论文 §6）**
+
+| 类别 | 机制 / 评测方向 | 代表工作 |
+|---|---|---|
+| [各项 Claim 的评测](#41-各项-claim-的评测) | Selection 与评测器完整性 | [HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) |
+|  | Runtime Activation | [SkillsBench](https://arxiv.org/abs/2602.12670) |
+|  | Attribution 对照 | [Agents That Matter](https://arxiv.org/abs/2407.01502) |
+|  | 泛化与能力保留 | [HarnessDev](https://arxiv.org/abs/2609.01437) |
+| [纵向与动态评测](#42-纵向与动态评测) | 活跃产物集合的完整性 | [Ratchet](https://arxiv.org/abs/2605.22148) |
+|  | 合成边界任务 | [StressEval](https://arxiv.org/abs/2605.01939) |
+|  | 时间任务流 | [LiveCodeBench](https://arxiv.org/abs/2403.07974) |
+|  | 对抗式交互 | [MathDuels](https://arxiv.org/abs/2604.21916) |
+|  | 持续学习评测环境 | [LifelongAgentBench](https://arxiv.org/abs/2505.11942) |
+
+完整分类见[论文 taxonomy 图](assets/taxonomy.png)与[分类数据](data/taxonomy.json)。[Theory](#theory)（论文 §5）横跨更新对象，单独讨论搜索机制与泛化。
 
 <a id="precursors"></a>
 
@@ -428,6 +479,25 @@ Activation 区分产物进入运行的 **available**、修改路径被执行的 
 - **Skill Generalization** `arXiv'26`：比较演化后的 skills 在训练任务与 held-out 任务上的表现，检验收益能保留多少。 [[paper]](https://arxiv.org/abs/2609.39148)
 
 ### 4.2 纵向与动态评测
+
+<details>
+<summary>连续更新的评测对照（论文 §6.3）</summary>
+
+按论文中的对照表压缩整理。链接指向使用该对照或说明相应混淆因素的工作。
+
+| 对照 | 需要记录的内容 | 对应的混淆因素 |
+|---|---|---|
+| **Selection：证据分离**<br>[HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) | 候选生成、排序、准入和报告分别使用的任务与反馈，以及报告轮次和配置的选择方式。 | 搜索复用了报告结果所需的独立证据。 |
+| **Selection：评测器完整性**<br>[HarnessBank](https://arxiv.org/abs/2607.13683) | 评分、验证与结果记录代码不能被候选修改或反复探测。 | 候选改变了判断自身表现的测量过程。 |
+| **Activation：执行记录**<br>[HarnessX](https://arxiv.org/abs/2606.14249) | 被评测运行中，每项任务、每次尝试的 available、reached、carried 比率。 | 更新没有实际生效却被归功。 |
+| **Attribution：执行波动**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | 固定状态在同一任务上的重复运行，或逐任务配对检验；将差异与执行波动比较，不能用裁判 seed 的波动替代。 | 执行噪声被当成进步。 |
+| **Attribution：推理资源**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Tokens、模型与 verifier 调用、轮次、重试、采样尝试或候选数、reasoning effort；另列新增上下文与搜索成本。 | 更多推理计算被当成 harness 收益。 |
+| **Attribution：模型与评测器**<br>[HAL](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf) | 模型、scorer 与 judge 的版本，解码参数，以及研究期间的变动。 | 模型或评分器变动被当成 harness 收益。 |
+| **Improvement：历史对照**<br>[PATH-Bench](https://arxiv.org/abs/2608.01149) | 变化的任务顺序、冻结的参考状态、独立的历史分布测试，以及若干轮之后对已报告收益的复测。 | 顺序效应被当成迁移或保留；单次收益被当成持久改进。 |
+
+这些对照不能恢复被自适应重复使用的任务流的独立性；历史分布测试一旦被用于后续更新，也就不再是独立的能力保留证据。
+
+</details>
 
 #### 活跃产物集合的完整性
 

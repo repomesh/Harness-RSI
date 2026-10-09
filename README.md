@@ -64,6 +64,23 @@ The update mechanism remains available for further revisions, and an accepted st
 
 Self-evolution describes this update process. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
 
+<details>
+<summary>Harness components (paper §2)</summary>
+
+The paper groups the harness by runtime responsibility. An implementation may combine or omit components.
+
+| Component | Runtime responsibility | Mechanisms |
+|---|---|---|
+| Agent loop and execution control | Advance model calls and decide when a run ends | Model and tool calls; continuation and stopping; cancellation; error recovery |
+| Tool and skill orchestration | Expose external capabilities and reusable procedures | Tool interfaces, registration and invocation; skill loading and invocation |
+| Context construction | Assemble what the model sees at each call | System instructions; tool descriptions; conversation history; injected context |
+| Memory and state management | Carry state beyond a call or session | Memory and retrieval; persistence; resumption; forking |
+| Context compaction | Keep growing context within budget | Summarization; retention and trigger policies; tool-output pruning |
+| Scheduling and coordination | Distribute work across loops | Sub-agent delegation; scheduling; background execution |
+| Execution infrastructure | Bound actions and record execution | Sandboxing; permissions and approvals; storage; model adapters; logging and replay |
+
+</details>
+
 <a id="taxonomy"></a>
 
 ## Taxonomy
@@ -74,15 +91,49 @@ Interpreted updates change content read by a fixed host. Executable updates chan
 
 *Update targets and the operational loop: feedback, proposal, admission, persistence, and downstream reuse.*
 
-| Section | Focus | Manuscript |
-|---|---|---|
-| [1. Interpreted targets](#interpreted) | Prompts, memory, workflow specifications | §3 |
-| [2. Executable targets](#executable) | Tools, source code, control programs, plugins | §4 |
-| [3. Theory](#theory) | Evolutionary search, generalization, retention, admission | §5 |
-| [4. Evaluation](#evaluation) | Protocols and benchmarks | §6 |
-| [5. Reported evidence](#evidence) | Evidence for each method’s primary comparison | §6 |
+Condensed from the paper’s taxonomy, with one example for each mechanism. Category links lead to the reading list; work links open the original sources.
 
-The [taxonomy data](data/taxonomy.json) records each work’s primary placement. Theory may refer to the same method to explain a correspondence.
+**Interpreted update targets (paper §3)**
+
+| Category | Mechanisms / evaluation focus | Selected works |
+|---|---|---|
+| [Prompts & Instructions](#11-prompts--instructions) | Scalar-Score Search | [OPRO](https://openreview.net/forum?id=Bb4VGOWELI) |
+|  | Textual-Gradient Critique | [GEPA](https://openreview.net/forum?id=RQm2KQTM5r) |
+|  | Self-Referential Mutation | [Promptbreeder](https://proceedings.mlr.press/v235/fernando24a.html) |
+| [Memory & Procedures](#12-memory--reusable-procedures) | Experience Mining | [ExpeL](https://doi.org/10.1609/aaai.v38i17.29936) |
+|  | Procedural Skillbooks | [SkillClaw](https://arxiv.org/abs/2604.08377) |
+|  | Gated Consolidation | [ACE](https://openreview.net/forum?id=eC4ygDs02R) |
+| [Workflows & Topologies](#13-workflows--topologies) | Fixed-Pipeline Compilation | [DSPy](https://openreview.net/forum?id=PFS4ffN9Yx) |
+|  | Graph & Topology Search | [AFlow](https://openreview.net/forum?id=z5uVAKwmjf) |
+|  | Feedback-Driven Workflow Revision | [SEW](https://arxiv.org/abs/2505.18646) |
+
+**Executable update targets (paper §4)**
+
+| Category | Mechanisms / evaluation focus | Selected works |
+|---|---|---|
+| [Tools & Code Patches](#21-tools--code-patches) | Callable Tool Synthesis | [Voyager](https://openreview.net/forum?id=ehfRiF0R3a) |
+|  | Evidence-Grounded Component Patching | [Self-Harness](https://arxiv.org/abs/2606.09498) |
+| [Repository & Runtime Logic](#22-repository--runtime-logic) | Whole-Control-Program Search | [ADAS](https://openreview.net/forum?id=t9U3LW7JVX) |
+|  | Repository Revision | [DGM](https://openreview.net/forum?id=pUpzQZTvGY) |
+|  | In-Process Patching | [Gödel Agent](https://aclanthology.org/2025.acl-long.1354/) |
+| [Everything Is a Plugin](#23-everything-is-a-plugin) | Contract-Driven Hooks | [HarnessX](https://arxiv.org/abs/2606.14249) |
+|  | Microkernel Platforms | [Autogenesis](https://arxiv.org/abs/2604.15034) |
+
+**Evaluation & benchmarks (paper §6)**
+
+| Category | Mechanisms / evaluation focus | Selected works |
+|---|---|---|
+| [Claim-Specific Evidence](#41-claim-specific-evidence) | Selection & Oracle Integrity | [HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) |
+|  | Runtime Activation | [SkillsBench](https://arxiv.org/abs/2602.12670) |
+|  | Attribution Controls | [Agents That Matter](https://arxiv.org/abs/2407.01502) |
+|  | Generalization & Retention | [HarnessDev](https://arxiv.org/abs/2609.01437) |
+| [Longitudinal & Dynamic Evidence](#42-longitudinal--dynamic-evidence) | Active-Set Integrity | [Ratchet](https://arxiv.org/abs/2605.22148) |
+|  | Synthesized Boundary Tasks | [StressEval](https://arxiv.org/abs/2605.01939) |
+|  | Temporal Streams | [LiveCodeBench](https://arxiv.org/abs/2403.07974) |
+|  | Adversarial Play | [MathDuels](https://arxiv.org/abs/2604.21916) |
+|  | Lifelong Testbeds | [LifelongAgentBench](https://arxiv.org/abs/2505.11942) |
+
+See the [full taxonomy figure](assets/taxonomy.png) and [taxonomy data](data/taxonomy.json). [Theory](#theory) (paper §5) cuts across update targets to analyze search and generalization.
 
 <a id="precursors"></a>
 
@@ -428,6 +479,25 @@ Successive updates also need versioned states, model and evaluator records, fixe
 - **Skill Generalization** `arXiv'26` — compares evolved skills on training and held-out tasks to measure how much improvement transfers. [[paper]](https://arxiv.org/abs/2609.39148)
 
 ### 4.2 Longitudinal & Dynamic Evidence
+
+<details>
+<summary>Controls for successive updates (paper §6.3)</summary>
+
+Condensed from the paper’s control table. Links identify an instance of the control or evidence of the confound.
+
+| Control | What to record | Confound addressed |
+|---|---|---|
+| **Selection: evidence separation**<br>[HarnessOpt-Bench](https://arxiv.org/abs/2608.06301) | Tasks and signals for proposal, ranking, admission and reporting; the choice of reported round and configuration. | Reporting evidence reused by search. |
+| **Selection: oracle integrity**<br>[HarnessBank](https://arxiv.org/abs/2607.13683) | Scoring, verification and bookkeeping code protected from candidate edits and repeated probing. | The candidate changes its own measurement. |
+| **Activation: execution record**<br>[HarnessX](https://arxiv.org/abs/2606.14249) | Per-task and per-attempt rates for available, reached and carried in the scored runs. | An update receives credit without operating. |
+| **Attribution: execution variation**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Repeated frozen-state runs on the same tasks, or paired per-task tests; compare gains with execution variation, not judge-seed variation. | Execution noise appears as progress. |
+| **Attribution: inference envelope**<br>[Agents That Matter](https://arxiv.org/abs/2407.01502) | Tokens, model/verifier calls, turns, retries, sampled attempts or candidates, and reasoning effort; separate added context and search cost. | Extra inference compute appears as a harness gain. |
+| **Attribution: model and evaluator**<br>[HAL](https://proceedings.iclr.cc/paper_files/paper/2026/file/a0928f924a344aaebbb7f6cd8d56e34c-Paper-Conference.pdf) | Model and scorer versions, decoding settings, judge versions and changes during the study. | A model or grader change appears as a harness gain. |
+| **Improvement: controlled histories**<br>[PATH-Bench](https://arxiv.org/abs/2608.01149) | Varied task orders, a frozen reference state, independent probes on earlier distributions, and re-measurement of gains after later rounds. | Order effects appear as transfer or retention; a one-off gain appears lasting. |
+
+These controls do not restore independence to an adaptively reused task stream. Earlier-distribution probes cease to provide independent retention evidence once they guide later updates.
+
+</details>
 
 #### Active-Set Integrity
 
