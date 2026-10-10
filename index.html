@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<link rel="stylesheet" href="site/style.css?v=8">
+<link rel="stylesheet" href="site/style.css?v=9">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -26,8 +26,8 @@
   <div class="nav-in">
     <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">H</span><span>Harness RSI<span class="brand-note">A research survey</span></span></a>
     <div class="nav-tools">
-      <a href="#explorer">Reading list <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+      <a class="quiet-link" href="#explorer">Reading list <span aria-hidden="true">↗</span></a>
+      <a class="quiet-link" href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
       <a href="https://github.com/zgcagi/Harness-RSI/blob/main/README_zh.md" lang="zh-CN">中文</a>
     </div>
     <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-controls="nl" aria-expanded="false">Contents</button>
@@ -36,30 +36,11 @@
 </div>
 
 <header class="hero" id="top">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Survey <span>/</span> Working draft <span>/</span> October 2026</p>
-        <h1 class="title">Harness<br><em>Self-Evolution</em></h1>
-        <p class="subtitle">Theory, Algorithms, Evaluation,<br class="desktop-break"> Applications, and Impact</p>
-        <p class="tagline">Agents that rewrite their own instructions, memory, workflows, and code while the base model stays fixed.</p>
-        <div class="btns">
-          <!-- Replace this disabled button with the public PDF link on release. -->
-          <button class="btn paper-pending" type="button" disabled>Paper PDF <span class="soon">Coming soon</span></button>
-          <a class="btn primary" href="#explorer">Explore the reading list <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="hero-links"><a href="#evidence">Evidence</a><span aria-hidden="true">/</span><a href="#cite">BibTeX</a></div>
-      </div>
-      <div class="hero-visual" id="landscape">
-        <div class="figure hero-figure">
-          <div class="figure-label"><span>The evolving harness</span><span>Fig. 01</span></div>
-          <img src="assets/banner.png" alt="The path of harness self-evolution, from instructions to executable runtime" decoding="async" fetchpriority="high">
-          <p class="figcap">From instructions and memory to workflows, executable components, and the runtime itself.</p>
-        </div>
-        <p class="hero-premise">What does it take to show that an accepted update <em>actually helped?</em></p>
-        <a class="text-link" href="#evaluation">Four claims behind a task score <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Survey <span>/</span> Working draft <span>/</span> October 2026</p>
+    <h1 class="title">Harness <em>Self-Evolution</em></h1>
+    <p class="subtitle">Theory, Algorithms, Evaluation, Applications, and Impact</p>
+    <p class="tagline">Agents that revise their instructions, memory, workflows, and code while the base model stays fixed.</p>
     <div class="byline">
       <div class="byline-copy">
         <p class="authors">Chuyang Wei<sup>1</sup>, Haoxiang Guan<sup>1</sup>, Minghang Zhu<sup>1</sup>, Kexin Zhou<sup>1</sup>, Jiyan He<sup>1,2</sup>, Yifei Shen<sup>1,2,†</sup></p>
@@ -70,6 +51,16 @@
         <img src="assets/seal-zgci.png" alt="Zhongguancun Institute of Artificial Intelligence">
       </div>
     </div>
+    <div class="hero-actions">
+      <a class="btn primary" href="#explorer">Reading list <span class="button-arrow" aria-hidden="true">→</span></a>
+      <!-- Replace this disabled button with the public PDF link on release. -->
+      <button class="btn paper-pending" type="button" disabled>Paper PDF <span class="soon">Coming soon</span></button>
+      <div class="hero-links"><a class="quiet-link" href="#evidence">Evidence</a><a class="quiet-link" href="#cite">BibTeX</a></div>
+    </div>
+    <figure class="figure hero-figure" id="landscape">
+      <img src="assets/banner.png" alt="The path of harness self-evolution, from instructions to executable runtime" decoding="async" fetchpriority="high">
+      <figcaption class="figcap">From instructions and memory to workflows, executable components, and the runtime.</figcaption>
+    </figure>
   </div>
 </header>
 
@@ -118,12 +109,12 @@
     </div>
     <div class="def-grid">
       <div class="formula">
-        <h3 class="lbl">Run, collect, update</h3>
-        <div class="eq">\[\tau_{k,i} \sim \operatorname{Run}(M, H_k, E_{k,i})\]</div>
-        <div class="eq">\[\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b}\]</div>
-        <div class="eq">\[H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\]</div>
+        <h3 class="lbl">One update round</h3>
+        <div class="formula-step"><p>Run the current harness.</p><div class="eq">\[\tau_{k,i} \sim \operatorname{Run}(M, H_k, E_{k,i})\]</div></div>
+        <div class="formula-step"><p>Collect a batch of trajectories.</p><div class="eq">\[\mathcal{B}_k = \{\tau_{k,i}\}_{i=1}^{b}\]</div></div>
+        <div class="formula-step"><p>Use that feedback to revise the harness.</p><div class="eq">\[H_{k+1} = \operatorname{Update}(H_k, \mathcal{B}_k)\]</div></div>
         <p class="notation">\(\tau\): trajectory · \(E\): environment · \(b\): batch size</p>
-        <p class="note">Model and evaluator stay fixed. Rejected updates leave \(H_{k+1}=H_k\).</p>
+        <p class="note">Model and evaluator stay fixed; rejected updates keep \(H_k\).</p>
       </div>
       <div class="loop-card">
         <svg class="update-loop" viewBox="0 0 440 360" role="img" aria-label="The operational update loop: execute, feedback, propose, admit, persist, and later runs load the accepted state">
@@ -175,14 +166,16 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-kicker">Theory</div>
-      <h2 class="sec-title">Search without gradients</h2>
-      <p class="sec-sub">Evolutionary search explains proposal and selection. Continual PAC learning connects reliable admission with generalization and retention.</p>
+      <h2 class="sec-title">Optimization and generalization</h2>
+      <p class="sec-sub">How are revisions found, and when do they transfer? Three connected theoretical perspectives.</p>
     </div>
     <div class="theory-grid">
-      <div class="pac">
-        <div class="pac-card"><h4><span class="tag">Retention</span> Regressions accumulate</h4><div class="eq">\[F_{s,k} \le \sum_{u=s+1}^{k}\varepsilon_{s,u}\]</div><p>Small regressions can accumulate across update rounds.</p></div>
-        <div class="pac-card"><h4><span class="tag">Admission</span> Confidence-adjusted gate</h4><div class="eq">\[\widehat\Delta_k(H') + \sqrt{\frac{2\ln(KT/\delta)}{m}} < 0\]</div><p>For K candidates over T rounds: m fresh independent tasks, bounded paired losses, and a fixed model and evaluator. The guarantee applies to the current task mixture.</p></div>
+      <div class="theory-concepts">
+        <article class="theory-concept"><span class="concept-abbr">ZO</span><h3>Zeroth-order Optimization</h3><p>Search over programs using task scores and execution feedback, without gradients.</p></article>
+        <article class="theory-concept"><span class="concept-abbr">EA</span><h3>Evolutionary Algorithms</h3><p>Propose variations, evaluate candidates, and retain useful revisions or diverse alternatives.</p></article>
+        <article class="theory-concept"><span class="concept-abbr">PAC</span><h3>Continual PAC Learning</h3><p>Study generalization, retention, and reliable admission under explicit sampling assumptions.</p></article>
       </div>
+      <a class="theory-reference quiet-link" href="https://github.com/zgcagi/Harness-RSI#theory" target="_blank" rel="noopener">Theory, assumptions, and bounds ↗</a>
       <details class="fold theory-map">
         <summary>Search paradigms and representative methods</summary>
         <div class="fold-body">
@@ -327,6 +320,6 @@
 <script src="site/corpus.js?v=6"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script defer src="site/app.js?v=8"></script>
+<script defer src="site/app.js?v=9"></script>
 </body>
 </html>
