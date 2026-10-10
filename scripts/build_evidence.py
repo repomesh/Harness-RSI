@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate evidence tables and bilingual summaries from data/reported-evidence.json."""
+"""Generate evidence tables and site/README summaries from data/reported-evidence.json."""
 import argparse
 import html
 import json
@@ -53,6 +53,11 @@ def summary(data, scored, per, joint, zh=False, compact=True):
         )
         alt = '四项 claims 的证据分布与整体覆盖情况' if zh else 'Evidence by claim and overall coverage'
         figure = f'[![{alt}](assets/reported-evidence.png)](assets/reported-evidence.png)'
+        finding = (
+            '最常见的证据组合满足 Selection 与 task-distance 标准，而 Activation 和 Attribution 仅部分满足：报告往往在留出任务上评测，但较少确认 accepted update 在计分运行中实际执行，也较少将其效果与运行波动及额外推理开销区分开。'
+            if zh else
+            'The most common evidence profile meets Selection and task distance, with partial Activation and Attribution: reports often evaluate on held-out tasks, but less often confirm that accepted updates execute in scored runs or separate their effects from run variation and extra inference compute.'
+        )
         parts = [intro, figure, finding, links]
     else:
         parts.extend([
@@ -141,6 +146,19 @@ def main():
         text,count=re.subn(r'<!-- evidence-summary:start -->.*?<!-- evidence-summary:end -->',lambda _:replacement,target.read_text(),flags=re.S)
         assert count==1,path
         expected[target]=text
+    target = ROOT / 'index.html'
+    total, n = len(data['methods']), len(scored)
+    population = (
+        f'{total} methods in scope; {n} primary comparisons are scored. '
+        f'{total-n} methods without empirical evaluation are excluded. '
+        'Criteria describe reported evidence within its recorded coverage.'
+    )
+    text, count = re.subn(
+        r'(<p class="sec-sub" id="evidence-population">).*?(</p>)',
+        lambda match: match[1] + population + match[2], target.read_text(), flags=re.S,
+    )
+    assert count == 1, 'index.html: missing or duplicate evidence population'
+    expected[target] = text
     stale=[str(p.relative_to(ROOT)) for p,text in expected.items() if not p.exists() or p.read_text()!=text]
     if args.check:
         if stale:raise SystemExit('Evidence artifacts are stale: '+', '.join(stale))

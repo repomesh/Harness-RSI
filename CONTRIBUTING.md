@@ -23,9 +23,10 @@ Follow the [criteria](docs/evidence-criteria.md). Identify the report’s primar
 | [README.md](README.md), [README_zh.md](README_zh.md) | Paper entries and section descriptions |
 | [data/taxonomy.json](data/taxonomy.json) | Manuscript citation keys and primary placements |
 | [data/reported-evidence.json](data/reported-evidence.json) | Comparisons, judgments, and supporting passages |
-| [data/source-snapshot.json](data/source-snapshot.json) | Source hashes when importing a manuscript revision |
+| [data/source-snapshot.json](data/source-snapshot.json) | Manuscript commit and source hashes when importing a revision |
+| [Paper PDF](paper/harness-self-evolution.pdf) | Copy the verified PDF from that same manuscript revision |
 
-The evidence summaries, [results document](docs/reported-evidence.md), and `site/corpus.js` are generated. Update their source files, then run:
+The evidence summaries in the READMEs and website, [results document](docs/reported-evidence.md), and `site/corpus.js` are generated. Update their source files, then run:
 
 ```bash
 python3 scripts/build_evidence.py

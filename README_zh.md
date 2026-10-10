@@ -5,7 +5,7 @@
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
+[论文 PDF](paper/harness-self-evolution.pdf) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -13,7 +13,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 </div>
 
-本综述的配套文献与图表，按 harness 的更新对象、搜索机制和评测方法组织。图表沿用论文原版，点击可查看高清图。
+本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。上方 PDF 为 2026 年 10 月 10 日工作稿。图表沿用论文原版，点击可查看高清图。
 
 ## 阅读导航
 
@@ -21,7 +21,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 **文献**　[Interpreted](#interpreted) · [Executable](#executable) · [Theory](#theory) · [Evaluation](#evaluation)
 
-**资料**　[实证证据](#evidence) · [贡献与维护](#contributing) · [引用](#citation)
+**资料**　[应用与展望](#applications) · [实证证据](#evidence) · [贡献与维护](#contributing) · [引用](#citation)
 
 <a id="related-surveys"></a>
 
@@ -33,13 +33,13 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 - **Code as Agent Harness** `arXiv'26`：按代码在 agent 循环中的角色组织。 [[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
 - **Recursive Self-Improvement in AI** `arXiv'26`：按更新过程的完整程度，组织从局部 self-refinement 到自主研究的方法。 [[paper]](https://arxiv.org/abs/2607.07663)
 - **Self-Improvements in Modern Agentic Systems** `arXiv'26`：在参数冻结的前提下区分模型与 scaffold 更新，讨论独立评测与组件对照。 [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
-- **Self-Evolving Coding Agents** `arXiv'26`：区分模型侧更新与记忆、技能、工作流更新，并把自适应选择下的基准过拟合列为开放问题。 [[paper]](https://arxiv.org/abs/2608.03392)
+- **Self-Evolving Coding Agents** `arXiv'26`：区分候选资格、runtime activation 与准入，并讨论共同预算下的组件对照。 [[paper]](https://arxiv.org/abs/2608.03392)
 
 <a id="definition"></a>
 
 ## 定义
 
-**Harness** $H$ 是控制模型 $M$ 如何在环境 $E$ 中运行的软件与配置，包括工具、上下文构建、记忆和执行控制。Evaluator $J$ 对轨迹评分，候选更新不能修改它。
+**Harness** $H$ 是控制模型 $M$ 如何在环境 $E$ 中运行的软件与配置，包括工具、上下文构建、记忆和执行控制。最终 evaluator $J$ 对轨迹评分，候选更新不能修改它；内部 critic 和临时 verifier 可以属于可修改的 harness。
 
 $$
 \tau \sim \mathrm{Run}(M,H,E), \qquad y=J(\tau)
@@ -287,7 +287,7 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 
 ## 3. Theory
 
-Harness search 根据分数与执行轨迹修订程序，无需梯度。Evolutionary algorithms 描述搜索结构，continual PAC 分析则讨论泛化、能力保留与候选准入。
+论文从优化与泛化两个视角展开。许多方法对离散 harness 状态进行无梯度搜索：分数用于选择，轨迹和批评用于指导提案。Evolutionary paradigms 描述共同的搜索结构，continual PAC 分析讨论泛化、能力保留与候选准入。
 
 ### 3.1 Evolutionary Algorithms 对应
 
@@ -341,7 +341,7 @@ $\widehat{\Delta}$ 表示候选 loss 减去当前版本的 loss。在上述假�
 
 ## 4. Evaluation 与 Benchmarks
 
-每个结果都从 **Selection、Activation、Attribution、Improvement** 四项 claims 来读，并以同一组比较为依据。
+每个结果都从 **Selection、Activation、Attribution、Improvement** 四项 claims 来读，并以同一组比较为依据。所需证据取决于结论：比较一个最终状态不要求追踪每个已采纳组件；selection 可由独立报告证据或考虑自适应选择的推断支持。
 
 [![四项 Evaluation Claims 与纵向对照](assets/claims.png)](assets/claims.png)
 
@@ -474,11 +474,19 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 
 [![四项 claims 的证据分布与整体覆盖情况](assets/reported-evidence.png)](assets/reported-evidence.png)
 
-同一项比较中，7 份报告满足三项 evidence criteria，没有报告四项均满足。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。
+最常见的证据组合满足 Selection 与 task-distance 标准，而 Activation 和 Attribution 仅部分满足：报告往往在留出任务上评测，但较少确认 accepted update 在计分运行中实际执行，也较少将其效果与运行波动及额外推理开销区分开。
 
 各方法的比较设置、判定与来源见[完整结果](docs/reported-evidence.md)，具体要求见[判定标准](docs/evidence-criteria.md)。
 
 <!-- evidence-summary:end -->
+
+<a id="applications"></a>
+
+## 6. 应用与展望
+
+论文讨论个人助理与开发工作区、企业自动化、科学发现、机器人，以及公共和临床服务。Harness 状态可以保留偏好、共享流程、研究经验和可执行技能；不同场景中，更新改变什么、传播多远、如何验证其效果，都有所不同。
+
+持久、可共享的产物也会影响工作与学习、累积知识的控制权、隐私、安全和机构责任。开放问题包括模型与 harness 共同演化、异构产物的优化、状态基础设施、动态评测、安全边界和来源记录。参见[应用图](assets/applications.png)、[社会影响图](assets/social-impact.png)，以及[论文](paper/harness-self-evolution.pdf)第 7–9 节的完整讨论。
 
 <a id="contributing"></a>
 
@@ -508,6 +516,6 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 
 ---
 
-<sub>以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库只包含文献元数据、一句话机制总结与证据判定。图片由论文作者从配套论文中转载。</sub>
+<sub>以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库提供配套工作稿、文献元数据、机制总结与审计材料。图片由论文作者从配套论文中转载。</sub>
 
 [文献日期 ledger](data/fig02-growth-ledger.tsv) 和[完整 audit rubric](data/claim-audit-rubric.md) 与稿件快照一同提供。人工编写的 Behavioral Rules 在论文中作为边界案例讨论，不计入算法更新 corpus。

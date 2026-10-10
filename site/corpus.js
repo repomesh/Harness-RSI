@@ -197,7 +197,7 @@ window.CORPUS = {
   {
    "name": "Self-Evolving Coding Agents",
    "venue": "arXiv'26",
-   "desc": "separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open.",
+   "desc": "distinguishes proposal eligibility, runtime activation, and admission, and discusses component controls under a common budget.",
    "links": [
     [
      "paper",

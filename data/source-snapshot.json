@@ -1,6 +1,6 @@
 {
   "date": "2026-10-10",
-  "description": "Snapshot of the revised companion manuscript working tree, based on the recorded base commit. SHA-256 hashes identify the exact files used.",
+  "description": "Source files and verified PDF for the companion manuscript revision identified by manuscript_commit.",
   "sha256": {
     "00README.json": "a37c4aec3b2991f6f18573df5207929066dff6250deb991ffa8130ebd759d1cb",
     "data/claim-audit-rubric.md": "e3eba765da13e88c78fa693e65599f51de4cd3cdc75a7810afe4528f94f8aff4",
@@ -33,5 +33,7 @@
     "sections/09_future.tex": "447538ffeacf8295ecf846ef79d80f438c265630349e74d75f422175f32a2260",
     "sections/10_conclusion.tex": "a3219efaffdd59a87420456efb64fe04a30bd5561e3976c3767b08d8e08decc0"
   },
-  "manuscript_base_commit": "5e29fe0bb5e61194d7a9e2901687a883f1dd775d"
+  "manuscript_base_commit": "5e29fe0bb5e61194d7a9e2901687a883f1dd775d",
+  "manuscript_commit": "7f55caf0a84e07a35e390d42c230a136cdd9f795",
+  "paper_pdf": "paper/harness-self-evolution.pdf"
 }

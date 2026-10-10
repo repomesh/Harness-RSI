@@ -201,6 +201,20 @@ def check_citation(problems):
         problems.append("Manuscript citation differs between READMEs and website")
 
 
+def check_paper_snapshot(problems):
+    """The public working draft must match the recorded manuscript snapshot."""
+    import hashlib
+    import json
+    from pathlib import Path
+
+    snapshot = json.loads(read("data/source-snapshot.json"))
+    paper = Path(ROOT) / snapshot["paper_pdf"]
+    if not paper.is_file():
+        problems.append(f"Public paper PDF is missing: {snapshot['paper_pdf']}")
+    elif hashlib.sha256(paper.read_bytes()).hexdigest() != snapshot["sha256"]["main.pdf"]:
+        problems.append("Public paper PDF differs from the manuscript snapshot")
+
+
 def check_html(problems):
     from html.parser import HTMLParser
     from urllib.parse import urlsplit, unquote
@@ -277,6 +291,7 @@ def main():
     check_evidence_and_taxonomy(problems)
     check_html(problems)
     check_citation(problems)
+    check_paper_snapshot(problems)
     if args.links:
         check_links(problems)
 

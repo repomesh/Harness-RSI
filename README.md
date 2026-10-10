@@ -5,7 +5,7 @@
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
+[Paper PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -13,7 +13,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 </div>
 
-Companion reading list and figures for our survey, organized by update targets, search mechanisms, and evaluation. Figures retain the manuscript layout; click to view them at full resolution.
+Companion materials for our survey of how execution experience becomes persistent harness state under a fixed base model. We organize update mechanisms, examine evolutionary search and continual PAC learning, assess reported evidence, and discuss applications and societal effects. The linked PDF is the 10 October 2026 working draft. Figures retain the manuscript layout; click to view them at full resolution.
 
 ## Reading Guide
 
@@ -21,7 +21,7 @@ Companion reading list and figures for our survey, organized by update targets, 
 
 **Literature**　[Interpreted](#interpreted) · [Executable](#executable) · [Theory](#theory) · [Evaluation](#evaluation)
 
-**Resources**　[Reported Evidence](#evidence) · [Contributing](#contributing) · [Citation](#citation)
+**Resources**　[Applications & Outlook](#applications) · [Reported Evidence](#evidence) · [Contributing](#contributing) · [Citation](#citation)
 
 <a id="related-surveys"></a>
 
@@ -33,13 +33,13 @@ Companion reading list and figures for our survey, organized by update targets, 
 - **Code as Agent Harness** `arXiv'26` — organizes by the role of code in the agent loop. [[paper]](https://arxiv.org/abs/2605.18747) [[list]](https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers)
 - **Recursive Self-Improvement in AI** `arXiv'26` — from bounded self-refinement to autonomous research loops, organized by loop closure. [[paper]](https://arxiv.org/abs/2607.07663)
 - **Self-Improvements in Modern Agentic Systems** `arXiv'26` — separates model and scaffold updates under frozen parameters and discusses independent evaluation and component controls. [[paper]](https://arxiv.org/abs/2607.13104) [[list]](https://github.com/selfimproving-agent/awesome-Self-Improving-Agents)
-- **Self-Evolving Coding Agents** `arXiv'26` — separates model-side from memory, skill, and workflow updates, and names benchmark overfitting under adaptive selection as open. [[paper]](https://arxiv.org/abs/2608.03392)
+- **Self-Evolving Coding Agents** `arXiv'26` — distinguishes proposal eligibility, runtime activation, and admission, and discusses component controls under a common budget. [[paper]](https://arxiv.org/abs/2608.03392)
 
 <a id="definition"></a>
 
 ## Definition
 
-A **harness** $H$ is the software and configuration that governs how a model $M$ operates in an environment $E$. It includes tools, context construction, memory, and execution control. The evaluator $J$ scores a trajectory and stays outside the candidate’s editable surface.
+A **harness** $H$ is the software and configuration that governs how a model $M$ operates in an environment $E$. It includes tools, context construction, memory, and execution control. The final evaluator $J$ scores a trajectory and stays outside the candidate’s editable surface; internal critics and provisional verifiers may belong to the mutable harness.
 
 $$
 \tau \sim \mathrm{Run}(M,H,E), \qquad y=J(\tau)
@@ -287,7 +287,7 @@ These methods revise tools, component implementations, control programs, or plug
 
 ## 3. Theory
 
-Harness search uses scores and execution traces to revise programs without gradients. Evolutionary algorithms describe its search structure; continual PAC analysis studies generalization, retention, and candidate admission.
+The paper develops two perspectives: optimization and generalization. Many reviewed methods search discrete harness state without gradients; scores support selection while traces and critiques guide proposals. Evolutionary paradigms describe shared search structures, and continual PAC analysis studies generalization, retention, and candidate admission.
 
 ### 3.1 Evolutionary Paradigms
 
@@ -341,7 +341,7 @@ Here $\widehat{\Delta}$ is candidate loss minus incumbent loss. Under the stated
 
 ## 4. Evaluation & Benchmarks
 
-Read each result through **Selection, Activation, Attribution, and Improvement**, using the same comparison for all four claims.
+Read each result through **Selection, Activation, Attribution, and Improvement**, using the same comparison for all four claims. The evidence required depends on the conclusion: comparing one final state does not require tracing every accepted component. Selection may be addressed by independent reporting evidence or inference that accounts for adaptive selection.
 
 [![Four evaluation claims and longitudinal controls](assets/claims.png)](assets/claims.png)
 
@@ -474,11 +474,19 @@ Evidence for the four claims across 93 primary reported comparisons; 2 methods w
 
 [![Evidence by claim and overall coverage](assets/reported-evidence.png)](assets/reported-evidence.png)
 
-Within one comparison, 7 reports meet three criteria and none meet all four criteria. Criteria and coverage differ across claims, so these counts do not rank method quality.
+The most common evidence profile meets Selection and task distance, with partial Activation and Attribution: reports often evaluate on held-out tasks, but less often confirm that accepted updates execute in scored runs or separate their effects from run variation and extra inference compute.
 
 See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.
 
 <!-- evidence-summary:end -->
+
+<a id="applications"></a>
+
+## 6. Applications and Outlook
+
+The survey examines personal assistance and developer workspaces, enterprise automation, scientific discovery, robotics, and public or clinical services. Harness state can preserve preferences, shared procedures, research know-how, and executable skills. These settings differ in what an update changes, how far it travels, and how its effects can be checked.
+
+Persistent and shareable artifacts also affect work and learning, control over accumulated knowledge, privacy, security, and institutional accountability. Open questions include model–harness co-evolution, optimization over heterogeneous artifacts, state infrastructure, dynamic evaluation, safety boundaries, and provenance. See the [application map](assets/applications.png) and [societal-impact map](assets/social-impact.png), with the full discussion in Sections 7–9 of the [paper](paper/harness-self-evolution.pdf).
 
 <a id="contributing"></a>
 
@@ -508,6 +516,6 @@ If you use this survey, please cite the current working draft:
 
 ---
 
-<sub>Released under [CC BY 4.0](LICENSE). The listed works remain under their own licenses; this repository contains only bibliographic metadata, one-sentence summaries, and evidence verdicts. Figures are reproduced from the companion article by its authors.</sub>
+<sub>Released under [CC BY 4.0](LICENSE). The listed works remain under their own licenses; this repository contains the companion working draft, bibliographic metadata, summaries, and audit materials. Figures are reproduced from the companion article by its authors.</sub>
 
 The [growth-date ledger](data/fig02-growth-ledger.tsv) and [full audit rubric](data/claim-audit-rubric.md) accompany the manuscript snapshot. Human-authored Behavioral Rules are discussed as a boundary case in the paper and excluded from the algorithmic-update corpus.
