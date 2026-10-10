@@ -12,7 +12,7 @@
     precursors: color("muted"), surveys: color("ink-2")
   };
   var CLAIM_NAMES = ["Selection", "Activation", "Attribution", "Improvement"];
-  var VERDICT_WORD = { C: "full", O: "partial", N: "not supported" };
+  var VERDICT_WORD = { C: "criterion met", O: "partly met", N: "not met" };
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
@@ -201,7 +201,7 @@
     var segs = ["C", "O", "N"].map(function (k) {
       if (!r[k]) return "";
       var label = r[k] >= 5 ? r[k] : "";
-      return '<span class="' + k + '" style="width:' + (100 * r[k] / SCORED) + '%" title="' + r[k] + " " + ({ C: "full", O: "partial", N: "not supported" })[k] + '">' + label + "</span>";
+      return '<span class="' + k + '" style="width:' + (100 * r[k] / SCORED) + '%" title="' + r[k] + " " + ({ C: "criterion met", O: "partly met", N: "not met" })[k] + '">' + label + "</span>";
     }).join("");
     line.innerHTML = '<div class="nm">' + r.name + '</div><div class="stack-bar">' + segs + "</div>";
     barsHost.appendChild(line);
@@ -219,7 +219,7 @@
       acc += len;
       return circle;
     }).join("");
-    host.innerHTML = '<svg class="donut" viewBox="0 0 200 200" role="img" aria-label="Scored reports by number of claims at full evidence">' + rings +
+    host.innerHTML = '<svg class="donut" viewBox="0 0 200 200" role="img" aria-label="Scored comparisons by number of criteria met">' + rings +
       '<text class="small" x="100" y="96" text-anchor="middle">' + SCORED + ' scored</text><text class="small" x="100" y="113" text-anchor="middle">reports</text></svg>' +
       '<div class="joint">' + JOINT.map(function (j) { return "<div><b>" + j.v + "</b>" + j.k + '<i style="background:' + j.c + '"></i></div>'; }).join("") + "</div>";
   })();

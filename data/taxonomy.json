@@ -143,13 +143,6 @@
     "branch": "Interpreted Update Targets",
     "sub": "Memory & Procedures",
     "mechanism": "Experience Mining",
-    "name": "Behavioral Rules",
-    "key": "aggarwal2026behavioral"
-  },
-  {
-    "branch": "Interpreted Update Targets",
-    "sub": "Memory & Procedures",
-    "mechanism": "Experience Mining",
     "name": "Memory Transfer",
     "key": "kim2026memorytransfer"
   },

@@ -133,7 +133,6 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 - **EvoRepair** `arXiv'26`：在长周期修复中累积、打分并复用漏洞修复经验。 [[paper]](https://arxiv.org/abs/2605.30105)
 - **SWE-Exp** `arXiv'25`：从历史搜索轨迹中提炼 issue 解决经验，供后续 issue 检索使用。 [[paper]](https://arxiv.org/abs/2507.23361) [[code]](https://github.com/YerbaPage/SWE-Exp)
 - **MemCoder** `arXiv'26`：随代码库更新结构化记忆，记录仓库知识与修复结果。 [[paper]](https://arxiv.org/abs/2603.13258)
-- **Behavioral Rules** `arXiv'26`：把部署会话中经工程师评审的行为规则累积成一个纳入版本控制的文件，作为会话上下文载入。 [[paper]](https://arxiv.org/abs/2607.13091)
 - **Memory Transfer** `arXiv'26`：在四种记忆格式下测量一个领域形成的记忆迁到另一个领域的效果。 [[paper]](https://arxiv.org/abs/2604.14004)
 
 #### 可复用 Skillbooks
@@ -266,7 +265,7 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 - **TTHE** `arXiv'26`：测试时从执行轨迹演化出可执行的 harness 程序，并把选中的程序带入后续输入。 [[paper]](https://arxiv.org/abs/2607.08124)
 - **Life-Harness** `arXiv'26`：同时适配环境契约、动作实现与轨迹调控，随后冻结运行时接口做评测。 [[paper]](https://arxiv.org/abs/2605.22166) [[code]](https://github.com/Tianshi-Xu/Life-Harness)
 
-### 2.3 Plugin 架构
+### 2.3 Everything Is a Plugin
 
 #### 接口约束下的 Hooks
 
@@ -471,11 +470,11 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 
 <!-- evidence-summary:start -->
 
-四项 claims 的证据分布，依据 94 份报告各自的主要比较；另有 2 个方法未报告实证评测。
+四项 claims 的证据分布，依据 93 份报告各自的主要比较；另有 2 个方法未报告实证评测。
 
 [![四项 claims 的证据分布与整体覆盖情况](assets/reported-evidence.png)](assets/reported-evidence.png)
 
-同一项比较中，8 份报告有三项 claim 的证据充分，没有报告四项均充分。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。
+同一项比较中，7 份报告满足三项 evidence criteria，没有报告四项均满足。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。
 
 各方法的比较设置、判定与来源见[完整结果](docs/reported-evidence.md)，具体要求见[判定标准](docs/evidence-criteria.md)。
 
@@ -487,7 +486,7 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 
 新增论文、修正证据与重新生成网页的方法见 [CONTRIBUTING.md](CONTRIBUTING.md)。请同步修改中英文条目。
 
-证据快照：[2026-10-09](data/source-snapshot.json)。
+证据快照：[2026-10-10](data/source-snapshot.json)。
 
 <a id="citation"></a>
 
@@ -510,3 +509,5 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 ---
 
 <sub>以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库只包含文献元数据、一句话机制总结与证据判定。图片由论文作者从配套论文中转载。</sub>
+
+[文献日期 ledger](data/fig02-growth-ledger.tsv) 和[完整 audit rubric](data/claim-audit-rubric.md) 与稿件快照一同提供。人工编写的 Behavioral Rules 在论文中作为边界案例讨论，不计入算法更新 corpus。

@@ -26,7 +26,7 @@ def load_evidence():
 
 
 def table(per, zh=False):
-    lines = ['| Claim | ✅ '+('充分' if zh else 'Full')+' | ◐ '+('部分' if zh else 'Partial')+' | — '+('不支持' if zh else 'Not supported')+' |', '|---|---:|---:|---:|']
+    lines = ['| Claim | ✅ '+('满足' if zh else 'Met')+' | ◐ '+('部分' if zh else 'Partial')+' | — '+('未满足' if zh else 'Not met')+' |', '|---|---:|---:|---:|']
     for name, counts in zip(CLAIMS, per):
         lines.append('| '+name.capitalize()+' | '+' | '.join(str(counts[c]) for c in 'CON')+' |')
     return '\n'.join(lines)
@@ -36,13 +36,13 @@ def summary(data, scored, per, joint, zh=False, compact=True):
     total, n = len(data['methods']), len(scored)
     if zh:
         intro = f'两个更新对象分支共收录 {total} 个方法，其中 {total-n} 个没有实证评测。下表依据其余 {n} 份报告的主要比较，分别判定四项 claims 的证据。'
-        all_four = '没有报告四项均充分' if joint[4] == 0 else f'{joint[4]} 份报告四项均充分'
-        finding = f'同一项比较中，{joint[3]} 份报告有三项 claim 的证据充分，{all_four}。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。'
+        all_four = '没有报告四项均满足' if joint[4] == 0 else f'{joint[4]} 份报告四项均满足'
+        finding = f'同一项比较中，{joint[3]} 份报告满足三项 evidence criteria，{all_four}。各项标准与覆盖范围不同，数量不能直接用于比较方法质量。'
         links = '各方法的比较设置、判定与来源见[完整结果](docs/reported-evidence.md)，具体要求见[判定标准](docs/evidence-criteria.md)。'
     else:
         intro = f'The two update-target branches contain {total} methods; {total-n} report no empirical evaluation. The counts below cover the other {n} reports, using one primary comparison per report for all four claims.'
-        all_four = 'none establish all four' if joint[4] == 0 else f'{joint[4]} establish all four'
-        finding = f'Within one comparison, {joint[3]} reports establish three claims in full and {all_four}. Criteria and coverage differ across claims, so these counts do not rank method quality.'
+        all_four = 'none meet all four criteria' if joint[4] == 0 else f'{joint[4]} meet all four criteria'
+        finding = f'Within one comparison, {joint[3]} reports meet three criteria and {all_four}. Criteria and coverage differ across claims, so these counts do not rank method quality.'
         links = 'See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.'
     parts = [intro, table(per, zh), finding]
     if compact:
@@ -56,9 +56,9 @@ def summary(data, scored, per, joint, zh=False, compact=True):
         parts = [intro, figure, finding, links]
     else:
         parts.extend([
-            'Number of claims at full evidence within one report. A report with none may still provide partial evidence.',
+            'Number of criteria met within one primary comparison. A report with none may still provide partial evidence.',
             '| 0 | 1 | 2 | 3 | 4 |\n|---:|---:|---:|---:|---:|\n| ' + ' | '.join(map(str, joint)) + ' |',
-            'The most common profile combines full Selection and Improvement with partial Activation and Attribution. Full Activation can rest on one confirmed case; each method’s details record the coverage.',
+            'The most common profile meets the Selection and task-distance criteria, with partial Activation and Attribution. Activation can rest on one confirmed scored-run case, with coverage recorded separately. Improvement grades task distance alone. Four-of-four is not a universal requirement for a final-state comparison.',
         ])
     return '\n\n'.join(parts)
 
@@ -73,7 +73,7 @@ def render_basis(row):
         return prose(row['basis'])
     parts = re.split(r'(?:^|;)\s*(SEL|ACT|ATT|IMP):\s*', row['basis'])
     assert not parts[0].strip() and parts[1::2] == ['SEL', 'ACT', 'ATT', 'IMP'], row['key']
-    labels = {'C': 'Full evidence', 'O': 'Partial', 'N': 'Not supported'}
+    labels = {'C': 'Criterion met', 'O': 'Partly met', 'N': 'Not met'}
     return '\n\n'.join(
         f'**{claim.capitalize()} ({labels[row[claim]]}).** {prose(basis)}'
         for claim, basis in zip(CLAIMS, parts[2::2])
@@ -97,7 +97,7 @@ def render_doc(data, scored, per, joint):
         group = [row for row in scored if row['sub'] == sub]
         counts = [sum(row[claim] == 'C' for row in group) for claim in CLAIMS]
         rows.append('| ' + sub + ' | ' + ' | '.join(map(str, [len(group), *counts])) + ' |')
-    out.extend(['\n'.join(rows), '## Verdicts', '✅ Full evidence · ◐ Partial · — Not supported · n/a No empirical evaluation. All four cells refer to the same primary comparison. Open a method’s details for the supporting passages and coverage.'])
+    out.extend(['\n'.join(rows), '## Verdicts', '✅ Criterion met · ◐ Partly met · — Not met · n/a No empirical evaluation. All four cells refer to the same primary comparison. Open a method’s details for the supporting passages and coverage.'])
     rows = ['| Method · primary report | Update target · details | Sel. | Act. | Att. | Imp. |', '|---|---|:-:|:-:|:-:|:-:|']
     for row in methods:
         rows.append(

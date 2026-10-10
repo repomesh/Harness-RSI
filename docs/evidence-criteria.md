@@ -1,6 +1,13 @@
 # Evidence Criteria
 
-These criteria describe the companion manuscript’s evaluation framework in the [2026-10-09 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
+These criteria describe the companion manuscript’s evaluation framework in the [2026-10-10 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
+
+## Audit materials
+
+- [Per-comparison audit records](../data/claim-audit.tsv): primary comparisons, verdicts, evidence passages, and scope decisions, including excluded entries.
+- [Full rubric and reading history](../data/claim-audit-rubric.md): decision rules, coding procedure, limitations, and amendments.
+- [Secondary comparisons](../data/claim-audit-secondary.tsv): other protocols recorded separately from the primary-comparison totals.
+- [Growth-date ledger](../data/fig02-growth-ledger.tsv): the dates and inclusion decisions behind the manuscript's literature-growth figure.
 
 ## Unit of comparison
 
@@ -10,7 +17,7 @@ The [reading-list definition](../README.md#definition) determines scope. Model c
 
 | Code | Meaning |
 |:-:|---|
-| C / ✅ | Full evidence within the recorded coverage |
+| C / ✅ | Criterion met within the recorded coverage |
 | O / ◐ | Partial evidence |
 | N / — | The reported evidence does not support the claim |
 | X / n/a | No empirical evaluation; excluded from totals |
@@ -65,6 +72,8 @@ Selection separately checks whether reporting outcomes influenced candidate or r
 
 ## Reading procedure and limitations
 
-The manuscript records two readings per report, with the second blind to the first and disagreements resolved against the primary source. GSkill was read once after its full text became available. The full/partial boundary requires judgment; corrections should identify the comparison, source passage, and affected claim.
+The corpus is curated rather than an exhaustive systematic sample. Coding and repeated recoding were performed primarily with an LLM (Opus 5.5) under successive rubric and claim definitions, followed by targeted primary-source and data-consistency checks. These are not independent human annotations; no inter-rater agreement is claimed. The [full rubric](../data/claim-audit-rubric.md) records the reading history, exceptions, and final amendment. Corrections should identify the primary comparison, source passage, and affected criterion.
 
 This repository reproduces those records. Automated checks verify consistency and completeness of the generated files; they do not independently reassess the sources.
+
+Improvement C grades task distance alone, not a reliable positive effect. Activation C establishes at least one identified scored-run instance, with coverage recorded separately. The number of criteria met is not an overall method ranking. In the final 2026-10-10 revision, Harness Ceiling Attribution changes to O because dispersion pooled from other configurations does not establish uncertainty for its cross-night headline pair.

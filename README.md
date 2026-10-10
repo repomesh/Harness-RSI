@@ -133,7 +133,6 @@ These methods revise instructions, memory, or coordination specifications read b
 - **EvoRepair** `arXiv'26` — accumulates, scores, and reuses vulnerability-repair experience across long-horizon repairs. [[paper]](https://arxiv.org/abs/2605.30105)
 - **SWE-Exp** `arXiv'25` — distills issue-resolution experience from prior search trajectories into a bank queried on new issues. [[paper]](https://arxiv.org/abs/2507.23361) [[code]](https://github.com/YerbaPage/SWE-Exp)
 - **MemCoder** `arXiv'26` — structured memory of repository knowledge and repair outcomes that grows alongside the codebase. [[paper]](https://arxiv.org/abs/2603.13258)
-- **Behavioral Rules** `arXiv'26` — accumulates engineer-reviewed behavioral rules from deployment sessions into a version-controlled file loaded as session context. [[paper]](https://arxiv.org/abs/2607.13091)
 - **Memory Transfer** `arXiv'26` — measures how memories formed in one domain transfer to another, across four memory formats. [[paper]](https://arxiv.org/abs/2604.14004)
 
 #### Procedural Skillbooks
@@ -471,11 +470,11 @@ These controls do not restore independence to an adaptively reused task stream.
 
 <!-- evidence-summary:start -->
 
-Evidence for the four claims across 94 primary reported comparisons; 2 methods without empirical evaluation are excluded.
+Evidence for the four claims across 93 primary reported comparisons; 2 methods without empirical evaluation are excluded.
 
 [![Evidence by claim and overall coverage](assets/reported-evidence.png)](assets/reported-evidence.png)
 
-Within one comparison, 8 reports establish three claims in full and none establish all four. Criteria and coverage differ across claims, so these counts do not rank method quality.
+Within one comparison, 7 reports meet three criteria and none meet all four criteria. Criteria and coverage differ across claims, so these counts do not rank method quality.
 
 See the [full results](docs/reported-evidence.md) for comparisons, judgments, and sources, and the [criteria](docs/evidence-criteria.md) for their definitions.
 
@@ -487,7 +486,7 @@ See the [full results](docs/reported-evidence.md) for comparisons, judgments, an
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for adding papers, correcting evidence, and rebuilding the site. Keep English and Chinese entries synchronized.
 
-Evidence snapshot: [2026-10-09](data/source-snapshot.json).
+Evidence snapshot: [2026-10-10](data/source-snapshot.json).
 
 <a id="citation"></a>
 
@@ -510,3 +509,5 @@ If you use this survey, please cite the current working draft:
 ---
 
 <sub>Released under [CC BY 4.0](LICENSE). The listed works remain under their own licenses; this repository contains only bibliographic metadata, one-sentence summaries, and evidence verdicts. Figures are reproduced from the companion article by its authors.</sub>
+
+The [growth-date ledger](data/fig02-growth-ledger.tsv) and [full audit rubric](data/claim-audit-rubric.md) accompany the manuscript snapshot. Human-authored Behavioral Rules are discussed as a boundary case in the paper and excluded from the algorithmic-update corpus.

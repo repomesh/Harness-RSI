@@ -2,39 +2,39 @@
 // Do not edit by hand; rerun the script after changing either file.
 window.CORPUS = {
  "evidence": {
-  "total": 96,
-  "scored": 94,
+  "total": 95,
+  "scored": 93,
   "claims": [
    {
     "name": "Selection",
     "C": 43,
-    "O": 17,
+    "O": 16,
     "N": 34
    },
    {
     "name": "Activation",
     "C": 8,
-    "O": 86,
+    "O": 85,
     "N": 0
    },
    {
     "name": "Attribution",
-    "C": 12,
-    "O": 80,
-    "N": 2
+    "C": 10,
+    "O": 82,
+    "N": 1
    },
    {
     "name": "Improvement",
     "C": 53,
-    "O": 19,
+    "O": 18,
     "N": 22
    }
   ],
   "joint": [
-   27,
    26,
+   27,
    33,
-   8,
+   7,
    0
   ]
  },
@@ -305,7 +305,7 @@ window.CORPUS = {
    "group": "interpreted",
    "sub": "Prompts & Instructions",
    "node": "Textual-Gradient Critique",
-   "verdict": "NOCC"
+   "verdict": "NOOC"
   },
   {
    "name": "TextGrad",
@@ -573,21 +573,6 @@ window.CORPUS = {
    "sub": "Memory & Reusable Procedures",
    "node": "Experience Mining",
    "verdict": "OOOO"
-  },
-  {
-   "name": "Behavioral Rules",
-   "venue": "arXiv'26",
-   "desc": "accumulates engineer-reviewed behavioral rules from deployment sessions into a version-controlled file loaded as session context.",
-   "links": [
-    [
-     "paper",
-     "https://arxiv.org/abs/2607.13091"
-    ]
-   ],
-   "group": "interpreted",
-   "sub": "Memory & Reusable Procedures",
-   "node": "Experience Mining",
-   "verdict": "OONO"
   },
   {
    "name": "Memory Transfer",
@@ -1434,7 +1419,7 @@ window.CORPUS = {
    "group": "executable",
    "sub": "Tools & Code Patches",
    "node": "Evidence-Grounded Component Patching",
-   "verdict": "COCC"
+   "verdict": "COOC"
   },
   {
    "name": "ADAS",
