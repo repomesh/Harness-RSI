@@ -38,7 +38,7 @@
 
 <header class="hero" id="top">
   <div class="wrap hero-inner">
-    <p class="eyebrow">Survey <span>/</span> Working draft <span>/</span> October 2026</p>
+    <p class="eyebrow">Survey <span>/</span> Working draft <span>/</span> 12 October 2026</p>
     <h1 class="title">Harness <em>Self-Evolution</em></h1>
     <p class="subtitle">Theory, Algorithms, Evaluation, Applications, and Impact</p>
     <p class="tagline">Agents that revise their instructions, memory, workflows, and code while the base model stays fixed.</p>
@@ -54,7 +54,8 @@
     </div>
     <div class="hero-actions">
       <a class="btn primary" href="#explorer">Reading list <span class="button-arrow" aria-hidden="true">→</span></a>
-      <a class="btn" href="paper/harness-self-evolution.pdf" target="_blank" rel="noopener">Paper PDF <span class="soon">Working draft</span></a>
+      <a class="btn" href="https://openreview.net/pdf?id=m5jsFGXUM2" target="_blank" rel="noopener">OpenReview <span class="button-arrow" aria-hidden="true">↗</span></a>
+      <a class="btn" href="paper/harness-self-evolution.pdf" target="_blank" rel="noopener">Latest draft PDF <span class="soon">12 Oct 2026</span></a>
       <div class="hero-links"><a class="quiet-link" href="#evidence">Evidence</a><a class="quiet-link" href="#cite">BibTeX</a></div>
     </div>
     <figure class="figure hero-figure" id="landscape">
@@ -90,6 +91,10 @@
       <h2 class="sec-title">Learning from experience, weights fixed</h2>
       <p class="sec-sub">Execution experience can become persistent instructions, memory, workflows, and tools. This survey connects how those artifacts evolve with their evaluation, theoretical limits, deployment, and societal effects.</p>
     </div>
+    <details class="fold">
+      <summary>Read the abstract</summary>
+      <div class="fold-body"><p>Building agents that learn from experience is a central goal of artificial intelligence. Harness self-evolution offers a path toward this goal by revising an agent’s instructions, memory, workflows, and tools while model weights stay fixed. In this article, we develop a unified framework for how execution feedback becomes persistent harness change, covering systems that keep updating in operation and the offline optimizers they build on. We organize algorithms by their update targets, distinguishing instructions, memory, and workflow specifications interpreted by fixed components from executable tools and runtime logic, and compare how they propose and admit changes. Our theoretical analysis relates harness search to evolutionary algorithms and uses a continual PAC-learning perspective to give sufficient conditions under which an admission comparison certifies improvement. For evaluation, we distinguish four claims behind a reported gain: selection, whether the estimate is independent of the search or accounts for selection; activation, whether the accepted update operated in the scored runs; attribution, whether it caused the difference under controlled evaluation conditions; and improvement, whether the difference holds beyond the tasks that produced it. The reviewed reports often evaluate on held-out tasks, but evidence of activation and attribution remains limited. We then examine applications in personal assistance, enterprise automation, scientific discovery, robotics, and public services, and the implications of persistent, shareable harness state for work, markets, security, and governance. We conclude with open problems in optimization, infrastructure, evaluation, and responsible deployment. The project repository is available at <a href="https://github.com/zgcagi/Harness-RSI">https://github.com/zgcagi/Harness-RSI</a>.</p></div>
+    </details>
     <div class="figure">
       <img src="assets/landscape.png" alt="Growth and classification of harness self-evolution work through 8 October 2026" loading="lazy" decoding="async">
       <p class="figcap"><b>Figure 2.</b> Research growth and representative systems, grouped by primary emphasis.</p>
@@ -106,6 +111,7 @@
       <div class="sec-kicker">Definition</div>
       <h2 class="sec-title">A persistent update loop</h2>
       <p class="sec-sub">Execution feedback revises the harness \(H\) around a fixed model \(M\). Accepted changes persist across runs, and later experience can trigger further updates.</p>
+      <p class="tax-note">Self-evolution names the update mechanism; self-improvement requires a beneficial change supported by an explicit comparison. Harness RSI remains the conventional short name, without a guarantee that every accepted revision helps.</p>
     </div>
     <div class="def-grid">
       <div class="formula">
@@ -172,7 +178,7 @@
     <div class="theory-grid">
       <div class="theory-concepts">
         <article class="theory-concept"><span class="concept-abbr">EA</span><h3>Evolutionary Search</h3><p>Fitness supports selection; traces and critiques guide proposals. Evolutionary paradigms describe shared search structures across the reviewed methods.</p></article>
-        <article class="theory-concept"><span class="concept-abbr">PAC</span><h3>Continual PAC Learning</h3><p>Study generalization, retention, and reliable admission under explicit sampling assumptions.</p></article>
+        <article class="theory-concept"><span class="concept-abbr">PAC</span><h3>Continual PAC Learning</h3><p>An admission comparison can certify improvement when candidates are fixed before fresh validation tasks are drawn and error is controlled across comparisons. Repeated executions reduce run noise without adding independent tasks.</p></article>
       </div>
       <a class="theory-reference quiet-link" href="https://github.com/zgcagi/Harness-RSI#theory" target="_blank" rel="noopener">Theory, assumptions, and bounds ↗</a>
       <details class="fold theory-map">
@@ -207,8 +213,9 @@
       <div class="claim s"><div class="k">Condition</div><h4>Selection</h4><p>The reported estimate is unselected, or its inference accounts for selection. Uncorrected scores must remain separate from adaptive choices.</p></div>
       <div class="claim a"><div class="k">Step 1</div><h4>Activation</h4><p>Direct traces show the update operated in scored runs, with coverage recorded.</p></div>
       <div class="claim t"><div class="k">Step 2</div><h4>Attribution</h4><p>Controlled comparisons distinguish the update’s effect from execution variation, added inference compute, and evaluator change.</p></div>
-      <div class="claim i"><div class="k">Step 3</div><h4>Improvement</h4><p>Gains extend beyond update-forming tasks, with the baseline and round specified.</p></div>
+      <div class="claim i"><div class="k">Step 3</div><h4>Improvement</h4><p>The difference holds away from the tasks that formed the update, with the baseline and round specified. The audit grades task distance only; it is not a numerical distance metric or proof of a reliable positive effect.</p></div>
     </div>
+    <p class="tax-note">A held-out partition used for ranking, admission, or report choice is no longer independent of search. HarnessX checks replay, novelty, and structure without guaranteeing non-decreasing task scores; neither these checks nor Self-Harness's non-regression gate establishes retention outside the tested conditions.</p>
     <div class="figure" style="margin-top:34px">
       <img src="assets/claims.png" alt="Four claims behind a reported gain, with longitudinal controls" loading="lazy" decoding="async">
       <p class="figcap"><b>Figure 5.</b> Four claims and the controls needed across update rounds.</p>
@@ -293,8 +300,8 @@
   <span class="k">author</span> = {<span class="v">Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei</span>},
   <span class="k">year</span>   = {<span class="v">2026</span>},
-  <span class="k">note</span>   = {<span class="v">Working draft</span>},
-  <span class="k">url</span>    = {<span class="v">https://github.com/zgcagi/Harness-RSI</span>}
+  <span class="k">note</span>   = {<span class="v">Working draft, 12 October 2026</span>},
+  <span class="k">url</span>    = {<span class="v">https://openreview.net/pdf?id=m5jsFGXUM2</span>}
 }</pre>
     </div>
   </div>
@@ -311,13 +318,14 @@
     </div>
     <p>Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence</p>
     <p>Reading list: <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">zgcagi/Harness-RSI</a> · Released under <a href="https://github.com/zgcagi/Harness-RSI/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0</a></p>
+    <p style="font-size:12.5px">Manuscript: <a href="data/source-snapshot.json">12 October 2026</a> · Audit records: 10 October 2026 · Literature cutoff: 8 October 2026.</p>
     <p style="font-size:12.5px">Figures are reproduced from the companion article by its authors. Listed works remain under their own licenses.</p>
   </div>
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure"><button type="button" class="lightbox-close" aria-label="Close enlarged figure">×</button><img alt=""></div>
 
-<script src="site/corpus.js?v=7"></script>
+<script src="site/corpus.js?v=8"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script defer src="site/app.js?v=9"></script>

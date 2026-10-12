@@ -1,6 +1,6 @@
 # Evidence Criteria
 
-These criteria describe the companion manuscript’s evaluation framework in the [2026-10-10 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
+These criteria describe the companion manuscript’s evaluation framework in the [2026-10-12 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
 
 ## Audit materials
 
@@ -26,7 +26,7 @@ Criteria differ across claims. Their counts describe reported evidence, not over
 
 ## Selection
 
-Reporting outcomes must remain separate from **proposal**, **ranking**, **admission**, and **report choice** (round, configuration, or hyperparameters).
+The reported estimate must be unselected, or its inference must account for selection. The audit grades the uncorrected numbers reports provide. For those estimates, reporting outcomes must remain separate from **proposal**, **ranking**, **admission**, and **report choice** (round, configuration, or hyperparameters).
 
 - **C:** All four uses are separate. Prequential evaluation qualifies when each outcome is scored before it can influence an update and later report choice does not select on stream scores. Test-time adaptation without access to benchmark verdicts can also qualify.
 - **O:** A stated procedure leaves partial overlap or an unresolved use, such as a held-out score used for promotion, partly overlapping tasks, or split names without a documented separation.
@@ -62,13 +62,13 @@ Inference resources concern the **scored runs**: calls, generated tokens, turns,
 
 ## Improvement
 
-Record **task distance**, **baseline**, and **round**. The judgment grades distance from the tasks that formed the update:
+Record **task distance**, **baseline**, and **round**. Task distance describes the relationship between reporting tasks and the tasks that formed the update, not a numerical distance metric. The judgment grades this relationship:
 
 - **C:** Held-out tasks, transfer to an unseen benchmark, or probes on an earlier distribution outside the loop’s control.
 - **O:** Partly overlapping tasks, separation only by a retrieval rule, or an online trajectory within one adaptive stream.
 - **N:** Only the tasks that generated the update, including retries of the failures that prompted it.
 
-Selection separately checks whether reporting outcomes influenced candidate or report choice. A held-out result at acceptance does not establish that its gain survives later updates.
+Selection separately checks whether reporting outcomes influenced candidate or report choice. A held-out result at acceptance does not establish that its gain survives later updates. Self-Harness requires non-regression on its current evaluation splits; HarnessX checks replay, novelty, and structure without guaranteeing non-decreasing task scores. Neither establishes retention outside the tested conditions (manuscript §6.3.2).
 
 ## Reading procedure and limitations
 

@@ -5,7 +5,7 @@
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[论文 PDF](paper/harness-self-evolution.pdf) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
+[OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [最新稿 PDF](paper/harness-self-evolution.pdf) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -13,7 +13,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 </div>
 
-本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。上方 PDF 为 2026 年 10 月 10 日工作稿。图表沿用论文原版，点击可查看高清图。
+本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。仓库内的「最新稿 PDF」为 2026 年 10 月 12 日工作稿。图表沿用论文原版，点击可查看高清图。
 
 ## 阅读导航
 
@@ -53,7 +53,7 @@ $$
 
 更新机制需要保留，以便继续修订；采纳后的状态需要保存，并由后续运行实际加载。拒绝候选时沿用当前版本。分析固定模型 $M$；同时训练 weights 的系统按其 harness 更新部分讨论。离线优化器和持久性有限的方法在条目中注明。
 
-Self-evolution 指这一更新过程。更新是否实际生效、是否改善表现，需要下文的[评测证据](#evaluation)。
+Self-evolution 指这一更新过程，无论采纳后的状态是否更好；self-improvement 则指由明确比较支持的有益变化。Harness RSI（recursive self-improvement）保留为领域简称，不表示每次采纳都能改善表现。更新是否实际生效、是否改善表现，需要下文的[评测证据](#evaluation)。
 
 [![Interpreted 与 Executable 更新对象及运行循环](assets/overview.png)](assets/overview.png)
 
@@ -271,7 +271,7 @@ Self-evolution 指这一更新过程。更新是否实际生效、是否改善�
 
 *通过明确接口与准入检查，将更新绑定到 hooks。*
 
-- **HarnessX** `arXiv'26`：采纳更新前检查 hook 类型、单例约束与 smoke tests，并要求每项修改声明预期轨迹特征。 [[paper]](https://arxiv.org/abs/2606.14249)
+- **HarnessX** `arXiv'26`：采纳更新前检查 hook 类型、单例约束与 smoke tests，并要求每项修改声明预期轨迹特征；回放、新颖性和结构检查不保证任务分数不下降。 [[paper]](https://arxiv.org/abs/2606.14249)
 - **Argus** `arXiv'26`：通过通用 agent runtime 提供 skills，并沿长任务流持续修订。 [[paper]](https://arxiv.org/abs/2608.05144)
 
 #### Microkernel 平台
@@ -346,6 +346,8 @@ $\widehat{\Delta}$ 表示候选 loss 减去当前版本的 loss。在上述假�
 [![四项 Evaluation Claims 与纵向对照](assets/claims.png)](assets/claims.png)
 
 Activation 区分产物可用（**available**）、修改路径已执行（**reached**），以及输出影响了后续执行（**carried**）。判定要求与覆盖范围见[评测标准](docs/evidence-criteria.md)。
+
+Task distance 描述报告任务与产生更新的任务之间的关系，不是数值距离。Improvement 的审计判定只评 task distance，不单独证明效果可靠、baseline 足够强或收益能跨轮次保留。
 
 ### 4.1 各项 Claim 的评测
 
@@ -494,7 +496,7 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
 
 新增论文、修正证据与重新生成网页的方法见 [CONTRIBUTING.md](CONTRIBUTING.md)。请同步修改中英文条目。
 
-证据快照：[2026-10-10](data/source-snapshot.json)。
+稿件快照：[2026-10-12](data/source-snapshot.json)。审计记录版本为 2026-10-10，文献截止日期为 2026-10-08；本次更新未改变判定。
 
 <a id="citation"></a>
 
@@ -509,8 +511,8 @@ Activation 区分产物可用（**available**）、修改路径已执行（**rea
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
-  note   = {Working draft},
-  url    = {https://github.com/zgcagi/Harness-RSI}
+  note   = {Working draft, 12 October 2026},
+  url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
 }
 ```
 

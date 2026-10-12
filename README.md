@@ -5,7 +5,7 @@
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[Paper PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
+[OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Latest draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -13,7 +13,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 </div>
 
-Companion materials for our survey of how execution experience becomes persistent harness state under a fixed base model. We organize update mechanisms, examine evolutionary search and continual PAC learning, assess reported evidence, and discuss applications and societal effects. The linked PDF is the 10 October 2026 working draft. Figures retain the manuscript layout; click to view them at full resolution.
+Companion materials for our survey of how execution experience becomes persistent harness state under a fixed base model. We organize update mechanisms, examine evolutionary search and continual PAC learning, assess reported evidence, and discuss applications and societal effects. The repository PDF is the 12 October 2026 working draft. Figures retain the manuscript layout; click to view them at full resolution.
 
 ## Reading Guide
 
@@ -53,7 +53,7 @@ $$
 
 The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejected candidates leave the harness unchanged. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
 
-Self-evolution describes this update process. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
+Self-evolution describes this update process whether or not the accepted state performs better; self-improvement is a beneficial change supported by an explicit comparison. Harness RSI (recursive self-improvement) remains a conventional short name for the area, not a guarantee that every accepted revision helps. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
 
 [![Interpreted and executable update targets and their operational loop](assets/overview.png)](assets/overview.png)
 
@@ -271,7 +271,7 @@ These methods revise tools, component implementations, control programs, or plug
 
 *Bind updates to hooks with explicit interfaces and admission checks.*
 
-- **HarnessX** `arXiv'26` — checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature. [[paper]](https://arxiv.org/abs/2606.14249)
+- **HarnessX** `arXiv'26` — checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature. Replay, novelty, and structural checks do not guarantee non-decreasing task scores. [[paper]](https://arxiv.org/abs/2606.14249)
 - **Argus** `arXiv'26` — exposes skills through a general agent runtime and evolves them along long task streams. [[paper]](https://arxiv.org/abs/2608.05144)
 
 #### Microkernel Platforms
@@ -346,6 +346,8 @@ Read each result through **Selection, Activation, Attribution, and Improvement**
 [![Four evaluation claims and longitudinal controls](assets/claims.png)](assets/claims.png)
 
 Activation distinguishes an artifact being **available**, its changed path being **reached**, and its effect being **carried** into subsequent execution. See the [criteria](docs/evidence-criteria.md) for evidentiary requirements and coverage.
+
+Task distance describes how reporting tasks relate to the tasks that formed the update; it is not a numerical distance metric. The Improvement verdict grades this distance only, not a reliable positive effect, baseline strength, or persistence across rounds.
 
 ### 4.1 Claim-Specific Evidence
 
@@ -494,7 +496,7 @@ Persistent and shareable artifacts also affect work and learning, control over a
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for adding papers, correcting evidence, and rebuilding the site. Keep English and Chinese entries synchronized.
 
-Evidence snapshot: [2026-10-10](data/source-snapshot.json).
+Manuscript snapshot: [2026-10-12](data/source-snapshot.json). Audit records remain at 2026-10-10, with a literature cutoff of 2026-10-08; this revision does not change the verdicts.
 
 <a id="citation"></a>
 
@@ -509,8 +511,8 @@ If you use this survey, please cite the current working draft:
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
             Zhou, Kexin and He, Jiyan and Shen, Yifei},
   year   = {2026},
-  note   = {Working draft},
-  url    = {https://github.com/zgcagi/Harness-RSI}
+  note   = {Working draft, 12 October 2026},
+  url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
 }
 ```
 

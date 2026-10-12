@@ -1684,7 +1684,7 @@ window.CORPUS = {
   {
    "name": "HarnessX",
    "venue": "arXiv'26",
-   "desc": "checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature.",
+   "desc": "checks hook types, singleton constraints, and smoke tests before acceptance; each edit declares an expected trace feature. Replay, novelty, and structural checks do not guarantee non-decreasing task scores.",
    "links": [
     [
      "paper",
