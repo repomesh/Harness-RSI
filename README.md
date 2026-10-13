@@ -1,9 +1,8 @@
-> [!IMPORTANT]
-> **[📄 Latest 66-page version](https://openreview.net/pdf?id=m5jsFGXUM2)**
-
 <div align="center">
 
 <h1>Harness Self-Evolution</h1>
+<p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Latest 66-page version</a></strong></p>
+
 <p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
