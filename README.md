@@ -8,8 +8,10 @@
 <p align="center"><sub>Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huanhuan Chen, Yifei Shen</sub></p>
 
 <p align="center">
+  <sub>
   <sup>1</sup> Zhongguancun Academy &nbsp;·&nbsp; <sup>2</sup> Zhongguancun Institute of Artificial Intelligence<br>
   <sup>3</sup> University of Science and Technology of China
+  </sub>
 </p>
 
 [![The path of harness self-evolution, from instructions to executable components and runtime](assets/banner.png)](assets/banner.png)
