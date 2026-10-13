@@ -509,7 +509,8 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
   title  = {{Harness Self-Evolution: Theory, Algorithms, Evaluation,
              Applications, and Impact}},
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
-            Zhou, Kexin and He, Jiyan and Shen, Yifei},
+            Zhou, Kexin and He, Jiyan and Zhou, Xiren and
+            Chen, Huanhuan and Shen, Yifei},
   year   = {2026},
   note   = {Working draft, 12 October 2026},
   url    = {https://openreview.net/pdf?id=m5jsFGXUM2}

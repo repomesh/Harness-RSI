@@ -1,11 +1,14 @@
 <div align="center">
 
-<h1>Harness Self-Evolution:<br>Theory, Algorithms, Evaluation, Applications, and Impact</h1>
+<h1>Harness Self-Evolution: Theory, <br>Algorithms, Evaluation, Applications, and Impact</h1>
 <p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Latest version · 66 pages</a></strong></p>
 
 [Online draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Citation](#citation) · [中文版](README_zh.md) · [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-Author List: Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huanhuan Chen, Yifei Shen
+<p align="center">
+  <sup>1</sup> Zhongguancun Academy &nbsp;·&nbsp; <sup>2</sup> Zhongguancun Institute of Artificial Intelligence<br>
+  <sup>3</sup> University of Science and Technology of China
+</p>
 
 [![The path of harness self-evolution, from instructions to executable components and runtime](assets/banner.png)](assets/banner.png)
 
