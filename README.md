@@ -3,9 +3,9 @@
 <h1>Harness Self-Evolution:<br>Theory, Algorithms, Evaluation, Applications, and Impact</h1>
 <p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Latest version · 66 pages</a></strong></p>
 
-Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
+[Online draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Citation](#citation) · [中文版](README_zh.md) · [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-[Latest draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Citation](#citation) · [中文版](README_zh.md) · [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+Author List: Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huanhuan Chen, Yifei Shen
 
 [![The path of harness self-evolution, from instructions to executable components and runtime](assets/banner.png)](assets/banner.png)
 
@@ -507,7 +507,8 @@ If you use this survey, please cite the current working draft:
   title  = {{Harness Self-Evolution: Theory, Algorithms, Evaluation,
              Applications, and Impact}},
   author = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
-            Zhou, Kexin and He, Jiyan and Shen, Yifei},
+            Zhou, Kexin and He, Jiyan and Zhou, Xiren and
+            Chen, Huanhuan and Shen, Yifei},
   year   = {2026},
   note   = {Working draft, 12 October 2026},
   url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
