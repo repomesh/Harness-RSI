@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **[📄 Latest 66-page version](https://openreview.net/pdf?id=m5jsFGXUM2)**
+
 <div align="center">
 
 <h1>Harness Self-Evolution</h1>
