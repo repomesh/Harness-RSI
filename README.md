@@ -1,15 +1,13 @@
 <div align="center">
 
-<h1>Harness Self-Evolution</h1>
-<p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Latest 66-page version</a></strong></p>
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-<p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
+<h1>Harness Self-Evolution:<br>Theory, Algorithms, Evaluation, Applications, and Impact</h1>
+<p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Latest version · 66 pages</a></strong></p>
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Latest draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Reported Evidence](#evidence) · [Citation](#citation) · [中文版](README_zh.md)
-
-[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+[Latest draft PDF](paper/harness-self-evolution.pdf) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Citation](#citation) · [中文版](README_zh.md)
 
 [![The path of harness self-evolution, from instructions to executable components and runtime](assets/banner.png)](assets/banner.png)
 
