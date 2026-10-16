@@ -5,7 +5,7 @@
 
 Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
-[OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [最新稿 PDF](paper/harness-self-evolution.pdf) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
+[完整版 · OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -502,7 +502,10 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 ## 引用
 
-引用本综述时，可使用当前 working draft 的 BibTeX：
+请按使用的版本引用：
+
+- 完整版：[Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact](https://openreview.net/pdf?id=m5jsFGXUM2)。
+- arXiv 论文：[Self-Evolving Agent Harness](https://arxiv.org/pdf/2610.18813)。
 
 ```bibtex
 @misc{wei2026harnessrsi,
@@ -512,8 +515,19 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
             Zhou, Kexin and He, Jiyan and Zhou, Xiren and
             Chen, Huanhuan and Shen, Yifei},
   year   = {2026},
-  note   = {Working draft, 12 October 2026},
   url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
+}
+
+@misc{wei2026selfevolvingagentharness,
+  title         = {{Self-Evolving Agent Harness}},
+  author        = {Wei, Chuyang and Guan, Haoxiang and Zhu, Minghang and
+                   Zhou, Kexin and He, Jiyan and Zhou, Xiren and
+                   Chen, Huanhuan and Shen, Yifei},
+  year          = {2026},
+  eprint        = {2610.18813},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/pdf/2610.18813}
 }
 ```
 
