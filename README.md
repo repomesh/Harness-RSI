@@ -16,7 +16,9 @@
 
 </div>
 
-Companion materials for our survey of how execution experience becomes persistent harness state under a fixed base model. We organize update mechanisms, examine evolutionary search and continual PAC learning, assess reported evidence, and discuss applications and societal effects. The repository provides a [full PDF](paper/harness-self-evolution.pdf) (66 pages) and a [short PDF](paper/self-evolving-agent-harness.pdf) (18 pages), built locally from the two Overleaf source snapshots synchronized on 17 October 2026. The OpenReview and arXiv links above point to their respective published versions. Figures retain the manuscript layout; click to view them at full resolution.
+Companion materials for our survey of how execution experience becomes persistent harness state under a fixed base model. The survey covers update mechanisms, evolutionary search, continual PAC learning, evaluation, applications, and societal impact.
+
+**PDF downloads:** [Full report · 66 pages](paper/harness-self-evolution.pdf) · [Short paper · 18 pages](paper/self-evolving-agent-harness.pdf).
 
 ## Reading Guide
 
@@ -56,7 +58,7 @@ $$
 
 The update mechanism remains available for further revisions, and an accepted state is saved and loaded by a later run. Rejected candidates leave the harness unchanged. The analysis holds $M$ fixed; systems that also train weights are read here for their harness-side changes. Offline optimizers and mechanisms with limited persistence are marked in the entries.
 
-Self-evolution describes this update process whether or not the accepted state performs better; self-improvement is a beneficial change supported by an explicit comparison. Harness RSI (recursive self-improvement) remains a conventional short name for the area, not a guarantee that every accepted revision helps. Whether an update operated and improved performance requires the [evaluation evidence](#evaluation) below.
+Self-evolution is the process of updating persistent harness state; self-improvement is a beneficial change established through [evaluation](#evaluation). Harness RSI is the conventional short name used throughout this resource.
 
 [![Interpreted and executable update targets and their operational loop](assets/overview.png)](assets/overview.png)
 
@@ -344,13 +346,13 @@ Here $\widehat{\Delta}$ is candidate loss minus incumbent loss. Under the stated
 
 ## 4. Evaluation & Benchmarks
 
-Read each result through **Selection, Activation, Attribution, and Improvement**, using the same comparison for all four claims. The evidence required depends on the conclusion: comparing one final state does not require tracing every accepted component. Selection may be addressed by independent reporting evidence or inference that accounts for adaptive selection.
+The evaluation framework connects **Selection, Activation, Attribution, and Improvement** to the evidence supporting each reported comparison.
 
 [![Four evaluation claims and longitudinal controls](assets/claims.png)](assets/claims.png)
 
 Activation distinguishes an artifact being **available**, its changed path being **reached**, and its effect being **carried** into subsequent execution. See the [criteria](docs/evidence-criteria.md) for evidentiary requirements and coverage.
 
-Task distance describes how reporting tasks relate to the tasks that formed the update; it is not a numerical distance metric. The Improvement verdict grades this distance only, not a reliable positive effect, baseline strength, or persistence across rounds.
+The Improvement criterion records how reporting tasks relate to those that formed the update. Selection and Attribution assess the reliability and source of the observed gain.
 
 ### 4.1 Claim-Specific Evidence
 
@@ -411,8 +413,6 @@ Task distance describes how reporting tasks relate to the tasks that formed the 
 Successive updates require state and evaluator records, execution variation, inference budgets, and historical task performance. The table connects each control with its confound.
 
 [![Controls, required records, and confounds in successive-update evaluation](assets/evaluation-controls.png)](assets/evaluation-controls.png)
-
-These controls do not restore independence to an adaptively reused task stream.
 
 </details>
 
@@ -491,11 +491,11 @@ See the [full results](docs/reported-evidence.md) for comparisons, judgments, an
 
 The survey examines personal assistance and developer workspaces, enterprise automation, scientific discovery, robotics, and public or clinical services. Harness state can preserve preferences, shared procedures, research know-how, and executable skills. These settings differ in what an update changes, how far it travels, and how its effects can be checked.
 
-Persistent and shareable artifacts also affect work and learning, control over accumulated knowledge, privacy, security, and institutional accountability. Open questions include model–harness–environment co-evolution, optimization over heterogeneous artifacts, compositional program contracts, reusable state, dynamic evaluation, and authorization boundaries. Gains in practice environments need separate deployment evidence; capability changes can invalidate the conditions under which authority was granted. See the [application map](assets/applications.png) and [societal-impact map](assets/social-impact.png), with the full discussion in Sections 7–9 of the [paper](paper/harness-self-evolution.pdf).
+Persistent and shareable artifacts also affect work and learning, control over accumulated knowledge, privacy, security, and institutional accountability. Open questions include model–harness–environment co-evolution, optimization over heterogeneous artifacts, compositional program contracts, reusable state, dynamic evaluation, and authorization boundaries. See the [application map](assets/applications.png) and [societal-impact map](assets/social-impact.png), with the full discussion in Sections 7–9 of the [paper](paper/harness-self-evolution.pdf).
 
-The revised discussion covers runtime capability bindings in [DSH Everything](https://github.com/yshenaw/dsh-everything/tree/dade643bb09c49d290340ee01f3a00dd20bf37fb), clinically prioritized tool admission in [MedRSI](https://arxiv.org/abs/2609.24838), and practice-environment design in [EnvHarness](https://arxiv.org/abs/2608.19880). MedRSI's public benchmarks and retrospective cohorts do not establish deployment in clinical care.
+Examples include runtime capability bindings in [DSH Everything](https://github.com/yshenaw/dsh-everything/tree/dade643bb09c49d290340ee01f3a00dd20bf37fb), clinically prioritized tool admission in [MedRSI](https://arxiv.org/abs/2609.24838), and practice-environment design in [EnvHarness](https://arxiv.org/abs/2608.19880).
 
-The short paper adds model–harness pairing, plugin reuse, and distributed-execution cases with explicit limits: the model-ranking crossover is not cost matched; inconsistent first-task and cumulative EIP costs cannot be joined into one cost trajectory; and a fixed-deployment latency comparison does not validate persistent harness revision.
+The short paper presents cases on model–harness pairing, plugin reuse, and distributed execution.
 
 <a id="contributing"></a>
 
@@ -503,9 +503,7 @@ The short paper adds model–harness pairing, plugin reuse, and distributed-exec
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for adding papers, correcting evidence, and rebuilding the site. Keep English and Chinese entries synchronized.
 
-Manuscript snapshot: [2026-10-17](data/source-snapshot.json). Audit records remain at 2026-10-10, with a literature cutoff of 2026-10-08; this revision does not change the verdicts.
-
-Bibliographies: [full report](paper/harness-self-evolution-references.bib) · [short paper](paper/self-evolving-agent-harness-references.bib). See the [synchronization record](docs/manuscript-sync.md) for both source commits, build provenance, and changes.
+Bibliographies: [full report](paper/harness-self-evolution-references.bib) · [short paper](paper/self-evolving-agent-harness-references.bib).
 
 <a id="citation"></a>
 
@@ -542,6 +540,4 @@ Please cite the version you use:
 
 ---
 
-<sub>Released under [CC BY 4.0](LICENSE). The listed works remain under their own licenses; this repository contains the companion working draft, bibliographic metadata, summaries, and audit materials. Figures are reproduced from the companion article by its authors.</sub>
-
-The [growth-date ledger](data/fig02-growth-ledger.tsv) and [full audit rubric](data/claim-audit-rubric.md) accompany the manuscript snapshot. Human-authored Behavioral Rules are discussed as a boundary case in the paper and excluded from the algorithmic-update corpus.
+<sub>Released under [CC BY 4.0](LICENSE). Listed works retain their respective licenses.</sub>

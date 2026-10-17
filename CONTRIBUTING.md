@@ -45,3 +45,7 @@ Keep the title, full author list, and author order aligned with the manuscript t
 Serve the repository with `python3 -m http.server 8000` and open `http://localhost:8000`. For visual changes, check desktop and mobile layouts, formulas, search, filters, figure enlargement, and keyboard navigation.
 
 GitHub Pages publishes `main` from the repository root at [zgcagi.github.io/Harness-RSI](https://zgcagi.github.io/Harness-RSI/). The site and reading list share this repository.
+
+## Source synchronization
+
+See the [manuscript synchronization record](docs/manuscript-sync.md) for source commits, PDF build provenance, and verification. The [source snapshot](data/source-snapshot.json) records artifact hashes.

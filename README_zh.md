@@ -13,7 +13,9 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huan
 
 </div>
 
-本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。仓库提供 2026 年 10 月 17 日从两份 Overleaf 远端源码构建的[长版 PDF](paper/harness-self-evolution.pdf)（66 页）和[短版 PDF](paper/self-evolving-agent-harness.pdf)（18 页）。它们是源码快照的本地构建；上方 OpenReview 和 arXiv 链接指向各自发布版本。图表沿用论文原版，点击可查看高清图。
+本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态，涵盖更新机制、演化搜索、continual PAC 学习、评测、应用与社会影响。
+
+**PDF 下载：**[完整报告 · 66 页](paper/harness-self-evolution.pdf) · [短版论文 · 18 页](paper/self-evolving-agent-harness.pdf)。
 
 ## 阅读导航
 
@@ -53,7 +55,7 @@ $$
 
 更新机制需要保留，以便继续修订；采纳后的状态需要保存，并由后续运行实际加载。拒绝候选时沿用当前版本。分析固定模型 $M$；同时训练 weights 的系统按其 harness 更新部分讨论。离线优化器和持久性有限的方法在条目中注明。
 
-Self-evolution 指这一更新过程，无论采纳后的状态是否更好；self-improvement 则指由明确比较支持的有益变化。Harness RSI（recursive self-improvement）保留为领域简称，不表示每次采纳都能改善表现。更新是否实际生效、是否改善表现，需要下文的[评测证据](#evaluation)。
+Self-evolution 指持续更新 harness 状态的过程；self-improvement 指通过[评测](#evaluation)确认的有益变化。本文沿用 Harness RSI 这一领域简称。
 
 [![Interpreted 与 Executable 更新对象及运行循环](assets/overview.png)](assets/overview.png)
 
@@ -341,13 +343,13 @@ $\widehat{\Delta}$ 表示候选 loss 减去当前版本的 loss。在上述假�
 
 ## 4. Evaluation 与 Benchmarks
 
-每个结果都从 **Selection、Activation、Attribution、Improvement** 四项 claims 来读，并以同一组比较为依据。所需证据取决于结论：比较一个最终状态不要求追踪每个已采纳组件；selection 可由独立报告证据或考虑自适应选择的推断支持。
+评测框架将 **Selection、Activation、Attribution、Improvement** 四项 claims 与各组比较所提供的证据对应。
 
 [![四项 Evaluation Claims 与纵向对照](assets/claims.png)](assets/claims.png)
 
 Activation 区分产物可用（**available**）、修改路径已执行（**reached**），以及输出影响了后续执行（**carried**）。判定要求与覆盖范围见[评测标准](docs/evidence-criteria.md)。
 
-Task distance 描述报告任务与产生更新的任务之间的关系，不是数值距离。Improvement 的审计判定只评 task distance，不单独证明效果可靠、baseline 足够强或收益能跨轮次保留。
+Improvement 标准记录报告任务与产生更新的任务之间的关系；Selection 和 Attribution 分别检验观测收益的可靠性与来源。
 
 ### 4.1 各项 Claim 的评测
 
@@ -408,8 +410,6 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 连续更新需要记录状态与评测版本、执行波动、推理资源及历史任务表现。下图列出每项对照与它针对的混淆因素。
 
 [![连续更新的评测对照、所需记录与混淆因素](assets/evaluation-controls.png)](assets/evaluation-controls.png)
-
-这些对照不能恢复被自适应重复使用的任务流的独立性。
 
 </details>
 
@@ -488,11 +488,11 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 论文讨论个人助理与开发工作区、企业自动化、科学发现、机器人，以及公共和临床服务。Harness 状态可以保留偏好、共享流程、研究经验和可执行技能；不同场景中，更新改变什么、传播多远、如何验证其效果，都有所不同。
 
-持久、可共享的产物也会影响工作与学习、累积知识的控制权、隐私、安全和机构责任。开放问题包括模型、harness 与环境共同演化，异构产物的优化与可组合程序契约、可复用状态、动态评测和授权边界。练习环境中的收益需要独立的部署评测；能力更新也可能使原有授权条件失效。参见[应用图](assets/applications.png)、[社会影响图](assets/social-impact.png)，以及[论文](paper/harness-self-evolution.pdf)第 7–9 节的完整讨论。
+持久、可共享的产物也会影响工作与学习、累积知识的控制权、隐私、安全和机构责任。开放问题包括模型、harness 与环境共同演化，异构产物的优化与可组合程序契约、可复用状态、动态评测和授权边界。参见[应用图](assets/applications.png)、[社会影响图](assets/social-impact.png)，以及[论文](paper/harness-self-evolution.pdf)第 7–9 节的完整讨论。
 
-新版还讨论 [DSH Everything](https://github.com/yshenaw/dsh-everything/tree/dade643bb09c49d290340ee01f3a00dd20bf37fb) 的运行时能力绑定、[MedRSI](https://arxiv.org/abs/2609.24838) 的临床后果导向工具准入，以及 [EnvHarness](https://arxiv.org/abs/2608.19880) 的练习环境设计。MedRSI 的公开基准与回顾性队列实验不等于临床部署。
+相关案例包括 [DSH Everything](https://github.com/yshenaw/dsh-everything/tree/dade643bb09c49d290340ee01f3a00dd20bf37fb) 的运行时能力绑定、[MedRSI](https://arxiv.org/abs/2609.24838) 的临床后果导向工具准入，以及 [EnvHarness](https://arxiv.org/abs/2608.19880) 的练习环境设计。
 
-短版补充了模型与 harness 配对、插件复用和分布式执行案例，并保留证据限制：模型排名交叉未控制成本；EIP 首任务与累计成本记录存在未解决的差异，不能合并成一条成本轨迹；固定部署的延迟比较不验证持续 harness 更新。
+短版论文结合案例讨论模型与 harness 配对、插件复用和分布式执行。
 
 <a id="contributing"></a>
 
@@ -500,9 +500,7 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 新增论文、修正证据与重新生成网页的方法见 [CONTRIBUTING.md](CONTRIBUTING.md)。请同步修改中英文条目。
 
-稿件快照：[2026-10-17](data/source-snapshot.json)。审计记录版本为 2026-10-10，文献截止日期为 2026-10-08；本次更新未改变判定。
-
-书目：[长版 references.bib](paper/harness-self-evolution-references.bib) · [短版 references.bib](paper/self-evolving-agent-harness-references.bib)。两份源码提交、构建信息与本轮改动见[同步记录](docs/manuscript-sync.md)。
+书目：[长版 references.bib](paper/harness-self-evolution-references.bib) · [短版 references.bib](paper/self-evolving-agent-harness-references.bib)。
 
 <a id="citation"></a>
 
@@ -539,6 +537,4 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 ---
 
-<sub>以 [CC BY 4.0](LICENSE) 发布。所列工作各自遵循其原有许可，本仓库提供配套工作稿、文献元数据、机制总结与审计材料。图片由论文作者从配套论文中转载。</sub>
-
-[文献日期 ledger](data/fig02-growth-ledger.tsv) 和[完整 audit rubric](data/claim-audit-rubric.md) 与稿件快照一同提供。人工编写的 Behavioral Rules 在论文中作为边界案例讨论，不计入算法更新 corpus。
+<sub>以 [CC BY 4.0](LICENSE) 发布。所列工作保留各自的许可。</sub>
