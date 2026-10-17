@@ -3,7 +3,12 @@
 <h1>Harness Self-Evolution</h1>
 <p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
 
-Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huanhuan Chen, Yifei Shen
+<p align="center">Chuyang Wei<sup>1,3</sup>, Haoxiang Guan<sup>1,3</sup>, Minghang Zhu<sup>1</sup>, Kexin Zhou<sup>1,3</sup>, Jiyan He<sup>1,2</sup>, Xiren Zhou<sup>3</sup>, Huanhuan Chen<sup>3</sup>, Yifei Shen<sup>1,2,†</sup></p>
+
+<p align="center">
+  <sup>1</sup> Zhongguancun Academy &nbsp;·&nbsp; <sup>2</sup> Zhongguancun Institute of Artificial Intelligence<br>
+  <sup>3</sup> University of Science and Technology of China &nbsp;·&nbsp; <sup>†</sup> Corresponding author
+</p>
 
 [完整版 · OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
