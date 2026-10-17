@@ -1,42 +1,109 @@
 {
-  "date": "2026-10-12",
-  "description": "Source hashes and existing manuscript PDF checked against the 12 October 2026 Overleaf revision. Audit records and verdicts are unchanged from 10 October; the literature cutoff remains 8 October.",
+  "date": "2026-10-17",
+  "description": "Both Overleaf source heads synchronized on 17 October 2026. PDFs are local verification builds from these exact sources, not verified Overleaf cloud exports. The full report updates prose, references, and activation terminology; primary audit verdicts remain unchanged from 10 October, with an 8 October literature cutoff.",
   "sha256": {
     "00README.json": "a37c4aec3b2991f6f18573df5207929066dff6250deb991ffa8130ebd759d1cb",
-    "data/claim-audit-rubric.md": "e3eba765da13e88c78fa693e65599f51de4cd3cdc75a7810afe4528f94f8aff4",
+    "assets/logo-zgca-ustc.pdf": "3ca78b87e368c8b596ba5aa4fc5444c0557a9cc6df550339cbfe44ea9b63f92d",
+    "data/claim-audit-rubric.md": "37f5784cacef0e96045530c65526a41643ddbba9977703befcadd000cc0ba00b",
     "data/claim-audit-secondary.tsv": "211176432276cd6778cf08e508971ccbdafba0f008e6b749669380643cb158b8",
     "data/claim-audit.tsv": "47f827334503a4cb87d8b8d8f51525d05ec7b6bb8333d2afd377e5f2205d353e",
     "data/fig02-growth-ledger.tsv": "274dc994907f6045fe624274c80124cda6de3301cf89e14e17d78f3de0740fa1",
     "figure/fig02_harness_landscape.pdf": "a08bc05a5f93d7a19e54f338a1722b615086e465566278d839fabc6f07b161fa",
     "figure/fig03_target_taxonomy.tex": "657a1e9c531da26a0a4c7b0f5d1f855e3b5cb882ea7facd432130ab80fad95e3",
-    "figure/fig05_harness_evaluation.pdf": "2e8021574ce79a4915a127da019a5c2dd854bdd4273cf90a9d286bdec8ff09a8",
+    "figure/fig05_harness_evaluation.pdf": "7ed672e17b9ede2e98fec11d5f7fee52b2d66531deb427fd910aee8b8f66ef5f",
     "figure/fig06_claim_audit.pdf": "35bc63a0dca5d685383fde341ae3a1b9735e21373be9bdf1498f0ba2a6e38580",
     "figure/fig07_harness_applications.pdf": "7472e490d206728e5c65f3cac61c51991ae3835c5b38591b400762ecb033f53d",
     "figure/fig08_harness_social_impact.pdf": "9d408dd928e9ee9fdade48e559c35aec4a925116b889f15871cdb19c9bab6494",
-    "main.pdf": "edd2ae4b5a614f2f8af404928983440a0097adfb59e7945e9de1791688166e58",
-    "main.tex": "de57e211e1bc1f1b0e83dec464f3ae659e69398eaf0c6ad07204b01186b6ad44",
-    "references.bib": "246ab62b896254e4cd3f1ca46e0c3abde7f406948b48f93bba85a9d5b2786e07",
-    "scripts/aggregate_claim_audit.py": "707c7ddb09e40b282287c44a63c807951fc8033be0f34ed7fbf89c9c138b6646",
-    "scripts/make_claim_audit_appendix.py": "b959450e0b65bc0c2da2b3ef23edc67f5335d3548ca73ae3bb02c29378b8f36f",
+    "main.tex": "8ac5653bb757fb93389950ad4ad35770beb6773998a4ec943f4c9e09ef73b594",
+    "references.bib": "3fa1f99583836e8987e2126a7fd8f863b6788d55191c7208622c2a99ebe287c8",
+    "scripts/aggregate_claim_audit.py": "337aca074dc0c9b050b3cbaec526a611046781b0fa356d1733afaa58f7880101",
+    "scripts/make_claim_audit_table.py": "1bcbb5299b13d8389f10ea1d78a31367dc0ef7ada034b7f8040a147db25c1cb8",
     "scripts/make_growth_inset.py": "4fc2363432d960e43e14cb3e897390fb885c6a57b12bf38ddbb63f35ceac81b4",
-    "scripts/render_claim_audit_figure.py": "5f64d5149d15f8bf181f1821af32573a4656d5992ae71eb99a7227b33a2e2c31",
-    "sections/00_abstract.tex": "9f58a244078338a4303a95f8d914d93010cbbc1bea978a3c0b7b5df5a30f653c",
-    "sections/01_intro.tex": "166ade0f2ca9692fcc22e6dad0ff22a7294ce856f14ebc6b7390f5c697eb4b95",
+    "scripts/render_claim_audit_figure.py": "4b7bcef0a5a76bbb84db46ebcbe9cf690a6c97366de0f5732c323062841d0ac0",
+    "sections/00_abstract.tex": "e08e176dcb6c539519e54a925b77ddba7d72ef8be797d3e1cbf8455f89361012",
+    "sections/01_intro.tex": "f94b959262b97a9d6cc60782fa63311332c3a65eb99aafba43dc98e4f0431c43",
     "sections/02_definition.tex": "355c4f7c1e7d7dadbfd40e327b7d955635e21b1b48323f954e10aa0a60f4d7ad",
-    "sections/03_interpreted_targets.tex": "b81d445577f3839511398f91c4e800232292b17c5d030002650ec0e758a8e537",
-    "sections/04_executable_targets.tex": "cadc798d67c648178487ce0997e93e736a614a95da4f8a1b3c88c618f579b85f",
+    "sections/03_interpreted_targets.tex": "c2036f17ad8c50b5c760490493783b6f46d7a403d2ef22535bff8b74b76d4488",
+    "sections/04_executable_targets.tex": "2570648d3700b737250c31ba62e5e8cf021d92fc2a0665a9c8cc968f6e80eb6f",
     "sections/05_theory.tex": "a3aec854327cff9bd71f32bc62e53c2119319d0e093f2c1054f7e91f321cf1e0",
-    "sections/06_evaluation.tex": "f9e929af257afddbf7dd6c3c2f95d9a7ded05ab50d6c7dcf2114409693a7927f",
-    "sections/06_evaluation_audit_table.tex": "f9562527c682e320b864cb6407a55fd3ae7d8f8790088330ff4dd414577baada",
-    "sections/07_applications.tex": "16cb4d7e006f250e8842e895af74d284db5a6e2425fe6938d6c3efd7a91e1a49",
-    "sections/08_societal.tex": "8fcbe88841ce55347e3f7c0a1fac8b6da32510099fc8dd018f2f43baabb8b7a3",
-    "sections/09_future.tex": "447538ffeacf8295ecf846ef79d80f438c265630349e74d75f422175f32a2260",
-    "sections/10_conclusion.tex": "a3219efaffdd59a87420456efb64fe04a30bd5561e3976c3767b08d8e08decc0"
+    "sections/06_evaluation.tex": "2864d6a3d3e85187dacb29c34bde841798562ed37be5ac37f2e35ae359352f92",
+    "sections/06_evaluation_audit_table.tex": "76f3650343a7826dd193d4ec0923beb222f588ed8867d22f95431fed73e7bd53",
+    "sections/07_applications.tex": "5284e0e277400379fd830140bf3256dde8c90620b1334e7dc58d94f97b67e286",
+    "sections/08_societal.tex": "0778ff42fa63152babca15d3cde0819d0ab18c1a8a81a5efcd31f71c48fa7864",
+    "sections/09_future.tex": "7d1261053d8601296122e9e193995abdf0fc5703c16d4774ab59d62c4b4411fb",
+    "sections/10_conclusion.tex": "854c5bdc41c6c729a95dfbe06f9576f68260f9a391dc15a45b4daa89a5fd8004",
+    "main.pdf": "c3026317e43a7f79021405ba9de9df548e33ee302f67c29820fecc6be9697715"
   },
-  "manuscript_base_commit": "5e29fe0bb5e61194d7a9e2901687a883f1dd775d",
-  "manuscript_commit": "d1948d2714e0eabc9076d159d1d5b4c71343500e",
+  "manuscript_base_commit": "d1948d2714e0eabc9076d159d1d5b4c71343500e",
+  "manuscript_commit": "75a40cdb3bcc0045518be84acc85ca5ae0d8d05c",
   "paper_pdf": "paper/harness-self-evolution.pdf",
   "audit_date": "2026-10-10",
   "literature_cutoff": "2026-10-08",
-  "openreview_pdf": "https://openreview.net/pdf?id=m5jsFGXUM2"
+  "openreview_pdf": "https://openreview.net/pdf?id=m5jsFGXUM2",
+  "build": {
+    "origin": "local verification build",
+    "command": "latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex",
+    "pages": 66,
+    "bibliography_entries": 262,
+    "cloud_build_verified": false
+  },
+  "short_paper": {
+    "manuscript_commit": "fd8ad5c518f5372f66df6857d5339814ddb6037a",
+    "paper_pdf": "paper/self-evolving-agent-harness.pdf",
+    "arxiv_pdf": "https://arxiv.org/pdf/2610.18813",
+    "pages": 18,
+    "bibliography_entries": 85,
+    "sha256": {
+      "main.tex": "f240de5f4a5e9ac0a7a7ab7c0c228ef805044adbed0d647c33f0f15308f0906d",
+      "main.pdf": "82ec7e807e90e4c970ac6362303bec7113540492c76818699a452aff8728459c",
+      "references.bib": "38a74b97e9103d307ab55a3b6e7771c21d0fb6560bf0bbb9a5e16874319ff020",
+      "sections/03_executable_targets.tex": "4cedb09bfa3673ae9e77eebb655bb7bbab9a62fb58b0c865022c49f196946f38",
+      "sections/06_future.tex": "600a64e5324cdb967ad281ff2adfee7968593d44c9173f6b8a5626000bd6afe4"
+    }
+  },
+  "bibliographies": {
+    "full": "paper/harness-self-evolution-references.bib",
+    "short": "paper/self-evolving-agent-harness-references.bib"
+  },
+  "rendered_assets": {
+    "taxonomy.png": {
+      "paper_page": 8,
+      "clip_points": [
+        65,
+        98,
+        532,
+        644
+      ]
+    },
+    "harness-components.png": {
+      "paper_page": 5,
+      "clip_points": [
+        66,
+        548,
+        530,
+        761
+      ]
+    },
+    "evolutionary-paradigms.png": {
+      "paper_page": 18,
+      "clip_points": [
+        66,
+        157,
+        530,
+        750
+      ]
+    },
+    "evaluation-controls.png": {
+      "paper_page": 30,
+      "clip_points": [
+        66,
+        106,
+        531,
+        508
+      ]
+    },
+    "claims.png": {
+      "source": "figure/fig05_harness_evaluation.pdf"
+    }
+  }
 }

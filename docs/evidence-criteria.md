@@ -1,6 +1,6 @@
 # Evidence Criteria
 
-These criteria describe the companion manuscript’s evaluation framework in the [2026-10-12 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
+These criteria describe the companion manuscript’s evaluation framework in the [2026-10-17 source snapshot](../data/source-snapshot.json). See [Reported Evidence](reported-evidence.md) for the results and [the data](../data/reported-evidence.json) for each recorded comparison.
 
 ## Audit materials
 
@@ -40,7 +40,7 @@ Identify whether the accepted update operated in the scored runs:
 
 - **Available:** the artifact entered the run.
 - **Reached:** the changed path executed.
-- **Carried:** its output reached the next model input, or the trajectory followed it. Receiving content and following it provide different evidence.
+- **Carried:** its effect reached the intended downstream use. Information-producing code may carry output into the model input; runtime or action changes may reach a downstream decision or output; interpreted guidance may be followed in the trajectory. Propagation or use does not by itself attribute an outcome gain.
 
 **C** requires reached or carried evidence tied to the primary comparison, such as execution beacons, executed-node records, output-survival checks, or adherence measurements. One confirmed case can qualify; always record whether coverage is one case, a sample, or all scored runs.
 

@@ -200,9 +200,11 @@ Did the accepted change operate in the runs that produced the score?
 
 Three grades, after Section 6.2.2: **available**, that the artifact entered the
 run; **reached**, that its path executed; **carried**, that its effect reached
-the model or its trajectory, either because its output survived into the next
-model input (the weaker form: the model received it) or because the trajectory
-conformed to it (the stronger form: the model acted on it).
+its intended downstream use. For information-producing code this includes
+output surviving into the model input; runtime control or action changes can
+instead be traced to a downstream decision or output. For interpreted guidance,
+trajectory adherence records whether execution followed it. These observations
+locate propagation or use; attribution of an outcome gain is a separate claim.
 
 - `C` — reached- or carried-grade evidence **from the runs that produced the
   headline number**: an execution beacon, a declared trace feature checked
@@ -573,3 +575,11 @@ pooled maximum to an observed cross-night drift is withdrawn. This applies the
 existing primary-comparison rule; no other verdict was changed in this revision.
 The resulting Attribution counts are C/O/N = 10/82/1; criteria met per comparison
 0..4 = 26/27/33/7/0, and the COOC profile occurs 28 times.
+
+
+### 14 October 2026: activation terminology across executable targets
+
+Clarified the description of `carried` to cover downstream runtime decisions and
+outputs as well as model context, matching Section 6.2.2. Admission of activation
+evidence remains at reached or carried grade in the primary scored runs. No
+comparison verdict or coverage record was changed.

@@ -3,7 +3,7 @@
 <h1>Harness Self-Evolution</h1>
 <p><strong>Theory, Algorithms, Evaluation, Applications, and Impact</strong></p>
 
-Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
+Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Xiren Zhou, Huanhuan Chen, Yifei Shen
 
 [完整版 · OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
@@ -13,7 +13,7 @@ Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He, Yifei Shen
 
 </div>
 
-本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。仓库内的「最新稿 PDF」为 2026 年 10 月 12 日工作稿。图表沿用论文原版，点击可查看高清图。
+本综述研究固定基础模型下，执行经验如何转化为持续保留的 harness 状态。配套材料涵盖更新机制、演化搜索与 continual PAC 分析、报告中的实证证据，以及应用和社会影响。仓库提供 2026 年 10 月 17 日从两份 Overleaf 远端源码构建的[长版 PDF](paper/harness-self-evolution.pdf)（66 页）和[短版 PDF](paper/self-evolving-agent-harness.pdf)（18 页）。它们是源码快照的本地构建；上方 OpenReview 和 arXiv 链接指向各自发布版本。图表沿用论文原版，点击可查看高清图。
 
 ## 阅读导航
 
@@ -488,7 +488,11 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 论文讨论个人助理与开发工作区、企业自动化、科学发现、机器人，以及公共和临床服务。Harness 状态可以保留偏好、共享流程、研究经验和可执行技能；不同场景中，更新改变什么、传播多远、如何验证其效果，都有所不同。
 
-持久、可共享的产物也会影响工作与学习、累积知识的控制权、隐私、安全和机构责任。开放问题包括模型与 harness 共同演化、异构产物的优化、状态基础设施、动态评测、安全边界和来源记录。参见[应用图](assets/applications.png)、[社会影响图](assets/social-impact.png)，以及[论文](paper/harness-self-evolution.pdf)第 7–9 节的完整讨论。
+持久、可共享的产物也会影响工作与学习、累积知识的控制权、隐私、安全和机构责任。开放问题包括模型、harness 与环境共同演化，异构产物的优化与可组合程序契约、可复用状态、动态评测和授权边界。练习环境中的收益需要独立的部署评测；能力更新也可能使原有授权条件失效。参见[应用图](assets/applications.png)、[社会影响图](assets/social-impact.png)，以及[论文](paper/harness-self-evolution.pdf)第 7–9 节的完整讨论。
+
+新版还讨论 [DSH Everything](https://github.com/yshenaw/dsh-everything/tree/dade643bb09c49d290340ee01f3a00dd20bf37fb) 的运行时能力绑定、[MedRSI](https://arxiv.org/abs/2609.24838) 的临床后果导向工具准入，以及 [EnvHarness](https://arxiv.org/abs/2608.19880) 的练习环境设计。MedRSI 的公开基准与回顾性队列实验不等于临床部署。
+
+短版补充了模型与 harness 配对、插件复用和分布式执行案例，并保留证据限制：模型排名交叉未控制成本；EIP 首任务与累计成本记录存在未解决的差异，不能合并成一条成本轨迹；固定部署的延迟比较不验证持续 harness 更新。
 
 <a id="contributing"></a>
 
@@ -496,7 +500,9 @@ Task distance 描述报告任务与产生更新的任务之间的关系，不是
 
 新增论文、修正证据与重新生成网页的方法见 [CONTRIBUTING.md](CONTRIBUTING.md)。请同步修改中英文条目。
 
-稿件快照：[2026-10-12](data/source-snapshot.json)。审计记录版本为 2026-10-10，文献截止日期为 2026-10-08；本次更新未改变判定。
+稿件快照：[2026-10-17](data/source-snapshot.json)。审计记录版本为 2026-10-10，文献截止日期为 2026-10-08；本次更新未改变判定。
+
+书目：[长版 references.bib](paper/harness-self-evolution-references.bib) · [短版 references.bib](paper/self-evolving-agent-harness-references.bib)。两份源码提交、构建信息与本轮改动见[同步记录](docs/manuscript-sync.md)。
 
 <a id="citation"></a>
 

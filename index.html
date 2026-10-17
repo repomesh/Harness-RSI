@@ -38,7 +38,7 @@
 
 <header class="hero" id="top">
   <div class="wrap hero-inner">
-    <p class="eyebrow">Survey <span>/</span> Working draft <span>/</span> 12 October 2026</p>
+    <p class="eyebrow">Survey <span>/</span> Source snapshot <span>/</span> 17 October 2026</p>
     <h1 class="title">Harness <em>Self-Evolution</em></h1>
     <p class="subtitle">Theory, Algorithms, Evaluation, Applications, and Impact</p>
     <div class="byline">
@@ -59,7 +59,7 @@
       <a class="btn" href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener" title="Open the repository on GitHub to star it"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.5-4.4 6.3-.9Z"/></svg>Star on GitHub</a>
       <a class="btn" href="https://openreview.net/pdf?id=m5jsFGXUM2" target="_blank" rel="noopener">Full version · OpenReview <span class="button-arrow" aria-hidden="true">↗</span></a>
       <a class="btn" href="https://arxiv.org/pdf/2610.18813" target="_blank" rel="noopener">Self-Evolving Agent Harness · arXiv <span class="button-arrow" aria-hidden="true">↗</span></a>
-      <div class="hero-links"><a class="quiet-link" href="#cite">BibTeX</a></div>
+      <div class="hero-links"><a class="quiet-link" href="#cite">BibTeX</a> · <a class="quiet-link" href="paper/harness-self-evolution.pdf">Full snapshot PDF</a> · <a class="quiet-link" href="paper/self-evolving-agent-harness.pdf">Short snapshot PDF</a></div>
     </div>
     <figure class="figure hero-figure" id="landscape">
       <img src="assets/banner.png" width="1800" height="922" alt="The path of harness self-evolution, from instructions to executable runtime" decoding="async" fetchpriority="high">
@@ -96,7 +96,7 @@
     </div>
     <details class="fold">
       <summary>Read the abstract</summary>
-      <div class="fold-body"><p>Building agents that learn from experience is a central goal of artificial intelligence. Harness self-evolution offers a path toward this goal by revising an agent’s instructions, memory, workflows, and tools while model weights stay fixed. In this article, we develop a unified framework for how execution feedback becomes persistent harness change, covering systems that keep updating in operation and the offline optimizers they build on. We organize algorithms by their update targets, distinguishing instructions, memory, and workflow specifications interpreted by fixed components from executable tools and runtime logic, and compare how they propose and admit changes. Our theoretical analysis relates harness search to evolutionary algorithms and uses a continual PAC-learning perspective to give sufficient conditions under which an admission comparison certifies improvement. For evaluation, we distinguish four claims behind a reported gain: selection, whether the estimate is independent of the search or accounts for selection; activation, whether the accepted update operated in the scored runs; attribution, whether it caused the difference under controlled evaluation conditions; and improvement, whether the difference holds beyond the tasks that produced it. The reviewed reports often evaluate on held-out tasks, but evidence of activation and attribution remains limited. We then examine applications in personal assistance, enterprise automation, scientific discovery, robotics, and public services, and the implications of persistent, shareable harness state for work, markets, security, and governance. We conclude with open problems in optimization, infrastructure, evaluation, and responsible deployment. The project repository is available at <a href="https://github.com/zgcagi/Harness-RSI">https://github.com/zgcagi/Harness-RSI</a>.</p></div>
+      <div class="fold-body"><p>Building agents that learn from experience is a central goal of artificial intelligence. Harness self-evolution offers a path toward this goal by adapting the system around a fixed base model. This article develops a unified framework for examining how execution feedback produces persistent harness changes. We organize algorithms by their update targets, distinguishing instructions, memory, and workflow specifications interpreted by fixed components from executable tools and runtime logic, and compare how they propose and admit changes. The theoretical analysis views harness evolution within the framework of evolutionary algorithms and draws on PAC learning theory for continual learning to provide insights into algorithm design. For evaluation, we distinguish four claims behind a reported gain: selection, whether the estimate is independent of the search or accounts for selection; activation, whether the accepted update operated in the scored runs; attribution, whether it caused the difference under controlled evaluation conditions; and improvement, whether the difference holds beyond the tasks that produced it. The reviewed protocols show why held-out performance, component use, and retained gains require different evidence. This article covers applications in personal assistance, enterprise automation, scientific discovery, robotics, and public services. We also discuss potential effects on productivity and skills, economic distribution and market structure, innovation and public services, privacy and security, and institutional governance. Drawing on these analyses, we identify future directions in updating algorithms, supporting infrastructure, evaluation, and responsible deployment.</p></div>
     </details>
     <div class="figure">
       <img src="assets/landscape.png" width="1800" height="948" alt="Growth and classification of harness self-evolution work through 8 October 2026" loading="lazy" decoding="async">
@@ -165,7 +165,7 @@
     </div>
     <details class="fold">
       <summary>Full taxonomy and citation map (Figure 3)</summary>
-      <div class="fold-body"><img src="assets/taxonomy.png" width="1950" height="2300" alt="Taxonomy and citation map of harness self-evolution" loading="lazy" decoding="async"></div>
+      <div class="fold-body"><img src="assets/taxonomy.png" width="1801" height="2106" alt="Taxonomy and citation map of harness self-evolution" loading="lazy" decoding="async"></div>
     </details>
   </div>
 </section>
@@ -214,7 +214,7 @@
     </div>
     <div class="claims">
       <div class="claim s"><div class="k">Condition</div><h4>Selection</h4><p>The reported estimate is unselected, or its inference accounts for selection. Uncorrected scores must remain separate from adaptive choices.</p></div>
-      <div class="claim a"><div class="k">Step 1</div><h4>Activation</h4><p>Direct traces show the update operated in scored runs, with coverage recorded.</p></div>
+      <div class="claim a"><div class="k">Step 1</div><h4>Activation</h4><p>Direct traces show the update operated in scored runs. Carried evidence traces downstream use in model context, runtime decisions or outputs, or adherence to interpreted guidance, with coverage recorded.</p></div>
       <div class="claim t"><div class="k">Step 2</div><h4>Attribution</h4><p>Controlled comparisons distinguish the update’s effect from execution variation, added inference compute, and evaluator change.</p></div>
       <div class="claim i"><div class="k">Step 3</div><h4>Improvement</h4><p>The difference holds away from the tasks that formed the update, with the baseline and round specified. The audit grades task distance only; it is not a numerical distance metric or proof of a reliable positive effect.</p></div>
     </div>
@@ -259,7 +259,7 @@
       <h2 class="sec-title">Applications and open questions</h2>
       <p class="sec-sub">Persistent harness state can carry personal preferences, shared enterprise procedures, research know-how, and robotic skills. The survey examines existing and prospective deployments, alongside effects on work, knowledge ownership, security, and governance.</p>
     </div>
-    <p class="tax-note">Open questions span model–harness co-evolution, optimization, state infrastructure, dynamic evaluation, safety boundaries, and provenance. Reusable experience must remain useful as tasks, models, and deployments change.</p>
+    <p class="tax-note">Open questions span model–harness–environment co-evolution, compositional program contracts, reusable state, dynamic evaluation, and authorization boundaries. Practice-environment gains need separate deployment evidence; changing a capability can invalidate the conditions under which it was approved.</p>
     <details class="fold">
       <summary>Applications and societal implications (Figures 7–8)</summary>
       <div class="fold-body">
@@ -334,7 +334,8 @@
     </div>
     <p>Zhongguancun Academy · Zhongguancun Institute of Artificial Intelligence · University of Science and Technology of China</p>
     <p>Reading list: <a href="https://github.com/zgcagi/Harness-RSI" target="_blank" rel="noopener">zgcagi/Harness-RSI</a> · Released under <a href="https://github.com/zgcagi/Harness-RSI/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0</a></p>
-    <p style="font-size:12.5px">Manuscript: <a href="data/source-snapshot.json">12 October 2026</a> · Audit records: 10 October 2026 · Literature cutoff: 8 October 2026.</p>
+    <p style="font-size:12.5px">Local PDF builds: <a href="docs/manuscript-sync.md">source commits and verification</a>. Publication PDFs may differ.</p>
+    <p style="font-size:12.5px">Manuscript: <a href="data/source-snapshot.json">17 October 2026</a> · Audit records: 10 October 2026 · Literature cutoff: 8 October 2026.</p>
     <p style="font-size:12.5px">Figures are reproduced from the companion article by its authors. Listed works remain under their own licenses.</p>
   </div>
 </footer>

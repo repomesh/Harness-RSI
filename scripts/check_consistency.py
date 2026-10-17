@@ -202,17 +202,26 @@ def check_citation(problems):
 
 
 def check_paper_snapshot(problems):
-    """The public working draft must match the recorded manuscript snapshot."""
+    """Both public PDFs and bibliographies must match their recorded source snapshots."""
     import hashlib
     import json
     from pathlib import Path
 
     snapshot = json.loads(read("data/source-snapshot.json"))
-    paper = Path(ROOT) / snapshot["paper_pdf"]
-    if not paper.is_file():
-        problems.append(f"Public paper PDF is missing: {snapshot['paper_pdf']}")
-    elif hashlib.sha256(paper.read_bytes()).hexdigest() != snapshot["sha256"]["main.pdf"]:
-        problems.append("Public paper PDF differs from the manuscript snapshot")
+    short = snapshot["short_paper"]
+    artifacts = {
+        snapshot["paper_pdf"]: snapshot["sha256"]["main.pdf"],
+        short["paper_pdf"]: short["sha256"]["main.pdf"],
+        snapshot["bibliographies"]["full"]: snapshot["sha256"]["references.bib"],
+        snapshot["bibliographies"]["short"]: short["sha256"]["references.bib"],
+    }
+    for relative_path, expected_hash in artifacts.items():
+        artifact = Path(ROOT) / relative_path
+        if not artifact.is_file():
+            problems.append(f"Public manuscript artifact is missing: {relative_path}")
+        elif hashlib.sha256(artifact.read_bytes()).hexdigest() != expected_hash:
+            problems.append(f"Manuscript artifact differs from its snapshot: {relative_path}")
+
 
 
 def check_html(problems):
