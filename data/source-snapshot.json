@@ -8,7 +8,7 @@
     "data/claim-audit-secondary.tsv": "211176432276cd6778cf08e508971ccbdafba0f008e6b749669380643cb158b8",
     "data/claim-audit.tsv": "47f827334503a4cb87d8b8d8f51525d05ec7b6bb8333d2afd377e5f2205d353e",
     "data/fig02-growth-ledger.tsv": "274dc994907f6045fe624274c80124cda6de3301cf89e14e17d78f3de0740fa1",
-    "figure/fig02_harness_landscape.pdf": "a08bc05a5f93d7a19e54f338a1722b615086e465566278d839fabc6f07b161fa",
+    "figure/fig02_harness_landscape.pdf": "f3810da26504c5f327c2b66e00cfde48f1a145af0a4fba27bfdb645aa8b2b57c",
     "figure/fig03_target_taxonomy.tex": "657a1e9c531da26a0a4c7b0f5d1f855e3b5cb882ea7facd432130ab80fad95e3",
     "figure/fig05_harness_evaluation.pdf": "7ed672e17b9ede2e98fec11d5f7fee52b2d66531deb427fd910aee8b8f66ef5f",
     "figure/fig06_claim_audit.pdf": "35bc63a0dca5d685383fde341ae3a1b9735e21373be9bdf1498f0ba2a6e38580",
@@ -32,10 +32,10 @@
     "sections/08_societal.tex": "0778ff42fa63152babca15d3cde0819d0ab18c1a8a81a5efcd31f71c48fa7864",
     "sections/09_future.tex": "7d1261053d8601296122e9e193995abdf0fc5703c16d4774ab59d62c4b4411fb",
     "sections/10_conclusion.tex": "854c5bdc41c6c729a95dfbe06f9576f68260f9a391dc15a45b4daa89a5fd8004",
-    "main.pdf": "c3026317e43a7f79021405ba9de9df548e33ee302f67c29820fecc6be9697715"
+    "main.pdf": "2aff6d1eb53028e013d65bd691d6508953a630e1901a778b4ac22e998b9fe51b"
   },
   "manuscript_base_commit": "d1948d2714e0eabc9076d159d1d5b4c71343500e",
-  "manuscript_commit": "75a40cdb3bcc0045518be84acc85ca5ae0d8d05c",
+  "manuscript_commit": "33a06e71401e343e2f72666116bdb3fb841c7bb4",
   "paper_pdf": "paper/harness-self-evolution.pdf",
   "audit_date": "2026-10-10",
   "literature_cutoff": "2026-10-08",
@@ -104,6 +104,9 @@
     },
     "claims.png": {
       "source": "figure/fig05_harness_evaluation.pdf"
+    },
+    "landscape.png": {
+      "source": "figure/fig02_harness_landscape.pdf"
     }
   }
 }
