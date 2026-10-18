@@ -21,4 +21,8 @@ The 95-method scope, 93 scored comparisons, raw audit records, and verdicts are 
 
 ## Verification
 
-Both PDFs were built locally with `latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex` from the recorded source commits. Builds resolve citations and references without overfull boxes. The full report retains font-size substitution and caption/hypcap warnings; these were not source edits. Local compilation does not verify Overleaf cloud compilation or update the external publication PDFs.
+At the 17 October synchronization, both PDFs were built locally with `latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex` from the recorded source commits. Builds resolve citations and references without overfull boxes. The full report retains font-size substitution and caption/hypcap warnings; these were not source edits. Local compilation does not verify Overleaf cloud compilation or update the external publication PDFs.
+
+## Full-report PDF update — 18 October 2026
+
+The distributed [full-report PDF](../paper/harness-self-evolution.pdf) was replaced with the user-provided `HarnessOpt_survey (4).pdf` (66 pages). The README and project-page full-version links now open the GitHub PDF. Its SHA-256 is recorded as `sha256.main.pdf` in [source-snapshot.json](../data/source-snapshot.json). The source snapshot and short paper remain unchanged; correspondence between the replacement PDF and the recorded source commit has not been verified. The local-build verification above describes the earlier PDFs.

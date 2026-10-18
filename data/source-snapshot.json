@@ -1,6 +1,6 @@
 {
   "date": "2026-10-17",
-  "description": "Both Overleaf source heads synchronized on 17 October 2026. PDFs are local verification builds from these exact sources, not verified Overleaf cloud exports. The full report updates prose, references, and activation terminology; primary audit verdicts remain unchanged from 10 October, with an 8 October literature cutoff.",
+  "description": "Both Overleaf source heads synchronized on 17 October 2026. The PDFs distributed at that synchronization were local verification builds from the recorded sources, not verified Overleaf cloud exports. The full report updates prose, references, and activation terminology; primary audit verdicts remain unchanged from 10 October, with an 8 October literature cutoff. On 18 October 2026, the distributed full-report PDF was replaced with the user-provided HarnessOpt_survey (4).pdf; the recorded source snapshot remains unchanged and its correspondence to this PDF has not been verified.",
   "sha256": {
     "00README.json": "a37c4aec3b2991f6f18573df5207929066dff6250deb991ffa8130ebd759d1cb",
     "assets/logo-zgca-ustc.pdf": "3ca78b87e368c8b596ba5aa4fc5444c0557a9cc6df550339cbfe44ea9b63f92d",
@@ -32,7 +32,7 @@
     "sections/08_societal.tex": "0778ff42fa63152babca15d3cde0819d0ab18c1a8a81a5efcd31f71c48fa7864",
     "sections/09_future.tex": "7d1261053d8601296122e9e193995abdf0fc5703c16d4774ab59d62c4b4411fb",
     "sections/10_conclusion.tex": "854c5bdc41c6c729a95dfbe06f9576f68260f9a391dc15a45b4daa89a5fd8004",
-    "main.pdf": "2aff6d1eb53028e013d65bd691d6508953a630e1901a778b4ac22e998b9fe51b"
+    "main.pdf": "3769dd9b5ace3be1a22c210e735c82c7b38598fb6ad45952175669d6b772201e"
   },
   "manuscript_base_commit": "d1948d2714e0eabc9076d159d1d5b4c71343500e",
   "manuscript_commit": "33a06e71401e343e2f72666116bdb3fb841c7bb4",
@@ -41,10 +41,11 @@
   "literature_cutoff": "2026-10-08",
   "openreview_pdf": "https://openreview.net/pdf?id=m5jsFGXUM2",
   "build": {
-    "origin": "local verification build",
-    "command": "latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex",
+    "origin": "user-provided PDF",
+    "source_filename": "HarnessOpt_survey (4).pdf",
+    "updated_on": "2026-10-18",
     "pages": 66,
-    "bibliography_entries": 262,
+    "source_commit_verified": false,
     "cloud_build_verified": false
   },
   "short_paper": {

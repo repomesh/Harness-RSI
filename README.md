@@ -1,7 +1,7 @@
 <div align="center">
 
 <h1>Harness Self-Evolution: Theory, <br>Algorithms, Evaluation, Applications, and Impact</h1>
-<p align="center"><strong><a href="https://openreview.net/pdf?id=m5jsFGXUM2">📄 Full version · 66 pages</a></strong></p>
+<p align="center"><strong><a href="https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf">📄 Full version · 66 pages</a></strong></p>
 
 [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [Project Page](https://zgcagi.github.io/Harness-RSI/) · [Reading List](#interpreted) · [Citation](#citation) · [中文版](README_zh.md) · [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -511,7 +511,7 @@ Bibliographies: [full report](paper/harness-self-evolution-references.bib) · [s
 
 Please cite the version you use:
 
-- Full version: [Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact](https://openreview.net/pdf?id=m5jsFGXUM2).
+- Full version: [Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact](https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf).
 - arXiv paper: [Self-Evolving Agent Harness](https://arxiv.org/pdf/2610.18813).
 
 ```bibtex
@@ -522,7 +522,7 @@ Please cite the version you use:
             Zhou, Kexin and He, Jiyan and Zhou, Xiren and
             Chen, Huanhuan and Shen, Yifei},
   year   = {2026},
-  url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
+  url    = {https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf}
 }
 
 @misc{wei2026selfevolvingagentharness,

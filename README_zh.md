@@ -10,7 +10,7 @@
   <sup>3</sup> University of Science and Technology of China &nbsp;·&nbsp; <sup>†</sup> Corresponding author
 </p>
 
-[完整版 · OpenReview](https://openreview.net/pdf?id=m5jsFGXUM2) · [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
+[完整版 · GitHub PDF](https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf) · [Self-Evolving Agent Harness · arXiv](https://arxiv.org/pdf/2610.18813) · [项目主页](https://zgcagi.github.io/Harness-RSI/) · [文献清单](#interpreted) · [实证证据](#evidence) · [引用](#citation) · [English](README.md)
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
@@ -513,7 +513,7 @@ Improvement 标准记录报告任务与产生更新的任务之间的关系；Se
 
 请按使用的版本引用：
 
-- 完整版：[Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact](https://openreview.net/pdf?id=m5jsFGXUM2)。
+- 完整版：[Harness Self-Evolution: Theory, Algorithms, Evaluation, Applications, and Impact](https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf)。
 - arXiv 论文：[Self-Evolving Agent Harness](https://arxiv.org/pdf/2610.18813)。
 
 ```bibtex
@@ -524,7 +524,7 @@ Improvement 标准记录报告任务与产生更新的任务之间的关系；Se
             Zhou, Kexin and He, Jiyan and Zhou, Xiren and
             Chen, Huanhuan and Shen, Yifei},
   year   = {2026},
-  url    = {https://openreview.net/pdf?id=m5jsFGXUM2}
+  url    = {https://github.com/zgcagi/Harness-RSI/blob/main/paper/harness-self-evolution.pdf}
 }
 
 @misc{wei2026selfevolvingagentharness,
