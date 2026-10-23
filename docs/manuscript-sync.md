@@ -26,3 +26,14 @@ At the 17 October synchronization, both PDFs were built locally with `latexmk -p
 ## Full-report PDF update — 18 October 2026
 
 The distributed [full-report PDF](../paper/harness-self-evolution.pdf) was replaced with the user-provided `HarnessOpt_survey (4).pdf` (66 pages). The README and project-page full-version links now open the GitHub PDF. Its SHA-256 is recorded as `sha256.main.pdf` in [source-snapshot.json](../data/source-snapshot.json). The source snapshot and short paper remain unchanged; correspondence between the replacement PDF and the recorded source commit has not been verified. The local-build verification above describes the earlier PDFs.
+
+## Harness-Zero citation update — 23 October 2026
+
+Added [Harness-Zero](https://arxiv.org/abs/2609.24974) to the full report's Model–Harness–Environment Co-Evolution subsection and the short paper's Model–Harness Co-Design subsection. Both describe distillation into model weights while retaining a minimal target harness, and connect it to future harness evolution.
+
+| Artifact | Source commit | Local verification build |
+|---|---|---|
+| [Full report](../paper/harness-self-evolution.pdf) | `e76b3ffafba3aa6fe4548539e785090e57a0c1a6` | 66 pages, 263 bibliography entries |
+| [Short paper](../paper/self-evolving-agent-harness.pdf) | `ff66a471e3f0fe07c9e35bd0c0147fd74af7a8e8` | 18 pages, 86 bibliography entries |
+
+Both distributed PDFs and bibliography files now match these source revisions; this supersedes the 18 October PDF provenance caveat. Builds resolve all citations and references without overfull boxes. The new paragraphs and bibliography entries were visually inspected. Existing full-report font substitution and caption/hypcap warnings remain. Overleaf cloud compilation has not been verified. No audit entries or verdicts were changed, and arXiv has not been updated.
